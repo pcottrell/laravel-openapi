@@ -8,7 +8,6 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
 use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
-use phpDocumentor\Reflection\DocBlock;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationsBuilder;
@@ -159,7 +158,6 @@ class SecurityBuilderTest extends TestCase
         $routeInfo->action = 'foo';
         $routeInfo->method = 'get';
         $routeInfo->name = 'test route';
-        $routeInfo->actionDocBlock = new DocBlock('Test');
         $routeInfo->actionAttributes = collect([
             /**
              * we can set secuity to null to turn it off, as
@@ -187,7 +185,6 @@ class SecurityBuilderTest extends TestCase
             'paths' => [
                 '/foo' => [
                     'get' => [
-                        'summary' => 'Test',
                         'security' => [],
                     ],
                 ],

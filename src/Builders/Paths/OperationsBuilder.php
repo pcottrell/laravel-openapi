@@ -6,7 +6,6 @@ use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Operation;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\DocBlock;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as OperationAttribute;
 use Vyuldashev\LaravelOpenApi\Builders\ExtensionsBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\CallbacksBuilder;
@@ -75,9 +74,9 @@ class OperationsBuilder
             $operation = Operation::create()
                 ->action(Str::lower($operationAttribute->method) ?: $route->method)
                 ->tags(...$tags)
-                ->deprecated($operationAttribute->deprecated ?? $this->isDeprecated($route->actionDocBlock))
-                ->description($operationAttribute->description ?? ($route->actionDocBlock?->getDescription()->render() !== '' ? $route->actionDocBlock?->getDescription()->render() : null))
-                ->summary($operationAttribute->summary ?? ($route->actionDocBlock?->getSummary() !== '' ? $route->actionDocBlock?->getSummary() : null))
+                ->deprecated($operationAttribute->deprecated)
+                ->description($operationAttribute->description)
+                ->summary($operationAttribute->summary)
                 ->operationId($operationId)
                 ->parameters(...$parameters)
                 ->requestBody($requestBody)
@@ -98,20 +97,5 @@ class OperationsBuilder
         }
 
         return $operations;
-    }
-
-    protected function isDeprecated(?DocBlock $actionDocBlock): ?bool
-    {
-        if ($actionDocBlock === null) {
-            return null;
-        }
-
-        $deprecatedTag = $actionDocBlock->getTagsByName('deprecated');
-
-        if (count($deprecatedTag) > 0) {
-            return true;
-        }
-
-        return null;
     }
 }

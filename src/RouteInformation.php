@@ -8,8 +8,6 @@ use Attribute;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\DocBlock;
-use phpDocumentor\Reflection\DocBlockFactory;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
@@ -35,8 +33,6 @@ class RouteInformation
 
     /** @var Collection|Attribute[] */
     public Collection|array $actionAttributes;
-
-    public ?DocBlock $actionDocBlock;
 
     /**
      * @param  Route  $route
@@ -74,9 +70,6 @@ class RouteInformation
             $reflectionClass = new ReflectionClass($controller);
             $reflectionMethod = $reflectionClass->getMethod($action);
 
-            $docComment = $reflectionMethod->getDocComment();
-            $docBlock = $docComment ? DocBlockFactory::createInstance()->create($docComment) : null;
-
             $controllerAttributes = collect($reflectionClass->getAttributes())
                 ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
@@ -95,7 +88,6 @@ class RouteInformation
             $instance->action = $action;
             $instance->actionParameters = $reflectionMethod->getParameters();
             $instance->actionAttributes = $actionAttributes;
-            $instance->actionDocBlock = $docBlock;
         });
     }
 }
