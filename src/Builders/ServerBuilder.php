@@ -6,10 +6,9 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ServerVariable;
 use Illuminate\Support\Arr;
 
-class ServersBuilder
+class ServerBuilder
 {
     /**
-     * @param  array  $config
      * @return Server[]
      */
     public function build(array $config): array

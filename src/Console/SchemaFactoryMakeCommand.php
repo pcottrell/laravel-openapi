@@ -36,26 +36,26 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
     protected function buildModel($output, $model)
     {
         $appVersion = explode('.', app()::VERSION);
-        $namespace = $appVersion[0] >= 8 ? $this->laravel->getNamespace().'Models\\' : $this->laravel->getNamespace();
+        $namespace = $appVersion[0] >= 8 ? $this->laravel->getNamespace() . 'Models\\' : $this->laravel->getNamespace();
         $model = Str::start($model, $namespace);
 
-        if (! is_a($model, Model::class, true)) {
+        if (!is_a($model, Model::class, true)) {
             throw new InvalidArgumentException('Invalid model');
         }
 
         /** @var Model $model */
         $model = app($model);
 
-        $columns = SchemaFacade::connection($model->getConnectionName())->getColumnListing(config('database.connections.'.config('database.default').'.prefix', '').$model->getTable());
+        $columns = SchemaFacade::connection($model->getConnectionName())->getColumnListing(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable());
         $connection = $model->getConnection();
 
-        $definition = 'return Schema::object(\''.class_basename($model).'\')'.PHP_EOL;
-        $definition .= '            ->properties('.PHP_EOL;
+        $definition = 'return Schema::object(\'' . class_basename($model) . '\')' . PHP_EOL;
+        $definition .= '            ->properties(' . PHP_EOL;
 
         $properties = collect($columns)
             ->map(static function ($column) use ($model, $connection) {
                 /** @var Column $column */
-                $column = $connection->getDoctrineColumn(config('database.connections.'.config('database.default').'.prefix', '').$model->getTable(), $column);
+                $column = $connection->getDoctrineColumn(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable(), $column);
                 $name = $column->getName();
                 $default = $column->getDefault();
                 $notNull = $column->getNotnull();
@@ -88,7 +88,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                 }
 
                 $args = array_map(static function ($value) {
-                    if ($value === null) {
+                    if (null === $value) {
                         return 'null';
                     }
 
@@ -96,16 +96,16 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                         return $value;
                     }
 
-                    return '\''.$value.'\'';
+                    return '\'' . $value . '\'';
                 }, $args);
 
                 $indentation = str_repeat('    ', 4);
 
-                return sprintf($indentation.$format, ...$args);
+                return sprintf($indentation . $format, ...$args);
             })
-            ->implode(','.PHP_EOL);
+            ->implode(',' . PHP_EOL);
 
-        $definition .= $properties.PHP_EOL;
+        $definition .= $properties . PHP_EOL;
         $definition .= '            );';
 
         return str_replace('DummyDefinition', $definition, $output);
@@ -114,15 +114,15 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
     protected function getStub(): string
     {
         if ($this->option('model')) {
-            return __DIR__.'/stubs/schema.model.stub';
+            return __DIR__ . '/stubs/schema.model.stub';
         }
 
-        return __DIR__.'/stubs/schema.stub';
+        return __DIR__ . '/stubs/schema.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\OpenApi\Schemas';
+        return $rootNamespace . '\OpenApi\Schemas';
     }
 
     protected function qualifyClass($name): string
@@ -133,7 +133,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
             return $name;
         }
 
-        return $name.'Schema';
+        return $name . 'Schema';
     }
 
     protected function getOptions(): array

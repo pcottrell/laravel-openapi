@@ -7,7 +7,7 @@ use Vyuldashev\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
 
-class CallbacksBuilder
+class CallbackBuilder
 {
     public function build(RouteInformation $route): array
     {
@@ -18,7 +18,7 @@ class CallbacksBuilder
                 $pathItem = $factory->build();
 
                 if ($factory instanceof Reusable) {
-                    return PathItem::ref('#/components/callbacks/'.$pathItem->objectId);
+                    return PathItem::ref('#/components/callbacks/' . $pathItem->objectId);
                 }
 
                 return $pathItem;

@@ -5,64 +5,58 @@ namespace Vyuldashev\LaravelOpenApi\Attributes;
 use Attribute;
 use InvalidArgumentException;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use Vyuldashev\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
+use Vyuldashev\LaravelOpenApi\SecuritySchemes\SkipGlobalSecurityScheme;
+
+use function PHPUnit\Framework\assertNotEmpty;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Operation
 {
-    public ?string $id;
-
-    /** @var array<string> */
-    public array $tags;
-
-    public ?string $security;
-
-    public ?string $method;
-
-    public ?array $servers;
-
-    public ?string $summary;
-
-    public ?string $description;
-
-    public ?bool $deprecated;
-
     /**
-     * @param string|null $id
-     * @param array $tags
-     * @param \Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory|string|null $security
-     * @param string|null $method
-     * @param array|null $servers
-     * @param string|null $summary
-     * @param string|null $description
-     * @param bool|null $deprecated
-     *
-     * @throws InvalidArgumentException
+     * @param array<string>|null $tags
+     * @param class-string<SecuritySchemeFactory>|array<array-key, SecuritySchemeFactory>|array<array-key, array<array-key, SecuritySchemeFactory>|null $security
      */
-    public function __construct(string $id = null, array $tags = [], string $security = null, string $method = null, array $servers = null, string $summary = null, string $description = null, bool $deprecated = null)
-    {
-        $this->id = $id;
-        $this->tags = $tags;
-        $this->method = $method;
-        $this->servers = $servers;
-        $this->summary = $summary;
-        $this->description = $description;
-        $this->deprecated = $deprecated;
-
-        if ($security === '') {
-            //user wants to turn off security on this operation
-            $this->security = $security;
-
-            return;
+    public function __construct(
+        public string|null $id = null,
+        public array|null $tags = null,
+        public string|array|null $security = null,
+        public string|null $method = null,
+        public array|null $servers = null,
+        public string|null $summary = null,
+        public string|null $description = null,
+        public bool|null $deprecated = null,
+    ) {
+        if (is_null($this->security)) {
+            $this->security = DefaultSecurityScheme::class;
         }
 
-        if ($security) {
-            $this->security = class_exists($security) ? $security : app()->getNamespace().'OpenApi\\SecuritySchemes\\'.$security;
+        $this->validateSecurity($this->security);
+    }
 
-            if (! is_a($this->security, SecuritySchemeFactory::class, true)) {
-                throw new InvalidArgumentException(
-                    sprintf('Security class is either not declared or is not an instance of %s', SecuritySchemeFactory::class)
-                );
+    private function validateSecurity(string|array $security): void
+    {
+        assertNotEmpty($security, 'Security must not be empty. Use ' . SkipGlobalSecurityScheme::class . ' to skip security');
+
+        if (is_string($security)) {
+            $this->validateSecurityScheme($security);
+        } else {
+            foreach ($security as $securityItem) {
+                if (is_array($securityItem)) {
+                    foreach ($securityItem as $securityScheme) {
+                        $this->validateSecurityScheme($securityScheme);
+                    }
+                    continue;
+                }
+                $this->validateSecurityScheme($securityItem);
             }
+        }
+    }
+
+    private function validateSecurityScheme(string $securityScheme): void
+    {
+        if (!class_exists($securityScheme) || !is_a($securityScheme, SecuritySchemeFactory::class, true)) {
+            throw new InvalidArgumentException(sprintf('Security class is either not declared or is not an instance of %s', SecuritySchemeFactory::class));
         }
     }
 }

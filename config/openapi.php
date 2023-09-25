@@ -1,11 +1,8 @@
 <?php
 
 return [
-
     'collections' => [
-
         'default' => [
-
             'info' => [
                 'title' => config('app.name'),
                 'description' => null,
@@ -22,16 +19,14 @@ return [
             ],
 
             'tags' => [
-
                 // [
                 //    'name' => 'user',
                 //    'description' => 'Application users',
                 // ],
-
             ],
 
             'security' => [
-                // GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement::create()->securityScheme('JWT'),
+                // Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement::create()->securityScheme('JWT'),
             ],
 
             // Non standard attributes used by code/doc generation tools can be added here
@@ -56,15 +51,11 @@ return [
             // Register custom middlewares for different objects.
             'middlewares' => [
                 'paths' => [
-                    //
                 ],
                 'components' => [
-                    //
                 ],
             ],
-
         ],
-
     ],
 
     // Directories to use for locating OpenAPI object definitions.
@@ -89,5 +80,4 @@ return [
             app_path('OpenApi/SecuritySchemes'),
         ],
     ],
-
 ];

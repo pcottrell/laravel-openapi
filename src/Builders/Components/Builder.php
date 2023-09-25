@@ -30,11 +30,11 @@ abstract class Builder
                 $reflectionClass = new ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 
-                if (count($collectionAttributes) === 0 && $collection === Generator::COLLECTION_DEFAULT) {
+                if (0 === count($collectionAttributes) && Generator::COLLECTION_DEFAULT === $collection) {
                     return true;
                 }
 
-                if (count($collectionAttributes) === 0) {
+                if (0 === count($collectionAttributes)) {
                     return false;
                 }
 
@@ -42,8 +42,8 @@ abstract class Builder
                 $collectionAttribute = $collectionAttributes[0]->newInstance();
 
                 return
-                    $collectionAttribute->name === ['*'] ||
-                    in_array($collection, $collectionAttribute->name ?? [], true);
+                    $collectionAttribute->name === ['*']
+                    || in_array($collection, $collectionAttribute->name ?? [], true);
             });
     }
 }

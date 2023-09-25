@@ -2,22 +2,19 @@
 
 namespace Vyuldashev\LaravelOpenApi\Builders\Components;
 
-use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
-use Vyuldashev\LaravelOpenApi\Factories\SchemaFactory;
+use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use Vyuldashev\LaravelOpenApi\Generator;
 
-class SchemasBuilder extends Builder
+class SecuritySchemeBuilder extends Builder
 {
     public function build(string $collection = Generator::COLLECTION_DEFAULT): array
     {
         return $this->getAllClasses($collection)
             ->filter(static function ($class) {
-                return
-                    is_a($class, SchemaFactory::class, true) &&
-                    is_a($class, Reusable::class, true);
+                return is_a($class, SecuritySchemeFactory::class, true);
             })
             ->map(static function ($class) {
-                /** @var SchemaFactory $instance */
+                /** @var SecuritySchemeFactory $instance */
                 $instance = app($class);
 
                 return $instance->build();

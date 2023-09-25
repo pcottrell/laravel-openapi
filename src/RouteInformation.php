@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Vyuldashev\LaravelOpenApi;
 
 use Attribute;
+use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -12,32 +13,25 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
+use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
 
 class RouteInformation
 {
-    public ?string $domain;
+    public string|null $domain;
     public string $method;
     public string $uri;
-    public ?string $name;
+    public string|null $name;
+    /** @var string|class-string<Controller> */
     public string $controller;
-
     public Collection $parameters;
-
     /** @var Collection|Attribute[] */
     public Collection|array $controllerAttributes;
-
     public string $action;
-
     /** @var ReflectionParameter[] */
     public array $actionParameters;
-
-    /** @var Collection|Attribute[] */
-    public Collection|array $actionAttributes;
+    public Collection $actionAttributes;
 
     /**
-     * @param  Route  $route
-     * @return RouteInformation
-     *
      * @throws ReflectionException
      */
     public static function createFromRoute(Route $route): RouteInformation
@@ -45,7 +39,7 @@ class RouteInformation
         return tap(new static(), static function (self $instance) use ($route): void {
             $method = collect($route->methods())
                 ->map(static fn ($value) => Str::lower($value))
-                ->filter(static fn ($value) => ! in_array($value, ['head', 'options'], true))
+                ->filter(static fn ($value) => !in_array($value, ['head', 'options'], true))
                 ->first();
 
             $actionNameParts = explode('@', $route->getActionName());
@@ -63,7 +57,7 @@ class RouteInformation
             if (count($parameters) > 0) {
                 $parameters = $parameters->map(static fn ($parameter) => [
                     'name' => Str::replaceLast('?', '', $parameter),
-                    'required' => ! Str::endsWith($parameter, '?'),
+                    'required' => !Str::endsWith($parameter, '?'),
                 ]);
             }
 
@@ -71,19 +65,19 @@ class RouteInformation
             $reflectionMethod = $reflectionClass->getMethod($action);
 
             $controllerAttributes = collect($reflectionClass->getAttributes())
-                ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
             $actionAttributes = collect($reflectionMethod->getAttributes())
-                ->map(fn (ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (ReflectionAttribute $attribute) => $attribute->newInstance());
 
-            $containsControllerLevelParamter = $actionAttributes->contains(fn ($value) => $value instanceof \Vyuldashev\LaravelOpenApi\Attributes\Parameters);
+            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameters);
 
             $instance->domain = $route->domain();
             $instance->method = $method;
             $instance->uri = Str::start($route->uri(), '/');
             $instance->name = $route->getName();
             $instance->controller = $controller;
-            $instance->parameters = $containsControllerLevelParamter ? collect([]) : $parameters;
+            $instance->parameters = $containsControllerLevelParameter ? collect([]) : $parameters;
             $instance->controllerAttributes = $controllerAttributes;
             $instance->action = $action;
             $instance->actionParameters = $reflectionMethod->getParameters();

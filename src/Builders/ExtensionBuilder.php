@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 use Vyuldashev\LaravelOpenApi\Attributes\Extension as ExtensionAttribute;
 use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
 
-class ExtensionsBuilder
+class ExtensionBuilder
 {
     public function build(BaseObject $object, Collection $attributes): void
     {

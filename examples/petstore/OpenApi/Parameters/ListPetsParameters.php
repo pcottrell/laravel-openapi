@@ -14,7 +14,6 @@ class ListPetsParameters extends ParametersFactory
     public function build(): array
     {
         return [
-
             Parameter::query()
                 ->name('limit')
                 ->description('How many items to return at one time (max 100)')
@@ -22,7 +21,6 @@ class ListPetsParameters extends ParametersFactory
                 ->schema(
                     Schema::integer()->format(Schema::FORMAT_INT32)
                 ),
-
         ];
     }
 }

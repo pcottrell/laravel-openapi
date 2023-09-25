@@ -14,12 +14,12 @@ use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 trait Referencable
 {
-    public static function ref(?string $objectId = null): Schema
+    public static function ref(string $objectId = null): Schema
     {
         $instance = app(static::class);
 
-        if (! $instance instanceof Reusable) {
-            throw new InvalidArgumentException('"'.static::class.'" must implement "'.Reusable::class.'" in order to be referencable.');
+        if (!$instance instanceof Reusable) {
+            throw new InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
         }
 
         $baseRef = null;
@@ -38,6 +38,6 @@ trait Referencable
             $baseRef = '#/components/securitySchemes/';
         }
 
-        return Schema::ref($baseRef.$instance->build()->objectId, $objectId);
+        return Schema::ref($baseRef . $instance->build()->objectId, $objectId);
     }
 }

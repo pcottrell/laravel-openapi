@@ -3,27 +3,27 @@
 namespace Vyuldashev\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
-use Vyuldashev\LaravelOpenApi\Builders\Components\CallbacksBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\RequestBodiesBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\ResponsesBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\SchemasBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\SecuritySchemesBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\CallbackBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\RequestBodyBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\ResponseBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\SchemaBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\SecuritySchemeBuilder;
 use Vyuldashev\LaravelOpenApi\Generator;
 
-class ComponentsBuilder
+class ComponentBuilder
 {
-    protected CallbacksBuilder $callbacksBuilder;
-    protected RequestBodiesBuilder $requestBodiesBuilder;
-    protected ResponsesBuilder $responsesBuilder;
-    protected SchemasBuilder $schemasBuilder;
-    protected SecuritySchemesBuilder $securitySchemesBuilder;
+    protected CallbackBuilder $callbacksBuilder;
+    protected RequestBodyBuilder $requestBodiesBuilder;
+    protected ResponseBuilder $responsesBuilder;
+    protected SchemaBuilder $schemasBuilder;
+    protected SecuritySchemeBuilder $securitySchemesBuilder;
 
     public function __construct(
-        CallbacksBuilder $callbacksBuilder,
-        RequestBodiesBuilder $requestBodiesBuilder,
-        ResponsesBuilder $responsesBuilder,
-        SchemasBuilder $schemasBuilder,
-        SecuritySchemesBuilder $securitySchemesBuilder
+        CallbackBuilder $callbacksBuilder,
+        RequestBodyBuilder $requestBodiesBuilder,
+        ResponseBuilder $responsesBuilder,
+        SchemaBuilder $schemasBuilder,
+        SecuritySchemeBuilder $securitySchemesBuilder
     ) {
         $this->callbacksBuilder = $callbacksBuilder;
         $this->requestBodiesBuilder = $requestBodiesBuilder;
@@ -73,7 +73,7 @@ class ComponentsBuilder
             $components = $components->securitySchemes(...$securitySchemes);
         }
 
-        if (! $hasAnyObjects) {
+        if (!$hasAnyObjects) {
             return null;
         }
 

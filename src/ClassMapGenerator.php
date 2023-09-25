@@ -11,7 +11,8 @@ class ClassMapGenerator
     /**
      * Iterate over all files in the given directory searching for classes.
      *
-     * @param  Iterator|string  $dir  The directory to search in or an iterator
+     * @param Iterator|string $dir The directory to search in or an iterator
+     *
      * @return array A class map array
      */
     public static function createMap(Iterator|string $dir): array
@@ -23,7 +24,7 @@ class ClassMapGenerator
         $map = [];
 
         foreach ($dir as $file) {
-            if (! $file->isFile()) {
+            if (!$file->isFile()) {
                 continue;
             }
 
@@ -51,7 +52,8 @@ class ClassMapGenerator
     /**
      * Extract the classes in the given file.
      *
-     * @param  string  $path  The file to check
+     * @param string $path The file to check
+     *
      * @return array The found classes
      */
     private static function findClasses(string $path): array
@@ -67,10 +69,10 @@ class ClassMapGenerator
         $classes = [];
 
         $namespace = '';
-        for ($i = 0; isset($tokens[$i]); $i++) {
+        for ($i = 0; isset($tokens[$i]); ++$i) {
             $token = $tokens[$i];
 
-            if (! isset($token[1])) {
+            if (!isset($token[1])) {
                 continue;
             }
 
@@ -92,8 +94,8 @@ class ClassMapGenerator
                 case T_TRAIT:
                     // Skip usage of ::class constant
                     $isClassConstant = false;
-                    for ($j = $i - 1; $j > 0; $j--) {
-                        if (! isset($tokens[$j][1])) {
+                    for ($j = $i - 1; $j > 0; --$j) {
+                        if (!isset($tokens[$j][1])) {
                             break;
                         }
 
@@ -102,7 +104,7 @@ class ClassMapGenerator
                             break;
                         }
 
-                        if (! in_array($tokens[$j][0], [T_WHITESPACE, T_DOC_COMMENT, T_COMMENT], true)) {
+                        if (!in_array($tokens[$j][0], [T_WHITESPACE, T_DOC_COMMENT, T_COMMENT], true)) {
                             break;
                         }
                     }
@@ -121,7 +123,7 @@ class ClassMapGenerator
                         }
                     }
 
-                    $classes[] = ltrim($namespace.$class, '\\');
+                    $classes[] = ltrim($namespace . $class, '\\');
                     break;
                 default:
                     break;

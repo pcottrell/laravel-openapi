@@ -6,10 +6,9 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use Illuminate\Support\Arr;
 
-class TagsBuilder
+class TagBuilder
 {
     /**
-     * @param  array  $config
      * @return Tag[]
      */
     public function build(array $config): array

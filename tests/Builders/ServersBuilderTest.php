@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
 
-use Vyuldashev\LaravelOpenApi\Builders\ServersBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class ServersBuilderTest extends TestCase
 {
     /**
      * @dataProvider providerBuild
-     *
-     * @param  array  $config
-     * @param  array  $expected
-     * @return void
      */
     public function testBuild(array $config, array $expected): void
     {
-        $SUT = new ServersBuilder();
+        $SUT = new ServerBuilder();
         $servers = $SUT->build($config);
         $this->assertSameAssociativeArray($expected[0], $servers[0]->toArray());
     }
@@ -128,10 +124,6 @@ class ServersBuilderTest extends TestCase
 
     /**
      * Assert equality as an associative array.
-     *
-     * @param  array  $expected
-     * @param  array  $actual
-     * @return void
      */
     protected function assertSameAssociativeArray(array $expected, array $actual): void
     {

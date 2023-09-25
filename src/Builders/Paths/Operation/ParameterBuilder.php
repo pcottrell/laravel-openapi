@@ -11,7 +11,7 @@ use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
 use Vyuldashev\LaravelOpenApi\SchemaHelpers;
 
-class ParametersBuilder
+class ParameterBuilder
 {
     public function build(RouteInformation $route): array
     {
@@ -33,7 +33,7 @@ class ParametersBuilder
 
                 if ($reflectionParameter) {
                     // The reflected param has no type, so ignore (should be defined in a ParametersFactory instead)
-                    if ($reflectionParameter->getType() === null) {
+                    if (null === $reflectionParameter->getType()) {
                         return null;
                     }
 

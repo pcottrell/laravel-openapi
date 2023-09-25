@@ -8,25 +8,23 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use Vyuldashev\LaravelOpenApi\Attributes;
 use Vyuldashev\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationsBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Contracts\PathMiddleware;
 use Vyuldashev\LaravelOpenApi\Generator;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
 
-class PathsBuilder
+class PathBuilder
 {
-    protected OperationsBuilder $operationsBuilder;
+    protected OperationBuilder $operationsBuilder;
 
     public function __construct(
-        OperationsBuilder $operationsBuilder
+        OperationBuilder $operationBuilder
     ) {
-        $this->operationsBuilder = $operationsBuilder;
+        $this->operationsBuilder = $operationBuilder;
     }
 
     /**
-     * @param  string  $collection
-     * @param  PathMiddleware[]  $middlewares
-     * @return array
+     * @param PathMiddleware[] $middlewares
      */
     public function build(
         string $collection,
@@ -41,8 +39,8 @@ class PathsBuilder
                     ->first(static fn (object $item) => $item instanceof CollectionAttribute);
 
                 return
-                    (! $collectionAttribute && $collection === Generator::COLLECTION_DEFAULT) ||
-                    ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
+                    (!$collectionAttribute && Generator::COLLECTION_DEFAULT === $collection)
+                    || ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
             })
             ->map(static function (RouteInformation $item) use ($middlewares) {
                 foreach ($middlewares as $middleware) {
@@ -74,7 +72,7 @@ class PathsBuilder
     {
         /** @noinspection CollectFunctionInCollectionInspection */
         return collect(app(Router::class)->getRoutes())
-            ->filter(static fn (Route $route) => $route->getActionName() !== 'Closure')
+            ->filter(static fn (Route $route) => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route) => RouteInformation::createFromRoute($route))
             ->filter(static function (RouteInformation $route) {
                 $pathItem = $route->controllerAttributes

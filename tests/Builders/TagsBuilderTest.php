@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
 
-use Vyuldashev\LaravelOpenApi\Builders\TagsBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class TagsBuilderTest extends TestCase
 {
     /**
      * @dataProvider providerBuild
-     *
-     * @param  array  $config
-     * @param  array  $expected
-     * @return void
      */
     public function testBuild(array $config, array $expected): void
     {
-        $builder = new TagsBuilder();
+        $builder = new TagBuilder();
         $tags = $builder->build($config);
         $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
     }
@@ -59,10 +55,6 @@ class TagsBuilderTest extends TestCase
 
     /**
      * Assert equality as an associative array.
-     *
-     * @param  array  $expected
-     * @param  array  $actual
-     * @return void
      */
     protected function assertSameAssociativeArray(array $expected, array $actual): void
     {

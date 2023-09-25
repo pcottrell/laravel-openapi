@@ -7,7 +7,7 @@ use Vyuldashev\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
 
-class ResponsesBuilder
+class ResponseBuilder
 {
     public function build(RouteInformation $route): array
     {
@@ -18,7 +18,7 @@ class ResponsesBuilder
                 $response = $factory->build();
 
                 if ($factory instanceof Reusable) {
-                    return Response::ref('#/components/responses/'.$response->objectId)
+                    return Response::ref('#/components/responses/' . $response->objectId)
                         ->statusCode($attribute->statusCode)
                         ->description($attribute->description);
                 }

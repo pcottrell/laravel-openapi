@@ -2,8 +2,8 @@
 
 namespace Vyuldashev\LaravelOpenApi\Tests;
 
-use GoldSpecDigital\ObjectOrientedOAS\OpenApi;
 use Vyuldashev\LaravelOpenApi\Generator;
+use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
 use Vyuldashev\LaravelOpenApi\OpenApiServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase

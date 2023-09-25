@@ -16,11 +16,11 @@ class InfoBuilder
             ->description(Arr::get($config, 'description'))
             ->version(Arr::get($config, 'version'));
 
-        if (Arr::has($config, 'contact') &&
-            (
-                array_key_exists('name', $config['contact']) ||
-                array_key_exists('email', $config['contact']) ||
-                array_key_exists('url', $config['contact'])
+        if (Arr::has($config, 'contact')
+            && (
+                array_key_exists('name', $config['contact'])
+                || array_key_exists('email', $config['contact'])
+                || array_key_exists('url', $config['contact'])
             )
         ) {
             $info = $info->contact($this->buildContact($config['contact']));

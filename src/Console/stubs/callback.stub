@@ -3,7 +3,7 @@
 namespace DummyNamespace;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\Operation;
+use Vyuldashev\LaravelOpenApi\Objects\Operation;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
