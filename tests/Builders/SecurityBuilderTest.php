@@ -579,7 +579,14 @@ class SecurityBuilderTest extends TestCase
                         ],
                     ],
                 ],
-                JwtSecurityScheme::class,
+                [
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    [
+                        JwtSecurityScheme::class,
+                    ],
+                ],
             ],
             // ApiKey authentication only
             [
@@ -595,7 +602,12 @@ class SecurityBuilderTest extends TestCase
                         ],
                     ],
                 ],
-                ApiKeySecurityScheme::class,
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
             ],
             // Both JWT and ApiKey authentication required
             [
@@ -612,6 +624,10 @@ class SecurityBuilderTest extends TestCase
                             'ApiKey' => [],
                         ],
                     ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
                 [
                     [
@@ -639,6 +655,10 @@ class SecurityBuilderTest extends TestCase
                     ],
                 ],
                 [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
                     [
                         JwtSecurityScheme::class,
                     ],
@@ -647,39 +667,81 @@ class SecurityBuilderTest extends TestCase
                     ],
                 ],
             ],
+            // And & Or combination
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'Bearer' => [],
+                        ],
+                        [
+                            'JWT' => [],
+                            'Bearer' => [],
+                        ],
+                        [
+                            'Bearer' => [],
+                        ],
+                        [
+                            'JWT' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    BearerSecurityScheme::class,
+                    [
+                        JwtSecurityScheme::class,
+                        BearerSecurityScheme::class,
+                    ],
+                    [
+                        BearerSecurityScheme::class,
+                    ],
+                    JwtSecurityScheme::class,
+                    [
+                        ApiKeySecurityScheme::class,
+                    ],
+                    ApiKeySecurityScheme::class,
+                ],
+            ],
         ];
     }
 
     /**
      * @dataProvider globalSecuritySchemesDataProvider
      */
-    public function testCanApplyMultipleSecuritySchemesGlobaly(array $expectedJson, array|string $securitySchemesClass): void
-    {
-        $components = Components::create();
-        $securitySchemes = [];
-
-        if (is_array($securitySchemesClass)) {
-            array_walk_recursive($securitySchemesClass, static function ($securityScheme) use (&$securitySchemes) {
-                $securityScheme = app($securityScheme)->build();
-                $securitySchemes[] = $securityScheme;
-            });
-        } else {
-            $securityScheme = app($securitySchemesClass)->build();
-            $securitySchemes[] = $securityScheme;
-        }
-        $components = $components->securitySchemes(...$securitySchemes);
-
-        $routeInfo = app(RouteInformation::class);
-        $routeInfo->actionAttributes = collect([
-            new AttributesOperation(security: $securitySchemesClass),
-        ]);
-        $globalRequirement = app(OperationSecurityBuilder::class)->build($routeInfo);
+    public function testCanApplyMultipleSecuritySchemesGlobaly(
+        array $expectedJson,
+        array $securitySchemeComponents,
+        array $globalSecurity,
+    ): void {
+        $components = Components::create()->securitySchemes(
+            ...collect($securitySchemeComponents)->map(
+                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
+            )->toArray()
+        );
 
         $operation = Operation::create()
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->security($globalRequirement)
+            ->security(app(ComponentSecurityBuilder::class)->build($globalSecurity))
             ->components($components)
             ->paths(
                 PathItem::create()

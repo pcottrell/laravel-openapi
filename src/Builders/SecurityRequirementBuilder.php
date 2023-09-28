@@ -12,6 +12,9 @@ use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
 
 class SecurityRequirementBuilder
 {
+    /**
+     * @throws InvalidArgumentException
+     */
     public function build(string|array|null $security): SecurityRequirement
     {
         if (is_null($security) || $security === '') {
@@ -27,6 +30,10 @@ class SecurityRequirementBuilder
         }
 
         if ($this->isSingleAuthArraySecurity($security)) {
+            if ($this->hasSingleArraySecurityWithin($security)) {
+                return $this->createSingleSecurityRequirement($security[0][0]);
+            }
+
             return $this->createSingleSecurityRequirement($security[0]);
         }
 
@@ -65,7 +72,12 @@ class SecurityRequirementBuilder
         return !$this->isSingleAuthStringSecurity($security)
             && is_countable($security)
             && count($security) === 1
-            && $this->isSingleAuthStringSecurity($security[0]);
+            && (is_string($security[0]) || $this->hasSingleArraySecurityWithin($security));
+    }
+
+    private function hasSingleArraySecurityWithin(array|string|null $value): bool
+    {
+        return is_array($value[0]) && count($value[0]) === 1 && is_string($value[0][0]);
     }
 
     private function isMultiAuthArraySecurity(array|string|null $security): bool
