@@ -688,7 +688,7 @@ class SecurityBuilderTest extends TestCase
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
-        self::assertSame([
+        $expected = [
             'paths' => [
                 '/foo' => [
                     'get' => [
@@ -697,7 +697,9 @@ class SecurityBuilderTest extends TestCase
             ],
             'components' => $expectedJson['components'],
             'security' => $expectedJson['security'],
-        ], $openApi->toArray());
+        ];
+        self::assertSame($expected, $openApi->toArray());
+        self::assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
     }
 
     /**
@@ -726,7 +728,7 @@ class SecurityBuilderTest extends TestCase
                     ->operations($operation)
             );
 
-        self::assertSame([
+        $expected = [
             'paths' => [
                 '/foo' => [
                     'get' => [],
@@ -742,7 +744,9 @@ class SecurityBuilderTest extends TestCase
                     'JWT' => [],
                 ],
             ],
-        ], $openApi->toArray());
+        ];
+        self::assertSame($expected, $openApi->toArray());
+        self::assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
     }
 
     /**
@@ -780,7 +784,7 @@ class SecurityBuilderTest extends TestCase
                     ->operations($operation)
             );
 
-        self::assertSame([
+        $expected = [
             'paths' => [
                 '/foo' => [
                     'get' => [
@@ -797,7 +801,9 @@ class SecurityBuilderTest extends TestCase
                     'JWT' => $this->JwtSecuritySchemeProvider(),
                 ],
             ],
-        ], $openApi->toArray());
+        ];
+        self::assertSame($expected, $openApi->toArray());
+        self::assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
     }
 
     /**
