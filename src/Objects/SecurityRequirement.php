@@ -10,9 +10,4 @@ class SecurityRequirement extends ParentSecurityRequirement
     {
         return [parent::generate()];
     }
-
-    public function shouldSkipGlobalSecurity(): bool
-    {
-        return $this->securityScheme === 'SkipGlobalSecurityScheme';
-    }
 }
