@@ -7,11 +7,11 @@ use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 class DefaultSecurityScheme extends SecuritySchemeFactory
 {
-    // TODO: implement null/default object
+    public const NAME = 'DefaultSecurityScheme';
+
     public function build(): SecurityScheme
     {
-        // 'null' objectId will cause the SecurityScheme to be skipped
-        return SecurityScheme::create(null)
+        return SecurityScheme::create('DefaultSecurityScheme')
             ->name('DefaultSecurityScheme');
     }
 }

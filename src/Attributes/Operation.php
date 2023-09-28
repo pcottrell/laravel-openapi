@@ -5,10 +5,6 @@ namespace Vyuldashev\LaravelOpenApi\Attributes;
 use Attribute;
 use InvalidArgumentException;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
-use Vyuldashev\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use Vyuldashev\LaravelOpenApi\SecuritySchemes\SkipGlobalSecurityScheme;
-
-use function PHPUnit\Framework\assertNotEmpty;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Operation
@@ -27,16 +23,14 @@ class Operation
         public string|null $description = null,
         public bool|null $deprecated = null,
     ) {
-        if (is_null($this->security)) {
-            $this->security = DefaultSecurityScheme::class;
-        }
-
         $this->validateSecurity($this->security);
     }
 
-    private function validateSecurity(string|array $security): void
+    private function validateSecurity(string|array|null $security): void
     {
-        assertNotEmpty($security, 'Security must not be empty. Use ' . SkipGlobalSecurityScheme::class . ' to skip security');
+        if (empty($this->security)) {
+            return;
+        }
 
         if (is_string($security)) {
             $this->validateSecurityScheme($security);

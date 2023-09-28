@@ -29,10 +29,30 @@ class MultiAuthSecurityRequirement extends SecurityRequirement
     public function generate(): array
     {
         return $this->createSecurityRequirements()->map(
-            static fn (Collection $securityRequirement) => $securityRequirement->map(
-                static fn (SecurityRequirement $securityRequirement): array => $securityRequirement->generate()[0]
-            )->collapse()->toArray()
-        )->toArray();
+            static function ($securityRequirement) {
+                if ($securityRequirement instanceof SecurityRequirement) {
+                    return $securityRequirement->generate();
+                }
+
+                return $securityRequirement->map(
+                    static function (SecurityRequirement $securityRequirement): array {
+                        return $securityRequirement->generate();
+                    }
+                )->collapse();
+            }
+        )->reduce(
+            static function (Collection $carry, $item) {
+                if (count($item) > 1) {
+                    return $carry->add($item->reduce(
+                        static fn (Collection $carry, array $item) => $carry->merge($item),
+                        collect()
+                    ));
+                }
+
+                return $carry->merge($item);
+            },
+            collect()
+        )?->toArray();
     }
 
     public function createSecurityRequirements(): Collection

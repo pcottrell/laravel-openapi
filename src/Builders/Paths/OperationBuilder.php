@@ -12,7 +12,7 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
@@ -25,7 +25,7 @@ class OperationBuilder
         protected RequestBodyBuilder $requestBodyBuilder,
         protected ResponseBuilder $responseBuilder,
         protected ExtensionBuilder $extensionBuilder,
-        protected SecurityRequirementBuilder $securityBuilder
+        protected SecurityBuilder $securityBuilder
     ) {
     }
 
@@ -72,13 +72,8 @@ class OperationBuilder
                 ->requestBody($requestBody)
                 ->responses(...$responses)
                 ->callbacks(...$callbacks)
+                ->security($security)
                 ->servers(...$servers);
-
-            if ($security->shouldSkipGlobalSecurity()) {
-                $operation = $operation->noSecurity();
-            } else {
-                $operation = $operation->security($security);
-            }
 
             $this->extensionBuilder->build($operation, $route->actionAttributes);
 

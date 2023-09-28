@@ -6,14 +6,14 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Components\SecurityBuilder as ComponentSecurityBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder as OperationSecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
 use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
-use Vyuldashev\LaravelOpenApi\SecuritySchemes\SkipGlobalSecurityScheme;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class SecurityBuilderTest extends TestCase
@@ -21,7 +21,141 @@ class SecurityBuilderTest extends TestCase
     public function operationSecuritySchemesDataProvider(): array
     {
         return [
-            // Test scenario 1: JWT authentication only
+            // 0. No global security - no path security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => null,
+                    'pathSecurity' => null,
+                ],
+                [ // available global securities (components)
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [], // applied global security
+                null, // use default global securities
+            ],
+            // 1. Use default global security - have single class string security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => null,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+                null,
+            ],
+            // 2. Use default global security - have multi-auth security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                            'JWT' => [],
+                        ],
+                        [
+                            'Bearer' => [],
+                        ],
+                        [
+                            'Bearer' => [],
+                            'ApiKey' => [],
+                        ],
+                        [
+                            'Bearer' => [],
+                            'ApiKey' => [],
+                            'JWT' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => null,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                    [
+                        ApiKeySecurityScheme::class,
+                        JwtSecurityScheme::class,
+                    ],
+                    BearerSecurityScheme::class,
+                    [
+                        BearerSecurityScheme::class,
+                        ApiKeySecurityScheme::class,
+                    ],
+                    [
+                        BearerSecurityScheme::class,
+                        ApiKeySecurityScheme::class,
+                        JwtSecurityScheme::class,
+                    ],
+                    [
+                        // TODO: should this duplication be removed?
+                        // I don't think it is removed automatically.
+                        ApiKeySecurityScheme::class,
+                    ],
+                ],
+                null,
+            ],
+            // 3. Override global security - disable global security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [],
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+                [],
+            ],
+            // 4. Override global security - with same security
             [
                 [
                     'components' => [
@@ -29,44 +163,154 @@ class SecurityBuilderTest extends TestCase
                             'JWT' => $this->JwtSecuritySchemeProvider(),
                         ],
                     ],
-                    'security' => [
+                    'globalSecurity' => [
                         [
                             'JWT' => [],
                         ],
                     ],
+                    'pathSecurity' => [
+                        [
+                            'JWT' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class, // available global securities (components)
+                ],
+                [
+                    JwtSecurityScheme::class, // applied global securities
+                ],
+                JwtSecurityScheme::class, // security overrides
+            ],
+            // 5. Override global security - single auth class string
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'JWT' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
                 ],
                 JwtSecurityScheme::class,
             ],
-            // Test scenario 2: ApiKeyAuth authentication only
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'ApiKeyAuth' => [],
-                        ],
-                    ],
-                ],
-                ApiKeySecurityScheme::class,
-            ],
-            // Test scenario 3: Both JWT and ApiKeyAuth authentication required
+            // 6. Override global security - single auth array
             [
                 [
                     'components' => [
                         'securitySchemes' => [
                             'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
-                    'security' => [
+                    'globalSecurity' => [
                         [
                             'JWT' => [],
-                            'ApiKeyAuth' => [],
                         ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+            ],
+            // 7. Override global security - multi-auth (and) - single auth global security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'JWT' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ApiKey' => [],
+                            'Bearer' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    [
+                        ApiKeySecurityScheme::class,
+                        BearerSecurityScheme::class,
+                    ],
+                ],
+            ],
+            // 8. Override global security - multi-auth (and) - multi auth global security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'Bearer' => [],
+                            'JWT' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'JWT' => [],
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    [
+                        BearerSecurityScheme::class,
+                        JwtSecurityScheme::class,
                     ],
                 ],
                 [
@@ -76,22 +320,81 @@ class SecurityBuilderTest extends TestCase
                     ],
                 ],
             ],
-            // Test scenario 4: Either JWT or ApiKeyAuth authentication required
+            // 9. Override global security - multi-auth (or) - single auth global security
             [
                 [
                     'components' => [
                         'securitySchemes' => [
                             'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
-                    'security' => [
+                    'globalSecurity' => [
+                        [
+                            'Bearer' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
                         [
                             'JWT' => [],
                         ],
                         [
-                            'ApiKeyAuth' => [],
+                            'ApiKey' => [],
                         ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    [
+                        JwtSecurityScheme::class,
+                    ],
+                    [
+                        ApiKeySecurityScheme::class,
+                    ],
+                ],
+            ],
+            // 10. Override global security - multi-auth (or) - multi auth global security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'Bearer' => [],
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'JWT' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    [
+                        BearerSecurityScheme::class,
+                        ApiKeySecurityScheme::class,
                     ],
                 ],
                 [
@@ -103,27 +406,85 @@ class SecurityBuilderTest extends TestCase
                     ],
                 ],
             ],
-            // Test scenario 5: Either JWT & ApiKeyAuth or BearerAuth authentication required
+            // 11. Override global security - multi-auth (and + or) - single auth global security
             [
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'BearerAuth' => $this->bearerAuthSecuritySchemeProvider(),
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
                             'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
-                    'security' => [
+                    'globalSecurity' => [
                         [
-                            'BearerAuth' => [],
+                            'JWT' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ApiKey' => [],
                         ],
                         [
                             'JWT' => [],
-                            'BearerAuth' => [],
+                            'Bearer' => [],
+                        ],
+                    ],
+                ],
+                [
+                    BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                    [
+                        JwtSecurityScheme::class,
+                        BearerSecurityScheme::class,
+                    ],
+                ],
+            ],
+            // 12. Override global security - multi-auth (and + or) - multi auth global security
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'Bearer' => [],
+                            'ApiKey' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'Bearer' => [],
                         ],
                         [
-                            'ApiKeyAuth' => [],
+                            'JWT' => [],
+                            'Bearer' => [],
                         ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    [
+                        BearerSecurityScheme::class,
+                        ApiKeySecurityScheme::class,
                     ],
                 ],
                 [
@@ -145,30 +506,27 @@ class SecurityBuilderTest extends TestCase
     /**
      * @dataProvider operationSecuritySchemesDataProvider
      */
-    public function testCanApplyMultipleSecuritySchemesOnOperation(array $expectedJson, array|string $securitySchemesClass): void
-    {
-        $components = Components::create();
-        $securitySchemes = [];
-
-        if (is_array($securitySchemesClass)) {
-            array_walk_recursive($securitySchemesClass, static function ($securityScheme) use (&$securitySchemes) {
-                $securityScheme = app($securityScheme)->build();
-                $securitySchemes[] = $securityScheme;
-            });
-        } else {
-            $securityScheme = app($securitySchemesClass)->build();
-            $securitySchemes[] = $securityScheme;
-        }
-        $components = $components->securitySchemes(...$securitySchemes);
+    public function testCanApplyMultipleSecuritySchemesOnOperation(
+        array $expectedJson,
+        array $securitySchemeComponents,
+        array $globalSecurity,
+        string|array|null $pathSecurity
+    ): void {
+        $components = Components::create()->securitySchemes(
+            ...collect($securitySchemeComponents)->map(
+                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
+            )->toArray()
+        );
 
         $action = 'get';
+        $route = '/foo';
         $routeInfo = app(RouteInformation::class);
         $routeInfo->parameters = collect();
-        $routeInfo->method = 'get';
+        $routeInfo->method = $action;
         $routeInfo->action = $action;
         $routeInfo->name = 'test route';
         $routeInfo->actionAttributes = collect([
-            new AttributesOperation(security: $securitySchemesClass),
+            new AttributesOperation(security: $pathSecurity),
         ]);
         $routeInfo->uri = '/example';
         $operation = app(OperationBuilder::class)->build([$routeInfo])[0];
@@ -176,28 +534,38 @@ class SecurityBuilderTest extends TestCase
 
         $openApi = $openApi
             ->components($components)
+            ->security(app(ComponentSecurityBuilder::class)->build($globalSecurity))
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->route($route)
                     ->operations($operation)
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
+        $actionData = [
+            $action => [],
+        ];
+        if (!is_null($expectedJson['pathSecurity'])) {
+            $actionData[$action] = ['security' => $expectedJson['pathSecurity']];
+        }
+        $collectionData = [
+            'components' => $expectedJson['components'],
+        ];
+        if (!is_null($expectedJson['globalSecurity'])) {
+            $collectionData['security'] = $expectedJson['globalSecurity'];
+        }
+
         self::assertSame([
             'paths' => [
-                '/foo' => [
-                    'get' => [
-                        'security' => $expectedJson['security'],
-                    ],
-                ],
-            ], 'components' => $expectedJson['components'],
+                $route => $actionData,
+            ], ...$collectionData,
         ], $openApi->toArray());
     }
 
     public function globalSecuritySchemesDataProvider(): array
     {
         return [
-            // Test scenario 1: JWT authentication only
+            // JWT authentication only
             [
                 [
                     'components' => [
@@ -213,35 +581,35 @@ class SecurityBuilderTest extends TestCase
                 ],
                 JwtSecurityScheme::class,
             ],
-            // Test scenario 2: ApiKeyAuth authentication only
+            // ApiKey authentication only
             [
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'security' => [
                         [
-                            'ApiKeyAuth' => [],
+                            'ApiKey' => [],
                         ],
                     ],
                 ],
                 ApiKeySecurityScheme::class,
             ],
-            // Test scenario 3: Both JWT and ApiKeyAuth authentication required
+            // Both JWT and ApiKey authentication required
             [
                 [
                     'components' => [
                         'securitySchemes' => [
                             'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'security' => [
                         [
                             'JWT' => [],
-                            'ApiKeyAuth' => [],
+                            'ApiKey' => [],
                         ],
                     ],
                 ],
@@ -252,13 +620,13 @@ class SecurityBuilderTest extends TestCase
                     ],
                 ],
             ],
-            // Test scenario 4: Either JWT or ApiKeyAuth authentication required
+            // Either JWT or ApiKey authentication required
             [
                 [
                     'components' => [
                         'securitySchemes' => [
                             'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKeyAuth' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'security' => [
@@ -266,7 +634,7 @@ class SecurityBuilderTest extends TestCase
                             'JWT' => [],
                         ],
                         [
-                            'ApiKeyAuth' => [],
+                            'ApiKey' => [],
                         ],
                     ],
                 ],
@@ -305,7 +673,7 @@ class SecurityBuilderTest extends TestCase
         $routeInfo->actionAttributes = collect([
             new AttributesOperation(security: $securitySchemesClass),
         ]);
-        $globalRequirement = app(SecurityRequirementBuilder::class)->build($routeInfo);
+        $globalRequirement = app(OperationSecurityBuilder::class)->build($routeInfo);
 
         $operation = Operation::create()
             ->action('get');
@@ -335,7 +703,7 @@ class SecurityBuilderTest extends TestCase
     /**
      * We're just making sure we're getting the expected output.
      */
-    public function testWeCanBuildUpTheSecurityScheme(): void
+    public function testCanBuildUpTheSecurityScheme(): void
     {
         $securityFactory = app(JwtSecurityScheme::class);
         $testJwtScheme = $securityFactory->build();
@@ -397,8 +765,8 @@ class SecurityBuilderTest extends TestCase
         ]);
         $routeInfo->uri = '/example';
 
-        /** @var SecurityRequirementBuilder */
-        $builder = app(SecurityRequirementBuilder::class);
+        /** @var OperationSecurityBuilder */
+        $builder = app(OperationSecurityBuilder::class);
 
         $operation = Operation::create()
             ->security($builder->build($routeInfo))
@@ -427,63 +795,6 @@ class SecurityBuilderTest extends TestCase
             'components' => [
                 'securitySchemes' => [
                     'JWT' => $this->JwtSecuritySchemeProvider(),
-                ],
-            ],
-        ], $openApi->toArray());
-    }
-
-    /**
-     * He's the main part of the PR. It's not possible to turn
-     * off security for an operation.
-     */
-    public function testWeCanAddTurnOffOperationSecurityUsingBuilder()
-    {
-        $securityFactory = app(JwtSecurityScheme::class);
-        $testJwtScheme = $securityFactory->build();
-
-        $globalRequirement = SecurityRequirement::create('JWT')
-            ->securityScheme($testJwtScheme);
-
-        $components = Components::create()
-            ->securitySchemes($testJwtScheme);
-
-        $routeInfo = new RouteInformation();
-        $routeInfo->parameters = collect();
-        $routeInfo->action = 'foo';
-        $routeInfo->method = 'get';
-        $routeInfo->name = 'test route';
-        $routeInfo->actionAttributes = collect([
-            new AttributesOperation(security: SkipGlobalSecurityScheme::class),
-        ]);
-
-        /** @var OperationBuilder */
-        $operationBuilder = app(OperationBuilder::class);
-
-        $operations = $operationBuilder->build([$routeInfo]);
-
-        $openApi = OpenApi::create()
-            ->security($globalRequirement)
-            ->components($components)
-            ->paths(
-                PathItem::create()
-                    ->route('/foo')
-                    ->operations(...$operations)
-            );
-
-        self::assertSame([
-            'paths' => [
-                '/foo' => [
-                    'get' => [],
-                ],
-            ],
-            'components' => [
-                'securitySchemes' => [
-                    'JWT' => $this->JwtSecuritySchemeProvider(),
-                ],
-            ],
-            'security' => [
-                [
-                    'JWT' => [],
                 ],
             ],
         ], $openApi->toArray());
@@ -545,7 +856,7 @@ class ApiKeySecurityScheme extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create('ApiKeyAuth')
+        return SecurityScheme::create('ApiKey')
             ->name('X-API-KEY')
             ->type(SecurityScheme::TYPE_API_KEY)
             ->in(SecurityScheme::IN_HEADER)
@@ -557,7 +868,7 @@ class BearerSecurityScheme extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create('BearerAuth')
+        return SecurityScheme::create('Bearer')
             ->type(SecurityScheme::TYPE_HTTP)
             ->scheme('bearer');
     }
