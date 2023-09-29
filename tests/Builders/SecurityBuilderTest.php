@@ -6,13 +6,11 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use Vyuldashev\LaravelOpenApi\Builders\Components\SecurityBuilder as ComponentSecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder as OperationSecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
 use Vyuldashev\LaravelOpenApi\RouteInformation;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
@@ -534,13 +532,14 @@ class SecurityBuilderTest extends TestCase
 
         $openApi = $openApi
             ->components($components)
-            ->security(app(ComponentSecurityBuilder::class)->build($globalSecurity))
+            ->multiAuthSecurity($globalSecurity)
             ->paths(
                 PathItem::create()
                     ->route($route)
                     ->operations($operation)
             );
 
+        dump($openApi);
         // Assert that the generated JSON matches the expected JSON for this scenario
         $actionData = [
             $action => [],
@@ -741,7 +740,7 @@ class SecurityBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->security(app(ComponentSecurityBuilder::class)->build($globalSecurity))
+            ->multiAuthSecurity($globalSecurity)
             ->components($components)
             ->paths(
                 PathItem::create()
@@ -772,9 +771,6 @@ class SecurityBuilderTest extends TestCase
         $securityFactory = app(JwtSecurityScheme::class);
         $testJwtScheme = $securityFactory->build();
 
-        $globalRequirement = SecurityRequirement::create('JWT')
-            ->securityScheme($testJwtScheme);
-
         $components = Components::create()
             ->securitySchemes($testJwtScheme);
 
@@ -782,7 +778,7 @@ class SecurityBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->security($globalRequirement)
+            ->multiAuthSecurity([JwtSecurityScheme::class])
             ->components($components)
             ->paths(
                 PathItem::create()

@@ -42,7 +42,7 @@ class Generator
             ->servers(...$servers)
             ->paths(...$paths)
             ->components($components)
-            ->security(...Arr::get($this->config, 'collections.' . $collection . '.security', []))
+            ->multiAuthSecurity(Arr::get($this->config, 'collections.' . $collection . '.security', []))
             ->tags(...$tags);
 
         foreach ($extensions as $key => $value) {
