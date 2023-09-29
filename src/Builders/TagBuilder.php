@@ -2,31 +2,30 @@
 
 namespace Vyuldashev\LaravelOpenApi\Builders;
 
-use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
-use Illuminate\Support\Arr;
+
+use function PHPUnit\Framework\assertIsString;
+use function PHPUnit\Framework\assertNotNull;
+use function PHPUnit\Framework\assertTrue;
 
 class TagBuilder
 {
     /**
+     * @param array<array-key, class-string<Tag>> $config
+     *
      * @return Tag[]
      */
     public function build(array $config): array
     {
         return collect($config)
-            ->map(static function (array $tag) {
-                $externalDocs = null;
+            ->map(static function ($tag) {
+                assertIsString($tag, 'Tag must be a string of a class that extends ' . Tag::class . '.');
+                assertTrue(class_exists($tag), "Tag class [$tag] does not exist or string is not a FQCN.");
+                assertTrue(is_a($tag, Tag::class, true), 'Tag class [' . class_basename($tag) . '] must extend ' . Tag::class . '.');
+                $tagInstance = new $tag();
+                assertNotNull($tagInstance->name, 'Tag name must be set.');
 
-                if (Arr::has($tag, 'externalDocs')) {
-                    $externalDocs = ExternalDocs::create($tag['name'])
-                        ->description(Arr::get($tag, 'externalDocs.description'))
-                        ->url(Arr::get($tag, 'externalDocs.url'));
-                }
-
-                return Tag::create()
-                    ->name($tag['name'])
-                    ->description(Arr::get($tag, 'description'))
-                    ->externalDocs($externalDocs);
+                return $tagInstance;
             })
             ->toArray();
     }
