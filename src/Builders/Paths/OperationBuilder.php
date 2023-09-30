@@ -13,7 +13,7 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
@@ -22,13 +22,13 @@ use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 class OperationBuilder
 {
     public function __construct(
-        protected TagBuilder $tagBuilder,
-        protected ParameterBuilder $parameterBuilder,
-        protected RequestBodyBuilder $requestBodyBuilder,
-        protected ResponseBuilder $responseBuilder,
-        protected SecurityBuilder $securityBuilder,
-        protected CallbackBuilder $callbackBuilder,
-        protected ExtensionBuilder $extensionBuilder,
+        protected TagBuilder                 $tagBuilder,
+        protected ParameterBuilder           $parameterBuilder,
+        protected RequestBodyBuilder         $requestBodyBuilder,
+        protected ResponseBuilder            $responseBuilder,
+        protected SecurityRequirementBuilder $securityRequirementBuilder,
+        protected CallbackBuilder            $callbackBuilder,
+        protected ExtensionBuilder           $extensionBuilder,
     ) {
     }
 
@@ -90,7 +90,7 @@ class OperationBuilder
         if (!is_null($operation)) {
             $operationId = $operation->id;
             $tags = $this->tagBuilder->build(Arr::wrap($operation->tags));
-            $security = $this->securityBuilder->build($route);
+            $security = $this->securityRequirementBuilder->build($operation->security);
             $method = $operation->method ?? $method;
             $servers = collect(Arr::wrap($operation->servers))
                 ->filter(static fn ($server) => app($server) instanceof ServerFactory)

@@ -6,7 +6,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder as OperationSecurityBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
@@ -830,7 +830,7 @@ class SecurityBuilderTest extends TestCase
         $builder = app(OperationSecurityBuilder::class);
 
         $operation = Operation::create()
-            ->security($builder->build($routeInfo))
+            ->security($builder->build($routeInfo->actionAttributes[0]->security))
             ->action('get');
 
         $openApi = OpenApi::create()

@@ -4,7 +4,7 @@ namespace Vyuldashev\LaravelOpenApi\Objects;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement;
 use GoldSpecDigital\ObjectOrientedOAS\OpenApi as ParentOpenApi;
-use Vyuldashev\LaravelOpenApi\Builders\SecurityBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
 
 class OpenApi extends ParentOpenApi
@@ -13,7 +13,7 @@ class OpenApi extends ParentOpenApi
     // to allow for multiple security requirements
     public function multiAuthSecurity(array $security): self
     {
-        $securityRequirements = app(SecurityBuilder::class)->build($security);
+        $securityRequirements = app(SecurityRequirementBuilder::class)->build($security);
 
         return $this->security($securityRequirements);
     }
