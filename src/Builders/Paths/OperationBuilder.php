@@ -3,7 +3,6 @@
 namespace Vyuldashev\LaravelOpenApi\Builders\Paths;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -16,7 +15,6 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
-use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
 use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
