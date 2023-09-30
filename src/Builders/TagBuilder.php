@@ -5,7 +5,6 @@ namespace Vyuldashev\LaravelOpenApi\Builders;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 
 use function PHPUnit\Framework\assertIsString;
-use function PHPUnit\Framework\assertNotNull;
 use function PHPUnit\Framework\assertTrue;
 
 class TagBuilder
@@ -24,7 +23,8 @@ class TagBuilder
                 assertTrue(is_a($tag, Tag::class, true), 'Tag class [' . class_basename($tag) . '] must extend ' . Tag::class . '.');
 
                 $tagInstance = $tag::create();
-                assertNotNull($tagInstance->name, 'Tag name must be set.');
+
+                throw_if(is_null($tagInstance->name), 'Tag name must be set.');
 
                 return $tagInstance;
             })
