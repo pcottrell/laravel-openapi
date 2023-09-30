@@ -5,6 +5,7 @@ namespace Vyuldashev\LaravelOpenApi\Builders;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use InvalidArgumentException;
 use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
+use Vyuldashev\LaravelOpenApi\Helpers\BuilderHelper;
 
 class TagBuilder
 {
@@ -21,17 +22,10 @@ class TagBuilder
                 /** @var Tag $tag */
                 $tag = app($tag)->build();
 
-                throw_if($this->hasInvalidName($tag), new InvalidArgumentException('Tag name is required.'));
+                throw_if(BuilderHelper::hasInvalidField($tag->toArray(), 'name'), new InvalidArgumentException('Tag name is required.'));
 
                 return $tag;
             })
             ->toArray();
-    }
-
-    private function hasInvalidName(Tag $tag): bool
-    {
-        $tagArray = $tag->toArray();
-
-        return !array_key_exists('name', $tagArray) || empty($tagArray['name']);
     }
 }
