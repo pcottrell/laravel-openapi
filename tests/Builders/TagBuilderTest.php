@@ -6,7 +6,9 @@ namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
+use InvalidArgumentException;
 use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
+use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class TagBuilderTest extends TestCase
@@ -14,10 +16,10 @@ class TagBuilderTest extends TestCase
     /**
      * @dataProvider tagProvider
      */
-    public function testBuild(array $config, array $expected): void
+    public function testCanBuildTag(array $tagFactories, array $expected): void
     {
-        $builder = new TagBuilder();
-        $tags = $builder->build($config);
+        $tagBuilder = app(TagBuilder::class);
+        $tags = $tagBuilder->build($tagFactories);
         $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
     }
 
@@ -28,21 +30,8 @@ class TagBuilderTest extends TestCase
                 [WithoutExternalDoc::class],
                 [
                     [
-                        'name' => 'post',
-                        'description' => 'Posts',
-                    ],
-                ],
-            ],
-            'If the external docs are present and is array, it can output the correct json.' => [
-                [WithExternalArrayDoc::class],
-                [
-                    [
-                        'name' => 'post',
-                        'description' => 'Posts',
-                        'externalDocs' => [
-                            'description' => 'External API documentation',
-                            'url' => 'https://example.com/external-docs',
-                        ],
+                        'name' => 'Post',
+                        'description' => 'Post Tag',
                     ],
                 ],
             ],
@@ -50,8 +39,8 @@ class TagBuilderTest extends TestCase
                 [WithExternalObjectDoc::class],
                 [
                     [
-                        'name' => 'post',
-                        'description' => 'Posts',
+                        'name' => 'Post',
+                        'description' => 'Post Tag',
                         'externalDocs' => [
                             'description' => 'External API documentation',
                             'url' => 'https://example.com/external-docs',
@@ -60,6 +49,27 @@ class TagBuilderTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    public function invalidTagProvider()
+    {
+        return [
+            [WithoutName::class],
+            [EmptyStringName::class],
+            [NullName::class],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidTagProvider
+     */
+    public function testGivenNameNotProvidedCanProduceCorrectException(string $invalidTag): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Tag name is required.');
+
+        $tagBuilder = app(TagBuilder::class);
+        $tagBuilder->build([$invalidTag]);
     }
 
     /**
@@ -80,30 +90,56 @@ class TagBuilderTest extends TestCase
     }
 }
 
-class WithExternalArrayDoc extends Tag
+class WithoutName extends TagFactory
 {
-    public $name = 'post';
-    public $description = 'Posts';
-    public $externalDocs = [
-        'description' => 'External API documentation',
-        'url' => 'https://example.com/external-docs',
-    ];
-}
-
-class WithExternalObjectDoc extends Tag
-{
-    public $name = 'post';
-    public $description = 'Posts';
-
-    public function __construct()
+    public function build(): Tag
     {
-        parent::__construct(null);
-        $this->externalDocs = (new ExternalDocs())->url('https://example.com/external-docs')->description('External API documentation');
+        return Tag::create()
+            ->description('Post Tag');
     }
 }
 
-class WithoutExternalDoc extends Tag
+class EmptyStringName extends TagFactory
 {
-    public $name = 'post';
-    public $description = 'Posts';
+    public function build(): Tag
+    {
+        return Tag::create()
+            ->name('')
+            ->description('Post Tag');
+    }
+}
+
+class NullName extends TagFactory
+{
+    public function build(): Tag
+    {
+        return Tag::create()
+            ->name(null)
+            ->description('Post Tag');
+    }
+}
+
+class WithoutExternalDoc extends TagFactory
+{
+    public function build(): Tag
+    {
+        return Tag::create()
+            ->name('Post')
+            ->description('Post Tag');
+    }
+}
+
+class WithExternalObjectDoc extends TagFactory
+{
+    public function build(): Tag
+    {
+        return Tag::create()
+            ->name('Post')
+            ->description('Post Tag')
+            ->externalDocs(
+                ExternalDocs::create()
+                    ->description('External API documentation')
+                    ->url('https://example.com/external-docs')
+            );
+    }
 }

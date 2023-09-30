@@ -43,7 +43,7 @@ class OperationBuilder
 
         /** @var RouteInformation[] $routes */
         foreach ($routes as $route) {
-            [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers] = $this->parseAttribute($route);
+            [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers] = $this->parseOperationAttribute($route);
 
             $parameters = $this->parameterBuilder->build($route);
             $requestBody = $this->requestBodyBuilder->build($route);
@@ -72,12 +72,8 @@ class OperationBuilder
         return $operations;
     }
 
-    private function parseAttribute(RouteInformation $route): array
+    private function parseOperationAttribute(RouteInformation $route): array
     {
-        /** @var OperationAttribute|null $operationAttribute */
-        $operationAttribute = $route->actionAttributes
-            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
-
         $operationId = null;
         $tags = [];
         $security = null;
@@ -87,18 +83,22 @@ class OperationBuilder
         $deprecated = null;
         $servers = [];
 
-        if (!is_null($operationAttribute)) {
-            $operationId = $operationAttribute->id;
-            $tags = $this->tagBuilder->build(Arr::wrap($operationAttribute->tags));
+        /** @var OperationAttribute|null $operation */
+        $operation = $route->actionAttributes
+            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
+
+        if (!is_null($operation)) {
+            $operationId = $operation->id;
+            $tags = $this->tagBuilder->build(Arr::wrap($operation->tags));
             $security = $this->securityBuilder->build($route);
-            $method = $operationAttribute->method ?? $method;
-            $servers = collect($operationAttribute->servers ?? [])
+            $method = $operation->method ?? $method;
+            $servers = collect(Arr::wrap($operation->servers))
                 ->filter(static fn ($server) => app($server) instanceof ServerFactory)
                 ->map(static fn (string $server): Server => app($server)->build())
                 ->toArray();
-            $summary = $operationAttribute->summary;
-            $description = $operationAttribute->description;
-            $deprecated = $operationAttribute->deprecated;
+            $summary = $operation->summary;
+            $description = $operation->description;
+            $deprecated = $operation->deprecated;
         }
 
         return [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers];

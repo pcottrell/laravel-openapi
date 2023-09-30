@@ -3,31 +3,35 @@
 namespace Vyuldashev\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
-
-use function PHPUnit\Framework\assertIsString;
-use function PHPUnit\Framework\assertTrue;
+use InvalidArgumentException;
+use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
 
 class TagBuilder
 {
     /**
-     * @param array<array-key, class-string<Tag>> $config
+     * @param array<array-key, class-string<Tag>> $tagFactories
      *
      * @return Tag[]
      */
-    public function build(array $config): array
+    public function build(array $tagFactories): array
     {
-        return collect($config)
-            ->map(static function ($tag) {
-                assertIsString($tag, 'Tag must be a string.');
-                assertTrue(class_exists($tag), "Tag class [{$tag}] does not exist or string is not a FQCN.");
-                assertTrue(is_a($tag, Tag::class, true), 'Tag class [' . class_basename($tag) . '] must extend ' . Tag::class . '.');
+        return collect($tagFactories)
+            ->filter(static fn ($tag) => app($tag) instanceof TagFactory)
+            ->map(function (string $tag): Tag {
+                /** @var Tag $tag */
+                $tag = app($tag)->build();
 
-                $tagInstance = $tag::create();
+                throw_if($this->hasInvalidName($tag), new InvalidArgumentException('Tag name is required.'));
 
-                throw_if(is_null($tagInstance->name), 'Tag name must be set.');
-
-                return $tagInstance;
+                return $tag;
             })
             ->toArray();
+    }
+
+    private function hasInvalidName(Tag $tag): bool
+    {
+        $tagArray = $tag->toArray();
+
+        return !array_key_exists('name', $tagArray) || empty($tagArray['name']);
     }
 }
