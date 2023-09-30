@@ -18,7 +18,7 @@ class TagBuilder
     {
         return collect($tagFactories)
             ->filter(static fn ($tag) => app($tag) instanceof TagFactory)
-            ->map(function (string $tag): Tag {
+            ->map(static function (string $tag): Tag {
                 /** @var Tag $tag */
                 $tag = app($tag)->build();
 

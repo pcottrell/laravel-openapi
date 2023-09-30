@@ -14,41 +14,59 @@ use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 class TagBuilderTest extends TestCase
 {
     /**
-     * @dataProvider tagProvider
+     * @dataProvider singleTagProvider
      */
-    public function testCanBuildTag(array|string $tagFactories, array $expected): void
+    public function testCanBuildTag(array $tagFactories, array $expected): void
     {
-        $tagBuilder = app(TagBuilder::class);
-        $tags = $tagBuilder->build($tagFactories);
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($tagFactories);
+
         $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
     }
 
-    public function tagProvider(): array
+    /**
+     * Assert equality as an associative array.
+     */
+    protected function assertSameAssociativeArray(array $expected, array $actual): void
+    {
+        foreach ($expected as $key => $value) {
+            if (is_array($value)) {
+                $this->assertSameAssociativeArray($value, $actual[$key]);
+                unset($actual[$key]);
+                continue;
+            }
+            self::assertSame($value, $actual[$key]);
+            unset($actual[$key]);
+        }
+        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
+    }
+
+    public function singleTagProvider(): array
     {
         return [
-            'can build factory from FQCN' => [
+            'Can build tag from array with one FQCN' => [
                 [WithoutExternalDoc::class],
                 [
                     [
-                        'name' => 'Post',
+                        'name' => 'PostWithoutExternalDoc',
                         'description' => 'Post Tag',
                     ],
                 ],
             ],
-            'If the external docs do not exist, it can output the correct json.' => [
+            'Can build tag without external docs' => [
                 [WithoutExternalDoc::class],
                 [
                     [
-                        'name' => 'Post',
+                        'name' => 'PostWithoutExternalDoc',
                         'description' => 'Post Tag',
                     ],
                 ],
             ],
-            'If the external docs are present and is object, it can output the correct json.' => [
+            'Can build tag with external docs' => [
                 [WithExternalObjectDoc::class],
                 [
                     [
-                        'name' => 'Post',
+                        'name' => 'PostWithExternalObjectDoc',
                         'description' => 'Post Tag',
                         'externalDocs' => [
                             'description' => 'External API documentation',
@@ -58,6 +76,40 @@ class TagBuilderTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    public function multiTagProvider()
+    {
+        return [
+            'Can build multiple tags from an array of FQCNs' => [
+                [WithoutExternalDoc::class, WithExternalObjectDoc::class],
+                [
+                    [
+                        'name' => 'PostWithoutExternalDoc',
+                        'description' => 'Post Tag',
+                    ],
+                    [
+                        'name' => 'PostWithExternalObjectDoc',
+                        'description' => 'Post Tag',
+                        'externalDocs' => [
+                            'description' => 'External API documentation',
+                            'url' => 'https://example.com/external-docs',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider multiTagProvider
+     */
+    public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
+    {
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($tagFactories);
+
+        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
     }
 
     public function invalidTagProvider()
@@ -79,23 +131,6 @@ class TagBuilderTest extends TestCase
 
         $tagBuilder = app(TagBuilder::class);
         $tagBuilder->build([$invalidTag]);
-    }
-
-    /**
-     * Assert equality as an associative array.
-     */
-    protected function assertSameAssociativeArray(array $expected, array $actual): void
-    {
-        foreach ($expected as $key => $value) {
-            if (is_array($value)) {
-                $this->assertSameAssociativeArray($value, $actual[$key]);
-                unset($actual[$key]);
-                continue;
-            }
-            self::assertSame($value, $actual[$key]);
-            unset($actual[$key]);
-        }
-        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
     }
 }
 
@@ -133,7 +168,7 @@ class WithoutExternalDoc extends TagFactory
     public function build(): Tag
     {
         return Tag::create()
-            ->name('Post')
+            ->name('PostWithoutExternalDoc')
             ->description('Post Tag');
     }
 }
@@ -143,7 +178,7 @@ class WithExternalObjectDoc extends TagFactory
     public function build(): Tag
     {
         return Tag::create()
-            ->name('Post')
+            ->name('PostWithExternalObjectDoc')
             ->description('Post Tag')
             ->externalDocs(
                 ExternalDocs::create()

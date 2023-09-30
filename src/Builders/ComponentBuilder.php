@@ -12,35 +12,24 @@ use Vyuldashev\LaravelOpenApi\Generator;
 
 class ComponentBuilder
 {
-    protected CallbackBuilder $callbacksBuilder;
-    protected RequestBodyBuilder $requestBodiesBuilder;
-    protected ResponseBuilder $responsesBuilder;
-    protected SchemaBuilder $schemasBuilder;
-    protected SecuritySchemeBuilder $securitySchemesBuilder;
-
     public function __construct(
-        CallbackBuilder $callbacksBuilder,
-        RequestBodyBuilder $requestBodiesBuilder,
-        ResponseBuilder $responsesBuilder,
-        SchemaBuilder $schemasBuilder,
-        SecuritySchemeBuilder $securitySchemesBuilder
+        private readonly CallbackBuilder $callbackBuilder,
+        private readonly RequestBodyBuilder $requestBodyBuilder,
+        private readonly ResponseBuilder $responseBuilder,
+        private readonly SchemaBuilder $schemaBuilder,
+        private readonly SecuritySchemeBuilder $securitySchemeBuilder
     ) {
-        $this->callbacksBuilder = $callbacksBuilder;
-        $this->requestBodiesBuilder = $requestBodiesBuilder;
-        $this->responsesBuilder = $responsesBuilder;
-        $this->schemasBuilder = $schemasBuilder;
-        $this->securitySchemesBuilder = $securitySchemesBuilder;
     }
 
     public function build(
         string $collection = Generator::COLLECTION_DEFAULT,
         array $middlewares = []
-    ): ?Components {
-        $callbacks = $this->callbacksBuilder->build($collection);
-        $requestBodies = $this->requestBodiesBuilder->build($collection);
-        $responses = $this->responsesBuilder->build($collection);
-        $schemas = $this->schemasBuilder->build($collection);
-        $securitySchemes = $this->securitySchemesBuilder->build($collection);
+    ): Components|null {
+        $callbacks = $this->callbackBuilder->build($collection);
+        $requestBodies = $this->requestBodyBuilder->build($collection);
+        $responses = $this->responseBuilder->build($collection);
+        $schemas = $this->schemaBuilder->build($collection);
+        $securitySchemes = $this->securitySchemeBuilder->build($collection);
 
         $components = Components::create();
 

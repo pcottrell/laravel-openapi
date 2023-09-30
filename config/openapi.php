@@ -11,22 +11,18 @@ return [
             ],
 
             'servers' => [
-                [
-                    'url' => env('APP_URL'),
-                    'description' => null,
-                    'variables' => [],
-                ],
+                // Servers should extend `Vyuldashev\LaravelOpenApi\Factories\ServerFactory` class.
+                // ExampleServer::class
             ],
 
             'tags' => [
-                // [
-                //    'name' => 'user',
-                //    'description' => 'Application users',
-                // ],
+                // Tags should extend `Vyuldashev\LaravelOpenApi\Factories\TagFactory` class.
+                // ExampleTag::class,
             ],
 
             'security' => [
-                // Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement::create()->securityScheme('JWT'),
+                // Security schemes should extend `Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory` class.
+                // BearerTokenSecurityScheme::class,
             ],
 
             // Non standard attributes used by code/doc generation tools can be added here

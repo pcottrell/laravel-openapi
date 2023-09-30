@@ -16,12 +16,12 @@ class Generator
     public const COLLECTION_DEFAULT = 'default';
 
     public function __construct(
-        protected array $config,
-        protected InfoBuilder $infoBuilder,
-        protected ServerBuilder $serverBuilder,
-        protected TagBuilder $tagBuilder,
-        protected PathBuilder $pathBuilder,
-        protected ComponentBuilder $componentBuilder,
+        private array $config,
+        private InfoBuilder $infoBuilder,
+        private ServerBuilder $serverBuilder,
+        private TagBuilder $tagBuilder,
+        private PathBuilder $pathBuilder,
+        private ComponentBuilder $componentBuilder,
     ) {
     }
 

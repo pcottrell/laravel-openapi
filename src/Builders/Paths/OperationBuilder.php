@@ -14,6 +14,7 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
@@ -22,13 +23,14 @@ use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 class OperationBuilder
 {
     public function __construct(
-        protected TagBuilder                 $tagBuilder,
-        protected ParameterBuilder           $parameterBuilder,
-        protected RequestBodyBuilder         $requestBodyBuilder,
-        protected ResponseBuilder            $responseBuilder,
+        protected TagBuilder $tagBuilder,
+        protected ServerBuilder $serverBuilder,
+        protected ParameterBuilder $parameterBuilder,
+        protected RequestBodyBuilder $requestBodyBuilder,
+        protected ResponseBuilder $responseBuilder,
         protected SecurityRequirementBuilder $securityRequirementBuilder,
-        protected CallbackBuilder            $callbackBuilder,
-        protected ExtensionBuilder           $extensionBuilder,
+        protected CallbackBuilder $callbackBuilder,
+        protected ExtensionBuilder $extensionBuilder,
     ) {
     }
 
@@ -78,10 +80,10 @@ class OperationBuilder
         $tags = [];
         $security = null;
         $method = Str::lower($route->method);
+        $servers = [];
         $summary = null;
         $description = null;
         $deprecated = null;
-        $servers = [];
 
         /** @var OperationAttribute|null $operation */
         $operation = $route->actionAttributes
@@ -92,10 +94,7 @@ class OperationBuilder
             $tags = $this->tagBuilder->build(Arr::wrap($operation->tags));
             $security = $this->securityRequirementBuilder->build($operation->security);
             $method = $operation->method ?? $method;
-            $servers = collect(Arr::wrap($operation->servers))
-                ->filter(static fn ($server) => app($server) instanceof ServerFactory)
-                ->map(static fn (string $server): Server => app($server)->build())
-                ->toArray();
+            $servers = $this->serverBuilder->build(Arr::wrap($operation->servers));
             $summary = $operation->summary;
             $description = $operation->description;
             $deprecated = $operation->deprecated;

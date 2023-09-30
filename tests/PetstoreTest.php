@@ -3,7 +3,11 @@
 namespace Vyuldashev\LaravelOpenApi\Tests;
 
 use Examples\Petstore\PetController;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
+use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithMultipleVariableFormatting;
+use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithoutVariables;
+use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithVariables;
 
 /**
  * @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml
@@ -14,6 +18,15 @@ class PetstoreTest extends TestCase
     {
         return [
             [
+                'servers' => [
+                    'classes' => [ServerWithoutVariables::class],
+                    'expectation' => [
+                        [
+                            'url' => 'http://example.com',
+                            'description' => 'sample_description',
+                        ],
+                    ],
+                ],
                 'path' => '/pets',
                 'method' => 'get',
                 'expectation' => [
@@ -44,6 +57,21 @@ class PetstoreTest extends TestCase
                 ],
             ],
             [
+                'servers' => [
+                    'classes' => [ServerWithVariables::class],
+                    'expectation' => [
+                        [
+                            'url' => 'http://example.com',
+                            'description' => 'sample_description',
+                            'variables' => [
+                                'variable_name' => [
+                                    'default' => 'variable_defalut',
+                                    'description' => 'variable_description',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 'path' => '/multiPetTag',
                 'method' => 'post',
                 'expectation' => [
@@ -80,6 +108,26 @@ class PetstoreTest extends TestCase
                 ],
             ],
             [
+                'servers' => [
+                    'classes' => [ServerWithMultipleVariableFormatting::class],
+                    'expectation' => [
+                        [
+                            'url' => 'http://example.com',
+                            'description' => 'sample_description',
+                            'variables' => [
+                                'variable_name' => [
+                                    'enum' => ['A', 'B'],
+                                    'default' => 'variable_defalut',
+                                    'description' => 'variable_description',
+                                ],
+                                'variable_name_B' => [
+                                    'default' => 'sample',
+                                    'description' => 'sample',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 'path' => '/multiAuthSecurityFirstTest',
                 'method' => 'delete',
                 'expectation' => [
@@ -112,6 +160,36 @@ class PetstoreTest extends TestCase
                 ],
             ],
             [
+                'servers' => [
+                    'classes' => [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
+                    'expectation' => [
+                        [
+                            'url' => 'http://example.com',
+                            'description' => 'sample_description',
+                            'variables' => [
+                                'variable_name' => [
+                                    'default' => 'variable_defalut',
+                                    'description' => 'variable_description',
+                                ],
+                            ],
+                        ],
+                        [
+                            'url' => 'http://example.com',
+                            'description' => 'sample_description',
+                            'variables' => [
+                                'variable_name' => [
+                                    'enum' => ['A', 'B'],
+                                    'default' => 'variable_defalut',
+                                    'description' => 'variable_description',
+                                ],
+                                'variable_name_B' => [
+                                    'default' => 'sample',
+                                    'description' => 'sample',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
                 'path' => '/multiAuthSecuritySecondTest',
                 'method' => 'put',
                 'expectation' => [
@@ -138,11 +216,12 @@ class PetstoreTest extends TestCase
     /**
      * @dataProvider expectationProvider
      */
-    public function testGenerate(string $path, string $method, array $expectation): void
+    public function testGenerate(array $servers, string $path, string $method, array $expectation): void
     {
+        Config::set('openapi.collections.default.servers', $servers['classes']);
         $spec = $this->generate()->toArray();
 
-        self::assertSame('http://petstore.swagger.io/v1', $spec['servers'][0]['url']);
+        self::assertSame($servers['expectation'], $spec['servers']);
 
         self::assertArrayHasKey($path, $spec['paths']);
         self::assertArrayHasKey($method, $spec['paths'][$path]);

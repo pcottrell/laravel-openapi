@@ -4,122 +4,22 @@ declare(strict_types=1);
 
 namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
 
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
+use GoldSpecDigital\ObjectOrientedOAS\Objects\ServerVariable;
 use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
+use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class ServerBuilderTest extends TestCase
 {
     /**
-     * @dataProvider providerBuild
+     * @dataProvider serverFQCNProvider
      */
-    public function testBuild(array $config, array $expected): void
+    public function testCanBuildServerFromFQCN(array $serverFactories, array $expected): void
     {
-        $SUT = new ServerBuilder();
-        $servers = $SUT->build($config);
+        $builder = new ServerBuilder();
+        $servers = $builder->build($serverFactories);
         $this->assertSameAssociativeArray($expected[0], $servers[0]->toArray());
-    }
-
-    public function providerBuild(): array
-    {
-        return [
-            'If the variables field does not exist, it is possible to output the correct json.' => [
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [],
-                ]],
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                ]],
-            ],
-            'If the variables field is present, it can output the correct json.' => [
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                        ],
-                    ],
-                ]],
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                        ],
-                    ],
-                ]],
-            ],
-            'If there is a variables field containing enum, it can output the correct json.' => [
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                            'enum' => [
-                                'A',
-                                'B',
-                                'C',
-                            ],
-                        ],
-                    ],
-                ]],
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                            'enum' => [
-                                'A',
-                                'B',
-                                'C',
-                            ],
-                        ],
-                    ],
-                ]],
-            ],
-            'If there are variables fields in multiple formats, it is possible to output the correct json.' => [
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                            'enum' => ['A', 'B'],
-                        ],
-                        'variable_name_B' => [
-                            'default' => 'sample',
-                            'description' => 'sample',
-                        ],
-                    ],
-                ]],
-                [[
-                    'url' => 'http://example.com',
-                    'description' => 'sample_description',
-                    'variables' => [
-                        'variable_name' => [
-                            'default' => 'variable_defalut',
-                            'description' => 'variable_description',
-                            'enum' => ['A', 'B'],
-                        ],
-                        'variable_name_B' => [
-                            'default' => 'sample',
-                            'description' => 'sample',
-                        ],
-                    ],
-                ]],
-            ],
-        ];
     }
 
     /**
@@ -137,5 +37,182 @@ class ServerBuilderTest extends TestCase
             unset($actual[$key]);
         }
         self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
+    }
+
+    public function serverFQCNProvider(): array
+    {
+        return [
+            'Can build server without variables' => [
+                [ServerWithoutVariables::class],
+                [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                    ],
+                ],
+            ],
+            'Can build server with variables' => [
+                [ServerWithVariables::class],
+                [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'Can build server containing enum' => [
+                [ServerWithEnum::class],
+                [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                                'enum' => [
+                                    'A',
+                                    'B',
+                                    'C',
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'Can build server containing variables fields in multiple formats' => [
+                [ServerWithMultipleVariableFormatting::class],
+                [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                                'enum' => ['A', 'B'],
+                            ],
+                            'variable_name_B' => [
+                                'default' => 'sample',
+                                'description' => 'sample',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    public function multiTagProvider()
+    {
+        return [
+            'Can build multiple server from an array of FQCNs' => [
+                [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
+                [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                            ],
+                        ],
+                    ],
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'enum' => ['A', 'B'],
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                            ],
+                            'variable_name_B' => [
+                                'default' => 'sample',
+                                'description' => 'sample',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider multiTagProvider
+     */
+    public function testCanBuildFromServerArray(array $tagFactories, array $expected): void
+    {
+        $builder = app(ServerBuilder::class);
+        $servers = $builder->build($tagFactories);
+
+        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->toArray())->toArray());
+    }
+}
+
+class ServerWithoutVariables extends ServerFactory
+{
+    public function build(): Server
+    {
+        return Server::create()
+            ->url('http://example.com')
+            ->description('sample_description');
+    }
+}
+
+class ServerWithVariables extends ServerFactory
+{
+    public function build(): Server
+    {
+        return Server::create()
+            ->url('http://example.com')
+            ->description('sample_description')
+            ->variables(
+                ServerVariable::create('variable_name')
+                    ->default('variable_defalut')
+                    ->description('variable_description')
+            );
+    }
+}
+
+class ServerWithEnum extends ServerFactory
+{
+    public function build(): Server
+    {
+        return Server::create()
+            ->url('http://example.com')
+            ->description('sample_description')
+            ->variables(
+                ServerVariable::create('variable_name')
+                    ->default('variable_defalut')
+                    ->description('variable_description')
+                    ->enum('A', 'B', 'C')
+            );
+    }
+}
+
+class ServerWithMultipleVariableFormatting extends ServerFactory
+{
+    public function build(): Server
+    {
+        return Server::create()
+            ->url('http://example.com')
+            ->description('sample_description')
+            ->variables(
+                ServerVariable::create('variable_name')
+                    ->default('variable_defalut')
+                    ->description('variable_description')
+                    ->enum('A', 'B'),
+                ServerVariable::create('variable_name_B')
+                    ->default('sample')
+                    ->description('sample')
+            );
     }
 }

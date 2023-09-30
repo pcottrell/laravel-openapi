@@ -3,35 +3,28 @@
 namespace Vyuldashev\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
-use GoldSpecDigital\ObjectOrientedOAS\Objects\ServerVariable;
-use Illuminate\Support\Arr;
+use InvalidArgumentException;
+use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
+use Vyuldashev\LaravelOpenApi\Helpers\BuilderHelper;
 
 class ServerBuilder
 {
     /**
+     * @param array<array-key, class-string<Server>> $serverFactories
+     *
      * @return Server[]
      */
-    public function build(array $config): array
+    public function build(array $serverFactories): array
     {
-        return collect($config)
-            ->map(static function (array $server) {
-                $variables = collect(Arr::get($server, 'variables'))
-                    ->map(function (array $variable, string $key) {
-                        $serverVariable = ServerVariable::create($key)
-                            ->default(Arr::get($variable, 'default'))
-                            ->description(Arr::get($variable, 'description'));
-                        if (is_array(Arr::get($variable, 'enum'))) {
-                            return $serverVariable->enum(...Arr::get($variable, 'enum'));
-                        }
+        return collect($serverFactories)
+            ->filter(static fn ($server) => app($server) instanceof ServerFactory)
+            ->map(static function (string $server): Server {
+                /** @var Server $server */
+                $server = app($server)->build();
 
-                        return $serverVariable;
-                    })
-                    ->toArray();
+                throw_if(BuilderHelper::hasInvalidField($server->toArray(), 'url'), new InvalidArgumentException('Server url is required.'));
 
-                return Server::create()
-                    ->url(Arr::get($server, 'url'))
-                    ->description(Arr::get($server, 'description'))
-                    ->variables(...$variables);
+                return $server;
             })
             ->toArray();
     }
