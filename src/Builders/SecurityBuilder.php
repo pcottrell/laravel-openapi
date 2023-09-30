@@ -12,8 +12,8 @@ class SecurityBuilder
     ) {
     }
 
-    public function build(array $security): SecurityRequirement
+    public function build(array $securitySchemeFactories): SecurityRequirement
     {
-        return $this->securityRequirementBuilder->build($security);
+        return $this->securityRequirementBuilder->build($securitySchemeFactories);
     }
 }

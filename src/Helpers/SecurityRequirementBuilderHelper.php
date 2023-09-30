@@ -15,34 +15,34 @@ class SecurityRequirementBuilderHelper
     /**
      * @throws InvalidArgumentException
      */
-    public function build(string|array|null $security): SecurityRequirement
+    public function build(string|array|null $securitySchemeFactories): SecurityRequirement
     {
-        if (is_null($security) || $security === '') {
+        if (is_null($securitySchemeFactories) || $securitySchemeFactories === '') {
             return $this->createSingleSecurityRequirement(DefaultSecurityScheme::class);
         }
 
-        if ($security === []) {
+        if ($securitySchemeFactories === []) {
             return $this->createSingleSecurityRequirement(PublicSecurityScheme::class);
         }
 
-        if ($this->isSingleAuthStringSecurity($security)) {
-            return $this->createSingleSecurityRequirement($security);
+        if ($this->isSingleAuthStringSecurity($securitySchemeFactories)) {
+            return $this->createSingleSecurityRequirement($securitySchemeFactories);
         }
 
-        if ($this->isSingleAuthArraySecurity($security)) {
-            if ($this->hasSingleArraySecurityWithin($security)) {
-                return $this->createSingleSecurityRequirement($security[0][0]);
+        if ($this->isSingleAuthArraySecurity($securitySchemeFactories)) {
+            if ($this->hasSingleArraySecurityWithin($securitySchemeFactories)) {
+                return $this->createSingleSecurityRequirement($securitySchemeFactories[0][0]);
             }
 
-            return $this->createSingleSecurityRequirement($security[0]);
+            return $this->createSingleSecurityRequirement($securitySchemeFactories[0]);
         }
 
-        if ($this->isMultiAuthArraySecurity($security)) {
-            return MultiAuthSecurityRequirement::createWith($security);
+        if ($this->isMultiAuthArraySecurity($securitySchemeFactories)) {
+            return MultiAuthSecurityRequirement::createWith($securitySchemeFactories);
         }
 
-        if ($this->isMultiAuthArraySecurity($security[0])) {
-            return MultiAuthSecurityRequirement::createWith($security);
+        if ($this->isMultiAuthArraySecurity($securitySchemeFactories[0])) {
+            return MultiAuthSecurityRequirement::createWith($securitySchemeFactories);
         }
 
         throw new RuntimeException('Invalid security configuration');

@@ -16,7 +16,7 @@ class TagBuilderTest extends TestCase
     /**
      * @dataProvider tagProvider
      */
-    public function testCanBuildTag(array $tagFactories, array $expected): void
+    public function testCanBuildTag(array|string $tagFactories, array $expected): void
     {
         $tagBuilder = app(TagBuilder::class);
         $tags = $tagBuilder->build($tagFactories);
@@ -26,6 +26,15 @@ class TagBuilderTest extends TestCase
     public function tagProvider(): array
     {
         return [
+            'can build factory from FQCN' => [
+                [WithoutExternalDoc::class],
+                [
+                    [
+                        'name' => 'Post',
+                        'description' => 'Post Tag',
+                    ],
+                ],
+            ],
             'If the external docs do not exist, it can output the correct json.' => [
                 [WithoutExternalDoc::class],
                 [
