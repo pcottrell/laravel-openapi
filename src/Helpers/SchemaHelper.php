@@ -5,7 +5,7 @@ namespace Vyuldashev\LaravelOpenApi\Helpers;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use ReflectionType;
 
-class SchemaHelpers
+class SchemaHelper
 {
     public static function guessFromReflectionType(ReflectionType $reflectionType): Schema
     {

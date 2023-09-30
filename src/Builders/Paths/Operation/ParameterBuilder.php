@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 use ReflectionParameter;
 use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
-use Vyuldashev\LaravelOpenApi\Helpers\SchemaHelpers;
+use Vyuldashev\LaravelOpenApi\Helpers\SchemaHelper;
 use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class ParameterBuilder
@@ -37,7 +37,7 @@ class ParameterBuilder
                         return null;
                     }
 
-                    $schema = SchemaHelpers::guessFromReflectionType($reflectionParameter->getType());
+                    $schema = SchemaHelper::guessFromReflectionType($reflectionParameter->getType());
                 }
 
                 return Parameter::path()->name($parameter['name'])
