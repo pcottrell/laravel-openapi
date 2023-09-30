@@ -4,22 +4,11 @@ namespace Vyuldashev\LaravelOpenApi\Objects;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Operation as ParentOperation;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement;
-use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
 
 class Operation extends ParentOperation
 {
-    public function tags(...$tags): self
-    {
-        $instance = clone $this;
-
-        $tagNames = collect(app(TagBuilder::class)->build($tags))->map->name->toArray();
-        $instance->tags = $tagNames ?: null;
-
-        return $instance;
-    }
-
     /**
      * You should only send one security requirement per operation.
      * If you send more than one, the first one will be used.

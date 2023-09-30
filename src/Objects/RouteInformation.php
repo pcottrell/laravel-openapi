@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vyuldashev\LaravelOpenApi;
+namespace Vyuldashev\LaravelOpenApi\Objects;
 
 use Attribute;
 use Illuminate\Routing\Controller;

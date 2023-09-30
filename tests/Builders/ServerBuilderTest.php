@@ -7,7 +7,7 @@ namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
 use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
-class ServersBuilderTest extends TestCase
+class ServerBuilderTest extends TestCase
 {
     /**
      * @dataProvider providerBuild

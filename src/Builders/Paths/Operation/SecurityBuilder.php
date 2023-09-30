@@ -3,14 +3,14 @@
 namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
 
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as OperationAttribute;
-use Vyuldashev\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+use Vyuldashev\LaravelOpenApi\Helpers\SecurityRequirementBuilderHelper;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
 
 class SecurityBuilder
 {
     public function __construct(
-        private readonly SecurityRequirementBuilder $securityRequirementBuilder,
+        private readonly SecurityRequirementBuilderHelper $securityRequirementBuilder,
     ) {
     }
 

@@ -5,7 +5,7 @@ namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use Vyuldashev\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class ResponseBuilder
 {

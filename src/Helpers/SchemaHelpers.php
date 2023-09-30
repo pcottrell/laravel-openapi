@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi;
+namespace Vyuldashev\LaravelOpenApi\Helpers;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use ReflectionType;

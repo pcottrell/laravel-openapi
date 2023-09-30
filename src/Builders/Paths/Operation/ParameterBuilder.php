@@ -8,8 +8,8 @@ use Illuminate\Support\Collection;
 use ReflectionParameter;
 use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
 use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
-use Vyuldashev\LaravelOpenApi\SchemaHelpers;
+use Vyuldashev\LaravelOpenApi\Helpers\SchemaHelpers;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class ParameterBuilder
 {

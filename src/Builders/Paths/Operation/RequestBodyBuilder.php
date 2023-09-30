@@ -6,7 +6,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use Vyuldashev\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
 use Vyuldashev\LaravelOpenApi\Factories\RequestBodyFactory;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class RequestBodyBuilder
 {

@@ -11,7 +11,7 @@ use Vyuldashev\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Contracts\PathMiddleware;
 use Vyuldashev\LaravelOpenApi\Generator;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class PathBuilder
 {

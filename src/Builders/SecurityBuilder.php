@@ -1,14 +1,14 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Components;
+namespace Vyuldashev\LaravelOpenApi\Builders;
 
-use Vyuldashev\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+use Vyuldashev\LaravelOpenApi\Helpers\SecurityRequirementBuilderHelper;
 use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
 
 class SecurityBuilder
 {
     public function __construct(
-        private readonly SecurityRequirementBuilder $securityRequirementBuilder,
+        private readonly SecurityRequirementBuilderHelper $securityRequirementBuilder,
     ) {
     }
 

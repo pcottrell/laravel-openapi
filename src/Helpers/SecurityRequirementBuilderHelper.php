@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders;
+namespace Vyuldashev\LaravelOpenApi\Helpers;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use RuntimeException;
@@ -10,7 +10,7 @@ use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
 
-class SecurityRequirementBuilder
+class SecurityRequirementBuilderHelper
 {
     /**
      * @throws InvalidArgumentException

@@ -3,7 +3,7 @@
 namespace Vyuldashev\LaravelOpenApi\Contracts;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 interface PathMiddleware
 {

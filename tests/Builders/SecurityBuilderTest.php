@@ -11,7 +11,7 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
 class SecurityBuilderTest extends TestCase
@@ -539,7 +539,6 @@ class SecurityBuilderTest extends TestCase
                     ->operations($operation)
             );
 
-        dump($openApi);
         // Assert that the generated JSON matches the expected JSON for this scenario
         $actionData = [
             $action => [],

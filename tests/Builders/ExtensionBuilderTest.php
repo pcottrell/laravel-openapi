@@ -11,7 +11,7 @@ use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
 use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
-class ExtensionsBuilderTest extends TestCase
+class ExtensionBuilderTest extends TestCase
 {
     public function testBuildUsingFactory(): void
     {

@@ -4,6 +4,7 @@ namespace Vyuldashev\LaravelOpenApi\Builders\Paths;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Vyuldashev\LaravelOpenApi\Attributes\Operation as OperationAttribute;
@@ -13,19 +14,21 @@ use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
 use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
+use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
 use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
 use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\RouteInformation;
+use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
 
 class OperationBuilder
 {
     public function __construct(
-        protected CallbackBuilder $callbackBuilder,
+        protected TagBuilder $tagBuilder,
         protected ParameterBuilder $parameterBuilder,
         protected RequestBodyBuilder $requestBodyBuilder,
         protected ResponseBuilder $responseBuilder,
+        protected SecurityBuilder $securityBuilder,
+        protected CallbackBuilder $callbackBuilder,
         protected ExtensionBuilder $extensionBuilder,
-        protected SecurityBuilder $securityBuilder
     ) {
     }
 
@@ -40,33 +43,19 @@ class OperationBuilder
 
         /** @var RouteInformation[] $routes */
         foreach ($routes as $route) {
-            /** @var OperationAttribute|null $operationAttribute */
-            $operationAttribute = $route->actionAttributes
-                ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
-
-            if (is_null($operationAttribute)) {
-                continue;
-            }
-
-            $operationId = $operationAttribute->id;
-            $tags = $operationAttribute->tags ?? [];
-            $servers = collect($operationAttribute->servers ?? [])
-                ->filter(static fn ($server) => app($server) instanceof ServerFactory)
-                ->map(static fn (string $server): Server => app($server)->build())
-                ->toArray();
+            [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers] = $this->parseAttribute($route);
 
             $parameters = $this->parameterBuilder->build($route);
             $requestBody = $this->requestBodyBuilder->build($route);
             $responses = $this->responseBuilder->build($route);
             $callbacks = $this->callbackBuilder->build($route);
-            $security = $this->securityBuilder->build($route);
 
             $operation = Operation::create()
-                ->action(Str::lower($operationAttribute->method ?? $route->method))
+                ->action($method)
                 ->tags(...$tags)
-                ->deprecated($operationAttribute->deprecated)
-                ->description($operationAttribute->description)
-                ->summary($operationAttribute->summary)
+                ->summary($summary)
+                ->description($description)
+                ->deprecated($deprecated)
                 ->operationId($operationId)
                 ->parameters(...$parameters)
                 ->requestBody($requestBody)
@@ -81,5 +70,37 @@ class OperationBuilder
         }
 
         return $operations;
+    }
+
+    private function parseAttribute(RouteInformation $route): array
+    {
+        /** @var OperationAttribute|null $operationAttribute */
+        $operationAttribute = $route->actionAttributes
+            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
+
+        $operationId = null;
+        $tags = [];
+        $security = null;
+        $method = Str::lower($route->method);
+        $summary = null;
+        $description = null;
+        $deprecated = null;
+        $servers = [];
+
+        if (!is_null($operationAttribute)) {
+            $operationId = $operationAttribute->id;
+            $tags = $this->tagBuilder->build(Arr::wrap($operationAttribute->tags));
+            $security = $this->securityBuilder->build($route);
+            $method = $operationAttribute->method ?? $method;
+            $servers = collect($operationAttribute->servers ?? [])
+                ->filter(static fn ($server) => app($server) instanceof ServerFactory)
+                ->map(static fn (string $server): Server => app($server)->build())
+                ->toArray();
+            $summary = $operationAttribute->summary;
+            $description = $operationAttribute->description;
+            $deprecated = $operationAttribute->deprecated;
+        }
+
+        return [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers];
     }
 }

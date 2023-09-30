@@ -5,8 +5,8 @@ namespace Vyuldashev\LaravelOpenApi\Builders\Components;
 use Illuminate\Support\Collection;
 use ReflectionClass;
 use Vyuldashev\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use Vyuldashev\LaravelOpenApi\ClassMapGenerator;
 use Vyuldashev\LaravelOpenApi\Generator;
+use Vyuldashev\LaravelOpenApi\Helpers\ClassMapGenerator;
 
 abstract class Builder
 {

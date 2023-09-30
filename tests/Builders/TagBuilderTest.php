@@ -9,7 +9,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
 use Vyuldashev\LaravelOpenApi\Tests\TestCase;
 
-class TagsBuilderTest extends TestCase
+class TagBuilderTest extends TestCase
 {
     /**
      * @dataProvider tagProvider
