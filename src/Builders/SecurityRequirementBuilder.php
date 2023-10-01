@@ -5,7 +5,6 @@ namespace Vyuldashev\LaravelOpenApi\Builders;
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use RuntimeException;
 use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
-use Vyuldashev\LaravelOpenApi\Objects\MultiAuthSecurityRequirement;
 use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
@@ -38,11 +37,11 @@ class SecurityRequirementBuilder
         }
 
         if ($this->isMultiAuthArraySecurity($securitySchemeFactories)) {
-            return MultiAuthSecurityRequirement::createWith($securitySchemeFactories);
+            return SecurityRequirement::create()->multiAuthSecurityScheme($securitySchemeFactories);
         }
 
         if ($this->isMultiAuthArraySecurity($securitySchemeFactories[0])) {
-            return MultiAuthSecurityRequirement::createWith($securitySchemeFactories);
+            return SecurityRequirement::create()->multiAuthSecurityScheme($securitySchemeFactories);
         }
 
         throw new RuntimeException('Invalid security configuration');
