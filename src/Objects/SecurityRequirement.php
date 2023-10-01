@@ -2,29 +2,19 @@
 
 namespace Vyuldashev\LaravelOpenApi\Objects;
 
-use Exception;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement as ParentSecurityRequirement;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\CircularDependencyException;
 use Illuminate\Support\Collection;
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 class SecurityRequirement extends ParentSecurityRequirement
 {
+    /**
+     * @var array<array-key, SecurityScheme|array<array-key, SecurityScheme>>
+     */
     protected array $multiAuthSecurityScheme = [];
 
-    protected function generate(): array
-    {
-        if (!empty($this->multiAuthSecurityScheme)) {
-            return $this->generateMultiAuth();
-        }
-
-        return [parent::generate()];
-    }
-
     /**
-     * @param SecurityScheme[] $multiAuthSecurityScheme
+     * @param array<array-key, SecurityScheme|array<array-key, SecurityScheme>> $multiAuthSecurityScheme
      */
     public function multiAuthSecurityScheme(array $multiAuthSecurityScheme): self
     {
@@ -35,70 +25,42 @@ class SecurityRequirement extends ParentSecurityRequirement
         return $instance;
     }
 
-    // TODO: skip generating if empty
+    protected function generate(): array
+    {
+        if (!empty($this->multiAuthSecurityScheme)) {
+            return $this->generateMultiAuth();
+        }
+
+        return [parent::generate()];
+    }
+
     private function generateMultiAuth(): array
     {
-        return $this->createSecurityRequirements()->map(
-            static function ($securityRequirement) {
-                if ($securityRequirement instanceof self) {
-                    return $securityRequirement->generate();
+        // TODO: maybe skip generating if empty?
+        $spec = collect($this->multiAuthSecurityScheme)->map(
+            static function ($securityScheme) {
+                if ($securityScheme instanceof SecurityScheme) {
+                    return self::create()->securityScheme($securityScheme)->generate();
                 }
 
-                return $securityRequirement->map(
-                    static function (self $securityRequirement): array {
-                        return $securityRequirement->generate();
-                    }
+                return collect($securityScheme)->map(
+                    static fn (SecurityScheme $securityScheme): array => self::create()->securityScheme($securityScheme)->generate()
                 )->collapse();
             }
-        )->reduce(
-            static function (Collection $carry, $item) {
-                if (count($item) > 1) {
-                    return $carry->add($item->reduce(
-                        static fn (Collection $carry, array $item) => $carry->merge($item),
-                        collect()
-                    ));
-                }
+        );
 
-                return $carry->merge($item);
-            },
-            collect()
-        )?->toArray();
-    }
+        // merge "and" & "or" security schemes based on https://swagger.io/docs/specification/authentication/
+        $fixedSpec = $spec->reduce(static function (Collection $carry, $item) {
+            if (count($item) > 1) {
+                return $carry->add($item->reduce(
+                    static fn (Collection $carry, array $item) => $carry->merge($item),
+                    collect()
+                ));
+            }
 
-    private function createSecurityRequirements(): Collection
-    {
-        // TODO: cannot have "no security e.g. []" while providing multiple other securities
-        // iterate over all $this->securitySchemeFactories items and check if any of them are NoSecurity
-        // throw new \Exception('Cannot disable security while providing multiple other securities');
-        return collect($this->multiAuthSecurityScheme)
-            // if item is a string, then we have to AND the security items
-            // if item is an array, then we have to OR the security items
-            ->map(function ($securityItem) {
-                if (is_string($securityItem)) {
-                    $scheme = $this->buildSecurityScheme($securityItem);
+            return $carry->merge($item);
+        }, collect());
 
-                    return self::create()->securityScheme($scheme);
-                }
-
-                return collect($securityItem)
-                    ->map(function ($securityScheme) {
-                        $scheme = $this->buildSecurityScheme($securityScheme);
-
-                        return self::create()->securityScheme($scheme);
-                    });
-            });
-    }
-
-    /**
-     * @param class-string<SecuritySchemeFactory> $securitySchemeFactory
-     *
-     * @throws BindingResolutionException
-     * @throws CircularDependencyException
-     */
-    private function buildSecurityScheme(string $securitySchemeFactory): SecurityScheme
-    {
-        assert(class_exists($securitySchemeFactory), new Exception('Security scheme factory does not exist'));
-
-        return app($securitySchemeFactory)->build();
+        return $fixedSpec->toArray();
     }
 }
