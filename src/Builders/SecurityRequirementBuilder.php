@@ -4,11 +4,11 @@ namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use RuntimeException;
 use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
+use RuntimeException;
 
 class SecurityRequirementBuilder
 {

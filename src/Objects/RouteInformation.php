@@ -9,11 +9,11 @@ use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 
 class RouteInformation
 {

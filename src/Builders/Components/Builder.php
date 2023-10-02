@@ -3,10 +3,10 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use Illuminate\Support\Collection;
-use ReflectionClass;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
+use ReflectionClass;
 
 abstract class Builder
 {
