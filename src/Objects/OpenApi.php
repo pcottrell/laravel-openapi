@@ -1,11 +1,11 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Objects;
+namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement;
 use GoldSpecDigital\ObjectOrientedOAS\OpenApi as ParentOpenApi;
-use Vyuldashev\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-use Vyuldashev\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
+use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
 
 class OpenApi extends ParentOpenApi
 {

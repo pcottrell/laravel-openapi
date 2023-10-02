@@ -1,12 +1,12 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Components;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use Illuminate\Support\Collection;
 use ReflectionClass;
-use Vyuldashev\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use Vyuldashev\LaravelOpenApi\Generator;
-use Vyuldashev\LaravelOpenApi\Helpers\ClassMapGenerator;
+use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
+use MohammadAlavi\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 
 abstract class Builder
 {

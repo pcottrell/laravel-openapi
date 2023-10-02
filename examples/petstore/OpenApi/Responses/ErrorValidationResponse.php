@@ -5,8 +5,8 @@ namespace Examples\Petstore\OpenApi\Responses;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\MediaType;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Response;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
-use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
+use MohammadAlavi\LaravelOpenApi\Factories\ResponseFactory;
 
 class ErrorValidationResponse extends ResponseFactory implements Reusable
 {

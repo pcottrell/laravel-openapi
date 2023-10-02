@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Vyuldashev\LaravelOpenApi;
+namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use Vyuldashev\LaravelOpenApi\Builders\ComponentBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\CallbackBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\RequestBodyBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\ResponseBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\SchemaBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Components\SecuritySchemeBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\InfoBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\PathBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ComponentBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\CallbackBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\RequestBodyBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\ResponseBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\SchemaBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\SecuritySchemeBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\PathBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 
 class OpenApiServiceProvider extends ServiceProvider
 {

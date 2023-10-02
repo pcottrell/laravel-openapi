@@ -3,8 +3,8 @@
 namespace Examples\Petstore\OpenApi\SecuritySchemes;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use Vyuldashev\LaravelOpenApi\Attributes\Collection;
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
+use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 class BearerTokenSecurityScheme extends SecuritySchemeFactory
 {

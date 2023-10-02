@@ -1,11 +1,11 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\BaseObject;
 use Illuminate\Support\Collection;
-use Vyuldashev\LaravelOpenApi\Attributes\Extension as ExtensionAttribute;
-use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
+use MohammadAlavi\LaravelOpenApi\Attributes\Extension as ExtensionAttribute;
+use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 
 class ExtensionBuilder
 {

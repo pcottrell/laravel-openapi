@@ -11,17 +11,17 @@ return [
             ],
 
             'servers' => [
-                // Servers should extend `Vyuldashev\LaravelOpenApi\Factories\ServerFactory` class.
+                // Servers should extend `MohammadAlavi\LaravelOpenApi\Factories\ServerFactory` class.
                 // ExampleServer::class
             ],
 
             'tags' => [
-                // Tags should extend `Vyuldashev\LaravelOpenApi\Factories\TagFactory` class.
+                // Tags should extend `MohammadAlavi\LaravelOpenApi\Factories\TagFactory` class.
                 // ExampleTag::class,
             ],
 
             'security' => [
-                // Security schemes should extend `Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory` class.
+                // Security schemes should extend `MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory` class.
                 // BearerTokenSecurityScheme::class,
             ],
 

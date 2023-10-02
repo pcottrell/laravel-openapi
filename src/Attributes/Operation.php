@@ -1,12 +1,12 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Attributes;
+namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
 use Attribute;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
-use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
-use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Operation

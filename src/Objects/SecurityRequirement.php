@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Objects;
+namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityRequirement as ParentSecurityRequirement;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;

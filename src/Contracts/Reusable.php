@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Contracts;
+namespace MohammadAlavi\LaravelOpenApi\Contracts;
 
 /**
  * Implementing this interface will indicate that object should be included in components object.

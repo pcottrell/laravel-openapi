@@ -1,9 +1,9 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Http;
+namespace MohammadAlavi\LaravelOpenApi\Http;
 
-use Vyuldashev\LaravelOpenApi\Generator;
-use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 
 class OpenApiController
 {

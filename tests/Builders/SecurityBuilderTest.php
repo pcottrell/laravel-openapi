@@ -1,18 +1,18 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use Vyuldashev\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
-use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
-use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
-use Vyuldashev\LaravelOpenApi\Tests\TestCase;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
 
 class SecurityBuilderTest extends TestCase
 {

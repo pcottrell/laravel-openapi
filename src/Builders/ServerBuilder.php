@@ -1,11 +1,11 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
-use Vyuldashev\LaravelOpenApi\Helpers\BuilderHelper;
+use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Helpers\BuilderHelper;
 
 class ServerBuilder
 {

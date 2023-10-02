@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Helpers;
+namespace MohammadAlavi\LaravelOpenApi\Helpers;
 
 use Iterator;
 use RecursiveDirectoryIterator;

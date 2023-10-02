@@ -1,17 +1,17 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
-use Vyuldashev\LaravelOpenApi\Attributes;
-use Vyuldashev\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\OperationBuilder;
-use Vyuldashev\LaravelOpenApi\Contracts\PathMiddleware;
-use Vyuldashev\LaravelOpenApi\Generator;
-use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Attributes;
+use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
+use MohammadAlavi\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
 class PathBuilder
 {

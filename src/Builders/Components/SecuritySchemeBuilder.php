@@ -1,9 +1,9 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Components;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
-use Vyuldashev\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Generator;
 
 class SecuritySchemeBuilder extends Builder
 {

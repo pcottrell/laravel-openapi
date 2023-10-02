@@ -1,13 +1,13 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 
 class TagBuilder
 {
     public function __construct(
-        private readonly \Vyuldashev\LaravelOpenApi\Builders\TagBuilder $tagBuilder,
+        private readonly \MohammadAlavi\LaravelOpenApi\Builders\TagBuilder $tagBuilder,
     ) {
     }
 

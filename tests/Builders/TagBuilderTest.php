@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
-use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
-use Vyuldashev\LaravelOpenApi\Tests\TestCase;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
 
 class TagBuilderTest extends TestCase
 {

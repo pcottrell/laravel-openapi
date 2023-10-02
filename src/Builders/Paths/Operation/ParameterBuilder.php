@@ -1,15 +1,15 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Illuminate\Support\Collection;
 use ReflectionParameter;
-use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
-use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
-use Vyuldashev\LaravelOpenApi\Helpers\SchemaHelper;
-use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
+use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Helpers\SchemaHelper;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
 class ParameterBuilder
 {

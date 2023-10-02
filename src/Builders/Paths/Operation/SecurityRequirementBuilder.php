@@ -1,13 +1,13 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
-use Vyuldashev\LaravelOpenApi\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
 
 class SecurityRequirementBuilder
 {
     public function __construct(
-        private readonly \Vyuldashev\LaravelOpenApi\Builders\SecurityRequirementBuilder $securityRequirementBuilder,
+        private readonly \MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder $securityRequirementBuilder,
     ) {
     }
 

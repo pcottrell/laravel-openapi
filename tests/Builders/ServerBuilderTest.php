@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ServerVariable;
-use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
-use Vyuldashev\LaravelOpenApi\Factories\ServerFactory;
-use Vyuldashev\LaravelOpenApi\Tests\TestCase;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
 
 class ServerBuilderTest extends TestCase
 {

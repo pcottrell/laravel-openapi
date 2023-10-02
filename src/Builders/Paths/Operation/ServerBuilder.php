@@ -1,13 +1,13 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 
 class ServerBuilder
 {
     public function __construct(
-        private readonly \Vyuldashev\LaravelOpenApi\Builders\ServerBuilder $serverBuilder,
+        private readonly \MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder $serverBuilder,
     ) {
     }
 

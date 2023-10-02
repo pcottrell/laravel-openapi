@@ -1,10 +1,10 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Attributes;
+namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
 use Attribute;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Factories\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
 
 #[Attribute(Attribute::TARGET_METHOD)]
 class Parameters

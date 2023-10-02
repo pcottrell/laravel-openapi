@@ -1,13 +1,13 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Tests;
+namespace MohammadAlavi\LaravelOpenApi\Tests;
 
 use Examples\Petstore\PetController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithMultipleVariableFormatting;
-use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithoutVariables;
-use Vyuldashev\LaravelOpenApi\Tests\Builders\ServerWithVariables;
+use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithMultipleVariableFormatting;
+use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithoutVariables;
+use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithVariables;
 
 /**
  * @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml

@@ -1,15 +1,15 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Tests\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\Attributes\Extension;
-use Vyuldashev\LaravelOpenApi\Builders\ExtensionBuilder;
-use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
-use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
-use Vyuldashev\LaravelOpenApi\Tests\TestCase;
+use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
+use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
+use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
+use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
 
 class ExtensionBuilderTest extends TestCase
 {

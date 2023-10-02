@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Console;
+namespace MohammadAlavi\LaravelOpenApi\Console;
 
 use Doctrine\DBAL\Schema\Column;
 use Doctrine\DBAL\Types\BooleanType;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Vyuldashev\LaravelOpenApi\Objects;
+namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use Attribute;
 use Illuminate\Routing\Controller;
@@ -13,7 +13,7 @@ use ReflectionAttribute;
 use ReflectionClass;
 use ReflectionException;
 use ReflectionParameter;
-use Vyuldashev\LaravelOpenApi\Attributes\Parameters;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 
 class RouteInformation
 {

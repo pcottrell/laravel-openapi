@@ -1,9 +1,9 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\SecuritySchemes;
+namespace MohammadAlavi\LaravelOpenApi\SecuritySchemes;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use Vyuldashev\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 class DefaultSecurityScheme extends SecuritySchemeFactory
 {

@@ -1,14 +1,14 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi;
+namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Support\Arr;
-use Vyuldashev\LaravelOpenApi\Builders\ComponentBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\InfoBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\PathBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\ServerBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\TagBuilder;
-use Vyuldashev\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\Builders\ComponentBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\PathBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 
 class Generator
 {

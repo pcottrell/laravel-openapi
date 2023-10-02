@@ -8,7 +8,7 @@ use Examples\Petstore\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
 use Examples\Petstore\OpenApi\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
 use Examples\Petstore\OpenApi\Tags\AnotherPetTag;
 use Examples\Petstore\OpenApi\Tags\PetTag;
-use Vyuldashev\LaravelOpenApi\Attributes as OpenApi;
+use MohammadAlavi\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]
 class PetController

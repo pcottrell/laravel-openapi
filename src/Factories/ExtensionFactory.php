@@ -1,6 +1,6 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Factories;
+namespace MohammadAlavi\LaravelOpenApi\Factories;
 
 abstract class ExtensionFactory
 {

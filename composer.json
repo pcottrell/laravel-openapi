@@ -1,5 +1,5 @@
 {
-    "name": "vyuldashev/laravel-openapi",
+    "name": "mohammad-alavi/laravel-openapi",
     "description": "Generate OpenAPI Specification for Laravel Applications",
     "keywords": [
         "laravel",
@@ -14,8 +14,8 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Vladimir Yuldashev",
-            "email": "misterio92@gmail.com"
+            "name": "Mohammad Alavi",
+            "email": "mohammad.alavi1990@gmail.com"
         }
     ],
     "require": {
@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Vyuldashev\\LaravelOpenApi\\": "src/"
+            "MohammadAlavi\\LaravelOpenApi\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Vyuldashev\\LaravelOpenApi\\Tests\\": "tests/",
+            "MohammadAlavi\\LaravelOpenApi\\Tests\\": "tests/",
             "Examples\\Petstore\\": "examples/petstore/"
         }
     },
@@ -54,7 +54,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Vyuldashev\\LaravelOpenApi\\OpenApiServiceProvider"
+                "MohammadAlavi\\LaravelOpenApi\\OpenApiServiceProvider"
             ]
         }
     },

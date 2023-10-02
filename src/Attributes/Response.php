@@ -1,10 +1,10 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Attributes;
+namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
 use Attribute;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Factories\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ResponseFactory;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
 class Response

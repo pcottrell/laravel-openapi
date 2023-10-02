@@ -1,22 +1,22 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Paths;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Paths;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Vyuldashev\LaravelOpenApi\Attributes\Operation as OperationAttribute;
-use Vyuldashev\LaravelOpenApi\Builders\ExtensionBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
-use Vyuldashev\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
-use Vyuldashev\LaravelOpenApi\Objects\Operation;
-use Vyuldashev\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
+use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
 class OperationBuilder
 {

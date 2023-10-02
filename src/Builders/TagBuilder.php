@@ -1,11 +1,11 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use InvalidArgumentException;
-use Vyuldashev\LaravelOpenApi\Factories\TagFactory;
-use Vyuldashev\LaravelOpenApi\Helpers\BuilderHelper;
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Helpers\BuilderHelper;
 
 class TagBuilder
 {

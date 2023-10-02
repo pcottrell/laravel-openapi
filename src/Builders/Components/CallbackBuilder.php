@@ -1,10 +1,10 @@
 <?php
 
-namespace Vyuldashev\LaravelOpenApi\Builders\Components;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
-use Vyuldashev\LaravelOpenApi\Contracts\Reusable;
-use Vyuldashev\LaravelOpenApi\Factories\CallbackFactory;
-use Vyuldashev\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
+use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Generator;
 
 class CallbackBuilder extends Builder
 {
