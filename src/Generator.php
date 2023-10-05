@@ -9,6 +9,7 @@ use MohammadAlavi\LaravelOpenApi\Builders\PathBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use Stringable;
 
 class Generator
 {
@@ -63,7 +64,7 @@ class Generator
 
     private function isStringable(string $name): bool
     {
-        return class_exists($name) && is_subclass_of($name, \Stringable::class, true);
+        return class_exists($name) && is_subclass_of($name, Stringable::class, true);
     }
 
     private function getString(string $name): string
