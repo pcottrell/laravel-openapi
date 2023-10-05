@@ -35,6 +35,7 @@ class Generator
         $paths = $this->pathBuilder->build($collection, Arr::get($middlewares, 'paths', []));
         $components = $this->componentBuilder->build($collection, Arr::get($middlewares, 'components', []));
         $extensions = Arr::get($this->config, 'collections.' . $collection . '.extensions', []);
+        $security = Arr::get($this->config, 'collections.' . $collection . '.security', []);
 
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_2)
@@ -42,7 +43,7 @@ class Generator
             ->servers(...$servers)
             ->paths(...$paths)
             ->components($components)
-            ->multiAuthSecurity(Arr::get($this->config, 'collections.' . $collection . '.security', []))
+            ->multiAuthSecurity($security)
             ->tags(...$tags);
 
         foreach ($extensions as $key => $value) {
