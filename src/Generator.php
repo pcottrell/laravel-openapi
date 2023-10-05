@@ -27,15 +27,23 @@ class Generator
 
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
+        $collection = $this->getString($collection);
+        $availableCollections = Arr::get($this->config, 'collections');
+        $availableCollections = array_keys($availableCollections);
+        $collectionMap = [];
+        foreach ($availableCollections as $item) {
+            $collectionMap[$this->getString($item)] = $item;
+        }
+
         $middlewares = Arr::get($this->config, 'collections.' . $collection . '.middlewares');
 
-        $info = $this->infoBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.info', []));
-        $servers = $this->serverBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.servers', []));
-        $tags = $this->tagBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.tags', []));
+        $info = $this->infoBuilder->build(Arr::get($this->config, 'collections.' . $collectionMap[$collection] . '.info', []));
+        $servers = $this->serverBuilder->build(Arr::get($this->config, 'collections.' . $collectionMap[$collection] . '.servers', []));
+        $tags = $this->tagBuilder->build(Arr::get($this->config, 'collections.' . $collectionMap[$collection] . '.tags', []));
         $paths = $this->pathBuilder->build($collection, Arr::get($middlewares, 'paths', []));
         $components = $this->componentBuilder->build($collection, Arr::get($middlewares, 'components', []));
-        $extensions = Arr::get($this->config, 'collections.' . $collection . '.extensions', []);
-        $security = Arr::get($this->config, 'collections.' . $collection . '.security', []);
+        $extensions = Arr::get($this->config, 'collections.' . $collectionMap[$collection] . '.extensions', []);
+        $security = Arr::get($this->config, 'collections.' . $collectionMap[$collection] . '.security', []);
 
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_2)
@@ -51,5 +59,19 @@ class Generator
         }
 
         return $openApi;
+    }
+
+    private function isStringable(string $name): bool
+    {
+        return class_exists($name) && is_subclass_of($name, \Stringable::class, true);
+    }
+
+    private function getString(string $name): string
+    {
+        if ($this->isStringable($name)) {
+            return (string) (new $name());
+        }
+
+        return $name;
     }
 }
