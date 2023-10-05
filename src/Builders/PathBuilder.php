@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders;
 
+use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
@@ -25,6 +26,8 @@ class PathBuilder
 
     /**
      * @param PathMiddleware[] $middlewares
+     *
+     * @throws InvalidArgumentException
      */
     public function build(
         string $collection,
@@ -32,11 +35,27 @@ class PathBuilder
     ): array {
         return $this->routes()
             ->filter(static function (RouteInformation $routeInformation) use ($collection) {
+                // TODO: use these docs to refactor and simplify this code
                 /** @var CollectionAttribute|null $collectionAttribute */
+                // You can set the collection either on controller or per action (on each method)
+                // the controller collection always overrides the action collection
                 $collectionAttribute = collect()
                     ->merge($routeInformation->controllerAttributes)
                     ->merge($routeInformation->actionAttributes)
                     ->first(static fn (object $item) => $item instanceof CollectionAttribute);
+                // $collectionAttribute is the list of collections that this controller or action belongs to
+                // $collectionAttribute are collection attributes added to [#Collection] on the controller or action
+                // $collectionAttribute->name is an array of strings, each string is a collection name (e.g. 'public', 'private', 'default')
+                // $collectionAttribute->name is the name of the collections that this controller or action belongs to.
+                // Maybe 'names' or 'collectionNames' was a more suitable name for this property.
+
+                // $collection comes in from documentation config types
+                // It is the name of the current collection being built
+
+                // if there is no collection attribute on the controller or action, then $collectionAttribute will be null
+                //                if (!$collectionAttribute) {
+                //                    dump('dead!', $collectionAttribute);
+                //                }
 
                 return
                     (!$collectionAttribute && Generator::COLLECTION_DEFAULT === $collection)
