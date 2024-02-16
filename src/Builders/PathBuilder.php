@@ -16,12 +16,12 @@ use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
 class PathBuilder
 {
-    protected OperationBuilder $operationsBuilder;
+    private OperationBuilder $operationBuilder;
 
     public function __construct(
         OperationBuilder $operationBuilder
     ) {
-        $this->operationsBuilder = $operationBuilder;
+        $this->operationBuilder = $operationBuilder;
     }
 
     /**
@@ -72,7 +72,7 @@ class PathBuilder
             ->map(function (Collection $routes, $uri) {
                 $pathItem = PathItem::create()->route($uri);
 
-                $operations = $this->operationsBuilder->build($routes);
+                $operations = $this->operationBuilder->build($routes);
 
                 return $pathItem->operations(...$operations);
             })
@@ -89,7 +89,6 @@ class PathBuilder
 
     protected function routes(): Collection
     {
-        /** @noinspection CollectFunctionInCollectionInspection */
         return collect(app(Router::class)->getRoutes())
             ->filter(static fn (Route $route) => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route) => RouteInformation::createFromRoute($route))
