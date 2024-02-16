@@ -12,10 +12,10 @@ class TagBuilder
     }
 
     /**
-     * @return string[]
+     * @return Tag[]
      */
-    public function build(array $tags): array
+    public function build(array $tagFactories): array
     {
-        return collect($this->tagBuilder->build($tags))->map(static fn (Tag $tag) => $tag->name)->toArray();
+        return $this->tagBuilder->build($tagFactories);
     }
 }
