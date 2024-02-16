@@ -27,7 +27,6 @@ class Generator
 
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
-
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));
         $servers = $this->serverBuilder->build($this->getConfigFor('servers', $collection));
         $extensions = $this->getConfigFor('extensions', $collection);
