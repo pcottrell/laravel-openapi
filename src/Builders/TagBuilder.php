@@ -17,10 +17,11 @@ class TagBuilder
     public function build(array $tagFactories): array
     {
         return collect($tagFactories)
-            ->filter(static fn ($tag) => app($tag) instanceof TagFactory)
-            ->map(static function (string $tag): Tag {
-                /** @var Tag $tag */
-                $tag = app($tag)->build();
+            ->filter(static fn ($tag) => is_a($tag, TagFactory::class, true))
+            ->map(static function (string $tagFactory): Tag {
+                /** @var TagFactory $tagFactoryInstance */
+                $tagFactoryInstance = app($tagFactory);
+                $tag = $tagFactoryInstance->build();
 
                 throw_if(BuilderHelper::hasInvalidField($tag->toArray(), 'name'), new InvalidArgumentException('Tag name is required.'));
 
