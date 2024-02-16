@@ -38,7 +38,7 @@ class TagBuilderTest extends TestCase
             self::assertSame($value, $actual[$key]);
             unset($actual[$key]);
         }
-        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
+        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
     }
 
     public function singleTagProvider(): array
