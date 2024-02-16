@@ -12,30 +12,31 @@ use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 
 class Generator
 {
-    public string $version = OpenApi::OPENAPI_3_0_2;
     public const COLLECTION_DEFAULT = 'default';
+    public string $version = OpenApi::OPENAPI_3_0_2;
 
     public function __construct(
-        private array $config,
-        private InfoBuilder $infoBuilder,
-        private ServerBuilder $serverBuilder,
-        private TagBuilder $tagBuilder,
-        private PathBuilder $pathBuilder,
-        private ComponentBuilder $componentBuilder,
+        private readonly array $config,
+        private readonly InfoBuilder $infoBuilder,
+        private readonly ServerBuilder $serverBuilder,
+        private readonly TagBuilder $tagBuilder,
+        private readonly PathBuilder $pathBuilder,
+        private readonly ComponentBuilder $componentBuilder,
     ) {
     }
 
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
-        $middlewares = Arr::get($this->config, 'collections.' . $collection . '.middlewares');
 
-        $info = $this->infoBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.info', []));
-        $servers = $this->serverBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.servers', []));
-        $tags = $this->tagBuilder->build(Arr::get($this->config, 'collections.' . $collection . '.tags', []));
-        $paths = $this->pathBuilder->build($collection, Arr::get($middlewares, 'paths', []));
-        $components = $this->componentBuilder->build($collection, Arr::get($middlewares, 'components', []));
-        $extensions = Arr::get($this->config, 'collections.' . $collection . '.extensions', []);
-        $security = Arr::get($this->config, 'collections.' . $collection . '.security', []);
+        $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));
+        $servers = $this->serverBuilder->build($this->getConfigFor('servers', $collection));
+        $extensions = $this->getConfigFor('extensions', $collection);
+        $security = $this->getConfigFor('security', $collection);
+
+        $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
+        $paths = $this->pathBuilder->build($collection, Arr::get($middlewaresConfig, 'paths', []));
+        $components = $this->componentBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
+        $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_2)
@@ -51,5 +52,10 @@ class Generator
         }
 
         return $openApi;
+    }
+
+    private function getConfigFor(string $configKey, string $collection): array
+    {
+        return Arr::get($this->config, 'collections.' . $collection . '.' . $configKey, []);
     }
 }
