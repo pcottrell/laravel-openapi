@@ -17,10 +17,10 @@ use ReflectionParameter;
 
 class RouteInformation
 {
-    public string|null $domain;
+    public ?string $domain;
     public string $method;
     public string $uri;
-    public string|null $name;
+    public ?string $name;
     /** @var string|class-string<Controller> */
     public string $controller;
     public Collection $parameters;
