@@ -6,3 +6,6 @@ phpunit.xml
 .bash_aliases
 .php-cs-fixer.cache
 /psalm_cache
+.env
+.env.*
+docs/.vitepress/cache

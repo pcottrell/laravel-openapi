@@ -50,7 +50,7 @@ Alternatively, you can achieve the same result by using the Operation attribute 
 
 ## Security
 
-See [Security](../security.md#operation-level-example)
+See [Security](security.md#operation-level-example)
 
 ## Tags
 
