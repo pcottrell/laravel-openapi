@@ -19,9 +19,6 @@
 <a href="https://github.com/apiato/apiato">
 <img src="https://img.shields.io/github/license/mohammad-alavi/laravel-openapi" alt="license">
 </a>
-<a href="https://discord.gg/ryPcV4KM5k">
-<img src="https://img.shields.io/discord/800815227839053834?logo=discord&label=chat" alt="chat">
-</a>
 
 ## Documentation
 
