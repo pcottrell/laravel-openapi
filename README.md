@@ -1,13 +1,31 @@
 # Generate OpenAPI specification for Laravel Applications
 
-[![Latest Version on Packagist](https://poser.pugx.org/vyuldashev/laravel-openapi/v/stable?format=flat-square)](https://packagist.org/packages/vyuldashev/laravel-openapi)
-[![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
-[![Build Status](https://github.com/vyuldashev/laravel-openapi/workflows/Tests/badge.svg)](https://github.com/vyuldashev/laravel-openapi/actions)
-[![Total Downloads](https://img.shields.io/packagist/dt/vyuldashev/laravel-openapi.svg?style=flat-square)](https://packagist.org/packages/vyuldashev/laravel-openapi)
+<p align="center">
+<a href="https://github.com/Mohammad-Alavi/laravel-openapi/actions/workflows/tests.yml">
+<img src="https://img.shields.io/github/actions/workflow/status/Mohammad-Alavi/laravel-openapi/tests.yml?label=tests" alt="tests status">
+</a>
+
+<a href="https://codecov.io/gh/Mohammad-Alavi/laravel-openapi" > 
+ <img src="https://codecov.io/gh/Mohammad-Alavi/laravel-openapi/graph/badge.svg?token=WIPZZOJ3RQ" alt="code coverage"/> 
+</a>
+
+<a href="https://packagist.org/packages/mohammad-alavi/laravel-openapi">
+<img src="https://img.shields.io/packagist/v/mohammad-alavi/laravel-openapi" alt="latest stable version">
+</a>
+<br>
+<a href="https://packagist.org/packages/mohammad-alavi/laravel-openapi">
+<img src="https://img.shields.io/packagist/dt/mohammad-alavi/laravel-openapi" alt="total downloads">
+</a>
+<a href="https://github.com/apiato/apiato">
+<img src="https://img.shields.io/github/license/mohammad-alavi/laravel-openapi" alt="license">
+</a>
+<a href="https://discord.gg/ryPcV4KM5k">
+<img src="https://img.shields.io/discord/800815227839053834?logo=discord&label=chat" alt="chat">
+</a>
 
 ## Documentation
 
-You'll find the documentation on https://vyuldashev.github.io/laravel-openapi.
+You'll find the documentation on https://mohammad-alavi.github.io/laravel-openapi/
 
 ## License
 
