@@ -9,13 +9,11 @@ class SchemaHelper
 {
     public static function guessFromReflectionType(ReflectionType $reflectionType): Schema
     {
-        switch ($reflectionType->getName()) {
-            case 'int':
-                return Schema::integer();
-            case 'bool':
-                return Schema::boolean();
-        }
+        return match ($reflectionType->getName()) {
+            'int' => Schema::integer(),
+            'bool' => Schema::boolean(),
+            default => Schema::string(),
+        };
 
-        return Schema::string();
     }
 }
