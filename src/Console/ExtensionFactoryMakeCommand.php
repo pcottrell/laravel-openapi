@@ -11,12 +11,11 @@ class ExtensionFactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new extension factory class';
     protected $type = 'Extension';
 
-    protected function buildClass($name)
+    protected function buildClass($name): array|string
     {
         $output = parent::buildClass($name);
-        $output = str_replace('DummyExtension', Str::start(Str::snake(Str::replaceLast('DummyExtension', '', class_basename($name)), '-'), 'x-'), $output);
 
-        return $output;
+        return str_replace('DummyExtension', Str::start(Str::snake(Str::replaceLast('DummyExtension', '', class_basename($name)), '-'), 'x-'), $output);
     }
 
     protected function getStub(): string

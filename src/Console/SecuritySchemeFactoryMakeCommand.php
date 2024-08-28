@@ -11,12 +11,11 @@ class SecuritySchemeFactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new SecurityScheme factory class';
     protected $type = 'SecurityScheme';
 
-    protected function buildClass($name)
+    protected function buildClass($name): array|string
     {
         $output = parent::buildClass($name);
-        $output = str_replace('DummySecurityScheme', Str::replaceLast('SecurityScheme', '', class_basename($name)), $output);
 
-        return $output;
+        return str_replace('DummySecurityScheme', Str::replaceLast('SecurityScheme', '', class_basename($name)), $output);
     }
 
     protected function getStub(): string

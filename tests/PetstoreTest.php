@@ -1,20 +1,23 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Tests;
+namespace Tests;
 
 use Examples\Petstore\PetController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithMultipleVariableFormatting;
-use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithoutVariables;
-use MohammadAlavi\LaravelOpenApi\Tests\Builders\ServerWithVariables;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Unit\Builders\ServerWithMultipleVariableFormatting;
+use Tests\Unit\Builders\ServerWithVariables;
+use Tests\Unit\Builders\ServerWithoutVariables;
 
 /**
  * @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml
  */
+#[CoversClass(PetController::class)]
 class PetstoreTest extends TestCase
 {
-    public function expectationProvider()
+    public static function expectationProvider(): array
     {
         return [
             [
@@ -213,9 +216,7 @@ class PetstoreTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider expectationProvider
-     */
+    #[DataProvider('expectationProvider')]
     public function testGenerate(array $servers, string $path, string $method, array $expectation): void
     {
         Config::set('openapi.collections.default.servers', $servers['classes']);

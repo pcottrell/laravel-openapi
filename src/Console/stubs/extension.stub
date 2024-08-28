@@ -11,7 +11,7 @@ class DummyClass extends ExtensionFactory
         return 'DummyExtension';
     }
 
-    public function value()
+    public function value(): array|string|Schema|null
     {
         return null;
     }

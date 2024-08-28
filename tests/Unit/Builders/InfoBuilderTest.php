@@ -2,16 +2,17 @@
 
 declare(strict_types=1);
 
-namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
+namespace Tests\Unit\Builders;
 
 use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
+#[CoversClass(InfoBuilder::class)]
 class InfoBuilderTest extends TestCase
 {
-    /**
-     * @dataProvider providerBuildContact
-     */
+    #[DataProvider('providerBuildContact')]
     public function testBuildContact(array $config, array $expected): void
     {
         $SUT = new InfoBuilder();
@@ -19,7 +20,7 @@ class InfoBuilderTest extends TestCase
         $this->assertSameAssociativeArray($expected, $info->toArray());
     }
 
-    public function providerBuildContact(): array
+    public static function providerBuildContact(): array
     {
         $common = [
             'title' => 'sample_title',

@@ -14,7 +14,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 trait Referencable
 {
-    public static function ref(?string $objectId = null): Schema
+    public static function ref(string $objectId = null): Schema
     {
         $instance = app(static::class);
 

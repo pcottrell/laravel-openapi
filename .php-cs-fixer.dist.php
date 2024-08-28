@@ -25,7 +25,7 @@ return (new PhpCsFixer\Config())
             'import_functions' => true,
         ],
         'nullable_type_declaration_for_default_null_value' => [
-            'use_nullable_type_declaration' => true,
+            'use_nullable_type_declaration' => false,
         ],
     ])
     ->setFinder($finder);

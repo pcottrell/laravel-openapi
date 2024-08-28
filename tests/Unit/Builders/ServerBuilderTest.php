@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
+namespace Tests\Unit\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ServerVariable;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
+#[CoversClass(ServerBuilder::class)]
 class ServerBuilderTest extends TestCase
 {
-    /**
-     * @dataProvider serverFQCNProvider
-     */
+    #[DataProvider('serverFQCNProvider')]
     public function testCanBuildServerFromFQCN(array $serverFactories, array $expected): void
     {
         $builder = new ServerBuilder();
@@ -39,7 +40,7 @@ class ServerBuilderTest extends TestCase
         self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
     }
 
-    public function serverFQCNProvider(): array
+    public static function serverFQCNProvider(): array
     {
         return [
             'Can build server without variables' => [
@@ -109,7 +110,7 @@ class ServerBuilderTest extends TestCase
         ];
     }
 
-    public function multiTagProvider()
+    public static function multiTagProvider(): array
     {
         return [
             'Can build multiple server from an array of FQCNs' => [
@@ -145,9 +146,7 @@ class ServerBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider multiTagProvider
-     */
+    #[DataProvider('multiTagProvider')]
     public function testCanBuildFromServerArray(array $tagFactories, array $expected): void
     {
         $builder = app(ServerBuilder::class);

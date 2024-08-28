@@ -2,12 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Factories;
 
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
+
 abstract class ExtensionFactory
 {
     abstract public function key(): string;
 
-    /**
-     * @return string|array|null
-     */
-    abstract public function value();
+    abstract public function value(): array|string|Schema|null;
 }

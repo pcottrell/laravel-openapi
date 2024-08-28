@@ -2,20 +2,21 @@
 
 declare(strict_types=1);
 
-namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
+namespace Tests\Unit\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
+#[CoversClass(TagBuilder::class)]
 class TagBuilderTest extends TestCase
 {
-    /**
-     * @dataProvider singleTagProvider
-     */
+    #[DataProvider('singleTagProvider')]
     public function testCanBuildTag(array $tagFactories, array $expected): void
     {
         $builder = app(TagBuilder::class);
@@ -41,7 +42,7 @@ class TagBuilderTest extends TestCase
         self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
     }
 
-    public function singleTagProvider(): array
+    public static function singleTagProvider(): array
     {
         return [
             'Can build tag from array with one FQCN' => [
@@ -78,7 +79,7 @@ class TagBuilderTest extends TestCase
         ];
     }
 
-    public function multiTagProvider()
+    public static function multiTagProvider(): array
     {
         return [
             'Can build multiple tags from an array of FQCNs' => [
@@ -101,9 +102,7 @@ class TagBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider multiTagProvider
-     */
+    #[DataProvider('multiTagProvider')]
     public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
     {
         $builder = app(TagBuilder::class);
@@ -112,7 +111,7 @@ class TagBuilderTest extends TestCase
         $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
     }
 
-    public function invalidTagProvider()
+    public static function invalidTagProvider(): array
     {
         return [
             [WithoutName::class],
@@ -121,9 +120,7 @@ class TagBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidTagProvider
-     */
+    #[DataProvider('invalidTagProvider')]
     public function testGivenNameNotProvidedCanProduceCorrectException(string $invalidTag): void
     {
         $this->expectException(InvalidArgumentException::class);

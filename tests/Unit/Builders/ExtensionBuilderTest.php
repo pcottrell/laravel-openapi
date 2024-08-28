@@ -1,16 +1,18 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
+namespace Tests\Unit\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
+use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use PHPUnit\Framework\Attributes\CoversClass;
+use Tests\TestCase;
 
+#[CoversClass(ExtensionBuilder::class)]
 class ExtensionBuilderTest extends TestCase
 {
     public function testBuildUsingFactory(): void
@@ -79,10 +81,7 @@ class FakeExtension extends ExtensionFactory
         return 'uuid';
     }
 
-    /**
-     * @return string|array|null
-     */
-    public function value()
+    public function value(): array|string|Schema|null
     {
         return Schema::string()->format(Schema::FORMAT_UUID);
     }

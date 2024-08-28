@@ -21,7 +21,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
     protected $description = 'Create a new Schema factory class';
     protected $type = 'Schema';
 
-    protected function buildClass($name)
+    protected function buildClass($name): array|string
     {
         $output = parent::buildClass($name);
         $output = str_replace('DummySchema', Str::replaceLast('Schema', '', class_basename($name)), $output);
@@ -33,7 +33,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         return $output;
     }
 
-    protected function buildModel($output, $model)
+    protected function buildModel($output, $model): array|string
     {
         $appVersion = explode('.', app()::VERSION);
         $namespace = $appVersion[0] >= 8 ? $this->laravel->getNamespace() . 'Models\\' : $this->laravel->getNamespace();
@@ -53,7 +53,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         $definition .= '            ->properties(' . PHP_EOL;
 
         $properties = collect($columns)
-            ->map(static function ($column) use ($model, $connection) {
+            ->map(static function ($column) use ($connection, $model) {
                 /** @var Column $column */
                 $column = $connection->getDoctrineColumn(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable(), $column);
                 $name = $column->getName();

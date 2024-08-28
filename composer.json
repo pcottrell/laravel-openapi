@@ -35,11 +35,14 @@
         "fakerphp/faker": "^1.19.1",
         "friendsofphp/php-cs-fixer": "^3.8.0",
         "jetbrains/phpstorm-attributes": "^1.0",
-        "mockery/mockery": "^1.4.4",
+        "mockery/mockery": "^1.6",
         "orchestra/testbench": "^5.3|^6.0|^7.0|^8.0",
+        "pestphp/pest": "^2.35",
+        "pestphp/pest-plugin-faker": "^2.0",
+        "pestphp/pest-plugin-laravel": "^2.4",
+        "pestphp/pest-plugin-type-coverage": "^2.8",
         "php-standard-library/psalm-plugin": "^2.3",
         "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^10.0.0",
         "psalm/plugin-mockery": "^1.1",
         "psalm/plugin-phpunit": "^0.18.4",
         "vimeo/psalm": "^5.8.0"
@@ -51,7 +54,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "MohammadAlavi\\LaravelOpenApi\\Tests\\": "tests/",
+            "Tests\\": "tests/",
             "Examples\\Petstore\\": "examples/petstore/"
         }
     },
@@ -61,7 +64,10 @@
         "sort-packages": true,
         "github-protocols": [
             "https"
-        ]
+        ],
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     },
     "extra": {
         "laravel": {

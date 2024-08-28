@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Tests\Builders;
+namespace Tests\Unit\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
@@ -12,11 +12,14 @@ use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\LaravelOpenApi\Tests\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\TestCase;
 
+#[CoversClass(OperationSecurityBuilder::class)]
 class SecurityBuilderTest extends TestCase
 {
-    public function operationSecuritySchemesDataProvider(): array
+    public static function operationSecuritySchemesDataProvider(): array
     {
         return [
             // 0. No global security - no path security
@@ -24,9 +27,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => null,
@@ -45,8 +48,8 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -70,9 +73,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -135,7 +138,7 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -158,7 +161,7 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -185,8 +188,8 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -214,8 +217,8 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -245,9 +248,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -282,9 +285,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -323,9 +326,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -364,9 +367,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -409,9 +412,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -450,9 +453,9 @@ class SecurityBuilderTest extends TestCase
                 [
                     'components' => [
                         'securitySchemes' => [
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
                         ],
                     ],
                     'globalSecurity' => [
@@ -502,18 +505,215 @@ class SecurityBuilderTest extends TestCase
     }
 
     /**
-     * @dataProvider operationSecuritySchemesDataProvider
+     * @return string[]
      */
+    private static function jwtSecuritySchemeProvider(): array
+    {
+        return [
+            'type' => 'http',
+            'name' => 'JwtTestScheme',
+            'in' => 'header',
+            'scheme' => 'bearer',
+            'bearerFormat' => 'JWT',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function apiKeyAuthSecuritySchemeProvider(): array
+    {
+        return [
+            'type' => 'apiKey',
+            'name' => 'X-API-KEY',
+            'in' => 'header',
+            'scheme' => 'apiKey',
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    private static function bearerAuthSecuritySchemeProvider(): array
+    {
+        return [
+            'type' => 'http',
+            'scheme' => 'bearer',
+        ];
+    }
+
+    public static function globalSecuritySchemesDataProvider(): array
+    {
+        return [
+            // JWT authentication only
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'JWT' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                ],
+                [
+                    [
+                        JwtSecurityScheme::class,
+                    ],
+                ],
+            ],
+            // ApiKey authentication only
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    ApiKeySecurityScheme::class,
+                ],
+            ],
+            // Both JWT and ApiKey authentication required
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'JWT' => [],
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    [
+                        JwtSecurityScheme::class,
+                        ApiKeySecurityScheme::class,
+                    ],
+                ],
+            ],
+            // Either JWT or ApiKey authentication required
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'JWT' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                ],
+                [
+                    [
+                        JwtSecurityScheme::class,
+                    ],
+                    [
+                        ApiKeySecurityScheme::class,
+                    ],
+                ],
+            ],
+            // And & Or combination
+            [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'JWT' => self::jwtSecuritySchemeProvider(),
+                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
+                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
+                        ],
+                    ],
+                    'security' => [
+                        [
+                            'Bearer' => [],
+                        ],
+                        [
+                            'JWT' => [],
+                            'Bearer' => [],
+                        ],
+                        [
+                            'Bearer' => [],
+                        ],
+                        [
+                            'JWT' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                        [
+                            'ApiKey' => [],
+                        ],
+                    ],
+                ],
+                [
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                ],
+                [
+                    BearerSecurityScheme::class,
+                    [
+                        JwtSecurityScheme::class,
+                        BearerSecurityScheme::class,
+                    ],
+                    [
+                        BearerSecurityScheme::class,
+                    ],
+                    JwtSecurityScheme::class,
+                    [
+                        ApiKeySecurityScheme::class,
+                    ],
+                    ApiKeySecurityScheme::class,
+                ],
+            ],
+        ];
+    }
+
+    #[DataProvider('operationSecuritySchemesDataProvider')]
     public function testCanApplyMultipleSecuritySchemesOnOperation(
-        array $expectedJson,
-        array $securitySchemeComponents,
-        array $globalSecurity,
+        array             $expectedJson,
+        array             $securitySchemeComponents,
+        array             $globalSecurity,
         string|array|null $pathSecurity
     ): void {
         $components = Components::create()->securitySchemes(
             ...collect($securitySchemeComponents)->map(
-                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
-            )->toArray()
+            static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
+        )->toArray()
         );
 
         $action = 'get';
@@ -560,179 +760,16 @@ class SecurityBuilderTest extends TestCase
         ], $openApi->toArray());
     }
 
-    public function globalSecuritySchemesDataProvider(): array
-    {
-        return [
-            // JWT authentication only
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecurityScheme::class,
-                ],
-                [
-                    [
-                        JwtSecurityScheme::class,
-                    ],
-                ],
-            ],
-            // ApiKey authentication only
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    ApiKeySecurityScheme::class,
-                ],
-                [
-                    ApiKeySecurityScheme::class,
-                ],
-            ],
-            // Both JWT and ApiKey authentication required
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
-                ],
-                [
-                    [
-                        JwtSecurityScheme::class,
-                        ApiKeySecurityScheme::class,
-                    ],
-                ],
-            ],
-            // Either JWT or ApiKey authentication required
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
-                ],
-                [
-                    [
-                        JwtSecurityScheme::class,
-                    ],
-                    [
-                        ApiKeySecurityScheme::class,
-                    ],
-                ],
-            ],
-            // And & Or combination
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => $this->JwtSecuritySchemeProvider(),
-                            'ApiKey' => $this->apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => $this->bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                            'Bearer' => [],
-                        ],
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
-                    BearerSecurityScheme::class,
-                ],
-                [
-                    BearerSecurityScheme::class,
-                    [
-                        JwtSecurityScheme::class,
-                        BearerSecurityScheme::class,
-                    ],
-                    [
-                        BearerSecurityScheme::class,
-                    ],
-                    JwtSecurityScheme::class,
-                    [
-                        ApiKeySecurityScheme::class,
-                    ],
-                    ApiKeySecurityScheme::class,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider globalSecuritySchemesDataProvider
-     */
-    public function testCanApplyMultipleSecuritySchemesGlobaly(
+    #[DataProvider('globalSecuritySchemesDataProvider')]
+    public function testCanApplyMultipleSecuritySchemesGlobally(
         array $expectedJson,
         array $securitySchemeComponents,
         array $globalSecurity,
     ): void {
         $components = Components::create()->securitySchemes(
             ...collect($securitySchemeComponents)->map(
-                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
-            )->toArray()
+            static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
+        )->toArray()
         );
 
         $operation = Operation::create()
@@ -793,7 +830,7 @@ class SecurityBuilderTest extends TestCase
             ],
             'components' => [
                 'securitySchemes' => [
-                    'JWT' => $this->JwtSecuritySchemeProvider(),
+                    'JWT' => self::jwtSecuritySchemeProvider(),
                 ],
             ],
             'security' => [
@@ -810,7 +847,7 @@ class SecurityBuilderTest extends TestCase
      * We're just verifying that the builder is capable of
      * adding security information to the operation.
      */
-    public function testWeCanAddOperationSecurityUsingBuilder()
+    public function testWeCanAddOperationSecurityUsingBuilder(): void
     {
         $securityFactory = app(JwtSecurityScheme::class);
         $testJwtScheme = $securityFactory->build();
@@ -826,7 +863,7 @@ class SecurityBuilderTest extends TestCase
         ]);
         $routeInfo->uri = '/example';
 
-        /** @var OperationSecurityBuilder */
+        /** @var $builder OperationSecurityBuilder */
         $builder = app(OperationSecurityBuilder::class);
 
         $operation = Operation::create()
@@ -855,50 +892,12 @@ class SecurityBuilderTest extends TestCase
             ],
             'components' => [
                 'securitySchemes' => [
-                    'JWT' => $this->JwtSecuritySchemeProvider(),
+                    'JWT' => self::jwtSecuritySchemeProvider(),
                 ],
             ],
         ];
         self::assertSame($expected, $openApi->toArray());
         self::assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
-    }
-
-    /**
-     * @return string[]
-     */
-    private function JwtSecuritySchemeProvider(): array
-    {
-        return [
-            'type' => 'http',
-            'name' => 'JwtTestScheme',
-            'in' => 'header',
-            'scheme' => 'bearer',
-            'bearerFormat' => 'JWT',
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    private function apiKeyAuthSecuritySchemeProvider(): array
-    {
-        return [
-            'type' => 'apiKey',
-            'name' => 'X-API-KEY',
-            'in' => 'header',
-            'scheme' => 'apiKey',
-        ];
-    }
-
-    /**
-     * @return string[]
-     */
-    private function bearerAuthSecuritySchemeProvider(): array
-    {
-        return [
-            'type' => 'http',
-            'scheme' => 'bearer',
-        ];
     }
 }
 
