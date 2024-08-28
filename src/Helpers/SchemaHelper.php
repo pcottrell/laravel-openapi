@@ -14,6 +14,5 @@ class SchemaHelper
             'bool' => Schema::boolean(),
             default => Schema::string(),
         };
-
     }
 }
