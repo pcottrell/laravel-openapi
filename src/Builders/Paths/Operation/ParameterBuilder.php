@@ -22,7 +22,7 @@ class ParameterBuilder
 
     protected function buildPath(RouteInformation $route): Collection
     {
-        return collect($route->parameters)
+        return $route->parameters
             ->map(static function (array $parameter) use ($route) {
                 $schema = Schema::string();
 
