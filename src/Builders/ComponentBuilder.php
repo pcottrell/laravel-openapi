@@ -22,9 +22,10 @@ class ComponentBuilder
     }
 
     public function build(
-        string $collection = Generator::COLLECTION_DEFAULT,
+        string|null $collection = null,
         array $middlewares = [],
     ): Components|null {
+        $collection ??= Generator::COLLECTION_DEFAULT;
         $callbacks = $this->callbackBuilder->build($collection);
         $requestBodies = $this->requestBodyBuilder->build($collection);
         $responses = $this->responseBuilder->build($collection);
