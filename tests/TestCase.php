@@ -18,6 +18,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function generate(): OpenApi
     {
-        return $this->app[Generator::class]->generate();
+        return $this->app->make(Generator::class)->generate();
     }
 }

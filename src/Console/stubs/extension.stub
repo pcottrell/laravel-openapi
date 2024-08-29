@@ -2,6 +2,7 @@
 
 namespace DummyNamespace;
 
+use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
 
 class DummyClass extends ExtensionFactory

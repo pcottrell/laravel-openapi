@@ -1,8 +1,6 @@
 <?php
 
-namespace Tests\Unit;
-
-use Tests\TestCase;
+namespace Tests;
 
 abstract class UnitTestCase extends TestCase
 {
