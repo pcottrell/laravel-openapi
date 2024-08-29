@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;

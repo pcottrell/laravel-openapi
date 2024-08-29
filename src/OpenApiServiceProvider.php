@@ -7,16 +7,17 @@ namespace MohammadAlavi\LaravelOpenApi;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use MohammadAlavi\LaravelOpenApi\Builders\ComponentBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\CallbackBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\RequestBodyBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\ResponseBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\SchemaBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\SecuritySchemeBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\PathBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\CallbackCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\ClassCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\RequestBodyCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\ResponseCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\SchemaCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\SecuritySchemeCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 
 class OpenApiServiceProvider extends ServiceProvider
 {
@@ -27,24 +28,24 @@ class OpenApiServiceProvider extends ServiceProvider
             'openapi',
         );
 
-        $this->app->bind(CallbackBuilder::class, function () {
-            return new CallbackBuilder($this->getPathsFromConfig('callbacks'));
+        $this->app->singleton(CallbackCollector::class, function (Application $app) {
+            return new CallbackCollector(new ClassCollector($this->getPathsFromConfig('callbacks')));
         });
 
-        $this->app->bind(RequestBodyBuilder::class, function () {
-            return new RequestBodyBuilder($this->getPathsFromConfig('request_bodies'));
+        $this->app->singleton(RequestBodyCollector::class, function (Application $app) {
+            return new RequestBodyCollector(new ClassCollector($this->getPathsFromConfig('request_bodies')));
         });
 
-        $this->app->bind(ResponseBuilder::class, function () {
-            return new ResponseBuilder($this->getPathsFromConfig('responses'));
+        $this->app->singleton(ResponseCollector::class, function (Application $app) {
+            return new ResponseCollector(new ClassCollector($this->getPathsFromConfig('responses')));
         });
 
-        $this->app->bind(SchemaBuilder::class, function () {
-            return new SchemaBuilder($this->getPathsFromConfig('schemas'));
+        $this->app->singleton(SchemaCollector::class, function (Application $app) {
+            return new SchemaCollector(new ClassCollector($this->getPathsFromConfig('schemas')));
         });
 
-        $this->app->bind(SecuritySchemeBuilder::class, function () {
-            return new SecuritySchemeBuilder($this->getPathsFromConfig('security_schemes'));
+        $this->app->singleton(SecuritySchemeCollector::class, function (Application $app) {
+            return new SecuritySchemeCollector(new ClassCollector($this->getPathsFromConfig('security_schemes')));
         });
 
         $this->app->singleton(Generator::class, static function (Application $app) {
@@ -56,7 +57,7 @@ class OpenApiServiceProvider extends ServiceProvider
                 $app->make(ServerBuilder::class),
                 $app->make(TagBuilder::class),
                 $app->make(PathBuilder::class),
-                $app->make(ComponentBuilder::class),
+                $app->make(ComponentCollector::class),
             );
         });
 
@@ -77,6 +78,20 @@ class OpenApiServiceProvider extends ServiceProvider
         }
     }
 
+    private function getPathsFromConfig(string $type): array
+    {
+        $directories = config('openapi.locations.' . $type, []);
+
+        foreach ($directories as &$directory) {
+            $directory = glob($directory, GLOB_ONLYDIR);
+        }
+
+        return Collection::make($directories)
+            ->flatten()
+            ->unique()
+            ->toArray();
+    }
+
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
@@ -86,19 +101,5 @@ class OpenApiServiceProvider extends ServiceProvider
         }
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
-    }
-
-    private function getPathsFromConfig(string $type): array
-    {
-        $directories = config('openapi.locations.' . $type, []);
-
-        foreach ($directories as &$directory) {
-            $directory = glob($directory, GLOB_ONLYDIR);
-        }
-
-        return (new Collection($directories))
-            ->flatten()
-            ->unique()
-            ->toArray();
     }
 }

@@ -5,7 +5,7 @@ namespace Tests\Unit\Builders;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
-use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;

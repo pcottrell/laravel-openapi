@@ -263,8 +263,8 @@ class PetstoreTest extends FeatureTestCase
 
         Route::get('/pets', [PetController::class, 'index']);
         Route::post('/multiPetTag', [PetController::class, 'multiPetTag']);
-        Route::delete('/multiAuthSecurityFirstTest', [PetController::class, 'multiAuthSecurityFirstTest']);
-        Route::put('/multiAuthSecuritySecondTest', [PetController::class, 'multiAuthSecuritySecondTest']);
+        Route::delete('/multiAuthSecurityFirstTest', [PetController::class, 'multiAuthSecurityFirst']);
+        Route::put('/multiAuthSecuritySecondTest', [PetController::class, 'multiAuthSecuritySecond']);
     }
 
     protected function getEnvironmentSetUp($app): void

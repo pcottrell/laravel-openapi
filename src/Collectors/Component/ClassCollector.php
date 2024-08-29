@@ -1,27 +1,26 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Factories;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 
-abstract class ComponentBuilderFactory
+/**
+ * Collects all classes that have the Collection attribute with the given collection name.
+ */
+final class ClassCollector
 {
-    protected array $directories = [];
-
-    public function __construct(array $directories)
-    {
-        $this->directories = $directories;
+    public function __construct(
+        private readonly array $directories,
+    ) {
     }
 
-    abstract public function build(): array;
-
-    protected function getAllClasses(string $collection): Collection
+    public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return collect($this->directories)
-            ->map(function (string $directory) {
+            ->map(static function (string $directory) {
                 $map = ClassMapGenerator::createMap($directory);
 
                 return array_keys($map);
@@ -31,7 +30,7 @@ abstract class ComponentBuilderFactory
                 $reflectionClass = new \ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 
-                if (0 === count($collectionAttributes) && Generator::COLLECTION_DEFAULT === $collection) {
+                if (Generator::COLLECTION_DEFAULT === $collection && 0 === count($collectionAttributes)) {
                     return true;
                 }
 
@@ -42,9 +41,7 @@ abstract class ComponentBuilderFactory
                 /** @var CollectionAttribute $collectionAttribute */
                 $collectionAttribute = $collectionAttributes[0]->newInstance();
 
-                return
-                    $collectionAttribute->name === ['*']
-                    || in_array($collection, $collectionAttribute->name ?? [], true);
+                return ['*'] === $collectionAttribute->name || in_array($collection, $collectionAttribute->name ?? [], true);
             });
     }
 }

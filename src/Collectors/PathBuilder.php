@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\PathItem;
@@ -9,7 +9,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;

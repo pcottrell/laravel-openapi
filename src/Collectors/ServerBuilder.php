@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;

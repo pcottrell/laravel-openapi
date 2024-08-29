@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\BaseObject;
 use Illuminate\Support\Collection;

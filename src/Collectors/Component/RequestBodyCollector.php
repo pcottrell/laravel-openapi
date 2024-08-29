@@ -1,17 +1,22 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
 
+use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ComponentBuilderFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-class RequestBodyBuilder extends ComponentBuilderFactory
+final class RequestBodyCollector
 {
-    public function build(string $collection = Generator::COLLECTION_DEFAULT): array
+    public function __construct(
+        private readonly ClassCollector $componentCollector,
+    ) {
+    }
+
+    public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
-        return $this->getAllClasses($collection)
+        return $this->componentCollector->collect($collection)
             ->filter(static fn ($class) => is_a($class, RequestBodyFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function ($class) {
                 /** @var RequestBodyFactory $instance */
@@ -19,7 +24,6 @@ class RequestBodyBuilder extends ComponentBuilderFactory
 
                 return $instance->build();
             })
-            ->values()
-            ->toArray();
+            ->values();
     }
 }

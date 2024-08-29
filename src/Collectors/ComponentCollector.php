@@ -1,36 +1,34 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders;
+namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\CallbackBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\RequestBodyBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\ResponseBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\SchemaBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\SecuritySchemeBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\CallbackCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\RequestBodyCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\ResponseCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\SchemaCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Component\SecuritySchemeCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-class ComponentBuilder
+final class ComponentCollector
 {
     public function __construct(
-        private readonly CallbackBuilder $callbackBuilder,
-        private readonly RequestBodyBuilder $requestBodyBuilder,
-        private readonly ResponseBuilder $responseBuilder,
-        private readonly SchemaBuilder $schemaBuilder,
-        private readonly SecuritySchemeBuilder $securitySchemeBuilder,
+        private readonly CallbackCollector $callbackCollector,
+        private readonly RequestBodyCollector $requestBodyCollector,
+        private readonly ResponseCollector $responseCollector,
+        private readonly SchemaCollector $schemaCollector,
+        private readonly SecuritySchemeCollector $securitySchemeCollector,
     ) {
     }
 
-    public function build(
-        string|null $collection = null,
-        array $middlewares = [],
-    ): Components|null {
+    public function collect(string|null $collection = null, array $middlewares = []): Components|null
+    {
         $collection ??= Generator::COLLECTION_DEFAULT;
-        $callbacks = $this->callbackBuilder->build($collection);
-        $requestBodies = $this->requestBodyBuilder->build($collection);
-        $responses = $this->responseBuilder->build($collection);
-        $schemas = $this->schemaBuilder->build($collection);
-        $securitySchemes = $this->securitySchemeBuilder->build($collection);
+        $callbacks = $this->callbackCollector->collect($collection);
+        $requestBodies = $this->requestBodyCollector->collect($collection);
+        $responses = $this->responseCollector->collect($collection);
+        $schemas = $this->schemaCollector->collect($collection);
+        $securitySchemes = $this->securitySchemeCollector->collect($collection);
 
         $components = Components::create();
 
