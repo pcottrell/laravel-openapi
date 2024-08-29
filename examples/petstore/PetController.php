@@ -22,7 +22,7 @@ class PetController
     )]
     #[OpenApi\Parameter(ListPetsParameter::class)]
     #[OpenApi\Response(ErrorValidationResponse::class, 422)]
-    public function index()
+    public function index(): void
     {
     }
 
@@ -36,7 +36,7 @@ class PetController
     )]
     #[OpenApi\Parameter(ListPetsParameter::class)]
     #[OpenApi\Response(ErrorValidationResponse::class, 422)]
-    public function multiPetTag()
+    public function multiPetTag(): void
     {
     }
 
@@ -47,8 +47,9 @@ class PetController
         summary: 'List all pets.',
         description: 'List all pets from the database.',
     )]
+
     #[OpenApi\Parameter(ListPetsParameter::class)]
-    public function multiAuthSecurityFirstTest()
+    public function multiAuthSecurityFirst(): void
     {
     }
 
@@ -60,7 +61,7 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: null,
     )]
-    public function multiAuthSecuritySecondTest()
+    public function multiAuthSecuritySecond(): void
     {
     }
 }
