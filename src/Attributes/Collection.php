@@ -2,13 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
+use MohammadAlavi\LaravelOpenApi\Generator;
+
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class Collection
 {
     /** @var string|string[] */
     public string|array $name;
 
-    public function __construct(string|array $name = 'default')
+    public function __construct(string|array $name = Generator::COLLECTION_DEFAULT)
     {
         $this->name = $this->prepareCollection($name);
     }
