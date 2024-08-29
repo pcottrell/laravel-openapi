@@ -3,10 +3,11 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ComponentBuilderFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-class CallbackBuilder extends Builder
+class CallbackBuilder extends ComponentBuilderFactory
 {
     public function build(string $collection = Generator::COLLECTION_DEFAULT): array
     {

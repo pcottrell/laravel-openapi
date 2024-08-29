@@ -3,7 +3,7 @@
 namespace Tests\Unit\Attributes\Stubs;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
-use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 
 class RequestBodyFactoryStub extends RequestBodyFactory
 {

@@ -13,7 +13,7 @@ class CallbackFactoryMakeCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/stubs/callback.stub';
+        return __DIR__ . '/Stubs/callback.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string

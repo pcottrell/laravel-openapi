@@ -13,7 +13,7 @@ class RequestBodyFactoryMakeCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/stubs/requestbody.stub';
+        return __DIR__ . '/Stubs/requestbody.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string

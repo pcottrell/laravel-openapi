@@ -6,7 +6,7 @@ use GoldSpecDigital\ObjectOrientedOAS\Contracts\SchemaContract;
 use GoldSpecDigital\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
 
 class PetSchema extends SchemaFactory implements Reusable
 {

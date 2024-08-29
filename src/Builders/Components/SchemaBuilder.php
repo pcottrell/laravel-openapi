@@ -3,10 +3,11 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ComponentBuilderFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-class SchemaBuilder extends Builder
+class SchemaBuilder extends ComponentBuilderFactory
 {
     public function build(string $collection = Generator::COLLECTION_DEFAULT): array
     {

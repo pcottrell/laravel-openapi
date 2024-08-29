@@ -13,10 +13,10 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 class ComponentBuilder
 {
     public function __construct(
-        private readonly CallbackBuilder $callbackBuilder,
-        private readonly RequestBodyBuilder $requestBodyBuilder,
-        private readonly ResponseBuilder $responseBuilder,
-        private readonly SchemaBuilder $schemaBuilder,
+        private readonly CallbackBuilder       $callbackBuilder,
+        private readonly RequestBodyBuilder    $requestBodyBuilder,
+        private readonly ResponseBuilder       $responseBuilder,
+        private readonly SchemaBuilder         $schemaBuilder,
         private readonly SecuritySchemeBuilder $securitySchemeBuilder,
     ) {
     }

@@ -8,7 +8,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
 
 class RouteInformation
 {
@@ -65,7 +65,7 @@ class RouteInformation
             $actionAttributes = collect($reflectionMethod->getAttributes())
                 ->map(static fn (\ReflectionAttribute $attribute) => $attribute->newInstance());
 
-            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameters);
+            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameter);
 
             $instance->domain = $route->domain();
             $instance->method = $method;

@@ -4,12 +4,12 @@ namespace MohammadAlavi\LaravelOpenApi\Concerns;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ResponseFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\SchemaFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 
 trait Referencable
 {
@@ -25,7 +25,7 @@ trait Referencable
 
         if ($instance instanceof CallbackFactory) {
             $baseRef = '#/components/callbacks/';
-        } elseif ($instance instanceof ParametersFactory) {
+        } elseif ($instance instanceof ParameterFactory) {
             $baseRef = '#/components/parameters/';
         } elseif ($instance instanceof RequestBodyFactory) {
             $baseRef = '#/components/requestBodies/';

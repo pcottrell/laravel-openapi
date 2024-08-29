@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Factories;
+namespace MohammadAlavi\LaravelOpenApi\Factories\Component;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;

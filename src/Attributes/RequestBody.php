@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class RequestBody

@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 
 #[\Attribute]
 class Callback

@@ -1,11 +1,11 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Factories;
+namespace MohammadAlavi\LaravelOpenApi\Factories\Component;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Parameter;
 use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
 
-abstract class ParametersFactory
+abstract class ParameterFactory
 {
     use Referencable;
 

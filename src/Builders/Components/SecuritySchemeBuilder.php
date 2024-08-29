@@ -2,10 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
-use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ComponentBuilderFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-class SecuritySchemeBuilder extends Builder
+class SecuritySchemeBuilder extends ComponentBuilderFactory
 {
     public function build(string $collection = Generator::COLLECTION_DEFAULT): array
     {

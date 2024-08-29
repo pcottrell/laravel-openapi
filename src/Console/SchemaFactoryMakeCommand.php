@@ -113,10 +113,10 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
     protected function getStub(): string
     {
         if ($this->option('model')) {
-            return __DIR__ . '/stubs/schema.model.stub';
+            return __DIR__ . '/Stubs/schema.model.stub';
         }
 
-        return __DIR__ . '/stubs/schema.stub';
+        return __DIR__ . '/Stubs/schema.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string

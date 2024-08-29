@@ -1,13 +1,13 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
+namespace MohammadAlavi\LaravelOpenApi\Factories;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 
-abstract class Builder
+abstract class ComponentBuilderFactory
 {
     protected array $directories = [];
 
@@ -15,6 +15,8 @@ abstract class Builder
     {
         $this->directories = $directories;
     }
+
+    abstract public function build(): array;
 
     protected function getAllClasses(string $collection): Collection
     {

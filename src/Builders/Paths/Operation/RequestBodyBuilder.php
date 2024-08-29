@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
 class RequestBodyBuilder
