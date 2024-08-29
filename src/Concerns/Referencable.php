@@ -3,7 +3,6 @@
 namespace MohammadAlavi\LaravelOpenApi\Concerns;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
@@ -14,12 +13,12 @@ use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 
 trait Referencable
 {
-    public static function ref(string $objectId = null): Schema
+    public static function ref(string|null $objectId = null): Schema
     {
         $instance = app(static::class);
 
         if (!$instance instanceof Reusable) {
-            throw new InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
+            throw new \InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
         }
 
         $baseRef = null;

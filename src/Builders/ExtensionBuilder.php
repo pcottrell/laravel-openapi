@@ -26,7 +26,7 @@ class ExtensionBuilder
 
                 $object->x(
                     $key,
-                    $value
+                    $value,
                 );
             });
     }

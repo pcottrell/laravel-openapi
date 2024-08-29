@@ -17,14 +17,14 @@ class ComponentBuilder
         private readonly RequestBodyBuilder $requestBodyBuilder,
         private readonly ResponseBuilder $responseBuilder,
         private readonly SchemaBuilder $schemaBuilder,
-        private readonly SecuritySchemeBuilder $securitySchemeBuilder
+        private readonly SecuritySchemeBuilder $securitySchemeBuilder,
     ) {
     }
 
     public function build(
         string $collection = Generator::COLLECTION_DEFAULT,
-        array $middlewares = []
-    ): ?Components {
+        array $middlewares = [],
+    ): Components|null {
         $callbacks = $this->callbackBuilder->build($collection);
         $requestBodies = $this->requestBodyBuilder->build($collection);
         $responses = $this->responseBuilder->build($collection);

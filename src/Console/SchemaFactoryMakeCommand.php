@@ -12,7 +12,6 @@ use Illuminate\Console\GeneratorCommand;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema as SchemaFacade;
 use Illuminate\Support\Str;
-use InvalidArgumentException;
 use Symfony\Component\Console\Input\InputOption;
 
 class SchemaFactoryMakeCommand extends GeneratorCommand
@@ -40,7 +39,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         $model = Str::start($model, $namespace);
 
         if (!is_a($model, Model::class, true)) {
-            throw new InvalidArgumentException('Invalid model');
+            throw new \InvalidArgumentException('Invalid model');
         }
 
         /** @var Model $model */

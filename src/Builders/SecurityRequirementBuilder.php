@@ -8,7 +8,6 @@ use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
-use RuntimeException;
 
 class SecurityRequirementBuilder
 {
@@ -17,11 +16,11 @@ class SecurityRequirementBuilder
      */
     public function build(string|array|null $securitySchemeFactories): SecurityRequirement
     {
-        if (is_null($securitySchemeFactories) || $securitySchemeFactories === '') {
+        if (is_null($securitySchemeFactories) || '' === $securitySchemeFactories) {
             return $this->buildSecurityRequirementFrom(DefaultSecurityScheme::class);
         }
 
-        if ($securitySchemeFactories === []) {
+        if ([] === $securitySchemeFactories) {
             return $this->buildSecurityRequirementFrom(PublicSecurityScheme::class);
         }
 
@@ -45,7 +44,7 @@ class SecurityRequirementBuilder
             return $this->buildSecurityRequirementFrom($securitySchemeFactories);
         }
 
-        throw new RuntimeException('Invalid security configuration');
+        throw new \RuntimeException('Invalid security configuration');
     }
 
     /**
@@ -98,13 +97,13 @@ class SecurityRequirementBuilder
     {
         return !$this->isSingleAuthStringSecurity($security)
             && is_countable($security)
-            && count($security) === 1
+            && 1 === count($security)
             && (is_string($security[0]) || $this->hasSingleArraySecurityWithin($security));
     }
 
     private function hasSingleArraySecurityWithin(array|string|null $value): bool
     {
-        return is_array($value[0]) && count($value[0]) === 1 && is_string($value[0][0]);
+        return is_array($value[0]) && 1 === count($value[0]) && is_string($value[0][0]);
     }
 
     private function isMultiAuthArraySecurity(array|string|null $security): bool

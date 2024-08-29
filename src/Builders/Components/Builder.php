@@ -6,7 +6,6 @@ use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
-use ReflectionClass;
 
 abstract class Builder
 {
@@ -27,7 +26,7 @@ abstract class Builder
             })
             ->flatten()
             ->filter(function (string $class) use ($collection) {
-                $reflectionClass = new ReflectionClass($class);
+                $reflectionClass = new \ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 
                 if (0 === count($collectionAttributes) && Generator::COLLECTION_DEFAULT === $collection) {

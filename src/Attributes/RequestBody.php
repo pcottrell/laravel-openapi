@@ -2,11 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use Attribute;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[\Attribute(\Attribute::TARGET_METHOD)]
 class RequestBody
 {
     public string $factory;
@@ -16,7 +14,7 @@ class RequestBody
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\RequestBodies\\' . $factory;
 
         if (!is_a($this->factory, RequestBodyFactory::class, true)) {
-            throw new InvalidArgumentException('Factory class must be an instance of RequestBodyFactory');
+            throw new \InvalidArgumentException('Factory class must be an instance of RequestBodyFactory');
         }
     }
 }

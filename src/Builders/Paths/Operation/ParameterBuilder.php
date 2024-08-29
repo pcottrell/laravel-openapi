@@ -9,7 +9,6 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
 use MohammadAlavi\LaravelOpenApi\Helpers\SchemaHelper;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use ReflectionParameter;
 
 class ParameterBuilder
 {
@@ -27,9 +26,9 @@ class ParameterBuilder
             ->map(static function (array $parameter) use ($route) {
                 $schema = Schema::string();
 
-                /** @var ReflectionParameter|null $reflectionParameter */
+                /** @var \ReflectionParameter|null $reflectionParameter */
                 $reflectionParameter = collect($route->actionParameters)
-                    ->first(static fn (ReflectionParameter $reflectionParameter) => $reflectionParameter->name === $parameter['name']);
+                    ->first(static fn (\ReflectionParameter $reflectionParameter) => $reflectionParameter->name === $parameter['name']);
 
                 if ($reflectionParameter) {
                     // The reflected param has no type, so ignore (should be defined in a ParametersFactory instead)

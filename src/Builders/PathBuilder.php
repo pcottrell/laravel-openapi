@@ -19,7 +19,7 @@ class PathBuilder
     private OperationBuilder $operationBuilder;
 
     public function __construct(
-        OperationBuilder $operationBuilder
+        OperationBuilder $operationBuilder,
     ) {
         $this->operationBuilder = $operationBuilder;
     }
@@ -31,7 +31,7 @@ class PathBuilder
      */
     public function build(
         string $collection,
-        array $middlewares
+        array $middlewares,
     ): array {
         return $this->routes()
             ->filter(static function (RouteInformation $routeInformation) use ($collection) {

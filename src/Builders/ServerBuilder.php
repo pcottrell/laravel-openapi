@@ -3,7 +3,6 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Server;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Helpers\BuilderHelper;
 
@@ -22,7 +21,7 @@ class ServerBuilder
                 /** @var Server $server */
                 $server = app($server)->build();
 
-                throw_if(BuilderHelper::hasInvalidField($server->toArray(), 'url'), new InvalidArgumentException('Server url is required.'));
+                throw_if(BuilderHelper::hasInvalidField($server->toArray(), 'url'), new \InvalidArgumentException('Server url is required.'));
 
                 return $server;
             })

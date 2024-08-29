@@ -44,9 +44,9 @@ class SecurityRequirement extends ParentSecurityRequirement
                 }
 
                 return collect($securityScheme)->map(
-                    static fn (SecurityScheme $securityScheme): array => self::create()->securityScheme($securityScheme)->generate()
+                    static fn (SecurityScheme $securityScheme): array => self::create()->securityScheme($securityScheme)->generate(),
                 )->collapse();
-            }
+            },
         );
 
         // merge "and" & "or" security schemes based on https://swagger.io/docs/specification/authentication/
@@ -54,7 +54,7 @@ class SecurityRequirement extends ParentSecurityRequirement
             if (count($item) > 1) {
                 return $carry->add($item->reduce(
                     static fn (Collection $carry, array $item) => $carry->merge($item),
-                    collect()
+                    collect(),
                 ));
             }
 

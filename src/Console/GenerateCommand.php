@@ -25,7 +25,7 @@ class GenerateCommand extends Command
         $this->line(
             $generator
                 ->generate($this->argument('collection'))
-                ->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+                ->toJson(JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
         );
     }
 }

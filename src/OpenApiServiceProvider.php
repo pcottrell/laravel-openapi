@@ -24,7 +24,7 @@ class OpenApiServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../config/openapi.php',
-            'openapi'
+            'openapi',
         );
 
         $this->app->bind(CallbackBuilder::class, function () {
@@ -56,7 +56,7 @@ class OpenApiServiceProvider extends ServiceProvider
                 $app->make(ServerBuilder::class),
                 $app->make(TagBuilder::class),
                 $app->make(PathBuilder::class),
-                $app->make(ComponentBuilder::class)
+                $app->make(ComponentBuilder::class),
             );
         });
 

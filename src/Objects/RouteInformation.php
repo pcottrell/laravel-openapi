@@ -4,35 +4,30 @@ declare(strict_types=1);
 
 namespace MohammadAlavi\LaravelOpenApi\Objects;
 
-use Attribute;
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
-use ReflectionAttribute;
-use ReflectionClass;
-use ReflectionException;
-use ReflectionParameter;
 
 class RouteInformation
 {
-    public ?string $domain;
+    public string|null $domain;
     public string $method;
     public string $uri;
-    public ?string $name;
+    public string|null $name;
     /** @var string|class-string<Controller> */
     public string $controller;
     public Collection $parameters;
-    /** @var Collection|Attribute[] */
+    /** @var Collection|\Attribute[] */
     public Collection|array $controllerAttributes;
     public string $action;
-    /** @var ReflectionParameter[] */
+    /** @var \ReflectionParameter[] */
     public array $actionParameters;
     public Collection $actionAttributes;
 
     /**
-     * @throws ReflectionException
+     * @throws \ReflectionException
      */
     public static function createFromRoute(Route $route): RouteInformation
     {
@@ -44,7 +39,7 @@ class RouteInformation
 
             $actionNameParts = explode('@', $route->getActionName());
 
-            if (count($actionNameParts) === 2) {
+            if (2 === count($actionNameParts)) {
                 [$controller, $action] = $actionNameParts;
             } else {
                 [$controller] = $actionNameParts;
@@ -61,14 +56,14 @@ class RouteInformation
                 ]);
             }
 
-            $reflectionClass = new ReflectionClass($controller);
+            $reflectionClass = new \ReflectionClass($controller);
             $reflectionMethod = $reflectionClass->getMethod($action);
 
             $controllerAttributes = collect($reflectionClass->getAttributes())
-                ->map(static fn (ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $attribute) => $attribute->newInstance());
 
             $actionAttributes = collect($reflectionMethod->getAttributes())
-                ->map(static fn (ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $attribute) => $attribute->newInstance());
 
             $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameters);
 

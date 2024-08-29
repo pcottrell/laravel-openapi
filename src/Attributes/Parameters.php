@@ -2,11 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use Attribute;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[\Attribute(\Attribute::TARGET_METHOD)]
 class Parameters
 {
     public string $factory;
@@ -16,7 +14,7 @@ class Parameters
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Parameters\\' . $factory;
 
         if (!is_a($this->factory, ParametersFactory::class, true)) {
-            throw new InvalidArgumentException('Factory class must be an instance of ParametersFactory');
+            throw new \InvalidArgumentException('Factory class must be an instance of ParametersFactory');
         }
     }
 }

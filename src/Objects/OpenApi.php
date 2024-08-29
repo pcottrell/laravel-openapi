@@ -45,6 +45,6 @@ class OpenApi extends ParentOpenApi
 
     private function hasNoGlobalSecurity(SecurityRequirement $security): bool
     {
-        return $security->securityScheme === PublicSecurityScheme::NAME;
+        return PublicSecurityScheme::NAME === $security->securityScheme;
     }
 }

@@ -5,7 +5,8 @@ use PhpCsFixer\Finder;
 $finder = Finder::create()
     ->in([
         __DIR__ . '/src',
-    ]);
+    ])
+    ->name('*.php');
 
 return (new PhpCsFixer\Config())
     ->setRules([
@@ -17,15 +18,13 @@ return (new PhpCsFixer\Config())
         'phpdoc_align' => [
             'align' => 'left',
         ],
-        'phpdoc_to_comment' => false,
-        'yoda_style' => false,
-        'global_namespace_import' => [
-            'import_classes' => true,
-            'import_constants' => true,
-            'import_functions' => true,
+        'trailing_comma_in_multiline' => [
+            'elements' => ['arguments', 'arrays', 'match', 'parameters'],
         ],
-        'nullable_type_declaration_for_default_null_value' => [
-            'use_nullable_type_declaration' => false,
+        'blank_line_before_statement' => [
+            'statements' => ['return', 'throw', 'try'],
         ],
+        'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => true],
+        'nullable_type_declaration' => ['syntax' => 'union'],
     ])
     ->setFinder($finder);
