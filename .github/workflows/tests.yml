@@ -39,7 +39,7 @@ jobs:
         run: composer install --prefer-dist --no-interaction --optimize-autoloader
 
       - name: Execute tests
-        run: ./vendor/bin/pest --ci --coverage-clover coverage.xml
+        run: ./vendor/bin/pest --coverage-clover coverage.xml
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
