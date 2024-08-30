@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Builders;
 
-use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;

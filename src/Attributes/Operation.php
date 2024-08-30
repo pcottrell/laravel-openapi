@@ -2,13 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use Attribute;
-use InvalidArgumentException;
-use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 
-#[Attribute(Attribute::TARGET_METHOD)]
+#[\Attribute(\Attribute::TARGET_METHOD)]
 class Operation
 {
     /**
@@ -17,14 +15,14 @@ class Operation
      * @param class-string<ServerFactory>|array<array-key, class-string<ServerFactory>>|null $servers
      */
     public function __construct(
-        public ?string $id = null,
+        public string|null $id = null,
         public string|array|null $tags = null,
         public string|array|null $security = null,
-        public ?string $method = null,
+        public string|null $method = null,
         public string|array|null $servers = null,
-        public ?string $summary = null,
-        public ?string $description = null,
-        public ?bool $deprecated = null,
+        public string|null $summary = null,
+        public string|null $description = null,
+        public bool|null $deprecated = null,
     ) {
         $this->validateSecurity($this->security);
     }
@@ -53,7 +51,7 @@ class Operation
     private function validateSecurityScheme(string $securityScheme): void
     {
         if (!class_exists($securityScheme) || !is_a($securityScheme, SecuritySchemeFactory::class, true)) {
-            throw new InvalidArgumentException(sprintf('Security class is either not declared or is not an instance of %s', SecuritySchemeFactory::class));
+            throw new \InvalidArgumentException(sprintf('Security class is either not declared or is not an instance of %s', SecuritySchemeFactory::class));
         }
     }
 }

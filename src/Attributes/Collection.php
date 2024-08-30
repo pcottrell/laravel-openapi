@@ -2,16 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use Attribute;
-use Stringable;
+use MohammadAlavi\LaravelOpenApi\Generator;
 
-#[Attribute(Attribute::TARGET_CLASS | Attribute::TARGET_METHOD)]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class Collection
 {
     /** @var string|string[] */
     public string|array $name;
 
-    public function __construct(string|array $name = 'default')
+    public function __construct(string|array $name = Generator::COLLECTION_DEFAULT)
     {
         $this->name = $this->prepareCollection($name);
     }
@@ -38,6 +37,6 @@ class Collection
 
     private function isStringable(string $name): bool
     {
-        return class_exists($name) && is_subclass_of($name, Stringable::class, true);
+        return class_exists($name) && is_subclass_of($name, \Stringable::class, true);
     }
 }

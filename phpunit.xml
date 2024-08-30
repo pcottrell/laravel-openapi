@@ -9,8 +9,11 @@
          failOnRisky="true"
          failOnWarning="true">
     <testsuites>
-        <testsuite name="Laravel OpenAPI Test Suite">
-            <directory>./tests</directory>
+        <testsuite name="Feature">
+            <directory>./tests/Feature</directory>
+        </testsuite>
+        <testsuite name="Unit">
+            <directory>./tests/Unit</directory>
         </testsuite>
     </testsuites>
     <source restrictNotices="true" restrictWarnings="true">

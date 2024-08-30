@@ -13,7 +13,7 @@ class ParametersFactoryMakeCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/stubs/parameters.stub';
+        return __DIR__ . '/Stubs/parameters.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string

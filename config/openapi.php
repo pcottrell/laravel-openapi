@@ -21,7 +21,7 @@ return [
             ],
 
             'security' => [
-                // Security schemes should extend `MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory` class.
+                // Security schemes should extend `MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory` class.
                 // BearerTokenSecurityScheme::class,
             ],
 

@@ -2,11 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use Attribute;
-use InvalidArgumentException;
-use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 
-#[Attribute]
+#[\Attribute]
 class Callback
 {
     public string $factory;
@@ -16,7 +14,7 @@ class Callback
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Callbacks\\' . $factory;
 
         if (!is_a($this->factory, CallbackFactory::class, true)) {
-            throw new InvalidArgumentException('Factory class must be an instance of CallbackFactory');
+            throw new \InvalidArgumentException('Factory class must be an instance of CallbackFactory');
         }
     }
 }

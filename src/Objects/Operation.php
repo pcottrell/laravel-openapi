@@ -41,11 +41,11 @@ class Operation extends ParentOperation
 
     private function shouldUseGlobalSecurity(SecurityRequirement $security): bool
     {
-        return $security->securityScheme === DefaultSecurityScheme::NAME;
+        return DefaultSecurityScheme::NAME === $security->securityScheme;
     }
 
     private function isPublic(SecurityRequirement $security): bool
     {
-        return $security->securityScheme === PublicSecurityScheme::NAME;
+        return PublicSecurityScheme::NAME === $security->securityScheme;
     }
 }

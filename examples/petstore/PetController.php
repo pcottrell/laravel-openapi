@@ -2,7 +2,7 @@
 
 namespace Examples\Petstore;
 
-use Examples\Petstore\OpenApi\Parameters\ListPetsParameters;
+use Examples\Petstore\OpenApi\Parameters\ListPetsParameter;
 use Examples\Petstore\OpenApi\Responses\ErrorValidationResponse;
 use Examples\Petstore\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
 use Examples\Petstore\OpenApi\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
@@ -20,9 +20,9 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: true,
     )]
-    #[OpenApi\Parameters(ListPetsParameters::class)]
+    #[OpenApi\Parameter(ListPetsParameter::class)]
     #[OpenApi\Response(ErrorValidationResponse::class, 422)]
-    public function index()
+    public function index(): void
     {
     }
 
@@ -34,9 +34,9 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: false,
     )]
-    #[OpenApi\Parameters(ListPetsParameters::class)]
+    #[OpenApi\Parameter(ListPetsParameter::class)]
     #[OpenApi\Response(ErrorValidationResponse::class, 422)]
-    public function multiPetTag()
+    public function multiPetTag(): void
     {
     }
 
@@ -47,8 +47,9 @@ class PetController
         summary: 'List all pets.',
         description: 'List all pets from the database.',
     )]
-    #[OpenApi\Parameters(ListPetsParameters::class)]
-    public function multiAuthSecurityFirstTest()
+
+    #[OpenApi\Parameter(ListPetsParameter::class)]
+    public function multiAuthSecurityFirst(): void
     {
     }
 
@@ -60,7 +61,7 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: null,
     )]
-    public function multiAuthSecuritySecondTest()
+    public function multiAuthSecuritySecond(): void
     {
     }
 }

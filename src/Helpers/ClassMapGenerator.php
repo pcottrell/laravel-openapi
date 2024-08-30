@@ -3,22 +3,20 @@
 namespace MohammadAlavi\LaravelOpenApi\Helpers;
 
 use Iterator;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 
 class ClassMapGenerator
 {
     /**
      * Iterate over all files in the given directory searching for classes.
      *
-     * @param Iterator|string $dir The directory to search in or an iterator
+     * @param \Iterator|string $dir The directory to search in or an iterator
      *
      * @return array A class map array
      */
-    public static function createMap(Iterator|string $dir): array
+    public static function createMap(\Iterator|string $dir): array
     {
         if (is_string($dir)) {
-            $dir = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir));
+            $dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
         }
 
         $map = [];

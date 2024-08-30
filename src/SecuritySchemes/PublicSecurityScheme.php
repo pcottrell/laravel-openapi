@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\SecuritySchemes;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\SecurityScheme;
-use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 
 class PublicSecurityScheme extends SecuritySchemeFactory
 {

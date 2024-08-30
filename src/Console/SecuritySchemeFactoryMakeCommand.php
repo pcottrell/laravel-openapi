@@ -20,7 +20,7 @@ class SecuritySchemeFactoryMakeCommand extends GeneratorCommand
 
     protected function getStub(): string
     {
-        return __DIR__ . '/stubs/securityscheme.stub';
+        return __DIR__ . '/Stubs/securityscheme.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace): string

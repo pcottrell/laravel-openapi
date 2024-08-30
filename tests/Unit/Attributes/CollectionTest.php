@@ -1,12 +1,13 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
+use MohammadAlavi\LaravelOpenApi\Generator;
 use Tests\Unit\Attributes\Stubs\StringableStub;
 
 describe('Collection', function () {
     it('can fall back to default collection', function () {
         $collection = new Collection();
-        expect($collection->name)->toBe(['default']);
+        expect($collection->name)->toBe([Generator::COLLECTION_DEFAULT]);
     });
 
     it('can accept string as collection name', function () {

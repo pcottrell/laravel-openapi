@@ -7,7 +7,7 @@ namespace Tests\Unit\Builders;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\ExternalDocs;
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Tag;
 use InvalidArgumentException;
-use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;

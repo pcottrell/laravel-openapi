@@ -3,30 +3,29 @@
 namespace MohammadAlavi\LaravelOpenApi\Concerns;
 
 use GoldSpecDigital\ObjectOrientedOAS\Objects\Schema;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\CallbackFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ParametersFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\RequestBodyFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ResponseFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\SchemaFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 
 trait Referencable
 {
-    public static function ref(string $objectId = null): Schema
+    public static function ref(string|null $objectId = null): Schema
     {
         $instance = app(static::class);
 
         if (!$instance instanceof Reusable) {
-            throw new InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
+            throw new \InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
         }
 
         $baseRef = null;
 
         if ($instance instanceof CallbackFactory) {
             $baseRef = '#/components/callbacks/';
-        } elseif ($instance instanceof ParametersFactory) {
+        } elseif ($instance instanceof ParameterFactory) {
             $baseRef = '#/components/parameters/';
         } elseif ($instance instanceof RequestBodyFactory) {
             $baseRef = '#/components/requestBodies/';

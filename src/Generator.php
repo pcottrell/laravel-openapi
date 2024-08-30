@@ -3,11 +3,11 @@
 namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Support\Arr;
-use MohammadAlavi\LaravelOpenApi\Builders\ComponentBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\PathBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 
@@ -23,7 +23,7 @@ class Generator
         private readonly ServerBuilder $serverBuilder,
         private readonly TagBuilder $tagBuilder,
         private readonly PathBuilder $pathBuilder,
-        private readonly ComponentBuilder $componentBuilder,
+        private readonly ComponentCollector $componentCollector,
     ) {
     }
 
@@ -36,7 +36,7 @@ class Generator
 
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
         $paths = $this->pathBuilder->build($collection, Arr::get($middlewaresConfig, 'paths', []));
-        $components = $this->componentBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
+        $components = $this->componentCollector->collect($collection, Arr::get($middlewaresConfig, 'components', []));
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
         $openApi = OpenApi::create()
