@@ -6,7 +6,7 @@
 </a>
 
 <a href="https://codecov.io/gh/Mohammad-Alavi/laravel-openapi" > 
- <img src="https://codecov.io/gh/Mohammad-Alavi/laravel-openapi/graph/badge.svg?token=WIPZZOJ3RQ" alt="code coverage"/> 
+ <img src="https://codecov.io/gh/Mohammad-Alavi/laravel-openapi/graph/badge.svg?token=BNDp0Zs68Q" alt="code coverage"/> 
 </a>
 
 <a href="https://packagist.org/packages/mohammad-alavi/laravel-openapi">
