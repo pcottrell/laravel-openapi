@@ -6,64 +6,64 @@ use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /**
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|null $schemas
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Response[]|null $responses
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null $parameters
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null $examples
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody[]|null $requestBodies
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null $headers
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme[]|null $securitySchemes
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Link[]|null $links
+ * @property Schema[]|null $schemas
+ * @property Response[]|null $responses
+ * @property Parameter[]|null $parameters
+ * @property Example[]|null $examples
+ * @property RequestBody[]|null $requestBodies
+ * @property Header[]|null $headers
+ * @property SecurityScheme[]|null $securitySchemes
+ * @property Link[]|null $links
  */
 class Components extends BaseObject
 {
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|null
+     * @var Schema[]|null
      */
     protected $schemas;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Response[]|null
+     * @var Response[]|null
      */
     protected $responses;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null
+     * @var Parameter[]|null
      */
     protected $parameters;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null
+     * @var Example[]|null
      */
     protected $examples;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody[]|null
+     * @var RequestBody[]|null
      */
     protected $requestBodies;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null
+     * @var Header[]|null
      */
     protected $headers;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme[]|null
+     * @var SecurityScheme[]|null
      */
     protected $securitySchemes;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Link[]|null
+     * @var Link[]|null
      */
     protected $links;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[]|null
+     * @var PathItem[]|null
      */
     protected $callbacks;
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract[] $schemas
+     * @param SchemaContract[] $schemas
      *
      * @return static
      */
@@ -77,7 +77,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Response[] $responses
+     * @param Response[] $responses
      *
      * @return static
      */
@@ -91,7 +91,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[] $parameters
+     * @param Parameter[] $parameters
      *
      * @return static
      */
@@ -105,7 +105,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Example[] $examples
+     * @param Example[] $examples
      *
      * @return static
      */
@@ -119,7 +119,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody[] $requestBodies
+     * @param RequestBody[] $requestBodies
      *
      * @return static
      */
@@ -133,7 +133,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Header[] $headers
+     * @param Header[] $headers
      *
      * @return static
      */
@@ -147,7 +147,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme[] $securitySchemes
+     * @param SecurityScheme[] $securitySchemes
      *
      * @return static
      */
@@ -161,7 +161,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Link[] $links
+     * @param Link[] $links
      *
      * @return static
      */
@@ -175,7 +175,7 @@ class Components extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[] $callbacks
+     * @param PathItem[] $callbacks
      *
      * @return static
      */

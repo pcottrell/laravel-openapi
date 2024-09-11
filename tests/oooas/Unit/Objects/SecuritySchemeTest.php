@@ -11,7 +11,7 @@ use Tests\UnitTestCase;
 #[CoversClass(SecurityScheme::class)]
 class SecuritySchemeTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS);

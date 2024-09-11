@@ -22,7 +22,7 @@ use Tests\IntegrationTestCase;
 #[CoversNothing]
 class PetStoreTest extends IntegrationTestCase
 {
-        public function test_pet_store_example()
+    public function testPetStoreExample()
     {
         $contact = Contact::create()
             ->name('Swagger API Team')
@@ -51,8 +51,8 @@ class PetStoreTest extends IntegrationTestCase
             ->style(Parameter::STYLE_FORM)
             ->schema(
                 Schema::array()->items(
-                    Schema::string()
-                )
+                    Schema::string(),
+                ),
             );
 
         $limitParameter = Parameter::query()
@@ -60,7 +60,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description('maximum number of results to return')
             ->required(false)
             ->schema(
-                Schema::integer()->format(Schema::FORMAT_INT32)
+                Schema::integer()->format(Schema::FORMAT_INT32),
             );
 
         $petSchema = AllOf::create('Pet')
@@ -69,22 +69,22 @@ class PetStoreTest extends IntegrationTestCase
                 Schema::create()
                     ->required('id')
                     ->properties(
-                        Schema::integer('id')->format(Schema::FORMAT_INT64)
-                    )
+                        Schema::integer('id')->format(Schema::FORMAT_INT64),
+                    ),
             );
 
         $newPetSchema = Schema::create('NewPet')
             ->required('name')
             ->properties(
                 Schema::string('name'),
-                Schema::string('tag')
+                Schema::string('tag'),
             );
 
         $errorSchema = Schema::create('Error')
             ->required('code', 'message')
             ->properties(
                 Schema::integer('code')->format(Schema::FORMAT_INT32),
-                Schema::string('message')
+                Schema::string('message'),
             );
 
         $components = Components::create()
@@ -94,8 +94,8 @@ class PetStoreTest extends IntegrationTestCase
             ->description('pet response')
             ->content(
                 MediaType::json()->schema(
-                    Schema::ref('#/components/schemas/Pet')
-                )
+                    Schema::ref('#/components/schemas/Pet'),
+                ),
             );
 
         $petListingResponse = Response::ok()
@@ -103,15 +103,15 @@ class PetStoreTest extends IntegrationTestCase
             ->content(
                 MediaType::json()->schema(
                     Schema::array()->items(
-                        Schema::ref('#/components/schemas/Pet')
-                    )
-                )
+                        Schema::ref('#/components/schemas/Pet'),
+                    ),
+                ),
             );
 
         $defaultErrorResponse = Response::create('Error')
             ->description('unexpected error')
             ->content(MediaType::json()->schema(
-                Schema::ref('#/components/schemas/Error')
+                Schema::ref('#/components/schemas/Error'),
             ));
 
         $findPets = Operation::get()
@@ -129,9 +129,9 @@ class PetStoreTest extends IntegrationTestCase
                     ->required()
                     ->content(
                         MediaType::json()->schema(
-                            Schema::ref('#/components/schemas/NewPet')
-                        )
-                    )
+                            Schema::ref('#/components/schemas/NewPet'),
+                        ),
+                    ),
             )
             ->responses($petResponse, $defaultErrorResponse);
 
@@ -144,7 +144,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description('ID of pet to fetch')
             ->required()
             ->schema(
-                Schema::integer()->format(Schema::FORMAT_INT64)
+                Schema::integer()->format(Schema::FORMAT_INT64),
             );
 
         $findPetById = Operation::get()
@@ -178,7 +178,7 @@ class PetStoreTest extends IntegrationTestCase
 
         $this->assertEquals(
             json_decode($exampleResponse, true),
-            $openApi->toArray()
+            $openApi->toArray(),
         );
     }
 }

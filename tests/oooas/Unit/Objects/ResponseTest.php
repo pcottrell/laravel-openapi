@@ -14,7 +14,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Response::class)]
 class ResponseTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
@@ -28,7 +28,7 @@ class ResponseTest extends UnitTestCase
             ->example('Example String')
             ->examples(
                 Example::create('ExampleName')
-                    ->value('Example value')
+                    ->value('Example value'),
             )
             ->content(MediaType::json());
 
@@ -74,11 +74,11 @@ class ResponseTest extends UnitTestCase
                     'MyLink' => [],
                 ],
             ],
-            $response->toArray()
+            $response->toArray(),
         );
     }
 
-        public function test_create_with_ok_method_works()
+    public function testCreateWithOkMethodWorks()
     {
         $response = Response::ok();
 
@@ -86,7 +86,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('OK', $response->description);
     }
 
-        public function test_create_with_created_method_works()
+    public function testCreateWithCreatedMethodWorks()
     {
         $response = Response::created();
 
@@ -94,7 +94,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Created', $response->description);
     }
 
-        public function test_create_with_movedPermanently_method_works()
+    public function testCreateWithMovedPermanentlyMethodWorks()
     {
         $response = Response::movedPermanently();
 
@@ -102,7 +102,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Moved Permanently', $response->description);
     }
 
-        public function test_create_with_movedTemporarily_method_works()
+    public function testCreateWithMovedTemporarilyMethodWorks()
     {
         $response = Response::movedTemporarily();
 
@@ -110,7 +110,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Moved Temporarily', $response->description);
     }
 
-        public function test_create_with_badRequest_method_works()
+    public function testCreateWithBadRequestMethodWorks()
     {
         $response = Response::badRequest();
 
@@ -118,7 +118,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Bad Request', $response->description);
     }
 
-        public function test_create_with_unauthorized_method_works()
+    public function testCreateWithUnauthorizedMethodWorks()
     {
         $response = Response::unauthorized();
 
@@ -126,7 +126,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Unauthorized', $response->description);
     }
 
-        public function test_create_with_notFound_method_works()
+    public function testCreateWithNotFoundMethodWorks()
     {
         $response = Response::notFound();
 
@@ -134,7 +134,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Not Found', $response->description);
     }
 
-        public function test_create_with_unprocessableEntity_method_works()
+    public function testCreateWithUnprocessableEntityMethodWorks()
     {
         $response = Response::unprocessableEntity();
 
@@ -142,7 +142,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Unprocessable Entity', $response->description);
     }
 
-        public function test_create_with_tooManyRequests_method_works()
+    public function testCreateWithTooManyRequestsMethodWorks()
     {
         $response = Response::tooManyRequests();
 
@@ -150,7 +150,7 @@ class ResponseTest extends UnitTestCase
         $this->assertEquals('Too Many Requests', $response->description);
     }
 
-        public function test_create_with_internalServerError_method_works()
+    public function testCreateWithInternalServerErrorMethodWorks()
     {
         $response = Response::internalServerError();
 

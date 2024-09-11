@@ -2,9 +2,6 @@
 
 namespace Tests\Unit\Builders;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
@@ -12,6 +9,9 @@ use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
+use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -692,15 +692,15 @@ class SecurityBuilderTest extends TestCase
 
     #[DataProvider('operationSecuritySchemesDataProvider')]
     public function testCanApplyMultipleSecuritySchemesOnOperation(
-        array             $expectedJson,
-        array             $securitySchemeComponents,
-        array             $globalSecurity,
-        string|array|null $pathSecurity
+        array $expectedJson,
+        array $securitySchemeComponents,
+        array $globalSecurity,
+        string|array|null $pathSecurity,
     ): void {
         $components = Components::create()->securitySchemes(
             ...collect($securitySchemeComponents)->map(
-            static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
-        )->toArray()
+                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build(),
+            )->toArray(),
         );
 
         $action = 'get';
@@ -723,7 +723,7 @@ class SecurityBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route($route)
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
@@ -755,8 +755,8 @@ class SecurityBuilderTest extends TestCase
     ): void {
         $components = Components::create()->securitySchemes(
             ...collect($securitySchemeComponents)->map(
-            static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build()
-        )->toArray()
+                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build(),
+            )->toArray(),
         );
 
         $operation = Operation::create()
@@ -768,7 +768,7 @@ class SecurityBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route('/foo')
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
@@ -806,7 +806,7 @@ class SecurityBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route('/foo')
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         $expected = [
@@ -862,7 +862,7 @@ class SecurityBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route('/foo')
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         $expected = [

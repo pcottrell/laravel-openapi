@@ -12,13 +12,13 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property string|null $description
  * @property ExternalDocs|null $externalDocs
  * @property string|null $operationId
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null $parameters
+ * @property Parameter[]|null $parameters
  * @property RequestBody|null $requestBody
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Response[]|null $responses
+ * @property Response[]|null $responses
  * @property bool|null $deprecated
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[]|null $security
+ * @property SecurityRequirement[]|null $security
  * @property bool|null $noSecurity
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null $servers
+ * @property Server[]|null $servers
  */
 class Operation extends BaseObject
 {
@@ -62,7 +62,7 @@ class Operation extends BaseObject
     protected $operationId;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null
+     * @var Parameter[]|null
      */
     protected $parameters;
 
@@ -72,7 +72,7 @@ class Operation extends BaseObject
     protected $requestBody;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Response[]|null
+     * @var Response[]|null
      */
     protected $responses;
 
@@ -82,7 +82,7 @@ class Operation extends BaseObject
     protected $deprecated;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[]|null
+     * @var SecurityRequirement[]|null
      */
     protected $security;
 
@@ -92,12 +92,12 @@ class Operation extends BaseObject
     protected $noSecurity;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null
+     * @var Server[]|null
      */
     protected $servers;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[]|null
+     * @var PathItem[]|null
      */
     protected $callbacks;
 
@@ -170,7 +170,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Tag[]|string[] $tags
+     * @param Tag[]|string[] $tags
      *
      * @return static
      *
@@ -249,7 +249,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[] $parameters
+     * @param Parameter[] $parameters
      *
      * @return static
      */
@@ -275,7 +275,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Response[] $responses
+     * @param Response[] $responses
      *
      * @return static
      */
@@ -301,7 +301,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[]|null $security
+     * @param SecurityRequirement[]|null $security
      *
      * @return static
      */
@@ -328,7 +328,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Server[] $servers
+     * @param Server[] $servers
      *
      * @return static
      */
@@ -342,7 +342,7 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[] $callbacks
+     * @param PathItem[] $callbacks
      *
      * @return $this
      */

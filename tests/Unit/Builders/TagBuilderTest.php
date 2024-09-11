@@ -2,11 +2,10 @@
 
 namespace Tests\Unit\Builders;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -121,7 +120,7 @@ class TagBuilderTest extends TestCase
     #[DataProvider('invalidTagProvider')]
     public function testGivenNameNotProvidedCanProduceCorrectException(string $invalidTag): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Tag name is required.');
 
         $tagBuilder = app(TagBuilder::class);
@@ -178,7 +177,7 @@ class WithExternalObjectDoc extends TagFactory
             ->externalDocs(
                 ExternalDocs::create()
                     ->description('External API documentation')
-                    ->url('https://example.com/external-docs')
+                    ->url('https://example.com/external-docs'),
             );
     }
 }

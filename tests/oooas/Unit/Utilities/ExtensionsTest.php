@@ -15,12 +15,23 @@ use Tests\UnitTestCase;
 #[CoversClass(Extensions::class)]
 class ExtensionsTest extends UnitTestCase
 {
+    public static function schemasDataProvider(): array
+    {
+        return [
+            [Components::class],
+            [Operation::class],
+            [PathItem::class],
+            [Response::class],
+            [Schema::class],
+        ];
+    }
+
     /**
-     * @test
      * @dataProvider schemasDataProvider
-     * @param string|\MohammadAlavi\ObjectOrientedOAS\Objects\Schema $schema
+     *
+     * @param string|Schema $schema
      */
-    public function create_with_extensions($schema)
+    public function testCreateWithExtensions($schema)
     {
         $object = $schema::create()
             ->x('key', 'value')
@@ -37,11 +48,11 @@ class ExtensionsTest extends UnitTestCase
 
         $this->assertEquals(
             '{"x-key":"value","x-foo":"bar","x-baz":null,"x-array":{"type":"array","items":{"type":"string"}}}',
-            $object->toJson()
+            $object->toJson(),
         );
     }
 
-        public function test_can_unset_extensions()
+    public function testCanUnsetExtensions()
     {
         $object = Schema::create()
             ->x('key', 'value')
@@ -59,11 +70,11 @@ class ExtensionsTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @dataProvider schemasDataProvider
-     * @param string|\MohammadAlavi\ObjectOrientedOAS\Objects\Schema $schema
+     *
+     * @param string|Schema $schema
      */
-    public function get_single_extension($schema)
+    public function testGetSingleExtension($schema)
     {
         $object = $schema::create()->x('foo', 'bar');
 
@@ -71,11 +82,11 @@ class ExtensionsTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @dataProvider schemasDataProvider
-     * @param string|\MohammadAlavi\ObjectOrientedOAS\Objects\Schema $schema
+     *
+     * @param string|Schema $schema
      */
-    public function get_single_extension_does_not_exist($schema)
+    public function testGetSingleExtensionDoesNotExist($schema)
     {
         $object = $schema::create()->x('foo', 'bar');
 
@@ -85,11 +96,11 @@ class ExtensionsTest extends UnitTestCase
     }
 
     /**
-     * @test
      * @dataProvider schemasDataProvider
-     * @param string|\MohammadAlavi\ObjectOrientedOAS\Objects\Schema $schema
+     *
+     * @param string|Schema $schema
      */
-    public function get_all_extensions($schema)
+    public function testGetAllExtensions($schema)
     {
         $object = $schema::create();
 
@@ -100,19 +111,5 @@ class ExtensionsTest extends UnitTestCase
             ->x('foo', 'bar');
 
         $this->assertEquals(['x-key' => 'value', 'x-foo' => 'bar'], $object->x);
-    }
-
-    /**
-     * @return array
-     */
-    public function schemasDataProvider(): array
-    {
-        return [
-            [Components::class],
-            [Operation::class],
-            [PathItem::class],
-            [Response::class],
-            [Schema::class],
-        ];
     }
 }

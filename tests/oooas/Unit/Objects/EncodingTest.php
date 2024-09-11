@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Encoding::class)]
 class EncodingTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
@@ -27,7 +27,7 @@ class EncodingTest extends UnitTestCase
             ->example('Example String')
             ->examples(
                 Example::create('ExampleName')
-                    ->value('Example value')
+                    ->value('Example value'),
             )
             ->content(MediaType::json());
 

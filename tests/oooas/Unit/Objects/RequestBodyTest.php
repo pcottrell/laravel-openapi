@@ -11,7 +11,7 @@ use Tests\UnitTestCase;
 #[CoversClass(RequestBody::class)]
 class RequestBodyTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $requestBody = RequestBody::create()
             ->description('Standard request')

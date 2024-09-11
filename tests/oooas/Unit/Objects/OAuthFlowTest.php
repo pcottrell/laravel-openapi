@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(OAuthFlow::class)]
 class OAuthFlowTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_AUTHORIZATION_CODE)

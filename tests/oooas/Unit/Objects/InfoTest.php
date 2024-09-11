@@ -12,7 +12,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Info::class)]
 class InfoTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $info = Info::create()
             ->title('Pretend API')

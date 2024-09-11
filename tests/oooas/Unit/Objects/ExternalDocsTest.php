@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(ExternalDocs::class)]
 class ExternalDocsTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $externalDocs = ExternalDocs::create()
             ->description('GitHub Repo')

@@ -11,7 +11,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Not::class)]
 class NotTest extends UnitTestCase
 {
-        public function test_as_response_work()
+    public function testAsResponseWork()
     {
         $not = Not::create()
             ->schema(Schema::string());

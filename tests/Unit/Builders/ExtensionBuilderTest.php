@@ -2,13 +2,13 @@
 
 namespace Tests\Unit\Builders;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\TestCase;
 
@@ -23,7 +23,7 @@ class ExtensionBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route('/foo')
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         /** @var ExtensionBuilder $builder */
@@ -51,7 +51,7 @@ class ExtensionBuilderTest extends TestCase
             ->paths(
                 PathItem::create()
                     ->route('/foo')
-                    ->operations($operation)
+                    ->operations($operation),
             );
 
         /** @var ExtensionBuilder $builder */

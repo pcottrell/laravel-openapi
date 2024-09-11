@@ -8,9 +8,9 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property string|null $route
  * @property string|null $summary
  * @property string|null $description
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Operation[]|null $operations
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null $servers
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null $parameters
+ * @property Operation[]|null $operations
+ * @property Server[]|null $servers
+ * @property Parameter[]|null $parameters
  */
 class PathItem extends BaseObject
 {
@@ -30,17 +30,17 @@ class PathItem extends BaseObject
     protected $description;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Operation[]|null
+     * @var Operation[]|null
      */
     protected $operations;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null
+     * @var Server[]|null
      */
     protected $servers;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[]|null
+     * @var Parameter[]|null
      */
     protected $parameters;
 
@@ -81,7 +81,7 @@ class PathItem extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Operation[] $operations
+     * @param Operation[] $operations
      *
      * @return static
      */
@@ -95,7 +95,7 @@ class PathItem extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Server[] $servers
+     * @param Server[] $servers
      *
      * @return static
      */
@@ -109,7 +109,7 @@ class PathItem extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter[] $parameters
+     * @param Parameter[] $parameters
      *
      * @return static
      */

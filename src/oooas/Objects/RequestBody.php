@@ -6,7 +6,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /**
  * @property string|null $description
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null $content
+ * @property MediaType[]|null $content
  * @property bool|null $required
  */
 class RequestBody extends BaseObject
@@ -17,7 +17,7 @@ class RequestBody extends BaseObject
     protected $description;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null
+     * @var MediaType[]|null
      */
     protected $content;
 
@@ -39,7 +39,7 @@ class RequestBody extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[] $content
+     * @param MediaType[] $content
      *
      * @return static
      */

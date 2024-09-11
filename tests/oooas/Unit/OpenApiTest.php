@@ -27,7 +27,7 @@ use Tests\UnitTestCase;
 #[CoversClass(OpenApi::class)]
 class OpenApiTest extends UnitTestCase
 {
-        public function test_all_properties_works_and_validation_passes()
+    public function testAllPropertiesWorksAndValidationPasses()
     {
         // Create a tag.
         $tag = Tag::create()
@@ -55,9 +55,9 @@ class OpenApiTest extends UnitTestCase
                 Schema::integer('age')->example(60),
                 Schema::array('data')->items(
                     AllOf::create()->schemas(
-                        Schema::string('id')->format(Schema::FORMAT_UUID)
-                    )
-                )
+                        Schema::string('id')->format(Schema::FORMAT_UUID),
+                    ),
+                ),
             )
             ->required('id', 'created_at');
 
@@ -66,7 +66,7 @@ class OpenApiTest extends UnitTestCase
             ->statusCode(200)
             ->description('OK')
             ->content(
-                MediaType::json()->schema($exampleObject)
+                MediaType::json()->schema($exampleObject),
             );
 
         // Create an operation for a route.
@@ -83,7 +83,7 @@ class OpenApiTest extends UnitTestCase
             ->summary('Create an audit')
             ->operationId('audits.store')
             ->requestBody(RequestBody::create()->content(
-                MediaType::json()->schema($exampleObject)
+                MediaType::json()->schema($exampleObject),
             ));
 
         // Create parameter schemas.
@@ -107,7 +107,7 @@ class OpenApiTest extends UnitTestCase
                 Parameter::query()
                     ->name('format')
                     ->schema($format)
-                    ->description('The format of the appointments')
+                    ->description('The format of the appointments'),
             );
 
         // Specify the paths supported by the API.
@@ -160,13 +160,13 @@ class OpenApiTest extends UnitTestCase
 
         $this->assertEquals(
             json_decode($exampleResponse, true),
-            $openApi->toArray()
+            $openApi->toArray(),
         );
 
         $openApi->validate();
     }
 
-        public function test_validate()
+    public function testValidate()
     {
         $exceptionThrown = false;
 
@@ -174,19 +174,18 @@ class OpenApiTest extends UnitTestCase
             $openApi = OpenApi::create()
                 ->openapi('4.0.0')
                 ->info(
-                    Info::create()->title('foo')
+                    Info::create()->title('foo'),
                 )
                 ->paths(
                     PathItem::create()
                         ->route('/foo')
                         ->operations(
-                            Operation::get()
-                        )
+                            Operation::get(),
+                        ),
                 );
 
             $openApi->validate();
-        }
-        catch(ValidationException $exception) {
+        } catch (ValidationException $exception) {
             $exceptionThrown = true;
 
             $this->assertCount(3, $exception->getErrors());

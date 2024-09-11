@@ -11,7 +11,7 @@ use Tests\UnitTestCase;
 #[CoversClass(AllOf::class)]
 class AllOfTest extends UnitTestCase
 {
-        public function test_two_schemas_work()
+    public function testTwoSchemasWork()
     {
         $schema1 = Schema::string();
         $schema2 = Schema::integer();
@@ -31,7 +31,7 @@ class AllOfTest extends UnitTestCase
         ], $allOf->toArray());
     }
 
-        public function test_two_schemas_as_response_work()
+    public function testTwoSchemasAsResponseWork()
     {
         $schema1 = Schema::string();
         $schema2 = Schema::integer();

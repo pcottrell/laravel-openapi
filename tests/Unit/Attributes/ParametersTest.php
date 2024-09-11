@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
-use Tests\Unit\Attributes\Stubs\ParametersFactoryInvalidStub;
 use Tests\Unit\Attributes\Stubs\ParameterFactoryStub;
+use Tests\Unit\Attributes\Stubs\ParametersFactoryInvalidStub;
 
 describe('Parameters', function () {
     it('can set valid factory', function () {

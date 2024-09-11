@@ -18,11 +18,11 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 /**
  * @property string|null $openapi
  * @property Info|null $info
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null $servers
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[]|null $paths
+ * @property Server[]|null $servers
+ * @property PathItem[]|null $paths
  * @property Components|null $components
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[]|null $security
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Tag[]|null $tags
+ * @property SecurityRequirement[]|null $security
+ * @property Tag[]|null $tags
  * @property ExternalDocs|null $externalDocs
  */
 class OpenApi extends BaseObject
@@ -42,12 +42,12 @@ class OpenApi extends BaseObject
     protected $info;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Server[]|null
+     * @var Server[]|null
      */
     protected $servers;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[]|null
+     * @var PathItem[]|null
      */
     protected $paths;
 
@@ -57,12 +57,12 @@ class OpenApi extends BaseObject
     protected $components;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[]|null
+     * @var SecurityRequirement[]|null
      */
     protected $security;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Tag[]|null
+     * @var Tag[]|null
      */
     protected $tags;
 
@@ -96,7 +96,7 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Server[] $servers
+     * @param Server[] $servers
      *
      * @return static
      */
@@ -110,7 +110,7 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\PathItem[] $paths
+     * @param PathItem[] $paths
      *
      * @return static
      */
@@ -136,7 +136,7 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement[] $security
+     * @param SecurityRequirement[] $security
      *
      * @return static
      */
@@ -150,7 +150,7 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Tag[] $tags
+     * @param Tag[] $tags
      *
      * @return static
      */

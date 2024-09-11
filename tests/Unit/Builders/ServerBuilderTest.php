@@ -2,10 +2,10 @@
 
 namespace Tests\Unit\Builders;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
-use MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable;
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
+use MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -174,7 +174,7 @@ class ServerWithVariables extends ServerFactory
             ->variables(
                 ServerVariable::create('variable_name')
                     ->default('variable_defalut')
-                    ->description('variable_description')
+                    ->description('variable_description'),
             );
     }
 }
@@ -190,7 +190,7 @@ class ServerWithEnum extends ServerFactory
                 ServerVariable::create('variable_name')
                     ->default('variable_defalut')
                     ->description('variable_description')
-                    ->enum('A', 'B', 'C')
+                    ->enum('A', 'B', 'C'),
             );
     }
 }
@@ -209,7 +209,7 @@ class ServerWithMultipleVariableFormatting extends ServerFactory
                     ->enum('A', 'B'),
                 ServerVariable::create('variable_name_B')
                     ->default('sample')
-                    ->description('sample')
+                    ->description('sample'),
             );
     }
 }

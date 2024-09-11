@@ -9,8 +9,8 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property string|null $mediaType
  * @property Schema|null $schema
  * @property Example|null $example
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null $examples
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Encoding[]|null $encoding
+ * @property Example[]|null $examples
+ * @property Encoding[]|null $encoding
  */
 class MediaType extends BaseObject
 {
@@ -39,12 +39,12 @@ class MediaType extends BaseObject
     protected $example;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null
+     * @var Example[]|null
      */
     protected $examples;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Encoding[]|null
+     * @var Encoding[]|null
      */
     protected $encoding;
 
@@ -157,7 +157,7 @@ class MediaType extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null $examples
+     * @param Example[]|null $examples
      *
      * @return static
      */
@@ -171,7 +171,7 @@ class MediaType extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Encoding[] $encoding
+     * @param Encoding[] $encoding
      *
      * @return static
      */

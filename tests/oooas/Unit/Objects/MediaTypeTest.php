@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(MediaType::class)]
 class MediaTypeTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
@@ -43,12 +43,12 @@ class MediaTypeTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_example_with_ref_Works()
+    public function testCreateExampleWithRefWorks()
     {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
             ->examples(
-                Example::ref('#/components/examples/FrogExample', 'frog')
+                Example::ref('#/components/examples/FrogExample', 'frog'),
             );
 
         $this->assertEquals([

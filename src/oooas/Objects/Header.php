@@ -15,8 +15,8 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property bool|null $allowReserved
  * @property Schema|null $schema
  * @property mixed|null $example
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null $examples
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null $content
+ * @property Example[]|null $examples
+ * @property MediaType[]|null $content
  */
 class Header extends BaseObject
 {
@@ -74,12 +74,12 @@ class Header extends BaseObject
     protected $example;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Example[]|null
+     * @var Example[]|null
      */
     protected $examples;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null
+     * @var MediaType[]|null
      */
     protected $content;
 
@@ -194,7 +194,7 @@ class Header extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Example[] $examples
+     * @param Example[] $examples
      *
      * @return static
      */
@@ -208,7 +208,7 @@ class Header extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[] $content
+     * @param MediaType[] $content
      *
      * @return static
      */

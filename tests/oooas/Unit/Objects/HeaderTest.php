@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Header::class)]
 class HeaderTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')

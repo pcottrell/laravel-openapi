@@ -14,7 +14,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Schema::class)]
 class SchemaTest extends UnitTestCase
 {
-        public function test_create_array_with_all_parameters_works()
+    public function testCreateArrayWithAllParametersWorks()
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -65,7 +65,7 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_boolean_with_all_parameters_works()
+    public function testCreateBooleanWithAllParametersWorks()
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -102,7 +102,7 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_integer_with_all_parameters_works()
+    public function testCreateIntegerWithAllParametersWorks()
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -151,7 +151,7 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_number_with_all_parameters_works()
+    public function testCreateNumberWithAllParametersWorks()
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -198,7 +198,7 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_object_with_all_parameters_works()
+    public function testCreateObjectWithAllParametersWorks()
     {
         $property = Schema::string('id')
             ->format(Schema::FORMAT_UUID);
@@ -255,7 +255,7 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_string_with_all_parameters_works()
+    public function testCreateStringWithAllParametersWorks()
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -300,11 +300,11 @@ class SchemaTest extends UnitTestCase
         ], $response->toArray());
     }
 
-        public function test_create_array_with_ref_works()
+    public function testCreateArrayWithRefWorks()
     {
         $schema = Schema::array()
             ->items(
-                Schema::ref('#/components/schemas/pet')
+                Schema::ref('#/components/schemas/pet'),
             );
 
         $this->assertEquals([
@@ -315,7 +315,7 @@ class SchemaTest extends UnitTestCase
         ], $schema->toArray());
     }
 
-        public function test_create_object_with_oneOf_works()
+    public function testCreateObjectWithOneOfWorks()
     {
         $string = Schema::string();
         $number = Schema::number();
@@ -323,7 +323,7 @@ class SchemaTest extends UnitTestCase
         $schema = Schema::create()
             ->type(Schema::TYPE_OBJECT)
             ->properties(
-                OneOf::create('poly_type')->schemas($string, $number)
+                OneOf::create('poly_type')->schemas($string, $number),
             );
 
         $response = MediaType::create()

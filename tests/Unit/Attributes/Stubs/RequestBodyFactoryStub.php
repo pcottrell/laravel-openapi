@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Attributes\Stubs;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 
 class RequestBodyFactoryStub extends RequestBodyFactory
 {

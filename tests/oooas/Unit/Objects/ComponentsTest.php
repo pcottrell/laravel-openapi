@@ -20,7 +20,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Components::class)]
 class ComponentsTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $schema = Schema::object('ExampleSchema');
 
@@ -51,8 +51,8 @@ class ComponentsTest extends UnitTestCase
             ->operations(
                 Operation::post()->requestBody(
                     RequestBody::create()
-                        ->description('something happened')
-                )
+                        ->description('something happened'),
+                ),
             );
 
         $components = Components::create()

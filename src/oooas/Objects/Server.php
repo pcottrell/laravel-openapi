@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 /**
  * @property string|null $url
  * @property string|null $description
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable[]|null $variables
+ * @property ServerVariable[]|null $variables
  */
 class Server extends BaseObject
 {
@@ -22,7 +22,7 @@ class Server extends BaseObject
     protected $description;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable[]|null
+     * @var ServerVariable[]|null
      */
     protected $variables;
 
@@ -51,7 +51,7 @@ class Server extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable[] $variables
+     * @param ServerVariable[] $variables
      *
      * @return static
      */

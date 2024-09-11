@@ -17,7 +17,7 @@ use Tests\IntegrationTestCase;
 #[CoversNothing]
 class ReadmeTest extends IntegrationTestCase
 {
-        public function test_the_readme_example()
+    public function testTheReadmeExample()
     {
         // Create a tag for all the user endpoints.
         $usersTag = Tag::create()
@@ -36,7 +36,7 @@ class ReadmeTest extends IntegrationTestCase
                 Schema::string('id')->format(Schema::FORMAT_UUID),
                 Schema::string('name'),
                 Schema::integer('age')->example(23),
-                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME)
+                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
             );
 
         // Create the user response.
@@ -44,7 +44,7 @@ class ReadmeTest extends IntegrationTestCase
             ->statusCode(200)
             ->description('OK')
             ->content(
-                MediaType::json()->schema($userSchema)
+                MediaType::json()->schema($userSchema),
             );
 
         // Create the operation for the route (i.e. GET, POST, etc.).
@@ -70,16 +70,16 @@ class ReadmeTest extends IntegrationTestCase
 
         $this->assertEquals(
             json_decode($readmeExample, true),
-            $openApi->toArray()
+            $openApi->toArray(),
         );
     }
 
-        public function test_setting_and_unsetting_properties()
+    public function testSettingAndUnsettingProperties()
     {
         $info = Info::create()
             ->title('Example API');
 
-        $openApi = OpenAPI::create()
+        $openApi = OpenApi::create()
             ->info($info);
 
         $this->assertEquals([
@@ -93,12 +93,12 @@ class ReadmeTest extends IntegrationTestCase
         $this->assertEquals([], $openApi->toArray());
     }
 
-        public function test_unsetting_variadic_methods()
+    public function testUnsettingVariadicMethods()
     {
         $path = PathItem::create()
             ->route('/users');
 
-        $openApi = OpenAPI::create()
+        $openApi = OpenApi::create()
             ->paths($path);
 
         $this->assertEquals([
@@ -112,20 +112,20 @@ class ReadmeTest extends IntegrationTestCase
         $this->assertEquals([], $openApi->toArray());
     }
 
-        public function test_retrieving_properties()
+    public function testRetrievingProperties()
     {
         $info = Info::create()->title('Example API');
 
         $this->assertEquals('Example API', $info->title);
     }
 
-        public function test_object_id()
+    public function testObjectId()
     {
         $schema = Schema::create()
             ->type(Schema::TYPE_OBJECT)
             ->properties(
                 Schema::create('username')->type(Schema::TYPE_STRING),
-                Schema::create('age')->type(Schema::TYPE_INTEGER)
+                Schema::create('age')->type(Schema::TYPE_INTEGER),
             );
 
         $this->assertEquals([
@@ -141,12 +141,12 @@ class ReadmeTest extends IntegrationTestCase
         ], $schema->toArray());
     }
 
-        public function test_simpler_object_id()
+    public function testSimplerObjectId()
     {
         $schema = Schema::object()
             ->properties(
                 Schema::string('username'),
-                Schema::integer('age')
+                Schema::integer('age'),
             );
 
         $this->assertEquals([
@@ -162,11 +162,11 @@ class ReadmeTest extends IntegrationTestCase
         ], $schema->toArray());
     }
 
-        public function test_dollar_ref()
+    public function testDollarRef()
     {
         $schema = AllOf::create()
             ->schemas(
-                Schema::ref('#/components/schemas/ExampleSchema')
+                Schema::ref('#/components/schemas/ExampleSchema'),
             );
 
         $this->assertEquals([

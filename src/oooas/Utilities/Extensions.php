@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException;
 /**
  * @internal
  */
-class Extensions implements \ArrayAccess
+class Extensions implements ArrayAccess
 {
     public const X_EMPTY_VALUE = 'X_EMPTY_VALUE';
 

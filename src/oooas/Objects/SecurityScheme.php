@@ -11,7 +11,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property string|null $in
  * @property string|null $scheme
  * @property string|null $bearerFormat
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow[]|null $flows
+ * @property OAuthFlow[]|null $flows
  * @property string|null $openIdConnectUrl
  */
 class SecurityScheme extends BaseObject
@@ -56,7 +56,7 @@ class SecurityScheme extends BaseObject
     protected $bearerFormat;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow[]|null
+     * @var OAuthFlow[]|null
      */
     protected $flows;
 
@@ -146,7 +146,7 @@ class SecurityScheme extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow[] $flows
+     * @param OAuthFlow[] $flows
      *
      * @return static
      */

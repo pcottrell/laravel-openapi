@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Server::class)]
 class ServerTestTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $serverVariable = ServerVariable::create('ServerVariableName')
             ->default('Default value');
@@ -31,7 +31,7 @@ class ServerTestTest extends UnitTestCase
         ], $server->toArray());
     }
 
-        public function test_variables_are_supported()
+    public function testVariablesAreSupported()
     {
         $serverVariable = ServerVariable::create('username')
             ->default('demo');
@@ -49,7 +49,7 @@ class ServerTestTest extends UnitTestCase
                     ],
                 ],
             ],
-            $server->toArray()
+            $server->toArray(),
         );
     }
 }

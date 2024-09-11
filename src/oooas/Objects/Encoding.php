@@ -6,7 +6,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /**
  * @property string|null $contentType
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null $headers
+ * @property Header[]|null $headers
  * @property string|null $style
  * @property bool|null $explode
  * @property bool|null $allowReserved
@@ -19,7 +19,7 @@ class Encoding extends BaseObject
     protected $contentType;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null
+     * @var Header[]|null
      */
     protected $headers;
 
@@ -51,7 +51,7 @@ class Encoding extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Header[] $headers
+     * @param Header[] $headers
      *
      * @return static
      */

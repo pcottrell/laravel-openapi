@@ -7,9 +7,9 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 /**
  * @property int|null $statusCode
  * @property string|null $description
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null $headers
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null $content
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Link[]|null $links
+ * @property Header[]|null $headers
+ * @property MediaType[]|null $content
+ * @property Link[]|null $links
  */
 class Response extends BaseObject
 {
@@ -24,17 +24,17 @@ class Response extends BaseObject
     protected $description;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Header[]|null
+     * @var Header[]|null
      */
     protected $headers;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[]|null
+     * @var MediaType[]|null
      */
     protected $content;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Link[]|null
+     * @var Link[]|null
      */
     protected $links;
 
@@ -173,7 +173,7 @@ class Response extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Header[] $headers
+     * @param Header[] $headers
      *
      * @return static
      */
@@ -187,7 +187,7 @@ class Response extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\MediaType[] $content
+     * @param MediaType[] $content
      *
      * @return static
      */
@@ -201,7 +201,7 @@ class Response extends BaseObject
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Link[] $links
+     * @param Link[] $links
      *
      * @return static
      */

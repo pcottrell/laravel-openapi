@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Attributes\Stubs;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
 class ResponseFactoryStub extends ResponseFactory
 {

@@ -2,9 +2,7 @@
 
 namespace Tests\Unit\Attributes\Stubs;
 
-use Stringable;
-
-class StringableStub implements Stringable
+class StringableStub implements \Stringable
 {
     public function __toString(): string
     {

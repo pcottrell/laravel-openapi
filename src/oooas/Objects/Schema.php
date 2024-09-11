@@ -13,7 +13,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property mixed|null $default
  * @property string|null $format
  * @property string|null $type
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|null $items
+ * @property Schema[]|null $items
  * @property int|null $maxItems
  * @property int|null $minItems
  * @property bool|null $uniqueItems
@@ -26,7 +26,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property int|float|null $exclusiveMinimum
  * @property int|float|null $multipleOf
  * @property string[]|null $required
- * @property \MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract[]|null $properties
+ * @property SchemaContract[]|null $properties
  * @property Schema|null $additionalProperties
  * @property int|null $maxProperties
  * @property int|null $minProperties
@@ -155,7 +155,7 @@ class Schema extends BaseObject implements SchemaContract
     protected $required;
 
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract[]|null
+     * @var SchemaContract[]|null
      */
     protected $properties;
 
@@ -543,7 +543,7 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|string[] $required
+     * @param Schema[]|string[] $required
      *
      * @return static
      *
@@ -574,7 +574,7 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract[] $properties
+     * @param SchemaContract[] $properties
      *
      * @return static
      */

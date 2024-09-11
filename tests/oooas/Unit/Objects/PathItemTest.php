@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(PathItem::class)]
 class PathItemTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $pathItem = PathItem::create()
             ->route('/users')

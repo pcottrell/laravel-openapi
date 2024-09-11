@@ -6,17 +6,17 @@ use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /**
- * @property \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|null $schemas
+ * @property Schema[]|null $schemas
  */
 abstract class SchemaComposition extends BaseObject implements SchemaContract
 {
     /**
-     * @var \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[]|null
+     * @var Schema[]|null
      */
     protected $schemas;
 
     /**
-     * @param \MohammadAlavi\ObjectOrientedOAS\Objects\Schema[] $schemas
+     * @param Schema[] $schemas
      *
      * @return static
      */

@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Xml::class)]
 class XmlTest extends UnitTestCase
 {
-        public function test_create_with_all_parameters_works()
+    public function testCreateWithAllParametersWorks()
     {
         $xml = Xml::create()
             ->name('Xml name')

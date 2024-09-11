@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Attributes\Stubs;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecuritySchemeFactoryStub extends SecuritySchemeFactory
 {
