@@ -8,6 +8,7 @@ use MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException;
  * @internal
  *
  * @template T
+ *
  * @template-implements \ArrayAccess<string, T>
  */
 class Extensions implements \ArrayAccess
