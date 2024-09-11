@@ -51,7 +51,7 @@ class Discriminator extends BaseObject
 
         $instance = clone $this;
 
-        $instance->mapping = $mapping !== [] ? $mapping : null;
+        $instance->mapping = [] !== $mapping ? $mapping : null;
 
         return $instance;
     }

@@ -26,7 +26,7 @@ class ExtensionsTest extends UnitTestCase
     }
 
     #[DataProvider('schemasDataProvider')]
-    public function testCreateWithExtensions($schema)
+    public function testCreateWithExtensions(string $schema): void
     {
         $object = $schema::create()
             ->x('key', 'value')
@@ -47,7 +47,7 @@ class ExtensionsTest extends UnitTestCase
         );
     }
 
-    public function testCanUnsetExtensions()
+    public function testCanUnsetExtensions(): void
     {
         $object = Schema::create()
             ->x('key', 'value')
@@ -65,7 +65,7 @@ class ExtensionsTest extends UnitTestCase
     }
 
     #[DataProvider('schemasDataProvider')]
-    public function testGetSingleExtension($schema)
+    public function testGetSingleExtension(string $schema): void
     {
         $object = $schema::create()->x('foo', 'bar');
 
@@ -73,7 +73,7 @@ class ExtensionsTest extends UnitTestCase
     }
 
     #[DataProvider('schemasDataProvider')]
-    public function testGetSingleExtensionDoesNotExist($schema)
+    public function testGetSingleExtensionDoesNotExist(string $schema): void
     {
         $object = $schema::create()->x('foo', 'bar');
 
@@ -83,7 +83,7 @@ class ExtensionsTest extends UnitTestCase
     }
 
     #[DataProvider('schemasDataProvider')]
-    public function testGetAllExtensions($schema)
+    public function testGetAllExtensions(string $schema): void
     {
         $object = $schema::create();
 

@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Parameter::class)]
 class ParameterTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $parameter = Parameter::create()
             ->name('user')

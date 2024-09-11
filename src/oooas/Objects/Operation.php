@@ -202,7 +202,7 @@ class Operation extends BaseObject
 
         $instance = clone $this;
 
-        $instance->tags = $tags !== [] ? $tags : null;
+        $instance->tags = [] !== $tags ? $tags : null;
 
         return $instance;
     }
@@ -264,7 +264,7 @@ class Operation extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameter !== [] ? $parameter : null;
+        $instance->parameters = [] !== $parameter ? $parameter : null;
 
         return $instance;
     }
@@ -316,7 +316,7 @@ class Operation extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->security = $securityRequirement !== [] ? $securityRequirement : null;
+        $instance->security = [] !== $securityRequirement ? $securityRequirement : null;
         $instance->noSecurity = null;
 
         return $instance;
@@ -343,7 +343,7 @@ class Operation extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->servers = $server !== [] ? $server : null;
+        $instance->servers = [] !== $server ? $server : null;
 
         return $instance;
     }
@@ -357,7 +357,7 @@ class Operation extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->callbacks = $pathItem !== [] ? $pathItem : null;
+        $instance->callbacks = [] !== $pathItem ? $pathItem : null;
 
         return $instance;
     }
@@ -382,11 +382,11 @@ class Operation extends BaseObject
             'operationId' => $this->operationId,
             'parameters' => $this->parameters,
             'requestBody' => $this->requestBody,
-            'responses' => $responses !== [] ? $responses : null,
+            'responses' => [] !== $responses ? $responses : null,
             'deprecated' => $this->deprecated,
             'security' => $this->noSecurity ? [] : $this->security,
             'servers' => $this->servers,
-            'callbacks' => $callbacks !== [] ? $callbacks : null,
+            'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);
     }
 }

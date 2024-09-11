@@ -12,7 +12,7 @@ class ResponseBuilder
     public function build(RouteInformation $routeInformation): array
     {
         return $routeInformation->actionAttributes
-            ->filter(static fn (object $attribute) => $attribute instanceof ResponseAttribute)
+            ->filter(static fn (object $attribute): bool => $attribute instanceof ResponseAttribute)
             ->map(static function (ResponseAttribute $responseAttribute) {
                 $factory = app($responseAttribute->factory);
                 $response = $factory->build();

@@ -85,7 +85,7 @@ class OperationBuilder
 
         /** @var OperationAttribute|null $operation */
         $operation = $routeInformation->actionAttributes
-            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
+            ->first(static fn (object $attribute): bool => $attribute instanceof OperationAttribute);
 
         if (!is_null($operation)) {
             $operationId = $operation->id;

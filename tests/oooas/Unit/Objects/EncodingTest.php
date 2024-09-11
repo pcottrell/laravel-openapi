@@ -13,7 +13,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Encoding::class)]
 class EncodingTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')

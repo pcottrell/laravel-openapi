@@ -321,7 +321,7 @@ class Schema extends BaseObject implements SchemaContract
     {
         $instance = clone $this;
 
-        $instance->enum = $enum !== [] ? $enum : null;
+        $instance->enum = [] !== $enum ? $enum : null;
 
         return $instance;
     }
@@ -582,7 +582,7 @@ class Schema extends BaseObject implements SchemaContract
 
         $instance = clone $this;
 
-        $instance->required = $required !== [] ? $required : null;
+        $instance->required = [] !== $required ? $required : null;
 
         return $instance;
     }
@@ -596,7 +596,7 @@ class Schema extends BaseObject implements SchemaContract
     {
         $instance = clone $this;
 
-        $instance->properties = $schemaContract !== [] ? $schemaContract : null;
+        $instance->properties = [] !== $schemaContract ? $schemaContract : null;
 
         return $instance;
     }
@@ -762,7 +762,7 @@ class Schema extends BaseObject implements SchemaContract
             'exclusiveMinimum' => $this->exclusiveMinimum,
             'multipleOf' => $this->multipleOf,
             'required' => $this->required,
-            'properties' => $properties !== [] ? $properties : null,
+            'properties' => [] !== $properties ? $properties : null,
             'additionalProperties' => $this->additionalProperties,
             'maxProperties' => $this->maxProperties,
             'minProperties' => $this->minProperties,

@@ -15,24 +15,15 @@ abstract class BaseObject implements \JsonSerializable
     /**
      * @var string|null
      */
-    protected $objectId;
-
-    /**
-     * @var string|null
-     */
     protected $ref;
 
-    /**
-     * @var Extensions
-     */
-    protected $extensions;
+    protected Extensions $extensions;
 
     /**
      * BaseObject constructor.
      */
-    public function __construct(string|null $objectId = null)
+    public function __construct(protected string|null $objectId = null)
     {
-        $this->objectId = $objectId;
         $this->extensions = new Extensions();
     }
 

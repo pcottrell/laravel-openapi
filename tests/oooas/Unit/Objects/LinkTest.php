@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Link::class)]
 class LinkTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $link = Link::create('LinkName')
             ->operationId('goldspecdigital')

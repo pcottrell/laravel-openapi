@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Discriminator::class)]
 class DiscriminatorTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $discriminator = Discriminator::create()
             ->propertyName('Discriminator Name')

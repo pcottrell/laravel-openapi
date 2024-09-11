@@ -16,7 +16,7 @@ class TagBuilder
     public function build(array $tagFactories): array
     {
         return collect($tagFactories)
-            ->filter(static fn ($tag) => is_a($tag, TagFactory::class, true))
+            ->filter(static fn ($tag): bool => is_a($tag, TagFactory::class, true))
             ->map(static function (string $tagFactory): Tag {
                 /** @var TagFactory $tagFactoryInstance */
                 $tagFactoryInstance = app($tagFactory);

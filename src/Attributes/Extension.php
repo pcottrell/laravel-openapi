@@ -12,7 +12,7 @@ class Extension
 
     public function __construct(string|null $factory = null, public string|null $key = null, public string|null $value = null)
     {
-        if ($factory !== null && $factory !== '' && $factory !== '0') {
+        if (null !== $factory && '' !== $factory && '0' !== $factory) {
             $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Extensions\\' . $factory;
 
             if (!is_a($this->factory, ExtensionFactory::class, true)) {

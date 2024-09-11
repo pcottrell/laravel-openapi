@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Contact::class)]
 class ContactTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $contact = Contact::create()
             ->name('GoldSpec Digital')

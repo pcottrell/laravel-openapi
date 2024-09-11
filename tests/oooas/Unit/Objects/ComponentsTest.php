@@ -20,7 +20,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Components::class)]
 class ComponentsTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $schema = Schema::object('ExampleSchema');
 

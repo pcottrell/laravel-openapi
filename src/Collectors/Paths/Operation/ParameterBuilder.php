@@ -23,12 +23,12 @@ class ParameterBuilder
     protected function buildPath(RouteInformation $routeInformation): Collection
     {
         return $routeInformation->parameters
-            ->map(static function (array $parameter) use ($routeInformation) {
+            ->map(static function (array $parameter) use ($routeInformation): ?\MohammadAlavi\ObjectOrientedOAS\Objects\Parameter {
                 $schema = Schema::string();
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
                 $reflectionParameter = collect($routeInformation->actionParameters)
-                    ->first(static fn (\ReflectionParameter $reflectionParameter) => $reflectionParameter->name === $parameter['name']);
+                    ->first(static fn (\ReflectionParameter $reflectionParameter): bool => $reflectionParameter->name === $parameter['name']);
 
                 if ($reflectionParameter) {
                     // The reflected param has no type, so ignore (should be defined in a ParametersFactory instead)
@@ -49,7 +49,7 @@ class ParameterBuilder
     protected function buildAttribute(RouteInformation $routeInformation): Collection
     {
         /** @var ParameterAttribute|null $parameters */
-        $parameters = $routeInformation->actionAttributes->first(static fn ($attribute) => $attribute instanceof ParameterAttribute, []);
+        $parameters = $routeInformation->actionAttributes->first(static fn ($attribute): bool => $attribute instanceof ParameterAttribute, []);
 
         if ($parameters) {
             /** @var ParameterFactory $parametersFactory */

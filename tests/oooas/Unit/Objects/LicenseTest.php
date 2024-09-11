@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(License::class)]
 class LicenseTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $license = License::create()
             ->name('MIT')

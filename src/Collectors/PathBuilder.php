@@ -30,7 +30,7 @@ class PathBuilder
         array $middlewares,
     ): array {
         return $this->routes()
-            ->filter(static function (RouteInformation $routeInformation) use ($collection) {
+            ->filter(static function (RouteInformation $routeInformation) use ($collection): bool {
                 // TODO: use these docs to refactor and simplify this code
                 /** @var CollectionAttribute|null $collectionAttribute */
                 // You can set the collection either on controller or per action (on each method)
@@ -38,7 +38,7 @@ class PathBuilder
                 $collectionAttribute = collect()
                     ->merge($routeInformation->controllerAttributes)
                     ->merge($routeInformation->actionAttributes)
-                    ->first(static fn (object $item) => $item instanceof CollectionAttribute);
+                    ->first(static fn (object $item): false => $item instanceof CollectionAttribute);
                 // $collectionAttribute is the list of collections that this controller or action belongs to
                 // $collectionAttribute are collection attributes added to [#Collection] on the controller or action
                 // $collectionAttribute->name is an array of strings, each string is a collection name (e.g. 'public', 'private', 'default')
@@ -57,14 +57,14 @@ class PathBuilder
                     (!$collectionAttribute && Generator::COLLECTION_DEFAULT === $collection)
                     || ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
             })
-            ->map(static function (RouteInformation $routeInformation) use ($middlewares) {
+            ->map(static function (RouteInformation $routeInformation) use ($middlewares): \MohammadAlavi\LaravelOpenApi\Objects\RouteInformation {
                 foreach ($middlewares as $middleware) {
                     app($middleware)->before($routeInformation);
                 }
 
                 return $routeInformation;
             })
-            ->groupBy(static fn (RouteInformation $routeInformation) => $routeInformation->uri)
+            ->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->uri)
             ->map(function (Collection $routes, $uri) {
                 $pathItem = PathItem::create()->route($uri);
 
@@ -86,14 +86,14 @@ class PathBuilder
     protected function routes(): Collection
     {
         return collect(app(Router::class)->getRoutes())
-            ->filter(static fn (Route $route) => 'Closure' !== $route->getActionName())
-            ->map(static fn (Route $route) => RouteInformation::createFromRoute($route))
-            ->filter(static function (RouteInformation $routeInformation) {
+            ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
+            ->map(static fn (Route $route): \MohammadAlavi\LaravelOpenApi\Objects\RouteInformation => RouteInformation::createFromRoute($route))
+            ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
-                    ->first(static fn (object $attribute) => $attribute instanceof Attributes\PathItem);
+                    ->first(static fn (object $attribute): bool => $attribute instanceof Attributes\PathItem);
 
                 $operation = $routeInformation->actionAttributes
-                    ->first(static fn (object $attribute) => $attribute instanceof Attributes\Operation);
+                    ->first(static fn (object $attribute): bool => $attribute instanceof Attributes\Operation);
 
                 return $pathItem && $operation;
             });

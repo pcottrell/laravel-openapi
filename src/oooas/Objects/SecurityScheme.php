@@ -190,7 +190,7 @@ class SecurityScheme extends BaseObject
             'in' => $this->in,
             'scheme' => $this->scheme,
             'bearerFormat' => $this->bearerFormat,
-            'flows' => $flows !== [] ? $flows : null,
+            'flows' => [] !== $flows ? $flows : null,
             'openIdConnectUrl' => $this->openIdConnectUrl,
         ]);
     }

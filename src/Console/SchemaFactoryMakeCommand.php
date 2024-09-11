@@ -54,7 +54,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         $definition .= '            ->properties(' . PHP_EOL;
 
         $properties = collect($columns)
-            ->map(static function ($column) use ($connection, $model) {
+            ->map(static function ($column) use ($connection, $model): string {
                 /** @var Column $column */
                 $column = $connection->getDoctrineColumn(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable(), $column);
                 $name = $column->getName();
@@ -88,7 +88,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                         break;
                 }
 
-                $args = array_map(static function ($value) {
+                $args = array_map(static function (string|null $value): string {
                     if (null === $value) {
                         return 'null';
                     }

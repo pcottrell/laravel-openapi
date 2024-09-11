@@ -17,7 +17,7 @@ final readonly class ResponseCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return $this->classCollector->collect($collection)
-            ->filter(static fn ($class) => is_a($class, ResponseFactory::class, true) && is_a($class, Reusable::class, true))
+            ->filter(static fn ($class): bool => is_a($class, ResponseFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function ($class) {
                 /** @var ResponseFactory $instance */
                 $instance = app($class);

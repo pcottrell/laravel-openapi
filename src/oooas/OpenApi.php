@@ -106,7 +106,7 @@ class OpenApi extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->servers = $server !== [] ? $server : null;
+        $instance->servers = [] !== $server ? $server : null;
 
         return $instance;
     }
@@ -120,7 +120,7 @@ class OpenApi extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->paths = $pathItem !== [] ? $pathItem : null;
+        $instance->paths = [] !== $pathItem ? $pathItem : null;
 
         return $instance;
     }
@@ -146,7 +146,7 @@ class OpenApi extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->security = $securityRequirement !== [] ? $securityRequirement : null;
+        $instance->security = [] !== $securityRequirement ? $securityRequirement : null;
 
         return $instance;
     }
@@ -160,7 +160,7 @@ class OpenApi extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->tags = $tag !== [] ? $tag : null;
+        $instance->tags = [] !== $tag ? $tag : null;
 
         return $instance;
     }
@@ -182,7 +182,7 @@ class OpenApi extends BaseObject
      */
     public function validate(): void
     {
-        if (!class_exists(\JsonSchema\Validator::class)) {
+        if (!class_exists(Validator::class)) {
             throw new \RuntimeException('justinrainbow/json-schema should be installed for validation');
         }
 
@@ -212,7 +212,7 @@ class OpenApi extends BaseObject
             'openapi' => $this->openapi,
             'info' => $this->info,
             'servers' => $this->servers,
-            'paths' => $paths !== [] ? $paths : null,
+            'paths' => [] !== $paths ? $paths : null,
             'components' => $this->components,
             'security' => $this->security,
             'tags' => $this->tags,

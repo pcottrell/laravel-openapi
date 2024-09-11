@@ -59,7 +59,7 @@ class Encoding extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->headers = $header !== [] ? $header : null;
+        $instance->headers = [] !== $header ? $header : null;
 
         return $instance;
     }
@@ -109,7 +109,7 @@ class Encoding extends BaseObject
 
         return Arr::filter([
             'contentType' => $this->contentType,
-            'headers' => $headers !== [] ? $headers : null,
+            'headers' => [] !== $headers ? $headers : null,
             'style' => $this->style,
             'explode' => $this->explode,
             'allowReserved' => $this->allowReserved,

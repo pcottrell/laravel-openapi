@@ -14,7 +14,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Response::class)]
 class ResponseTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
@@ -78,7 +78,7 @@ class ResponseTest extends UnitTestCase
         );
     }
 
-    public function testCreateWithOkMethodWorks()
+    public function testCreateWithOkMethodWorks(): void
     {
         $response = Response::ok();
 
@@ -86,7 +86,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('OK', $response->description);
     }
 
-    public function testCreateWithCreatedMethodWorks()
+    public function testCreateWithCreatedMethodWorks(): void
     {
         $response = Response::created();
 
@@ -94,7 +94,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Created', $response->description);
     }
 
-    public function testCreateWithMovedPermanentlyMethodWorks()
+    public function testCreateWithMovedPermanentlyMethodWorks(): void
     {
         $response = Response::movedPermanently();
 
@@ -102,7 +102,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Moved Permanently', $response->description);
     }
 
-    public function testCreateWithMovedTemporarilyMethodWorks()
+    public function testCreateWithMovedTemporarilyMethodWorks(): void
     {
         $response = Response::movedTemporarily();
 
@@ -110,7 +110,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Moved Temporarily', $response->description);
     }
 
-    public function testCreateWithBadRequestMethodWorks()
+    public function testCreateWithBadRequestMethodWorks(): void
     {
         $response = Response::badRequest();
 
@@ -118,7 +118,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Bad Request', $response->description);
     }
 
-    public function testCreateWithUnauthorizedMethodWorks()
+    public function testCreateWithUnauthorizedMethodWorks(): void
     {
         $response = Response::unauthorized();
 
@@ -126,7 +126,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Unauthorized', $response->description);
     }
 
-    public function testCreateWithNotFoundMethodWorks()
+    public function testCreateWithNotFoundMethodWorks(): void
     {
         $response = Response::notFound();
 
@@ -134,7 +134,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Not Found', $response->description);
     }
 
-    public function testCreateWithUnprocessableEntityMethodWorks()
+    public function testCreateWithUnprocessableEntityMethodWorks(): void
     {
         $response = Response::unprocessableEntity();
 
@@ -142,7 +142,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Unprocessable Entity', $response->description);
     }
 
-    public function testCreateWithTooManyRequestsMethodWorks()
+    public function testCreateWithTooManyRequestsMethodWorks(): void
     {
         $response = Response::tooManyRequests();
 
@@ -150,7 +150,7 @@ class ResponseTest extends UnitTestCase
         $this->assertSame('Too Many Requests', $response->description);
     }
 
-    public function testCreateWithInternalServerErrorMethodWorks()
+    public function testCreateWithInternalServerErrorMethodWorks(): void
     {
         $response = Response::internalServerError();
 

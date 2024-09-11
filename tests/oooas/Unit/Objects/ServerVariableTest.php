@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(ServerVariable::class)]
 class ServerVariableTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $serverVariable = ServerVariable::create('ServerVariableName')
             ->enum('Earth', 'Mars', 'Saturn')

@@ -16,7 +16,7 @@ class ServerBuilder
     public function build(array $serverFactories): array
     {
         return collect($serverFactories)
-            ->filter(static fn ($server) => app($server) instanceof ServerFactory)
+            ->filter(static fn ($server): bool => app($server) instanceof ServerFactory)
             ->map(static function (string $server): Server {
                 /** @var Server $server */
                 $server = app($server)->build();

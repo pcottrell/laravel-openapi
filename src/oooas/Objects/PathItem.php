@@ -89,7 +89,7 @@ class PathItem extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->operations = $operation !== [] ? $operation : null;
+        $instance->operations = [] !== $operation ? $operation : null;
 
         return $instance;
     }
@@ -103,7 +103,7 @@ class PathItem extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->servers = $server !== [] ? $server : null;
+        $instance->servers = [] !== $server ? $server : null;
 
         return $instance;
     }
@@ -117,7 +117,7 @@ class PathItem extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameter !== [] ? $parameter : null;
+        $instance->parameters = [] !== $parameter ? $parameter : null;
 
         return $instance;
     }

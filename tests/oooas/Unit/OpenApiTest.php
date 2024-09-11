@@ -27,7 +27,7 @@ use Tests\UnitTestCase;
 #[CoversClass(OpenApi::class)]
 class OpenApiTest extends UnitTestCase
 {
-    public function testAllPropertiesWorksAndValidationPasses()
+    public function testAllPropertiesWorksAndValidationPasses(): void
     {
         // Create a tag.
         $tag = Tag::create()
@@ -166,7 +166,7 @@ class OpenApiTest extends UnitTestCase
         $openApi->validate();
     }
 
-    public function testValidate()
+    public function testValidate(): void
     {
         $exceptionThrown = false;
 

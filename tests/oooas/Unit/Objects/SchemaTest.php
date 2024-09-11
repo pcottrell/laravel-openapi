@@ -14,7 +14,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Schema::class)]
 class SchemaTest extends UnitTestCase
 {
-    public function testCreateArrayWithAllParametersWorks()
+    public function testCreateArrayWithAllParametersWorks(): void
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -65,7 +65,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateBooleanWithAllParametersWorks()
+    public function testCreateBooleanWithAllParametersWorks(): void
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -102,7 +102,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateIntegerWithAllParametersWorks()
+    public function testCreateIntegerWithAllParametersWorks(): void
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -151,7 +151,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateNumberWithAllParametersWorks()
+    public function testCreateNumberWithAllParametersWorks(): void
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -198,7 +198,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateObjectWithAllParametersWorks()
+    public function testCreateObjectWithAllParametersWorks(): void
     {
         $property = Schema::string('id')
             ->format(Schema::FORMAT_UUID);
@@ -255,7 +255,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateStringWithAllParametersWorks()
+    public function testCreateStringWithAllParametersWorks(): void
     {
         $schema = Schema::create()
             ->title('Schema title')
@@ -300,7 +300,7 @@ class SchemaTest extends UnitTestCase
         ], $mediaType->toArray());
     }
 
-    public function testCreateArrayWithRefWorks()
+    public function testCreateArrayWithRefWorks(): void
     {
         $schema = Schema::array()
             ->items(
@@ -315,7 +315,7 @@ class SchemaTest extends UnitTestCase
         ], $schema->toArray());
     }
 
-    public function testCreateObjectWithOneOfWorks()
+    public function testCreateObjectWithOneOfWorks(): void
     {
         $string = Schema::string();
         $number = Schema::number();

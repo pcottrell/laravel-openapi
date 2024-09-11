@@ -11,7 +11,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Tag::class)]
 class TagTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $tag = Tag::create()
             ->name('Users')

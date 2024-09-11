@@ -18,7 +18,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Operation::class)]
 class OperationTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $securityScheme = SecurityScheme::create('OAuth2')
             ->type(SecurityScheme::TYPE_OAUTH2);
@@ -88,7 +88,7 @@ class OperationTest extends UnitTestCase
         ], $pathItem->toArray());
     }
 
-    public function testCreateWithNoSecurityWorks()
+    public function testCreateWithNoSecurityWorks(): void
     {
         $operation = Operation::get()
             ->noSecurity();

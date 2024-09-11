@@ -12,9 +12,9 @@ class ExtensionBuilder
     public function build(BaseObject $baseObject, Collection $attributes): void
     {
         $attributes
-            ->filter(static fn (object $attribute) => $attribute instanceof ExtensionAttribute)
+            ->filter(static fn (object $attribute): bool => $attribute instanceof ExtensionAttribute)
             ->each(static function (ExtensionAttribute $extensionAttribute) use ($baseObject): void {
-                if ($extensionAttribute->factory !== null && $extensionAttribute->factory !== '' && $extensionAttribute->factory !== '0') {
+                if (null !== $extensionAttribute->factory && '' !== $extensionAttribute->factory && '0' !== $extensionAttribute->factory) {
                     /** @var ExtensionFactory $factory */
                     $factory = app($extensionAttribute->factory);
                     $key = $factory->key();

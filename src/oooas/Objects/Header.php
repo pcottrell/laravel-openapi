@@ -208,7 +208,7 @@ class Header extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->examples = $example !== [] ? $example : null;
+        $instance->examples = [] !== $example ? $example : null;
 
         return $instance;
     }
@@ -222,7 +222,7 @@ class Header extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->content = $mediaType !== [] ? $mediaType : null;
+        $instance->content = [] !== $mediaType ? $mediaType : null;
 
         return $instance;
     }
@@ -249,8 +249,8 @@ class Header extends BaseObject
             'allowReserved' => $this->allowReserved,
             'schema' => $this->schema,
             'example' => $this->example,
-            'examples' => $examples !== [] ? $examples : null,
-            'content' => $content !== [] ? $content : null,
+            'examples' => [] !== $examples ? $examples : null,
+            'content' => [] !== $content ? $content : null,
         ]);
     }
 }

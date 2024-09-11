@@ -26,7 +26,7 @@ class OpenApi extends ParentOpenApi
     {
         $instance = clone $this;
 
-        if ($securityRequirement === []) {
+        if ([] === $securityRequirement) {
             $instance->security = null;
 
             return $instance;

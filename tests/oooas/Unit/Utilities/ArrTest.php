@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Arr::class)]
 class ArrTest extends UnitTestCase
 {
-    public function testNullValuesAreRemovedFromArray()
+    public function testNullValuesAreRemovedFromArray(): void
     {
         $array = ['test' => null];
 
@@ -19,7 +19,7 @@ class ArrTest extends UnitTestCase
         $this->assertCount(0, $array);
     }
 
-    public function testNonNullValuesRemain()
+    public function testNonNullValuesRemain(): void
     {
         $array = [
             'false' => false,

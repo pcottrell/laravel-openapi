@@ -47,7 +47,7 @@ class RequestBody extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->content = $mediaType !== [] ? $mediaType : null;
+        $instance->content = [] !== $mediaType ? $mediaType : null;
 
         return $instance;
     }
@@ -73,7 +73,7 @@ class RequestBody extends BaseObject
 
         return Arr::filter([
             'description' => $this->description,
-            'content' => $content !== [] ? $content : null,
+            'content' => [] !== $content ? $content : null,
             'required' => $this->required,
         ]);
     }

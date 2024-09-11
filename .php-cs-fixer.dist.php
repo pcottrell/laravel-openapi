@@ -15,6 +15,7 @@ $finder = Finder::create()
 return (new PhpCsFixer\Config())
     ->setRules([
         '@Symfony' => true,
+        '@PSR12' => true,
         'concat_space' => ['spacing' => 'one'],
         'method_argument_space' => [
             'on_multiline' => 'ensure_fully_multiline',

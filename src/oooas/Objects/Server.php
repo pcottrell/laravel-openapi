@@ -59,7 +59,7 @@ class Server extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->variables = $serverVariable !== [] ? $serverVariable : null;
+        $instance->variables = [] !== $serverVariable ? $serverVariable : null;
 
         return $instance;
     }
@@ -74,7 +74,7 @@ class Server extends BaseObject
         return Arr::filter([
             'url' => $this->url,
             'description' => $this->description,
-            'variables' => $variables !== [] ? $variables : null,
+            'variables' => [] !== $variables ? $variables : null,
         ]);
     }
 }

@@ -50,6 +50,7 @@ class Operation
         if (is_string($security)) {
             return $this->isValidSingleSecurityScheme($security);
         }
+
         return $this->isValidMultiSecurityScheme($security);
     }
 

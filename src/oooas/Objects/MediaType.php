@@ -172,7 +172,7 @@ class MediaType extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->examples = $example !== [] ? $example : null;
+        $instance->examples = [] !== $example ? $example : null;
 
         return $instance;
     }
@@ -186,7 +186,7 @@ class MediaType extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->encoding = $encoding !== [] ? $encoding : null;
+        $instance->encoding = [] !== $encoding ? $encoding : null;
 
         return $instance;
     }
@@ -206,8 +206,8 @@ class MediaType extends BaseObject
         return Arr::filter([
             'schema' => $this->schema,
             'example' => $this->example,
-            'examples' => $examples !== [] ? $examples : null,
-            'encoding' => $encodings !== [] ? $encodings : null,
+            'examples' => [] !== $examples ? $examples : null,
+            'encoding' => [] !== $encodings ? $encodings : null,
         ]);
     }
 }

@@ -41,7 +41,7 @@ class RouteInformation
         return tap(new static(), static function (self $instance) use ($route): void {
             $method = collect($route->methods())
                 ->map(static fn ($value) => Str::lower($value))
-                ->filter(static fn ($value) => !in_array($value, ['head', 'options'], true))
+                ->filter(static fn ($value): bool => !in_array($value, ['head', 'options'], true))
                 ->first();
 
             $actionNameParts = explode('@', $route->getActionName());
@@ -57,7 +57,7 @@ class RouteInformation
             $parameters = collect($parameters[1]);
 
             if (count($parameters) > 0) {
-                $parameters = $parameters->map(static fn ($parameter) => [
+                $parameters = $parameters->map(static fn ($parameter): array => [
                     'name' => Str::replaceLast('?', '', $parameter),
                     'required' => !Str::endsWith($parameter, '?'),
                 ]);
@@ -67,12 +67,12 @@ class RouteInformation
             $reflectionMethod = $reflectionClass->getMethod($action);
 
             $controllerAttributes = collect($reflectionClass->getAttributes())
-                ->map(static fn (\ReflectionAttribute $reflectionAttribute) => $reflectionAttribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance());
 
             $actionAttributes = collect($reflectionMethod->getAttributes())
-                ->map(static fn (\ReflectionAttribute $reflectionAttribute) => $reflectionAttribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance());
 
-            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameter);
+            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value): bool => $value instanceof Parameter);
 
             $instance->domain = $route->domain();
             $instance->method = $method;

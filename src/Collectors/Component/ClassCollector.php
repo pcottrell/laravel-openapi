@@ -20,13 +20,13 @@ final readonly class ClassCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return collect($this->directories)
-            ->map(static function (string $directory) {
+            ->map(static function (string $directory): array {
                 $map = ClassMapGenerator::createMap($directory);
 
                 return array_keys($map);
             })
             ->flatten()
-            ->filter(function (string $class) use ($collection) {
+            ->filter(function (string $class) use ($collection): bool {
                 $reflectionClass = new \ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 

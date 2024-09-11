@@ -12,7 +12,7 @@ use Tests\UnitTestCase;
 #[CoversClass(SecurityRequirement::class)]
 class SecurityRequirementTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS)
@@ -36,7 +36,7 @@ class SecurityRequirementTest extends UnitTestCase
         ], $openApi->toArray());
     }
 
-    public function testCreateWithNoScopesWorks()
+    public function testCreateWithNoScopesWorks(): void
     {
         $securityScheme = SecurityScheme::create('OAuth2');
 

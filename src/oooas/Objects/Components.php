@@ -71,7 +71,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->schemas = $schemaContract !== [] ? $schemaContract : null;
+        $instance->schemas = [] !== $schemaContract ? $schemaContract : null;
 
         return $instance;
     }
@@ -85,7 +85,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->responses = $response !== [] ? $response : null;
+        $instance->responses = [] !== $response ? $response : null;
 
         return $instance;
     }
@@ -99,7 +99,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameter !== [] ? $parameter : null;
+        $instance->parameters = [] !== $parameter ? $parameter : null;
 
         return $instance;
     }
@@ -113,7 +113,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->examples = $example !== [] ? $example : null;
+        $instance->examples = [] !== $example ? $example : null;
 
         return $instance;
     }
@@ -127,7 +127,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->requestBodies = $requestBody !== [] ? $requestBody : null;
+        $instance->requestBodies = [] !== $requestBody ? $requestBody : null;
 
         return $instance;
     }
@@ -141,7 +141,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->headers = $header !== [] ? $header : null;
+        $instance->headers = [] !== $header ? $header : null;
 
         return $instance;
     }
@@ -155,7 +155,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->securitySchemes = $securityScheme !== [] ? $securityScheme : null;
+        $instance->securitySchemes = [] !== $securityScheme ? $securityScheme : null;
 
         return $instance;
     }
@@ -169,7 +169,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->links = $link !== [] ? $link : null;
+        $instance->links = [] !== $link ? $link : null;
 
         return $instance;
     }
@@ -183,7 +183,7 @@ class Components extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->callbacks = $pathItem !== [] ? $pathItem : null;
+        $instance->callbacks = [] !== $pathItem ? $pathItem : null;
 
         return $instance;
     }
@@ -236,15 +236,15 @@ class Components extends BaseObject
         }
 
         return Arr::filter([
-            'schemas' => $schemas !== [] ? $schemas : null,
-            'responses' => $responses !== [] ? $responses : null,
-            'parameters' => $parameters !== [] ? $parameters : null,
-            'examples' => $examples !== [] ? $examples : null,
-            'requestBodies' => $requestBodies !== [] ? $requestBodies : null,
-            'headers' => $headers !== [] ? $headers : null,
-            'securitySchemes' => $securitySchemes !== [] ? $securitySchemes : null,
-            'links' => $links !== [] ? $links : null,
-            'callbacks' => $callbacks !== [] ? $callbacks : null,
+            'schemas' => [] !== $schemas ? $schemas : null,
+            'responses' => [] !== $responses ? $responses : null,
+            'parameters' => [] !== $parameters ? $parameters : null,
+            'examples' => [] !== $examples ? $examples : null,
+            'requestBodies' => [] !== $requestBodies ? $requestBodies : null,
+            'headers' => [] !== $headers ? $headers : null,
+            'securitySchemes' => [] !== $securitySchemes ? $securitySchemes : null,
+            'links' => [] !== $links ? $links : null,
+            'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);
     }
 }

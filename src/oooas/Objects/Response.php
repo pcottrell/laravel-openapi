@@ -181,7 +181,7 @@ class Response extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->headers = $header !== [] ? $header : null;
+        $instance->headers = [] !== $header ? $header : null;
 
         return $instance;
     }
@@ -195,7 +195,7 @@ class Response extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->content = $mediaType !== [] ? $mediaType : null;
+        $instance->content = [] !== $mediaType ? $mediaType : null;
 
         return $instance;
     }
@@ -209,7 +209,7 @@ class Response extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->links = $link !== [] ? $link : null;
+        $instance->links = [] !== $link ? $link : null;
 
         return $instance;
     }
@@ -233,9 +233,9 @@ class Response extends BaseObject
 
         return Arr::filter([
             'description' => $this->description,
-            'headers' => $headers !== [] ? $headers : null,
-            'content' => $content !== [] ? $content : null,
-            'links' => $links !== [] ? $links : null,
+            'headers' => [] !== $headers ? $headers : null,
+            'content' => [] !== $content ? $content : null,
+            'links' => [] !== $links ? $links : null,
         ]);
     }
 }

@@ -22,7 +22,7 @@ use Tests\IntegrationTestCase;
 #[CoversNothing]
 class PetStoreTest extends IntegrationTestCase
 {
-    public function testPetStoreExample()
+    public function testPetStoreExample(): void
     {
         $contact = Contact::create()
             ->name('Swagger API Team')

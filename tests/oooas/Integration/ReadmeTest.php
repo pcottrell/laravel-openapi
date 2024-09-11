@@ -17,7 +17,7 @@ use Tests\IntegrationTestCase;
 #[CoversNothing]
 class ReadmeTest extends IntegrationTestCase
 {
-    public function testTheReadmeExample()
+    public function testTheReadmeExample(): void
     {
         // Create a tag for all the user endpoints.
         $usersTag = Tag::create()
@@ -74,7 +74,7 @@ class ReadmeTest extends IntegrationTestCase
         );
     }
 
-    public function testSettingAndUnsettingProperties()
+    public function testSettingAndUnsettingProperties(): void
     {
         $info = Info::create()
             ->title('Example API');
@@ -93,7 +93,7 @@ class ReadmeTest extends IntegrationTestCase
         $this->assertSame([], $openApi->toArray());
     }
 
-    public function testUnsettingVariadicMethods()
+    public function testUnsettingVariadicMethods(): void
     {
         $pathItem = PathItem::create()
             ->route('/users');
@@ -112,14 +112,14 @@ class ReadmeTest extends IntegrationTestCase
         $this->assertSame([], $openApi->toArray());
     }
 
-    public function testRetrievingProperties()
+    public function testRetrievingProperties(): void
     {
         $info = Info::create()->title('Example API');
 
         $this->assertSame('Example API', $info->title);
     }
 
-    public function testObjectId()
+    public function testObjectId(): void
     {
         $schema = Schema::create()
             ->type(Schema::TYPE_OBJECT)
@@ -141,7 +141,7 @@ class ReadmeTest extends IntegrationTestCase
         ], $schema->toArray());
     }
 
-    public function testSimplerObjectId()
+    public function testSimplerObjectId(): void
     {
         $schema = Schema::object()
             ->properties(
@@ -162,7 +162,7 @@ class ReadmeTest extends IntegrationTestCase
         ], $schema->toArray());
     }
 
-    public function testDollarRef()
+    public function testDollarRef(): void
     {
         $allOf = AllOf::create()
             ->schemas(

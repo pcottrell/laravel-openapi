@@ -24,7 +24,7 @@ abstract class SchemaComposition extends BaseObject implements SchemaContract
     {
         $instance = clone $this;
 
-        $instance->schemas = $schema !== [] ? $schema : null;
+        $instance->schemas = [] !== $schema ? $schema : null;
 
         return $instance;
     }

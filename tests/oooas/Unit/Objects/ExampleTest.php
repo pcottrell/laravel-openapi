@@ -10,7 +10,7 @@ use Tests\UnitTestCase;
 #[CoversClass(Example::class)]
 class ExampleTest extends UnitTestCase
 {
-    public function testCreateWithAllParametersWorks()
+    public function testCreateWithAllParametersWorks(): void
     {
         $example = Example::create()
             ->summary('Summary ipsum')
