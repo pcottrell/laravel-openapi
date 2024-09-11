@@ -112,6 +112,18 @@ class Operation extends BaseObject
     /**
      * @return static
      */
+    public function action(string|null $action): self
+    {
+        $instance = clone $this;
+
+        $instance->action = $action;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
     public static function put(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_PUT);
@@ -155,18 +167,6 @@ class Operation extends BaseObject
     public static function trace(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_TRACE);
-    }
-
-    /**
-     * @return static
-     */
-    public function action(string|null $action): self
-    {
-        $instance = clone $this;
-
-        $instance->action = $action;
-
-        return $instance;
     }
 
     /**

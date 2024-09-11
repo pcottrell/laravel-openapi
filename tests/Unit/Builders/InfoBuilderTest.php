@@ -10,14 +10,6 @@ use Tests\TestCase;
 #[CoversClass(InfoBuilder::class)]
 class InfoBuilderTest extends TestCase
 {
-    #[DataProvider('providerBuildContact')]
-    public function testBuildContact(array $config, array $expected): void
-    {
-        $SUT = new InfoBuilder();
-        $info = $SUT->build($config);
-        $this->assertSameAssociativeArray($expected, $info->toArray());
-    }
-
     public static function providerBuildContact(): array
     {
         $common = [
@@ -226,6 +218,14 @@ class InfoBuilderTest extends TestCase
                 array_merge($common),
             ],
         ];
+    }
+
+    #[DataProvider('providerBuildContact')]
+    public function testBuildContact(array $config, array $expected): void
+    {
+        $SUT = new InfoBuilder();
+        $info = $SUT->build($config);
+        $this->assertSameAssociativeArray($expected, $info->toArray());
     }
 
     /**

@@ -24,10 +24,10 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-json": "*",
         "doctrine/dbal": "^2.6|^3.0",
-        "laravel/framework": "5.8.*|^6.0|^7.0|^8.0|^9.0|^10.0|^11.0",
+        "laravel/framework": "^10.0|^11.0",
         "roave/security-advisories": "dev-latest"
     },
     "require-dev": {
@@ -49,7 +49,7 @@
         "justinrainbow/json-schema": "^6.0.0"
     },
     "suggest": {
-        "justinrainbow/json-schema": "Required to perform validation (^5.2)"
+        "justinrainbow/json-schema": "Required to perform validation"
     },
     "autoload": {
         "psr-4": {

@@ -84,7 +84,13 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
-    abstract protected function generate(): array;
+    /**
+     * @param int $options
+     */
+    public function toJson($options = 0): string
+    {
+        return json_encode($this->toArray(), $options);
+    }
 
     public function toArray(): array
     {
@@ -98,13 +104,7 @@ abstract class BaseObject implements \JsonSerializable
         );
     }
 
-    /**
-     * @param int $options
-     */
-    public function toJson($options = 0): string
-    {
-        return json_encode($this->toArray(), $options);
-    }
+    abstract protected function generate(): array;
 
     /**
      * Specify data which should be serialized to JSON.

@@ -13,32 +13,6 @@ use Tests\TestCase;
 #[CoversClass(TagBuilder::class)]
 class TagBuilderTest extends TestCase
 {
-    #[DataProvider('singleTagProvider')]
-    public function testCanBuildTag(array $tagFactories, array $expected): void
-    {
-        $builder = app(TagBuilder::class);
-        $tags = $builder->build($tagFactories);
-
-        $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
-    }
-
-    /**
-     * Assert equality as an associative array.
-     */
-    protected function assertSameAssociativeArray(array $expected, array $actual): void
-    {
-        foreach ($expected as $key => $value) {
-            if (is_array($value)) {
-                $this->assertSameAssociativeArray($value, $actual[$key]);
-                unset($actual[$key]);
-                continue;
-            }
-            self::assertSame($value, $actual[$key]);
-            unset($actual[$key]);
-        }
-        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
-    }
-
     public static function singleTagProvider(): array
     {
         return [
@@ -99,15 +73,6 @@ class TagBuilderTest extends TestCase
         ];
     }
 
-    #[DataProvider('multiTagProvider')]
-    public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
-    {
-        $builder = app(TagBuilder::class);
-        $tags = $builder->build($tagFactories);
-
-        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
-    }
-
     public static function invalidTagProvider(): array
     {
         return [
@@ -115,6 +80,41 @@ class TagBuilderTest extends TestCase
             [EmptyStringName::class],
             [NullName::class],
         ];
+    }
+
+    #[DataProvider('singleTagProvider')]
+    public function testCanBuildTag(array $tagFactories, array $expected): void
+    {
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($tagFactories);
+
+        $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
+    }
+
+    /**
+     * Assert equality as an associative array.
+     */
+    protected function assertSameAssociativeArray(array $expected, array $actual): void
+    {
+        foreach ($expected as $key => $value) {
+            if (is_array($value)) {
+                $this->assertSameAssociativeArray($value, $actual[$key]);
+                unset($actual[$key]);
+                continue;
+            }
+            self::assertSame($value, $actual[$key]);
+            unset($actual[$key]);
+        }
+        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
+    }
+
+    #[DataProvider('multiTagProvider')]
+    public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
+    {
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($tagFactories);
+
+        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
     }
 
     #[DataProvider('invalidTagProvider')]

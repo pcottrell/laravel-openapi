@@ -2,9 +2,9 @@
 
 namespace Examples\Petstore\OpenApi\SecuritySchemes;
 
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 
 class OAuth2PasswordGrantSecurityScheme extends SecuritySchemeFactory
 {
@@ -21,7 +21,7 @@ class OAuth2PasswordGrantSecurityScheme extends SecuritySchemeFactory
                     ->scopes([
                         'read' => 'Read access',
                         'write' => 'Write access',
-                    ])
+                    ]),
             );
     }
 }

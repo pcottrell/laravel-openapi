@@ -2,45 +2,28 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Utilities;
 
-use ArrayAccess;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException;
 
 /**
  * @internal
+ *
+ * @template T
+ * @template-implements \ArrayAccess<string, T>
  */
-class Extensions implements ArrayAccess
+class Extensions implements \ArrayAccess
 {
     public const X_EMPTY_VALUE = 'X_EMPTY_VALUE';
 
-    /**
-     * @var array
-     */
-    protected $items = [];
-
-    /**
-     * Whether a offset exists.
-     *
-     * @see https://php.net/manual/en/arrayaccess.offsetexists.php
-     *
-     * @return bool
-     */
-    #[\ReturnTypeWillChange]
-    public function offsetExists($offset)
-    {
-        return isset($this->items[$this->normalizeOffset($offset)]);
-    }
+    protected array $items = [];
 
     /**
      * Offset to retrieve.
      *
      * @see https://php.net/manual/en/arrayaccess.offsetget.php
      *
-     * @return mixed can return all value types
-     *
      * @throws ExtensionDoesNotExistException
      */
-    #[\ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         if (!$this->offsetExists($offset)) {
             throw new ExtensionDoesNotExistException("[{$offset}] is not a valid extension.");
@@ -50,14 +33,32 @@ class Extensions implements ArrayAccess
     }
 
     /**
+     * Whether an offset exists.
+     *
+     * @see https://php.net/manual/en/arrayaccess.offsetexists.php
+     */
+    public function offsetExists($offset): bool
+    {
+        return isset($this->items[$this->normalizeOffset($offset)]);
+    }
+
+    protected function normalizeOffset(string $offset): string
+    {
+        if (0 === mb_strpos($offset, 'x-')) {
+            return $offset;
+        }
+
+        return 'x-' . $offset;
+    }
+
+    /**
      * Offset to set.
      *
      * @see https://php.net/manual/en/arrayaccess.offsetset.php
      */
-    #[\ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
-        if ($value === static::X_EMPTY_VALUE) {
+        if (static::X_EMPTY_VALUE === $value) {
             $this->offsetUnset($offset);
 
             return;
@@ -71,8 +72,7 @@ class Extensions implements ArrayAccess
      *
      * @see https://php.net/manual/en/arrayaccess.offsetunset.php
      */
-    #[\ReturnTypeWillChange]
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         if (!$this->offsetExists($offset)) {
             return;
@@ -84,17 +84,5 @@ class Extensions implements ArrayAccess
     public function toArray(): array
     {
         return $this->items;
-    }
-
-    /**
-     * @return string
-     */
-    protected function normalizeOffset($offset)
-    {
-        if (0 === mb_strpos($offset, 'x-')) {
-            return $offset;
-        }
-
-        return 'x-' . $offset;
     }
 }

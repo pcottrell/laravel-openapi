@@ -51,6 +51,30 @@ class Response extends BaseObject
     /**
      * @return static
      */
+    public function description(string|null $description): self
+    {
+        $instance = clone $this;
+
+        $instance->description = $description;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
+    public function statusCode(int|null $statusCode): self
+    {
+        $instance = clone $this;
+
+        $instance->statusCode = $statusCode;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
     public static function created(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -146,30 +170,6 @@ class Response extends BaseObject
         return static::create($objectId)
             ->statusCode(500)
             ->description('Internal Server Error');
-    }
-
-    /**
-     * @return static
-     */
-    public function statusCode(int|null $statusCode): self
-    {
-        $instance = clone $this;
-
-        $instance->statusCode = $statusCode;
-
-        return $instance;
-    }
-
-    /**
-     * @return static
-     */
-    public function description(string|null $description): self
-    {
-        $instance = clone $this;
-
-        $instance->description = $description;
-
-        return $instance;
     }
 
     /**

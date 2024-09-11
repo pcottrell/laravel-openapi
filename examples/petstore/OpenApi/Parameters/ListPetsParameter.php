@@ -2,9 +2,9 @@
 
 namespace Examples\Petstore\OpenApi\Parameters;
 
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
 
 class ListPetsParameter extends ParameterFactory
 {
@@ -19,7 +19,7 @@ class ListPetsParameter extends ParameterFactory
                 ->description('How many items to return at one time (max 100)')
                 ->required(false)
                 ->schema(
-                    Schema::integer()->format(Schema::FORMAT_INT32)
+                    Schema::integer()->format(Schema::FORMAT_INT32),
                 ),
         ];
     }

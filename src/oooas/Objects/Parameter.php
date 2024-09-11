@@ -111,6 +111,18 @@ class Parameter extends BaseObject
     /**
      * @return static
      */
+    public function in(string|null $in): self
+    {
+        $instance = clone $this;
+
+        $instance->in = $in;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
     public static function header(string|null $objectId = null): self
     {
         return static::create($objectId)->in(static::IN_HEADER);
@@ -140,18 +152,6 @@ class Parameter extends BaseObject
         $instance = clone $this;
 
         $instance->name = $name;
-
-        return $instance;
-    }
-
-    /**
-     * @return static
-     */
-    public function in(string|null $in): self
-    {
-        $instance = clone $this;
-
-        $instance->in = $in;
 
         return $instance;
     }

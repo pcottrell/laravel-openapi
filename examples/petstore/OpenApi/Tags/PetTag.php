@@ -2,9 +2,9 @@
 
 namespace Examples\Petstore\OpenApi\Tags;
 
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 
 class PetTag extends TagFactory
 {
@@ -16,7 +16,7 @@ class PetTag extends TagFactory
             ->externalDocs(
                 ExternalDocs::create()
                     ->description('Find out more')
-                    ->url('http://swagger.io')
+                    ->url('http://swagger.io'),
             );
     }
 }

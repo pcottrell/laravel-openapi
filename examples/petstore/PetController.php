@@ -47,7 +47,6 @@ class PetController
         summary: 'List all pets.',
         description: 'List all pets from the database.',
     )]
-
     #[OpenApi\Parameter(ListPetsParameter::class)]
     public function multiAuthSecurityFirst(): void
     {

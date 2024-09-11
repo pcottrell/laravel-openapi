@@ -225,6 +225,18 @@ class Schema extends BaseObject implements SchemaContract
     /**
      * @return static
      */
+    public function type(string|null $type): self
+    {
+        $instance = clone $this;
+
+        $instance->type = $type;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
     public static function boolean(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_BOOLEAN);
@@ -322,18 +334,6 @@ class Schema extends BaseObject implements SchemaContract
         $instance = clone $this;
 
         $instance->format = $format;
-
-        return $instance;
-    }
-
-    /**
-     * @return static
-     */
-    public function type(string|null $type): self
-    {
-        $instance = clone $this;
-
-        $instance->type = $type;
 
         return $instance;
     }

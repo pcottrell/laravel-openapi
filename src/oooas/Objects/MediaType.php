@@ -60,6 +60,18 @@ class MediaType extends BaseObject
     /**
      * @return static
      */
+    public function mediaType(string|null $mediaType): self
+    {
+        $instance = clone $this;
+
+        $instance->mediaType = $mediaType;
+
+        return $instance;
+    }
+
+    /**
+     * @return static
+     */
     public static function pdf(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -118,18 +130,6 @@ class MediaType extends BaseObject
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED);
-    }
-
-    /**
-     * @return static
-     */
-    public function mediaType(string|null $mediaType): self
-    {
-        $instance = clone $this;
-
-        $instance->mediaType = $mediaType;
-
-        return $instance;
     }
 
     /**

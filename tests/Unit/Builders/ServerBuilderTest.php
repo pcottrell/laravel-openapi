@@ -13,31 +13,6 @@ use Tests\TestCase;
 #[CoversClass(ServerBuilder::class)]
 class ServerBuilderTest extends TestCase
 {
-    #[DataProvider('serverFQCNProvider')]
-    public function testCanBuildServerFromFQCN(array $serverFactories, array $expected): void
-    {
-        $builder = new ServerBuilder();
-        $servers = $builder->build($serverFactories);
-        $this->assertSameAssociativeArray($expected[0], $servers[0]->toArray());
-    }
-
-    /**
-     * Assert equality as an associative array.
-     */
-    protected function assertSameAssociativeArray(array $expected, array $actual): void
-    {
-        foreach ($expected as $key => $value) {
-            if (is_array($value)) {
-                $this->assertSameAssociativeArray($value, $actual[$key]);
-                unset($actual[$key]);
-                continue;
-            }
-            self::assertSame($value, $actual[$key]);
-            unset($actual[$key]);
-        }
-        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
-    }
-
     public static function serverFQCNProvider(): array
     {
         return [
@@ -142,6 +117,31 @@ class ServerBuilderTest extends TestCase
                 ],
             ],
         ];
+    }
+
+    #[DataProvider('serverFQCNProvider')]
+    public function testCanBuildServerFromFQCN(array $serverFactories, array $expected): void
+    {
+        $builder = new ServerBuilder();
+        $servers = $builder->build($serverFactories);
+        $this->assertSameAssociativeArray($expected[0], $servers[0]->toArray());
+    }
+
+    /**
+     * Assert equality as an associative array.
+     */
+    protected function assertSameAssociativeArray(array $expected, array $actual): void
+    {
+        foreach ($expected as $key => $value) {
+            if (is_array($value)) {
+                $this->assertSameAssociativeArray($value, $actual[$key]);
+                unset($actual[$key]);
+                continue;
+            }
+            self::assertSame($value, $actual[$key]);
+            unset($actual[$key]);
+        }
+        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', join(', ', array_keys($actual))));
     }
 
     #[DataProvider('multiTagProvider')]
