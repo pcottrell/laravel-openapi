@@ -19,7 +19,7 @@ class LinkTest extends UnitTestCase
         $response = Response::create()
             ->links($link);
 
-        $this->assertEquals([
+        $this->assertSame([
             'links' => [
                 'LinkName' => [
                     'operationId' => 'goldspecdigital',

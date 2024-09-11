@@ -20,7 +20,7 @@ class ContactTest extends UnitTestCase
         $info = Info::create()
             ->contact($contact);
 
-        $this->assertEquals([
+        $this->assertSame([
             'contact' => [
                 'name' => 'GoldSpec Digital',
                 'url' => 'https://goldspecdigital.com',

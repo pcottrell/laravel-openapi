@@ -27,7 +27,7 @@ class SecurityRequirement extends ParentSecurityRequirement
 
     protected function generate(): array
     {
-        if (!empty($this->multiAuthSecurityScheme)) {
+        if ($this->multiAuthSecurityScheme !== []) {
             return $this->generateMultiAuth();
         }
 

@@ -42,21 +42,35 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Schema extends BaseObject implements SchemaContract
 {
     public const TYPE_ARRAY = 'array';
+
     public const TYPE_BOOLEAN = 'boolean';
+
     public const TYPE_INTEGER = 'integer';
+
     public const TYPE_NUMBER = 'number';
+
     public const TYPE_OBJECT = 'object';
+
     public const TYPE_STRING = 'string';
 
     public const FORMAT_INT32 = 'int32';
+
     public const FORMAT_INT64 = 'int64';
+
     public const FORMAT_FLOAT = 'float';
+
     public const FORMAT_DOUBLE = 'double';
+
     public const FORMAT_BYTE = 'byte';
+
     public const FORMAT_BINARY = 'binary';
+
     public const FORMAT_DATE = 'date';
+
     public const FORMAT_DATE_TIME = 'date-time';
+
     public const FORMAT_PASSWORD = 'password';
+
     public const FORMAT_UUID = 'uuid';
 
     /**
@@ -307,7 +321,7 @@ class Schema extends BaseObject implements SchemaContract
     {
         $instance = clone $this;
 
-        $instance->enum = $enum ?: null;
+        $instance->enum = $enum !== [] ? $enum : null;
 
         return $instance;
     }
@@ -341,11 +355,11 @@ class Schema extends BaseObject implements SchemaContract
     /**
      * @return static
      */
-    public function items(SchemaContract $items): self
+    public function items(SchemaContract $schemaContract): self
     {
         $instance = clone $this;
 
-        $instance->items = $items;
+        $instance->items = $schemaContract;
 
         return $instance;
     }
@@ -568,21 +582,21 @@ class Schema extends BaseObject implements SchemaContract
 
         $instance = clone $this;
 
-        $instance->required = $required ?: null;
+        $instance->required = $required !== [] ? $required : null;
 
         return $instance;
     }
 
     /**
-     * @param SchemaContract[] $properties
+     * @param SchemaContract[] $schemaContract
      *
      * @return static
      */
-    public function properties(SchemaContract ...$properties): self
+    public function properties(SchemaContract ...$schemaContract): self
     {
         $instance = clone $this;
 
-        $instance->properties = $properties ?: null;
+        $instance->properties = $schemaContract !== [] ? $schemaContract : null;
 
         return $instance;
     }
@@ -748,7 +762,7 @@ class Schema extends BaseObject implements SchemaContract
             'exclusiveMinimum' => $this->exclusiveMinimum,
             'multipleOf' => $this->multipleOf,
             'required' => $this->required,
-            'properties' => $properties ?: null,
+            'properties' => $properties !== [] ? $properties : null,
             'additionalProperties' => $this->additionalProperties,
             'maxProperties' => $this->maxProperties,
             'minProperties' => $this->minProperties,

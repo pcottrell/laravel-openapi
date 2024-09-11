@@ -21,9 +21,7 @@ class Collection
             return [$this->getString($name)];
         }
 
-        return array_map(function (string $item): string {
-            return $this->getString($item);
-        }, $name);
+        return array_map(fn(string $item): string => $this->getString($item), $name);
     }
 
     private function getString(string $name): string

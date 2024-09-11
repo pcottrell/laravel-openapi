@@ -16,15 +16,15 @@ class NotTest extends UnitTestCase
         $not = Not::create()
             ->schema(Schema::string());
 
-        $response = MediaType::json()
+        $mediaType = MediaType::json()
             ->schema($not);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schema' => [
                 'not' => [
                     'type' => 'string',
                 ],
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 }

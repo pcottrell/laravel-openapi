@@ -35,7 +35,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -62,7 +62,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateBooleanWithAllParametersWorks()
@@ -81,7 +81,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -99,7 +99,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateIntegerWithAllParametersWorks()
@@ -124,7 +124,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -148,7 +148,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateNumberWithAllParametersWorks()
@@ -172,7 +172,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -195,7 +195,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateObjectWithAllParametersWorks()
@@ -222,7 +222,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -252,7 +252,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateStringWithAllParametersWorks()
@@ -275,7 +275,7 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
         $this->assertEquals([
@@ -297,7 +297,7 @@ class SchemaTest extends UnitTestCase
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 
     public function testCreateArrayWithRefWorks()
@@ -307,7 +307,7 @@ class SchemaTest extends UnitTestCase
                 Schema::ref('#/components/schemas/pet'),
             );
 
-        $this->assertEquals([
+        $this->assertSame([
             'type' => 'array',
             'items' => [
                 '$ref' => '#/components/schemas/pet',
@@ -326,10 +326,10 @@ class SchemaTest extends UnitTestCase
                 OneOf::create('poly_type')->schemas($string, $number),
             );
 
-        $response = MediaType::create()
+        $mediaType = MediaType::create()
             ->schema($schema);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schema' => [
                 'type' => 'object',
                 'properties' => [
@@ -345,6 +345,6 @@ class SchemaTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 }

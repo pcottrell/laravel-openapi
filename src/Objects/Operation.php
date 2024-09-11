@@ -13,7 +13,7 @@ class Operation extends ParentOperation
      * You should only send one security requirement per operation.
      * If you send more than one, the first one will be used.
      */
-    public function security(SecurityRequirement ...$security): self
+    public function security(SecurityRequirement ...$securityRequirement): self
     {
         $instance = clone $this;
 
@@ -22,30 +22,30 @@ class Operation extends ParentOperation
         // we disable it and use $security to configure the security.
         $instance = $instance->noSecurity(false);
 
-        if ($this->shouldUseGlobalSecurity($security[0])) {
+        if ($this->shouldUseGlobalSecurity($securityRequirement[0])) {
             $instance->security = null;
 
             return $instance;
         }
 
-        if ($this->isPublic($security[0])) {
+        if ($this->isPublic($securityRequirement[0])) {
             $instance->security = [];
 
             return $instance;
         }
 
-        $instance->security = $security[0];
+        $instance->security = $securityRequirement[0];
 
         return $instance;
     }
 
-    private function shouldUseGlobalSecurity(SecurityRequirement $security): bool
+    private function shouldUseGlobalSecurity(SecurityRequirement $securityRequirement): bool
     {
-        return DefaultSecurityScheme::NAME === $security->securityScheme;
+        return DefaultSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 
-    private function isPublic(SecurityRequirement $security): bool
+    private function isPublic(SecurityRequirement $securityRequirement): bool
     {
-        return PublicSecurityScheme::NAME === $security->securityScheme;
+        return PublicSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 }

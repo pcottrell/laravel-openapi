@@ -20,7 +20,7 @@ class ServerTestTest extends UnitTestCase
             ->description('Core API')
             ->variables($serverVariable);
 
-        $this->assertEquals([
+        $this->assertSame([
             'url' => 'https://api.example.con/v1',
             'description' => 'Core API',
             'variables' => [
@@ -40,7 +40,7 @@ class ServerTestTest extends UnitTestCase
             ->url('https://api.example.con/v1')
             ->variables($serverVariable);
 
-        $this->assertEquals(
+        $this->assertSame(
             [
                 'url' => 'https://api.example.con/v1',
                 'variables' => [

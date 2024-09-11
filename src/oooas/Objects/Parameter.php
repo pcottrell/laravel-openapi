@@ -23,16 +23,25 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Parameter extends BaseObject
 {
     public const IN_QUERY = 'query';
+
     public const IN_HEADER = 'header';
+
     public const IN_PATH = 'path';
+
     public const IN_COOKIE = 'cookie';
 
     public const STYLE_MATRIX = 'matrix';
+
     public const STYLE_LABEL = 'label';
+
     public const STYLE_FORM = 'form';
+
     public const STYLE_SIMPLE = 'simple';
+
     public const STYLE_SPACE_DELIMITED = 'spaceDelimited';
+
     public const STYLE_PIPE_DELIMITED = 'pipeDelimited';
+
     public const STYLE_DEEP_OBJECT = 'deepObject';
 
     /**
@@ -267,29 +276,29 @@ class Parameter extends BaseObject
     }
 
     /**
-     * @param Example[]|null $examples
+     * @param Example[]|null $example
      *
      * @return static
      */
-    public function examples(Example ...$examples): self
+    public function examples(Example ...$example): self
     {
         $instance = clone $this;
 
-        $instance->examples = $examples ?: null;
+        $instance->examples = $example !== [] ? $example : null;
 
         return $instance;
     }
 
     /**
-     * @param MediaType[] $content
+     * @param MediaType[] $mediaType
      *
      * @return static
      */
-    public function content(MediaType ...$content): self
+    public function content(MediaType ...$mediaType): self
     {
         $instance = clone $this;
 
-        $instance->content = $content ?: null;
+        $instance->content = $mediaType !== [] ? $mediaType : null;
 
         return $instance;
     }
@@ -318,8 +327,8 @@ class Parameter extends BaseObject
             'allowReserved' => $this->allowReserved,
             'schema' => $this->schema,
             'example' => $this->example,
-            'examples' => $examples ?: null,
-            'content' => $content ?: null,
+            'examples' => $examples !== [] ? $examples : null,
+            'content' => $content !== [] ? $content : null,
         ]);
     }
 }

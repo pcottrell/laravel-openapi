@@ -51,15 +51,15 @@ class Encoding extends BaseObject
     }
 
     /**
-     * @param Header[] $headers
+     * @param Header[] $header
      *
      * @return static
      */
-    public function headers(Header ...$headers): self
+    public function headers(Header ...$header): self
     {
         $instance = clone $this;
 
-        $instance->headers = $headers ?: null;
+        $instance->headers = $header !== [] ? $header : null;
 
         return $instance;
     }
@@ -109,7 +109,7 @@ class Encoding extends BaseObject
 
         return Arr::filter([
             'contentType' => $this->contentType,
-            'headers' => $headers ?: null,
+            'headers' => $headers !== [] ? $headers : null,
             'style' => $this->style,
             'explode' => $this->explode,
             'allowReserved' => $this->allowReserved,

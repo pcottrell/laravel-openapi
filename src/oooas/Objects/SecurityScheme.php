@@ -17,12 +17,17 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class SecurityScheme extends BaseObject
 {
     public const TYPE_API_KEY = 'apiKey';
+
     public const TYPE_HTTP = 'http';
+
     public const TYPE_OAUTH2 = 'oauth2';
+
     public const TYPE_OPEN_ID_CONNECT = 'openIdConnect';
 
     public const IN_QUERY = 'query';
+
     public const IN_HEADER = 'header';
+
     public const IN_COOKIE = 'cookie';
 
     /**
@@ -146,15 +151,15 @@ class SecurityScheme extends BaseObject
     }
 
     /**
-     * @param OAuthFlow[] $flows
+     * @param OAuthFlow[] $oAuthFlow
      *
      * @return static
      */
-    public function flows(OAuthFlow ...$flows): self
+    public function flows(OAuthFlow ...$oAuthFlow): self
     {
         $instance = clone $this;
 
-        $instance->flows = $flows;
+        $instance->flows = $oAuthFlow;
 
         return $instance;
     }
@@ -185,7 +190,7 @@ class SecurityScheme extends BaseObject
             'in' => $this->in,
             'scheme' => $this->scheme,
             'bearerFormat' => $this->bearerFormat,
-            'flows' => $flows ?: null,
+            'flows' => $flows !== [] ? $flows : null,
             'openIdConnectUrl' => $this->openIdConnectUrl,
         ]);
     }

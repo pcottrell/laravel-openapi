@@ -81,43 +81,43 @@ class PathItem extends BaseObject
     }
 
     /**
-     * @param Operation[] $operations
+     * @param Operation[] $operation
      *
      * @return static
      */
-    public function operations(Operation ...$operations): self
+    public function operations(Operation ...$operation): self
     {
         $instance = clone $this;
 
-        $instance->operations = $operations ?: null;
+        $instance->operations = $operation !== [] ? $operation : null;
 
         return $instance;
     }
 
     /**
-     * @param Server[] $servers
+     * @param Server[] $server
      *
      * @return static
      */
-    public function servers(Server ...$servers): self
+    public function servers(Server ...$server): self
     {
         $instance = clone $this;
 
-        $instance->servers = $servers ?: null;
+        $instance->servers = $server !== [] ? $server : null;
 
         return $instance;
     }
 
     /**
-     * @param Parameter[] $parameters
+     * @param Parameter[] $parameter
      *
      * @return static
      */
-    public function parameters(Parameter ...$parameters): self
+    public function parameters(Parameter ...$parameter): self
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameters ?: null;
+        $instance->parameters = $parameter !== [] ? $parameter : null;
 
         return $instance;
     }

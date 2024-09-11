@@ -10,10 +10,10 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 
 class RequestBodyBuilder
 {
-    public function build(RouteInformation $route): RequestBody|null
+    public function build(RouteInformation $routeInformation): RequestBody|null
     {
         /** @var RequestBodyAttribute|null $requestBody */
-        $requestBody = $route->actionAttributes->first(static fn (object $attribute) => $attribute instanceof RequestBodyAttribute);
+        $requestBody = $routeInformation->actionAttributes->first(static fn (object $attribute) => $attribute instanceof RequestBodyAttribute);
 
         if ($requestBody) {
             /** @var RequestBodyFactory $requestBodyFactory */

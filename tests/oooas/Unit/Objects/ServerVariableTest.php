@@ -20,7 +20,7 @@ class ServerVariableTest extends UnitTestCase
         $server = Server::create()
             ->variables($serverVariable);
 
-        $this->assertEquals([
+        $this->assertSame([
             'variables' => [
                 'ServerVariableName' => [
                     'enum' => ['Earth', 'Mars', 'Saturn'],

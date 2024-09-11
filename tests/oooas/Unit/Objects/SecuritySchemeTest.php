@@ -28,7 +28,7 @@ class SecuritySchemeTest extends UnitTestCase
         $components = Components::create()
             ->securitySchemes($securityScheme);
 
-        $this->assertEquals([
+        $this->assertSame([
             'securitySchemes' => [
                 'OAuth2' => [
                     'type' => 'oauth2',

@@ -9,18 +9,18 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
 class ResponseBuilder
 {
-    public function build(RouteInformation $route): array
+    public function build(RouteInformation $routeInformation): array
     {
-        return $route->actionAttributes
+        return $routeInformation->actionAttributes
             ->filter(static fn (object $attribute) => $attribute instanceof ResponseAttribute)
-            ->map(static function (ResponseAttribute $attribute) {
-                $factory = app($attribute->factory);
+            ->map(static function (ResponseAttribute $responseAttribute) {
+                $factory = app($responseAttribute->factory);
                 $response = $factory->build();
 
                 if ($factory instanceof Reusable) {
                     return Response::ref('#/components/responses/' . $response->objectId)
-                        ->statusCode($attribute->statusCode)
-                        ->description($attribute->description);
+                        ->statusCode($responseAttribute->statusCode)
+                        ->description($responseAttribute->description);
                 }
 
                 return $response;

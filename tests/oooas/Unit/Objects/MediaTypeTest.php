@@ -25,7 +25,7 @@ class MediaTypeTest extends UnitTestCase
         $response = Response::create()
             ->content($mediaType);
 
-        $this->assertEquals([
+        $this->assertSame([
             'content' => [
                 'application/json' => [
                     'schema' => [
@@ -51,7 +51,7 @@ class MediaTypeTest extends UnitTestCase
                 Example::ref('#/components/examples/FrogExample', 'frog'),
             );
 
-        $this->assertEquals([
+        $this->assertSame([
             'examples' => [
                 'frog' => [
                     '$ref' => '#/components/examples/FrogExample',

@@ -9,22 +9,22 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
 
 class ExtensionBuilder
 {
-    public function build(BaseObject $object, Collection $attributes): void
+    public function build(BaseObject $baseObject, Collection $attributes): void
     {
         $attributes
             ->filter(static fn (object $attribute) => $attribute instanceof ExtensionAttribute)
-            ->each(static function (ExtensionAttribute $attribute) use ($object): void {
-                if ($attribute->factory) {
+            ->each(static function (ExtensionAttribute $extensionAttribute) use ($baseObject): void {
+                if ($extensionAttribute->factory !== null && $extensionAttribute->factory !== '' && $extensionAttribute->factory !== '0') {
                     /** @var ExtensionFactory $factory */
-                    $factory = app($attribute->factory);
+                    $factory = app($extensionAttribute->factory);
                     $key = $factory->key();
                     $value = $factory->value();
                 } else {
-                    $key = $attribute->key;
-                    $value = $attribute->value;
+                    $key = $extensionAttribute->key;
+                    $value = $extensionAttribute->value;
                 }
 
-                $object->x(
+                $baseObject->x(
                     $key,
                     $value,
                 );

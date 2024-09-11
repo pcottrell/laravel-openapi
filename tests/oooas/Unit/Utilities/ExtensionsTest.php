@@ -16,15 +16,13 @@ use Tests\UnitTestCase;
 #[CoversClass(Extensions::class)]
 class ExtensionsTest extends UnitTestCase
 {
-    public static function schemasDataProvider(): array
+    public static function schemasDataProvider(): \Iterator
     {
-        return [
-            [Components::class],
-            [Operation::class],
-            [PathItem::class],
-            [Response::class],
-            [Schema::class],
-        ];
+        yield [Components::class];
+        yield [Operation::class];
+        yield [PathItem::class];
+        yield [Response::class];
+        yield [Schema::class];
     }
 
     #[DataProvider('schemasDataProvider')]
@@ -43,7 +41,7 @@ class ExtensionsTest extends UnitTestCase
             'x-array' => Schema::array()->items(Schema::string()),
         ], $object->toArray());
 
-        $this->assertEquals(
+        $this->assertSame(
             '{"x-key":"value","x-foo":"bar","x-baz":null,"x-array":{"type":"array","items":{"type":"string"}}}',
             $object->toJson(),
         );
@@ -63,7 +61,7 @@ class ExtensionsTest extends UnitTestCase
             'x-baz' => null,
         ], $object->toArray());
 
-        $this->assertEquals('{"x-foo":"bar","x-baz":null}', $object->toJson());
+        $this->assertSame('{"x-foo":"bar","x-baz":null}', $object->toJson());
     }
 
     #[DataProvider('schemasDataProvider')]
@@ -71,7 +69,7 @@ class ExtensionsTest extends UnitTestCase
     {
         $object = $schema::create()->x('foo', 'bar');
 
-        $this->assertEquals('bar', $object->{'x-foo'});
+        $this->assertSame('bar', $object->{'x-foo'});
     }
 
     #[DataProvider('schemasDataProvider')]
@@ -81,7 +79,7 @@ class ExtensionsTest extends UnitTestCase
 
         $this->expectException(PropertyDoesNotExistException::class);
         $this->expectExceptionMessage('[x-key] is not a valid property');
-        $this->assertEquals('bar', $object->{'x-key'});
+        $this->assertSame('bar', $object->{'x-key'});
     }
 
     #[DataProvider('schemasDataProvider')]
@@ -89,12 +87,12 @@ class ExtensionsTest extends UnitTestCase
     {
         $object = $schema::create();
 
-        $this->assertEquals([], $object->x);
+        $this->assertSame([], $object->x);
 
         $object = $object
             ->x('key', 'value')
             ->x('foo', 'bar');
 
-        $this->assertEquals(['x-key' => 'value', 'x-foo' => 'bar'], $object->x);
+        $this->assertSame(['x-key' => 'value', 'x-foo' => 'bar'], $object->x);
     }
 }

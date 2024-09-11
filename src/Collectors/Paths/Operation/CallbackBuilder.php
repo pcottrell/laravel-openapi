@@ -9,12 +9,12 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
 class CallbackBuilder
 {
-    public function build(RouteInformation $route): array
+    public function build(RouteInformation $routeInformation): array
     {
-        return $route->actionAttributes
+        return $routeInformation->actionAttributes
             ->filter(static fn (object $attribute) => $attribute instanceof CallbackAttribute)
-            ->map(static function (CallbackAttribute $attribute) {
-                $factory = app($attribute->factory);
+            ->map(static function (CallbackAttribute $callbackAttribute) {
+                $factory = app($callbackAttribute->factory);
                 $pathItem = $factory->build();
 
                 if ($factory instanceof Reusable) {

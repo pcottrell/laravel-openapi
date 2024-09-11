@@ -63,127 +63,127 @@ class Components extends BaseObject
     protected $callbacks;
 
     /**
-     * @param SchemaContract[] $schemas
+     * @param SchemaContract[] $schemaContract
      *
      * @return static
      */
-    public function schemas(SchemaContract ...$schemas): self
+    public function schemas(SchemaContract ...$schemaContract): self
     {
         $instance = clone $this;
 
-        $instance->schemas = $schemas ?: null;
+        $instance->schemas = $schemaContract !== [] ? $schemaContract : null;
 
         return $instance;
     }
 
     /**
-     * @param Response[] $responses
+     * @param Response[] $response
      *
      * @return static
      */
-    public function responses(Response ...$responses): self
+    public function responses(Response ...$response): self
     {
         $instance = clone $this;
 
-        $instance->responses = $responses ?: null;
+        $instance->responses = $response !== [] ? $response : null;
 
         return $instance;
     }
 
     /**
-     * @param Parameter[] $parameters
+     * @param Parameter[] $parameter
      *
      * @return static
      */
-    public function parameters(Parameter ...$parameters): self
+    public function parameters(Parameter ...$parameter): self
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameters ?: null;
+        $instance->parameters = $parameter !== [] ? $parameter : null;
 
         return $instance;
     }
 
     /**
-     * @param Example[] $examples
+     * @param Example[] $example
      *
      * @return static
      */
-    public function examples(Example ...$examples): self
+    public function examples(Example ...$example): self
     {
         $instance = clone $this;
 
-        $instance->examples = $examples ?: null;
+        $instance->examples = $example !== [] ? $example : null;
 
         return $instance;
     }
 
     /**
-     * @param RequestBody[] $requestBodies
+     * @param RequestBody[] $requestBody
      *
      * @return static
      */
-    public function requestBodies(RequestBody ...$requestBodies): self
+    public function requestBodies(RequestBody ...$requestBody): self
     {
         $instance = clone $this;
 
-        $instance->requestBodies = $requestBodies ?: null;
+        $instance->requestBodies = $requestBody !== [] ? $requestBody : null;
 
         return $instance;
     }
 
     /**
-     * @param Header[] $headers
+     * @param Header[] $header
      *
      * @return static
      */
-    public function headers(Header ...$headers): self
+    public function headers(Header ...$header): self
     {
         $instance = clone $this;
 
-        $instance->headers = $headers ?: null;
+        $instance->headers = $header !== [] ? $header : null;
 
         return $instance;
     }
 
     /**
-     * @param SecurityScheme[] $securitySchemes
+     * @param SecurityScheme[] $securityScheme
      *
      * @return static
      */
-    public function securitySchemes(SecurityScheme ...$securitySchemes): self
+    public function securitySchemes(SecurityScheme ...$securityScheme): self
     {
         $instance = clone $this;
 
-        $instance->securitySchemes = $securitySchemes ?: null;
+        $instance->securitySchemes = $securityScheme !== [] ? $securityScheme : null;
 
         return $instance;
     }
 
     /**
-     * @param Link[] $links
+     * @param Link[] $link
      *
      * @return static
      */
-    public function links(Link ...$links): self
+    public function links(Link ...$link): self
     {
         $instance = clone $this;
 
-        $instance->links = $links ?: null;
+        $instance->links = $link !== [] ? $link : null;
 
         return $instance;
     }
 
     /**
-     * @param PathItem[] $callbacks
+     * @param PathItem[] $pathItem
      *
      * @return static
      */
-    public function callbacks(PathItem ...$callbacks): self
+    public function callbacks(PathItem ...$pathItem): self
     {
         $instance = clone $this;
 
-        $instance->callbacks = $callbacks ?: null;
+        $instance->callbacks = $pathItem !== [] ? $pathItem : null;
 
         return $instance;
     }
@@ -236,15 +236,15 @@ class Components extends BaseObject
         }
 
         return Arr::filter([
-            'schemas' => $schemas ?: null,
-            'responses' => $responses ?: null,
-            'parameters' => $parameters ?: null,
-            'examples' => $examples ?: null,
-            'requestBodies' => $requestBodies ?: null,
-            'headers' => $headers ?: null,
-            'securitySchemes' => $securitySchemes ?: null,
-            'links' => $links ?: null,
-            'callbacks' => $callbacks ?: null,
+            'schemas' => $schemas !== [] ? $schemas : null,
+            'responses' => $responses !== [] ? $responses : null,
+            'parameters' => $parameters !== [] ? $parameters : null,
+            'examples' => $examples !== [] ? $examples : null,
+            'requestBodies' => $requestBodies !== [] ? $requestBodies : null,
+            'headers' => $headers !== [] ? $headers : null,
+            'securitySchemes' => $securitySchemes !== [] ? $securitySchemes : null,
+            'links' => $links !== [] ? $links : null,
+            'callbacks' => $callbacks !== [] ? $callbacks : null,
         ]);
     }
 }

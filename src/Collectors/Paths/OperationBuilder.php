@@ -72,19 +72,19 @@ class OperationBuilder
         return $operations;
     }
 
-    private function parseOperationAttribute(RouteInformation $route): array
+    private function parseOperationAttribute(RouteInformation $routeInformation): array
     {
         $operationId = null;
         $tags = [];
         $security = null;
-        $method = Str::lower($route->method);
+        $method = Str::lower($routeInformation->method);
         $servers = [];
         $summary = null;
         $description = null;
         $deprecated = null;
 
         /** @var OperationAttribute|null $operation */
-        $operation = $route->actionAttributes
+        $operation = $routeInformation->actionAttributes
             ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
 
         if (!is_null($operation)) {

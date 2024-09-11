@@ -19,7 +19,7 @@ class ExternalDocsTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->externalDocs($externalDocs);
 
-        $this->assertEquals([
+        $this->assertSame([
             'externalDocs' => [
                 'description' => 'GitHub Repo',
                 'url' => 'https://github.com/goldspecdigital/oooas',

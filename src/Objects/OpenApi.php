@@ -22,29 +22,29 @@ class OpenApi extends ParentOpenApi
      * You should only send one security requirement per operation.
      * If you send more than one, the first one will be used.
      */
-    public function security(SecurityRequirement ...$security): self
+    public function security(SecurityRequirement ...$securityRequirement): self
     {
         $instance = clone $this;
 
-        if (empty($security)) {
+        if ($securityRequirement === []) {
             $instance->security = null;
 
             return $instance;
         }
 
-        if ($this->hasNoGlobalSecurity($security[0])) {
+        if ($this->hasNoGlobalSecurity($securityRequirement[0])) {
             $instance->security = null;
 
             return $instance;
         }
 
-        $instance->security = $security[0];
+        $instance->security = $securityRequirement[0];
 
         return $instance;
     }
 
-    private function hasNoGlobalSecurity(SecurityRequirement $security): bool
+    private function hasNoGlobalSecurity(SecurityRequirement $securityRequirement): bool
     {
-        return PublicSecurityScheme::NAME === $security->securityScheme;
+        return PublicSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 }

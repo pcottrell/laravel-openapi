@@ -28,7 +28,9 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class OpenApi extends BaseObject
 {
     public const OPENAPI_3_0_0 = '3.0.0';
+
     public const OPENAPI_3_0_1 = '3.0.1';
+
     public const OPENAPI_3_0_2 = '3.0.2';
 
     /**
@@ -96,29 +98,29 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param Server[] $servers
+     * @param Server[] $server
      *
      * @return static
      */
-    public function servers(Server ...$servers): self
+    public function servers(Server ...$server): self
     {
         $instance = clone $this;
 
-        $instance->servers = $servers ?: null;
+        $instance->servers = $server !== [] ? $server : null;
 
         return $instance;
     }
 
     /**
-     * @param PathItem[] $paths
+     * @param PathItem[] $pathItem
      *
      * @return static
      */
-    public function paths(PathItem ...$paths): self
+    public function paths(PathItem ...$pathItem): self
     {
         $instance = clone $this;
 
-        $instance->paths = $paths ?: null;
+        $instance->paths = $pathItem !== [] ? $pathItem : null;
 
         return $instance;
     }
@@ -136,29 +138,29 @@ class OpenApi extends BaseObject
     }
 
     /**
-     * @param SecurityRequirement[] $security
+     * @param SecurityRequirement[] $securityRequirement
      *
      * @return static
      */
-    public function security(SecurityRequirement ...$security): self
+    public function security(SecurityRequirement ...$securityRequirement): self
     {
         $instance = clone $this;
 
-        $instance->security = $security ?: null;
+        $instance->security = $securityRequirement !== [] ? $securityRequirement : null;
 
         return $instance;
     }
 
     /**
-     * @param Tag[] $tags
+     * @param Tag[] $tag
      *
      * @return static
      */
-    public function tags(Tag ...$tags): self
+    public function tags(Tag ...$tag): self
     {
         $instance = clone $this;
 
-        $instance->tags = $tags ?: null;
+        $instance->tags = $tag !== [] ? $tag : null;
 
         return $instance;
     }
@@ -180,7 +182,7 @@ class OpenApi extends BaseObject
      */
     public function validate(): void
     {
-        if (!class_exists('JsonSchema\Validator')) {
+        if (!class_exists(\JsonSchema\Validator::class)) {
             throw new \RuntimeException('justinrainbow/json-schema should be installed for validation');
         }
 
@@ -210,7 +212,7 @@ class OpenApi extends BaseObject
             'openapi' => $this->openapi,
             'info' => $this->info,
             'servers' => $this->servers,
-            'paths' => $paths ?: null,
+            'paths' => $paths !== [] ? $paths : null,
             'components' => $this->components,
             'security' => $this->security,
             'tags' => $this->tags,

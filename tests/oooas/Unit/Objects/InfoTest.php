@@ -25,7 +25,7 @@ class InfoTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->info($info);
 
-        $this->assertEquals([
+        $this->assertSame([
             'info' => [
                 'title' => 'Pretend API',
                 'description' => 'A pretend API',

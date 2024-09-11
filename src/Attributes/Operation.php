@@ -10,6 +10,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 class Operation
 {
     private const REMOVE_TOP_LEVEL_SECURITY = [];
+
     private const USE_TOP_LEVEL_SECURITY = null;
 
     /**
@@ -42,19 +43,14 @@ class Operation
 
     private function isValidSecurityScheme(string|array|null $security): bool
     {
-        if (static::REMOVE_TOP_LEVEL_SECURITY === $security || static::USE_TOP_LEVEL_SECURITY === $security) {
+        if (self::REMOVE_TOP_LEVEL_SECURITY === $security || self::USE_TOP_LEVEL_SECURITY === $security) {
             return true;
         }
 
         if (is_string($security)) {
             return $this->isValidSingleSecurityScheme($security);
         }
-
-        if (is_array($security)) {
-            return $this->isValidMultiSecurityScheme($security);
-        }
-
-        return false;
+        return $this->isValidMultiSecurityScheme($security);
     }
 
     private function isValidSingleSecurityScheme(string|null $securityScheme): bool
@@ -67,7 +63,7 @@ class Operation
         $isValid = true;
         foreach ($securities as $security) {
             if (is_array($security)) {
-                if (0 === count($security)) {
+                if ([] === $security) {
                     return false;
                 }
 

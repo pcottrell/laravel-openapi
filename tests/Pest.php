@@ -25,9 +25,7 @@ uses(Tests\UnitTestCase::class)->in('Unit', 'oooas/Unit');
 |
 */
 
-expect()->extend('toBeOne', function () {
-    return $this->toBe(1);
-});
+expect()->extend('toBeOne', fn() => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------

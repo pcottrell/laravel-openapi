@@ -56,7 +56,7 @@ class SecurityRequirement extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->scopes = $scopes ?: null;
+        $instance->scopes = $scopes !== [] ? $scopes : null;
 
         return $instance;
     }

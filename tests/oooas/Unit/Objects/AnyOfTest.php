@@ -19,7 +19,7 @@ class AnyOfTest extends UnitTestCase
         $anyOf = AnyOf::create()
             ->schemas($schema1, $schema2);
 
-        $this->assertEquals([
+        $this->assertSame([
             'anyOf' => [
                 [
                     'type' => 'string',
@@ -39,10 +39,10 @@ class AnyOfTest extends UnitTestCase
         $anyOf = AnyOf::create()
             ->schemas($schema1, $schema2);
 
-        $response = MediaType::json()
+        $mediaType = MediaType::json()
             ->schema($anyOf);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schema' => [
                 'anyOf' => [
                     [
@@ -53,6 +53,6 @@ class AnyOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 }

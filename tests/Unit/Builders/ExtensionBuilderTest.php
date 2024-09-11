@@ -26,13 +26,13 @@ class ExtensionBuilderTest extends TestCase
                     ->operations($operation),
             );
 
-        /** @var ExtensionBuilder $builder */
-        $builder = resolve(ExtensionBuilder::class);
-        $builder->build($operation, collect([
+        /** @var ExtensionBuilder $extensionBuilder */
+        $extensionBuilder = resolve(ExtensionBuilder::class);
+        $extensionBuilder->build($operation, collect([
             new Extension(factory: FakeExtension::class),
         ]));
 
-        self::assertSame([
+        $this->assertSame([
             'paths' => [
                 '/foo' => [
                     'get' => [
@@ -54,14 +54,14 @@ class ExtensionBuilderTest extends TestCase
                     ->operations($operation),
             );
 
-        /** @var ExtensionBuilder $builder */
-        $builder = resolve(ExtensionBuilder::class);
-        $builder->build($operation, collect([
+        /** @var ExtensionBuilder $extensionBuilder */
+        $extensionBuilder = resolve(ExtensionBuilder::class);
+        $extensionBuilder->build($operation, collect([
             new Extension(key: 'foo', value: 'bar'),
             new Extension(key: 'x-key', value: '1'),
         ]));
 
-        self::assertSame([
+        $this->assertSame([
             'paths' => [
                 '/foo' => [
                     'get' => [

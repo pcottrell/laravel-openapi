@@ -13,80 +13,74 @@ use Tests\TestCase;
 #[CoversClass(TagBuilder::class)]
 class TagBuilderTest extends TestCase
 {
-    public static function singleTagProvider(): array
+    public static function singleTagProvider(): \Iterator
     {
-        return [
-            'Can build tag from array with one FQCN' => [
-                [WithoutExternalDoc::class],
+        yield 'Can build tag from array with one FQCN' => [
+            [WithoutExternalDoc::class],
+            [
                 [
-                    [
-                        'name' => 'PostWithoutExternalDoc',
-                        'description' => 'Post Tag',
-                    ],
+                    'name' => 'PostWithoutExternalDoc',
+                    'description' => 'Post Tag',
                 ],
             ],
-            'Can build tag without external docs' => [
-                [WithoutExternalDoc::class],
+        ];
+        yield 'Can build tag without external docs' => [
+            [WithoutExternalDoc::class],
+            [
                 [
-                    [
-                        'name' => 'PostWithoutExternalDoc',
-                        'description' => 'Post Tag',
-                    ],
+                    'name' => 'PostWithoutExternalDoc',
+                    'description' => 'Post Tag',
                 ],
             ],
-            'Can build tag with external docs' => [
-                [WithExternalObjectDoc::class],
+        ];
+        yield 'Can build tag with external docs' => [
+            [WithExternalObjectDoc::class],
+            [
                 [
-                    [
-                        'name' => 'PostWithExternalObjectDoc',
-                        'description' => 'Post Tag',
-                        'externalDocs' => [
-                            'description' => 'External API documentation',
-                            'url' => 'https://example.com/external-docs',
-                        ],
+                    'name' => 'PostWithExternalObjectDoc',
+                    'description' => 'Post Tag',
+                    'externalDocs' => [
+                        'description' => 'External API documentation',
+                        'url' => 'https://example.com/external-docs',
                     ],
                 ],
             ],
         ];
     }
 
-    public static function multiTagProvider(): array
+    public static function multiTagProvider(): \Iterator
     {
-        return [
-            'Can build multiple tags from an array of FQCNs' => [
-                [WithoutExternalDoc::class, WithExternalObjectDoc::class],
+        yield 'Can build multiple tags from an array of FQCNs' => [
+            [WithoutExternalDoc::class, WithExternalObjectDoc::class],
+            [
                 [
-                    [
-                        'name' => 'PostWithoutExternalDoc',
-                        'description' => 'Post Tag',
-                    ],
-                    [
-                        'name' => 'PostWithExternalObjectDoc',
-                        'description' => 'Post Tag',
-                        'externalDocs' => [
-                            'description' => 'External API documentation',
-                            'url' => 'https://example.com/external-docs',
-                        ],
+                    'name' => 'PostWithoutExternalDoc',
+                    'description' => 'Post Tag',
+                ],
+                [
+                    'name' => 'PostWithExternalObjectDoc',
+                    'description' => 'Post Tag',
+                    'externalDocs' => [
+                        'description' => 'External API documentation',
+                        'url' => 'https://example.com/external-docs',
                     ],
                 ],
             ],
         ];
     }
 
-    public static function invalidTagProvider(): array
+    public static function invalidTagProvider(): \Iterator
     {
-        return [
-            [WithoutName::class],
-            [EmptyStringName::class],
-            [NullName::class],
-        ];
+        yield [WithoutName::class];
+        yield [EmptyStringName::class];
+        yield [NullName::class];
     }
 
     #[DataProvider('singleTagProvider')]
     public function testCanBuildTag(array $tagFactories, array $expected): void
     {
-        $builder = app(TagBuilder::class);
-        $tags = $builder->build($tagFactories);
+        $tagBuilder = app(TagBuilder::class);
+        $tags = $tagBuilder->build($tagFactories);
 
         $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
     }
@@ -102,17 +96,19 @@ class TagBuilderTest extends TestCase
                 unset($actual[$key]);
                 continue;
             }
-            self::assertSame($value, $actual[$key]);
+
+            $this->assertSame($value, $actual[$key]);
             unset($actual[$key]);
         }
-        self::assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
+
+        $this->assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
     }
 
     #[DataProvider('multiTagProvider')]
     public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
     {
-        $builder = app(TagBuilder::class);
-        $tags = $builder->build($tagFactories);
+        $tagBuilder = app(TagBuilder::class);
+        $tags = $tagBuilder->build($tagFactories);
 
         $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
     }

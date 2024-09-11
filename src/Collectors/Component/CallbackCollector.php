@@ -10,16 +10,16 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 /**
  * Collects all the callback factories that have Collection attribute with the given collection name.
  */
-final class CallbackCollector
+final readonly class CallbackCollector
 {
     public function __construct(
-        private readonly ClassCollector $componentCollector,
+        private ClassCollector $classCollector,
     ) {
     }
 
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
-        return $this->componentCollector->collect($collection)
+        return $this->classCollector->collect($collection)
             ->filter(static fn ($class) => is_a($class, CallbackFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function ($class) {
                 /** @var CallbackFactory $instance */

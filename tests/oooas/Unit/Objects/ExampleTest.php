@@ -21,7 +21,7 @@ class ExampleTest extends UnitTestCase
         $mediaType = MediaType::json()
             ->example($example);
 
-        $this->assertEquals([
+        $this->assertSame([
             'example' => [
                 'summary' => 'Summary ipsum',
                 'description' => 'Description ipsum',

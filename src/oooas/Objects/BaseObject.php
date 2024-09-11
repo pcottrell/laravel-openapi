@@ -49,11 +49,11 @@ abstract class BaseObject implements \JsonSerializable
      */
     public static function ref(string $ref, string|null $objectId = null): self
     {
-        $instance = new static($objectId);
+        $static = new static($objectId);
 
-        $instance->ref = $ref;
+        $static->ref = $ref;
 
-        return $instance;
+        return $static;
     }
 
     /**
@@ -137,6 +137,6 @@ abstract class BaseObject implements \JsonSerializable
             }
         }
 
-        throw new PropertyDoesNotExistException("[{$name}] is not a valid property.");
+        throw new PropertyDoesNotExistException(sprintf('[%s] is not a valid property.', $name));
     }
 }

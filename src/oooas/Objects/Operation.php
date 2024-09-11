@@ -23,12 +23,19 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Operation extends BaseObject
 {
     public const ACTION_GET = 'get';
+
     public const ACTION_PUT = 'put';
+
     public const ACTION_POST = 'post';
+
     public const ACTION_DELETE = 'delete';
+
     public const ACTION_OPTIONS = 'options';
+
     public const ACTION_HEAD = 'head';
+
     public const ACTION_PATCH = 'patch';
+
     public const ACTION_TRACE = 'trace';
 
     /**
@@ -195,7 +202,7 @@ class Operation extends BaseObject
 
         $instance = clone $this;
 
-        $instance->tags = $tags ?: null;
+        $instance->tags = $tags !== [] ? $tags : null;
 
         return $instance;
     }
@@ -249,15 +256,15 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param Parameter[] $parameters
+     * @param Parameter[] $parameter
      *
      * @return static
      */
-    public function parameters(Parameter ...$parameters): self
+    public function parameters(Parameter ...$parameter): self
     {
         $instance = clone $this;
 
-        $instance->parameters = $parameters ?: null;
+        $instance->parameters = $parameter !== [] ? $parameter : null;
 
         return $instance;
     }
@@ -275,15 +282,15 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param Response[] $responses
+     * @param Response[] $response
      *
      * @return static
      */
-    public function responses(Response ...$responses): self
+    public function responses(Response ...$response): self
     {
         $instance = clone $this;
 
-        $instance->responses = $responses;
+        $instance->responses = $response;
 
         return $instance;
     }
@@ -301,15 +308,15 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param SecurityRequirement[]|null $security
+     * @param SecurityRequirement[]|null $securityRequirement
      *
      * @return static
      */
-    public function security(SecurityRequirement ...$security): self
+    public function security(SecurityRequirement ...$securityRequirement): self
     {
         $instance = clone $this;
 
-        $instance->security = $security ?: null;
+        $instance->security = $securityRequirement !== [] ? $securityRequirement : null;
         $instance->noSecurity = null;
 
         return $instance;
@@ -328,29 +335,29 @@ class Operation extends BaseObject
     }
 
     /**
-     * @param Server[] $servers
+     * @param Server[] $server
      *
      * @return static
      */
-    public function servers(Server ...$servers): self
+    public function servers(Server ...$server): self
     {
         $instance = clone $this;
 
-        $instance->servers = $servers ?: null;
+        $instance->servers = $server !== [] ? $server : null;
 
         return $instance;
     }
 
     /**
-     * @param PathItem[] $callbacks
+     * @param PathItem[] $pathItem
      *
      * @return $this
      */
-    public function callbacks(PathItem ...$callbacks): self
+    public function callbacks(PathItem ...$pathItem): self
     {
         $instance = clone $this;
 
-        $instance->callbacks = $callbacks ?: null;
+        $instance->callbacks = $pathItem !== [] ? $pathItem : null;
 
         return $instance;
     }
@@ -375,11 +382,11 @@ class Operation extends BaseObject
             'operationId' => $this->operationId,
             'parameters' => $this->parameters,
             'requestBody' => $this->requestBody,
-            'responses' => $responses ?: null,
+            'responses' => $responses !== [] ? $responses : null,
             'deprecated' => $this->deprecated,
             'security' => $this->noSecurity ? [] : $this->security,
             'servers' => $this->servers,
-            'callbacks' => $callbacks ?: null,
+            'callbacks' => $callbacks !== [] ? $callbacks : null,
         ]);
     }
 }

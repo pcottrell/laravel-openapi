@@ -14,6 +14,7 @@ use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 class Generator
 {
     public const COLLECTION_DEFAULT = 'default';
+
     // TODO: Document the OpenAPIVersion enum
     public OpenAPIVersion $version = OpenAPIVersion::OPENAPI_3_1_0;
 

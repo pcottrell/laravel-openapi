@@ -27,7 +27,7 @@ class Extensions implements \ArrayAccess
     public function offsetGet($offset): mixed
     {
         if (!$this->offsetExists($offset)) {
-            throw new ExtensionDoesNotExistException("[{$offset}] is not a valid extension.");
+            throw new ExtensionDoesNotExistException(sprintf('[%s] is not a valid extension.', $offset));
         }
 
         return $this->items[$this->normalizeOffset($offset)];

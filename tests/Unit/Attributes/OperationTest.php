@@ -4,8 +4,8 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
 use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryInvalidStub;
 use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryStub;
 
-describe('Operation', function () {
-    it('can be instantiated with no parameters', function () {
+describe('Operation', function (): void {
+    it('can be instantiated with no parameters', function (): void {
         $operation = new Operation();
         expect($operation->id)->toBeNull()
             ->and($operation->tags)->toBeNull()
@@ -17,7 +17,7 @@ describe('Operation', function () {
             ->and($operation->deprecated)->toBeNull();
     });
 
-    it('can can be instantiated properly', function () {
+    it('can can be instantiated properly', function (): void {
         $operation = new Operation(
             id: 'id',
             tags: 'tags',
@@ -38,7 +38,7 @@ describe('Operation', function () {
             ->and($operation->deprecated)->toBeTrue();
     });
 
-    it('doesnt accept invalid security combinations', function (string|array $security) {
+    it('doesnt accept invalid security combinations', function (string|array $security): void {
         $this->expectException(InvalidArgumentException::class);
         new Operation(security: $security);
     })->with([
@@ -83,52 +83,52 @@ describe('Operation', function () {
         ],
     ]);
 
-    it('can remove top level security', function () {
+    it('can remove top level security', function (): void {
         $operation = new Operation(security: []);
         expect($operation->security)->toBe([]);
     });
 
-    it('can use top level security', function () {
+    it('can use top level security', function (): void {
         $operation = new Operation(security: null);
         expect($operation->security)->toBeNull();
     });
 
-    it('uses top level security by default', function () {
+    it('uses top level security by default', function (): void {
         $operation = new Operation();
         expect($operation->security)->toBeNull();
     });
 
-    it('can be instantiated with a class FQN security', function () {
+    it('can be instantiated with a class FQN security', function (): void {
         $operation = new Operation(security: SecuritySchemeFactoryStub::class);
         expect($operation->security)->toBe(SecuritySchemeFactoryStub::class);
     });
 
-    it('can be instantiated with an array of class FQN securities', function () {
+    it('can be instantiated with an array of class FQN securities', function (): void {
         $operation = new Operation(security: [SecuritySchemeFactoryStub::class]);
         expect($operation->security)->toBe([SecuritySchemeFactoryStub::class]);
     });
 
-    it('can be instantiated with an array of arrays of class FQN securities', function () {
+    it('can be instantiated with an array of arrays of class FQN securities', function (): void {
         $operation = new Operation(security: [[SecuritySchemeFactoryStub::class]]);
         expect($operation->security)->toBe([[SecuritySchemeFactoryStub::class]]);
     });
 
-    it('can be instantiated with a combination of class FQN and array of class FQN securities', function () {
+    it('can be instantiated with a combination of class FQN and array of class FQN securities', function (): void {
         $operation = new Operation(security: [SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
         expect($operation->security)->toBe([SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
     });
 
-    it('throws an exception when an invalid security is passed', function () {
+    it('throws an exception when an invalid security is passed', function (): void {
         $this->expectException(InvalidArgumentException::class);
         new Operation(security: 'InvalidSecurity');
     });
 
-    it('throws an exception when an invalid security is passed in an array', function () {
+    it('throws an exception when an invalid security is passed in an array', function (): void {
         $this->expectException(InvalidArgumentException::class);
         new Operation(security: ['InvalidSecurity']);
     });
 
-    it('throws an exception when security is not an instance of SecuritySchemeFactory', function () {
+    it('throws an exception when security is not an instance of SecuritySchemeFactory', function (): void {
         $this->expectException(InvalidArgumentException::class);
         new Operation(security: SecuritySchemeFactoryInvalidStub::class);
     });

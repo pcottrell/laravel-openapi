@@ -26,7 +26,7 @@ class PathItemTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->paths($pathItem);
 
-        $this->assertEquals([
+        $this->assertSame([
             'paths' => [
                 '/users' => [
                     'summary' => 'User endpoints',

@@ -10,14 +10,14 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Component\SecuritySchemeCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 
-final class ComponentCollector
+final readonly class ComponentCollector
 {
     public function __construct(
-        private readonly CallbackCollector $callbackCollector,
-        private readonly RequestBodyCollector $requestBodyCollector,
-        private readonly ResponseCollector $responseCollector,
-        private readonly SchemaCollector $schemaCollector,
-        private readonly SecuritySchemeCollector $securitySchemeCollector,
+        private CallbackCollector $callbackCollector,
+        private RequestBodyCollector $requestBodyCollector,
+        private ResponseCollector $responseCollector,
+        private SchemaCollector $schemaCollector,
+        private SecuritySchemeCollector $securitySchemeCollector,
     ) {
     }
 

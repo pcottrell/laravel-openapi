@@ -82,79 +82,79 @@ class ResponseTest extends UnitTestCase
     {
         $response = Response::ok();
 
-        $this->assertEquals(200, $response->statusCode);
-        $this->assertEquals('OK', $response->description);
+        $this->assertSame(200, $response->statusCode);
+        $this->assertSame('OK', $response->description);
     }
 
     public function testCreateWithCreatedMethodWorks()
     {
         $response = Response::created();
 
-        $this->assertEquals(201, $response->statusCode);
-        $this->assertEquals('Created', $response->description);
+        $this->assertSame(201, $response->statusCode);
+        $this->assertSame('Created', $response->description);
     }
 
     public function testCreateWithMovedPermanentlyMethodWorks()
     {
         $response = Response::movedPermanently();
 
-        $this->assertEquals(301, $response->statusCode);
-        $this->assertEquals('Moved Permanently', $response->description);
+        $this->assertSame(301, $response->statusCode);
+        $this->assertSame('Moved Permanently', $response->description);
     }
 
     public function testCreateWithMovedTemporarilyMethodWorks()
     {
         $response = Response::movedTemporarily();
 
-        $this->assertEquals(302, $response->statusCode);
-        $this->assertEquals('Moved Temporarily', $response->description);
+        $this->assertSame(302, $response->statusCode);
+        $this->assertSame('Moved Temporarily', $response->description);
     }
 
     public function testCreateWithBadRequestMethodWorks()
     {
         $response = Response::badRequest();
 
-        $this->assertEquals(400, $response->statusCode);
-        $this->assertEquals('Bad Request', $response->description);
+        $this->assertSame(400, $response->statusCode);
+        $this->assertSame('Bad Request', $response->description);
     }
 
     public function testCreateWithUnauthorizedMethodWorks()
     {
         $response = Response::unauthorized();
 
-        $this->assertEquals(401, $response->statusCode);
-        $this->assertEquals('Unauthorized', $response->description);
+        $this->assertSame(401, $response->statusCode);
+        $this->assertSame('Unauthorized', $response->description);
     }
 
     public function testCreateWithNotFoundMethodWorks()
     {
         $response = Response::notFound();
 
-        $this->assertEquals(404, $response->statusCode);
-        $this->assertEquals('Not Found', $response->description);
+        $this->assertSame(404, $response->statusCode);
+        $this->assertSame('Not Found', $response->description);
     }
 
     public function testCreateWithUnprocessableEntityMethodWorks()
     {
         $response = Response::unprocessableEntity();
 
-        $this->assertEquals(422, $response->statusCode);
-        $this->assertEquals('Unprocessable Entity', $response->description);
+        $this->assertSame(422, $response->statusCode);
+        $this->assertSame('Unprocessable Entity', $response->description);
     }
 
     public function testCreateWithTooManyRequestsMethodWorks()
     {
         $response = Response::tooManyRequests();
 
-        $this->assertEquals(429, $response->statusCode);
-        $this->assertEquals('Too Many Requests', $response->description);
+        $this->assertSame(429, $response->statusCode);
+        $this->assertSame('Too Many Requests', $response->description);
     }
 
     public function testCreateWithInternalServerErrorMethodWorks()
     {
         $response = Response::internalServerError();
 
-        $this->assertEquals(500, $response->statusCode);
-        $this->assertEquals('Internal Server Error', $response->description);
+        $this->assertSame(500, $response->statusCode);
+        $this->assertSame('Internal Server Error', $response->description);
     }
 }

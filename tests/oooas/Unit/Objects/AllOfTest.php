@@ -19,7 +19,7 @@ class AllOfTest extends UnitTestCase
         $allOf = AllOf::create()
             ->schemas($schema1, $schema2);
 
-        $this->assertEquals([
+        $this->assertSame([
             'allOf' => [
                 [
                     'type' => 'string',
@@ -39,10 +39,10 @@ class AllOfTest extends UnitTestCase
         $allOf = AllOf::create()
             ->schemas($schema1, $schema2);
 
-        $response = MediaType::json()
+        $mediaType = MediaType::json()
             ->schema($allOf);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schema' => [
                 'allOf' => [
                     [
@@ -53,6 +53,6 @@ class AllOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 }

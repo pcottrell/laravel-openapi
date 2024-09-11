@@ -29,7 +29,7 @@ class SecurityRequirementTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->security($securityRequirement);
 
-        $this->assertEquals([
+        $this->assertSame([
             'security' => [
                 ['OAuth2' => ['read:user']],
             ],
@@ -46,7 +46,7 @@ class SecurityRequirementTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->security($securityRequirement);
 
-        $this->assertEquals([
+        $this->assertSame([
             'security' => [
                 ['OAuth2' => []],
             ],

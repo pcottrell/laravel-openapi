@@ -8,13 +8,11 @@ use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 class Extension
 {
     // TODO: use php8 constructor property promotion
-    public string|null $factory;
-    public string|null $key;
-    public string|null $value;
+    public string|null $factory = null;
 
-    public function __construct(string|null $factory = null, string|null $key = null, string|null $value = null)
+    public function __construct(string|null $factory = null, public string|null $key = null, public string|null $value = null)
     {
-        if ($factory) {
+        if ($factory !== null && $factory !== '' && $factory !== '0') {
             $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Extensions\\' . $factory;
 
             if (!is_a($this->factory, ExtensionFactory::class, true)) {
@@ -24,7 +22,5 @@ class Extension
         }
 
         $this->factory ??= null;
-        $this->key = $key;
-        $this->value = $value;
     }
 }

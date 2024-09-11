@@ -22,7 +22,7 @@ class OAuthFlowTest extends UnitTestCase
         $securityScheme = SecurityScheme::create()
             ->flows($oauthFlow);
 
-        $this->assertEquals([
+        $this->assertSame([
             'flows' => [
                 'authorizationCode' => [
                     'authorizationUrl' => 'https://api.goldspecdigital.com/oauth/authorization',

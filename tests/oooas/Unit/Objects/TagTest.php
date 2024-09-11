@@ -21,7 +21,7 @@ class TagTest extends UnitTestCase
         $openApi = OpenApi::create()
             ->tags($tag);
 
-        $this->assertEquals([
+        $this->assertSame([
             'tags' => [
                 [
                     'name' => 'Users',

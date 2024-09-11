@@ -95,7 +95,7 @@ class OperationTest extends UnitTestCase
 
         $pathItem = PathItem::create()->operations($operation);
 
-        $this->assertEquals([
+        $this->assertSame([
             'get' => [
                 'security' => [],
             ],

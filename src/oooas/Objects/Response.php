@@ -173,43 +173,43 @@ class Response extends BaseObject
     }
 
     /**
-     * @param Header[] $headers
+     * @param Header[] $header
      *
      * @return static
      */
-    public function headers(Header ...$headers): self
+    public function headers(Header ...$header): self
     {
         $instance = clone $this;
 
-        $instance->headers = $headers ?: null;
+        $instance->headers = $header !== [] ? $header : null;
 
         return $instance;
     }
 
     /**
-     * @param MediaType[] $content
+     * @param MediaType[] $mediaType
      *
      * @return static
      */
-    public function content(MediaType ...$content): self
+    public function content(MediaType ...$mediaType): self
     {
         $instance = clone $this;
 
-        $instance->content = $content ?: null;
+        $instance->content = $mediaType !== [] ? $mediaType : null;
 
         return $instance;
     }
 
     /**
-     * @param Link[] $links
+     * @param Link[] $link
      *
      * @return static
      */
-    public function links(Link ...$links): self
+    public function links(Link ...$link): self
     {
         $instance = clone $this;
 
-        $instance->links = $links ?: null;
+        $instance->links = $link !== [] ? $link : null;
 
         return $instance;
     }
@@ -233,9 +233,9 @@ class Response extends BaseObject
 
         return Arr::filter([
             'description' => $this->description,
-            'headers' => $headers ?: null,
-            'content' => $content ?: null,
-            'links' => $links ?: null,
+            'headers' => $headers !== [] ? $headers : null,
+            'content' => $content !== [] ? $content : null,
+            'links' => $links !== [] ? $links : null,
         ]);
     }
 }

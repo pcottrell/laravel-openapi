@@ -39,15 +39,15 @@ class RequestBody extends BaseObject
     }
 
     /**
-     * @param MediaType[] $content
+     * @param MediaType[] $mediaType
      *
      * @return static
      */
-    public function content(MediaType ...$content): self
+    public function content(MediaType ...$mediaType): self
     {
         $instance = clone $this;
 
-        $instance->content = $content ?: null;
+        $instance->content = $mediaType !== [] ? $mediaType : null;
 
         return $instance;
     }
@@ -73,7 +73,7 @@ class RequestBody extends BaseObject
 
         return Arr::filter([
             'description' => $this->description,
-            'content' => $content ?: null,
+            'content' => $content !== [] ? $content : null,
             'required' => $this->required,
         ]);
     }

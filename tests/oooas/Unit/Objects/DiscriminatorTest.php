@@ -19,7 +19,7 @@ class DiscriminatorTest extends UnitTestCase
         $schema = Schema::object()
             ->discriminator($discriminator);
 
-        $this->assertEquals([
+        $this->assertSame([
             'type' => 'object',
             'discriminator' => [
                 'propertyName' => 'Discriminator Name',

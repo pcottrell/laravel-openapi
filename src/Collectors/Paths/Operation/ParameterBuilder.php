@@ -12,22 +12,22 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 class ParameterBuilder
 {
-    public function build(RouteInformation $route): array
+    public function build(RouteInformation $routeInformation): array
     {
-        $pathParameters = $this->buildPath($route);
-        $attributedParameters = $this->buildAttribute($route);
+        $pathParameters = $this->buildPath($routeInformation);
+        $attributedParameters = $this->buildAttribute($routeInformation);
 
         return $pathParameters->merge($attributedParameters)->toArray();
     }
 
-    protected function buildPath(RouteInformation $route): Collection
+    protected function buildPath(RouteInformation $routeInformation): Collection
     {
-        return $route->parameters
-            ->map(static function (array $parameter) use ($route) {
+        return $routeInformation->parameters
+            ->map(static function (array $parameter) use ($routeInformation) {
                 $schema = Schema::string();
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
-                $reflectionParameter = collect($route->actionParameters)
+                $reflectionParameter = collect($routeInformation->actionParameters)
                     ->first(static fn (\ReflectionParameter $reflectionParameter) => $reflectionParameter->name === $parameter['name']);
 
                 if ($reflectionParameter) {
@@ -46,10 +46,10 @@ class ParameterBuilder
             ->filter();
     }
 
-    protected function buildAttribute(RouteInformation $route): Collection
+    protected function buildAttribute(RouteInformation $routeInformation): Collection
     {
         /** @var ParameterAttribute|null $parameters */
-        $parameters = $route->actionAttributes->first(static fn ($attribute) => $attribute instanceof ParameterAttribute, []);
+        $parameters = $routeInformation->actionAttributes->first(static fn ($attribute) => $attribute instanceof ParameterAttribute, []);
 
         if ($parameters) {
             /** @var ParameterFactory $parametersFactory */

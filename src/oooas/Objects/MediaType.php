@@ -15,12 +15,19 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class MediaType extends BaseObject
 {
     public const MEDIA_TYPE_APPLICATION_JSON = 'application/json';
+
     public const MEDIA_TYPE_APPLICATION_PDF = 'application/pdf';
+
     public const MEDIA_TYPE_IMAGE_JPEG = 'image/jpeg';
+
     public const MEDIA_TYPE_IMAGE_PNG = 'image/png';
+
     public const MEDIA_TYPE_TEXT_CALENDAR = 'text/calendar';
+
     public const MEDIA_TYPE_TEXT_PLAIN = 'text/plain';
+
     public const MEDIA_TYPE_TEXT_XML = 'text/xml';
+
     public const MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
     /**
@@ -157,15 +164,15 @@ class MediaType extends BaseObject
     }
 
     /**
-     * @param Example[]|null $examples
+     * @param Example[]|null $example
      *
      * @return static
      */
-    public function examples(Example ...$examples): self
+    public function examples(Example ...$example): self
     {
         $instance = clone $this;
 
-        $instance->examples = $examples ?: null;
+        $instance->examples = $example !== [] ? $example : null;
 
         return $instance;
     }
@@ -179,7 +186,7 @@ class MediaType extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->encoding = $encoding ?: null;
+        $instance->encoding = $encoding !== [] ? $encoding : null;
 
         return $instance;
     }
@@ -199,8 +206,8 @@ class MediaType extends BaseObject
         return Arr::filter([
             'schema' => $this->schema,
             'example' => $this->example,
-            'examples' => $examples ?: null,
-            'encoding' => $encodings ?: null,
+            'examples' => $examples !== [] ? $examples : null,
+            'encoding' => $encodings !== [] ? $encodings : null,
         ]);
     }
 }

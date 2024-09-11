@@ -46,7 +46,7 @@ class ComponentsTest extends UnitTestCase
 
         $link = Link::create('LinkExample');
 
-        $callback = PathItem::create('MyEvent')
+        $pathItem = PathItem::create('MyEvent')
             ->route('{$request.query.callbackUrl}')
             ->operations(
                 Operation::post()->requestBody(
@@ -64,9 +64,9 @@ class ComponentsTest extends UnitTestCase
             ->headers($header)
             ->securitySchemes($securityScheme)
             ->links($link)
-            ->callbacks($callback);
+            ->callbacks($pathItem);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schemas' => [
                 'ExampleSchema' => [
                     'type' => 'object',

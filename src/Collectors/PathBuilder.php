@@ -16,12 +16,8 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
 class PathBuilder
 {
-    private OperationBuilder $operationBuilder;
-
-    public function __construct(
-        OperationBuilder $operationBuilder,
-    ) {
-        $this->operationBuilder = $operationBuilder;
+    public function __construct(private readonly OperationBuilder $operationBuilder)
+    {
     }
 
     /**
@@ -61,12 +57,12 @@ class PathBuilder
                     (!$collectionAttribute && Generator::COLLECTION_DEFAULT === $collection)
                     || ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
             })
-            ->map(static function (RouteInformation $item) use ($middlewares) {
+            ->map(static function (RouteInformation $routeInformation) use ($middlewares) {
                 foreach ($middlewares as $middleware) {
-                    app($middleware)->before($item);
+                    app($middleware)->before($routeInformation);
                 }
 
-                return $item;
+                return $routeInformation;
             })
             ->groupBy(static fn (RouteInformation $routeInformation) => $routeInformation->uri)
             ->map(function (Collection $routes, $uri) {
@@ -76,12 +72,12 @@ class PathBuilder
 
                 return $pathItem->operations(...$operations);
             })
-            ->map(static function (PathItem $item) use ($middlewares) {
+            ->map(static function (PathItem $pathItem) use ($middlewares) {
                 foreach ($middlewares as $middleware) {
-                    $item = app($middleware)->after($item);
+                    $pathItem = app($middleware)->after($pathItem);
                 }
 
-                return $item;
+                return $pathItem;
             })
             ->values()
             ->toArray();
@@ -92,11 +88,11 @@ class PathBuilder
         return collect(app(Router::class)->getRoutes())
             ->filter(static fn (Route $route) => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route) => RouteInformation::createFromRoute($route))
-            ->filter(static function (RouteInformation $route) {
-                $pathItem = $route->controllerAttributes
+            ->filter(static function (RouteInformation $routeInformation) {
+                $pathItem = $routeInformation->controllerAttributes
                     ->first(static fn (object $attribute) => $attribute instanceof Attributes\PathItem);
 
-                $operation = $route->actionAttributes
+                $operation = $routeInformation->actionAttributes
                     ->first(static fn (object $attribute) => $attribute instanceof Attributes\Operation);
 
                 return $pathItem && $operation;

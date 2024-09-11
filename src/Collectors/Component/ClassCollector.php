@@ -10,10 +10,10 @@ use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 /**
  * Collects all classes that have the Collection attribute with the given collection name.
  */
-final class ClassCollector
+final readonly class ClassCollector
 {
     public function __construct(
-        private readonly array $directories,
+        private array $directories,
     ) {
     }
 
@@ -30,11 +30,11 @@ final class ClassCollector
                 $reflectionClass = new \ReflectionClass($class);
                 $collectionAttributes = $reflectionClass->getAttributes(CollectionAttribute::class);
 
-                if (Generator::COLLECTION_DEFAULT === $collection && 0 === count($collectionAttributes)) {
+                if (Generator::COLLECTION_DEFAULT === $collection && [] === $collectionAttributes) {
                     return true;
                 }
 
-                if (0 === count($collectionAttributes)) {
+                if ([] === $collectionAttributes) {
                     return false;
                 }
 

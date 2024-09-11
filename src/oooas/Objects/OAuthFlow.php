@@ -15,8 +15,11 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class OAuthFlow extends BaseObject
 {
     public const FLOW_IMPLICIT = 'implicit';
+
     public const FLOW_PASSWORD = 'password';
+
     public const FLOW_CLIENT_CREDENTIALS = 'clientCredentials';
+
     public const FLOW_AUTHORIZATION_CODE = 'authorizationCode';
 
     /**

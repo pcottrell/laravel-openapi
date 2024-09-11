@@ -26,16 +26,13 @@ class ClassMapGenerator
 
             $path = $file->getRealPath() ?: $file->getPathname();
 
-            if ('php' !== pathinfo($path, PATHINFO_EXTENSION)) {
+            if ('php' !== pathinfo((string) $path, PATHINFO_EXTENSION)) {
                 continue;
             }
 
             $classes = self::findClasses($path);
 
-            if (PHP_VERSION_ID >= 70000) {
-                // PHP 7 memory manager will not release after token_get_all(), see https://bugs.php.net/70098
-                gc_mem_caches();
-            }
+            gc_mem_caches();
 
             foreach ($classes as $class) {
                 $map[$class] = $path;
@@ -83,6 +80,7 @@ class ClassMapGenerator
                             $namespace .= $tokens[$i][1];
                         }
                     }
+
                     $namespace .= '\\';
                     break;
                 case T_CLASS:

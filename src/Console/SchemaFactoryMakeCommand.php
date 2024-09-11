@@ -17,7 +17,9 @@ use Symfony\Component\Console\Input\InputOption;
 class SchemaFactoryMakeCommand extends GeneratorCommand
 {
     protected $name = 'openapi:make-schema';
+
     protected $description = 'Create a new Schema factory class';
+
     protected $type = 'Schema';
 
     protected function buildClass($name): array|string
@@ -48,7 +50,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
         $columns = SchemaFacade::connection($model->getConnectionName())->getColumnListing(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable());
         $connection = $model->getConnection();
 
-        $definition = 'return Schema::object(\'' . class_basename($model) . '\')' . PHP_EOL;
+        $definition = "return Schema::object('" . class_basename($model) . "')" . PHP_EOL;
         $definition .= '            ->properties(' . PHP_EOL;
 
         $properties = collect($columns)
@@ -59,7 +61,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                 $default = $column->getDefault();
                 $notNull = $column->getNotnull();
 
-                switch (get_class($column->getType())) {
+                switch ($column->getType()::class) {
                     case IntegerType::class:
                         $format = 'Schema::integer(%s)->default(%s)';
                         $args = [$name, $notNull ? (int) $default : null];
@@ -95,7 +97,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                         return $value;
                     }
 
-                    return '\'' . $value . '\'';
+                    return "'" . $value . "'";
                 }, $args);
 
                 $indentation = str_repeat('    ', 4);

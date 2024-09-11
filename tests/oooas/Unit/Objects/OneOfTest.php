@@ -19,7 +19,7 @@ class OneOfTest extends UnitTestCase
         $oneOf = OneOf::create()
             ->schemas($schema1, $schema2);
 
-        $this->assertEquals([
+        $this->assertSame([
             'oneOf' => [
                 [
                     'type' => 'string',
@@ -39,10 +39,10 @@ class OneOfTest extends UnitTestCase
         $oneOf = OneOf::create()
             ->schemas($schema1, $schema2);
 
-        $response = MediaType::json()
+        $mediaType = MediaType::json()
             ->schema($oneOf);
 
-        $this->assertEquals([
+        $this->assertSame([
             'schema' => [
                 'oneOf' => [
                     [
@@ -53,6 +53,6 @@ class OneOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $response->toArray());
+        ], $mediaType->toArray());
     }
 }

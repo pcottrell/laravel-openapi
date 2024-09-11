@@ -4,7 +4,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Http\OpenApiController;
 
-Route::group(['as' => 'openapi.'], function () {
+Route::group(['as' => 'openapi.'], function (): void {
     foreach (config('openapi.collections', []) as $name => $config) {
         $uri = Arr::get($config, 'route.uri');
 

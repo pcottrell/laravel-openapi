@@ -26,36 +26,26 @@ class OpenApiServiceProvider extends ServiceProvider
             'openapi',
         );
 
-        $this->app->singleton(CallbackCollector::class, function (Application $app) {
-            return new CallbackCollector(new ClassCollector($this->getPathsFromConfig('callbacks')));
-        });
+        $this->app->singleton(CallbackCollector::class, fn(Application $application) => new CallbackCollector(new ClassCollector($this->getPathsFromConfig('callbacks'))));
 
-        $this->app->singleton(RequestBodyCollector::class, function (Application $app) {
-            return new RequestBodyCollector(new ClassCollector($this->getPathsFromConfig('request_bodies')));
-        });
+        $this->app->singleton(RequestBodyCollector::class, fn(Application $application) => new RequestBodyCollector(new ClassCollector($this->getPathsFromConfig('request_bodies'))));
 
-        $this->app->singleton(ResponseCollector::class, function (Application $app) {
-            return new ResponseCollector(new ClassCollector($this->getPathsFromConfig('responses')));
-        });
+        $this->app->singleton(ResponseCollector::class, fn(Application $application) => new ResponseCollector(new ClassCollector($this->getPathsFromConfig('responses'))));
 
-        $this->app->singleton(SchemaCollector::class, function (Application $app) {
-            return new SchemaCollector(new ClassCollector($this->getPathsFromConfig('schemas')));
-        });
+        $this->app->singleton(SchemaCollector::class, fn(Application $application) => new SchemaCollector(new ClassCollector($this->getPathsFromConfig('schemas'))));
 
-        $this->app->singleton(SecuritySchemeCollector::class, function (Application $app) {
-            return new SecuritySchemeCollector(new ClassCollector($this->getPathsFromConfig('security_schemes')));
-        });
+        $this->app->singleton(SecuritySchemeCollector::class, fn(Application $application) => new SecuritySchemeCollector(new ClassCollector($this->getPathsFromConfig('security_schemes'))));
 
-        $this->app->singleton(Generator::class, static function (Application $app) {
+        $this->app->singleton(Generator::class, static function (Application $application) {
             $config = config('openapi');
 
             return new Generator(
                 $config,
-                $app->make(InfoBuilder::class),
-                $app->make(ServerBuilder::class),
-                $app->make(TagBuilder::class),
-                $app->make(PathBuilder::class),
-                $app->make(ComponentCollector::class),
+                $application->make(InfoBuilder::class),
+                $application->make(ServerBuilder::class),
+                $application->make(TagBuilder::class),
+                $application->make(PathBuilder::class),
+                $application->make(ComponentCollector::class),
             );
         });
 

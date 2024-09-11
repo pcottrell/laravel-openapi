@@ -18,199 +18,197 @@ use Tests\Unit\Builders\ServerWithVariables;
 #[CoversClass(PetController::class)]
 class PetstoreTest extends IntegrationTestCase
 {
-    public static function expectationProvider(): array
+    public static function expectationProvider(): \Iterator
     {
-        return [
-            [
-                'servers' => [
-                    'classes' => [ServerWithoutVariables::class],
-                    'expectation' => [
-                        [
-                            'url' => 'http://example.com',
-                            'description' => 'sample_description',
-                        ],
-                    ],
-                ],
-                'path' => '/pets',
-                'method' => 'get',
+        yield [
+            'servers' => [
+                'classes' => [ServerWithoutVariables::class],
                 'expectation' => [
-                    'tags' => [
-                        'Pet',
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
                     ],
-                    'summary' => 'List all pets.',
-                    'description' => 'List all pets from the database.',
-                    'operationId' => 'listPets',
-                    'parameters' => [
-                        [
-                            'name' => 'limit',
-                            'in' => 'query',
-                            'description' => 'How many items to return at one time (max 100)',
-                            'required' => false,
-                            'schema' => [
-                                'format' => 'int32',
-                                'type' => 'integer',
-                            ],
-                        ],
-                    ],
-                    'responses' => [
-                        422 => [
-                            '$ref' => '#/components/responses/ErrorValidation',
-                        ],
-                    ],
-                    'deprecated' => true,
                 ],
             ],
-            [
-                'servers' => [
-                    'classes' => [ServerWithVariables::class],
-                    'expectation' => [
-                        [
-                            'url' => 'http://example.com',
-                            'description' => 'sample_description',
-                            'variables' => [
-                                'variable_name' => [
-                                    'default' => 'variable_defalut',
-                                    'description' => 'variable_description',
-                                ],
-                            ],
+            'path' => '/pets',
+            'method' => 'get',
+            'expectation' => [
+                'tags' => [
+                    'Pet',
+                ],
+                'summary' => 'List all pets.',
+                'description' => 'List all pets from the database.',
+                'operationId' => 'listPets',
+                'parameters' => [
+                    [
+                        'name' => 'limit',
+                        'in' => 'query',
+                        'description' => 'How many items to return at one time (max 100)',
+                        'required' => false,
+                        'schema' => [
+                            'format' => 'int32',
+                            'type' => 'integer',
                         ],
                     ],
                 ],
-                'path' => '/multiPetTag',
-                'method' => 'post',
+                'responses' => [
+                    422 => [
+                        '$ref' => '#/components/responses/ErrorValidation',
+                    ],
+                ],
+                'deprecated' => true,
+            ],
+        ];
+        yield [
+            'servers' => [
+                'classes' => [ServerWithVariables::class],
                 'expectation' => [
-                    'tags' => [
-                        'Pet',
-                        'AnotherPet',
-                    ],
-                    'summary' => 'List all pets.',
-                    'description' => 'List all pets from the database.',
-                    'operationId' => 'multiPetTag',
-                    'parameters' => [
-                        [
-                            'name' => 'limit',
-                            'in' => 'query',
-                            'description' => 'How many items to return at one time (max 100)',
-                            'required' => false,
-                            'schema' => [
-                                'format' => 'int32',
-                                'type' => 'integer',
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
                             ],
-                        ],
-                    ],
-                    'responses' => [
-                        422 => [
-                            '$ref' => '#/components/responses/ErrorValidation',
-                        ],
-                    ],
-                    'deprecated' => false,
-                    'security' => [
-                        [
-                            'BearerToken' => [],
                         ],
                     ],
                 ],
             ],
-            [
-                'servers' => [
-                    'classes' => [ServerWithMultipleVariableFormatting::class],
-                    'expectation' => [
-                        [
-                            'url' => 'http://example.com',
-                            'description' => 'sample_description',
-                            'variables' => [
-                                'variable_name' => [
-                                    'enum' => ['A', 'B'],
-                                    'default' => 'variable_defalut',
-                                    'description' => 'variable_description',
-                                ],
-                                'variable_name_B' => [
-                                    'default' => 'sample',
-                                    'description' => 'sample',
-                                ],
-                            ],
+            'path' => '/multiPetTag',
+            'method' => 'post',
+            'expectation' => [
+                'tags' => [
+                    'Pet',
+                    'AnotherPet',
+                ],
+                'summary' => 'List all pets.',
+                'description' => 'List all pets from the database.',
+                'operationId' => 'multiPetTag',
+                'parameters' => [
+                    [
+                        'name' => 'limit',
+                        'in' => 'query',
+                        'description' => 'How many items to return at one time (max 100)',
+                        'required' => false,
+                        'schema' => [
+                            'format' => 'int32',
+                            'type' => 'integer',
                         ],
                     ],
                 ],
-                'path' => '/multiAuthSecurityFirstTest',
-                'method' => 'delete',
+                'responses' => [
+                    422 => [
+                        '$ref' => '#/components/responses/ErrorValidation',
+                    ],
+                ],
+                'deprecated' => false,
+                'security' => [
+                    [
+                        'BearerToken' => [],
+                    ],
+                ],
+            ],
+        ];
+        yield [
+            'servers' => [
+                'classes' => [ServerWithMultipleVariableFormatting::class],
                 'expectation' => [
-                    'tags' => [
-                        'Pet',
-                    ],
-                    'summary' => 'List all pets.',
-                    'description' => 'List all pets from the database.',
-                    'operationId' => 'multiAuthSecurityFirstTest',
-                    'parameters' => [
-                        [
-                            'name' => 'limit',
-                            'in' => 'query',
-                            'description' => 'How many items to return at one time (max 100)',
-                            'required' => false,
-                            'schema' => [
-                                'format' => 'int32',
-                                'type' => 'integer',
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'enum' => ['A', 'B'],
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
                             ],
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'OAuth2PasswordGrant' => [],
-                        ],
-                        [
-                            'BearerToken' => [],
+                            'variable_name_B' => [
+                                'default' => 'sample',
+                                'description' => 'sample',
+                            ],
                         ],
                     ],
                 ],
             ],
-            [
-                'servers' => [
-                    'classes' => [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
-                    'expectation' => [
-                        [
-                            'url' => 'http://example.com',
-                            'description' => 'sample_description',
-                            'variables' => [
-                                'variable_name' => [
-                                    'default' => 'variable_defalut',
-                                    'description' => 'variable_description',
-                                ],
+            'path' => '/multiAuthSecurityFirstTest',
+            'method' => 'delete',
+            'expectation' => [
+                'tags' => [
+                    'Pet',
+                ],
+                'summary' => 'List all pets.',
+                'description' => 'List all pets from the database.',
+                'operationId' => 'multiAuthSecurityFirstTest',
+                'parameters' => [
+                    [
+                        'name' => 'limit',
+                        'in' => 'query',
+                        'description' => 'How many items to return at one time (max 100)',
+                        'required' => false,
+                        'schema' => [
+                            'format' => 'int32',
+                            'type' => 'integer',
+                        ],
+                    ],
+                ],
+                'security' => [
+                    [
+                        'OAuth2PasswordGrant' => [],
+                    ],
+                    [
+                        'BearerToken' => [],
+                    ],
+                ],
+            ],
+        ];
+        yield [
+            'servers' => [
+                'classes' => [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
+                'expectation' => [
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
                             ],
                         ],
-                        [
-                            'url' => 'http://example.com',
-                            'description' => 'sample_description',
-                            'variables' => [
-                                'variable_name' => [
-                                    'enum' => ['A', 'B'],
-                                    'default' => 'variable_defalut',
-                                    'description' => 'variable_description',
-                                ],
-                                'variable_name_B' => [
-                                    'default' => 'sample',
-                                    'description' => 'sample',
-                                ],
+                    ],
+                    [
+                        'url' => 'http://example.com',
+                        'description' => 'sample_description',
+                        'variables' => [
+                            'variable_name' => [
+                                'enum' => ['A', 'B'],
+                                'default' => 'variable_defalut',
+                                'description' => 'variable_description',
+                            ],
+                            'variable_name_B' => [
+                                'default' => 'sample',
+                                'description' => 'sample',
                             ],
                         ],
                     ],
                 ],
-                'path' => '/multiAuthSecuritySecondTest',
-                'method' => 'put',
-                'expectation' => [
-                    'tags' => [
-                        'AnotherPet',
+            ],
+            'path' => '/multiAuthSecuritySecondTest',
+            'method' => 'put',
+            'expectation' => [
+                'tags' => [
+                    'AnotherPet',
+                ],
+                'summary' => 'List all pets.',
+                'description' => 'List all pets from the database.',
+                'operationId' => 'multiAuthSecuritySecondTest',
+                'security' => [
+                    [
+                        'BearerToken' => [],
                     ],
-                    'summary' => 'List all pets.',
-                    'description' => 'List all pets from the database.',
-                    'operationId' => 'multiAuthSecuritySecondTest',
-                    'security' => [
-                        [
-                            'BearerToken' => [],
-                        ],
-                        [
-                            'OAuth2PasswordGrant' => [],
-                            'BearerToken' => [],
-                        ],
+                    [
+                        'OAuth2PasswordGrant' => [],
+                        'BearerToken' => [],
                     ],
                 ],
             ],
@@ -223,18 +221,18 @@ class PetstoreTest extends IntegrationTestCase
         Config::set('openapi.collections.default.servers', $servers['classes']);
         $spec = $this->generate()->toArray();
 
-        self::assertSame($servers['expectation'], $spec['servers']);
+        $this->assertSame($servers['expectation'], $spec['servers']);
 
-        self::assertArrayHasKey($path, $spec['paths']);
-        self::assertArrayHasKey($method, $spec['paths'][$path]);
+        $this->assertArrayHasKey($path, $spec['paths']);
+        $this->assertArrayHasKey($method, $spec['paths'][$path]);
 
-        self::assertSame($expectation, $spec['paths'][$path][$method]);
+        $this->assertSame($expectation, $spec['paths'][$path][$method]);
 
-        self::assertArrayHasKey('components', $spec);
-        self::assertArrayHasKey('schemas', $spec['components']);
-        self::assertArrayHasKey('Pet', $spec['components']['schemas']);
+        $this->assertArrayHasKey('components', $spec);
+        $this->assertArrayHasKey('schemas', $spec['components']);
+        $this->assertArrayHasKey('Pet', $spec['components']['schemas']);
 
-        self::assertSame([
+        $this->assertSame([
             'type' => 'object',
             'required' => [
                 'id',

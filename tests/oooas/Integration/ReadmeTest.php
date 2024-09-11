@@ -48,22 +48,22 @@ class ReadmeTest extends IntegrationTestCase
             );
 
         // Create the operation for the route (i.e. GET, POST, etc.).
-        $showUser = Operation::get()
+        $operation = Operation::get()
             ->responses($userResponse)
             ->tags($usersTag)
             ->summary('Get an individual user')
             ->operationId('users.show');
 
         // Define the /users path along with the supported operations.
-        $usersPath = PathItem::create()
+        $pathItem = PathItem::create()
             ->route('/users')
-            ->operations($showUser);
+            ->operations($operation);
 
         // Create the main OpenAPI object composed off everything created above.
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_1)
             ->info($info)
-            ->paths($usersPath)
+            ->paths($pathItem)
             ->tags($usersTag);
 
         $readmeExample = file_get_contents(realpath(__DIR__ . '/../Stubs/readme_example.json'));
@@ -82,7 +82,7 @@ class ReadmeTest extends IntegrationTestCase
         $openApi = OpenApi::create()
             ->info($info);
 
-        $this->assertEquals([
+        $this->assertSame([
             'info' => [
                 'title' => 'Example API',
             ],
@@ -90,18 +90,18 @@ class ReadmeTest extends IntegrationTestCase
 
         $openApi = $openApi->info(null);
 
-        $this->assertEquals([], $openApi->toArray());
+        $this->assertSame([], $openApi->toArray());
     }
 
     public function testUnsettingVariadicMethods()
     {
-        $path = PathItem::create()
+        $pathItem = PathItem::create()
             ->route('/users');
 
         $openApi = OpenApi::create()
-            ->paths($path);
+            ->paths($pathItem);
 
-        $this->assertEquals([
+        $this->assertSame([
             'paths' => [
                 '/users' => [],
             ],
@@ -109,14 +109,14 @@ class ReadmeTest extends IntegrationTestCase
 
         $openApi = $openApi->paths();
 
-        $this->assertEquals([], $openApi->toArray());
+        $this->assertSame([], $openApi->toArray());
     }
 
     public function testRetrievingProperties()
     {
         $info = Info::create()->title('Example API');
 
-        $this->assertEquals('Example API', $info->title);
+        $this->assertSame('Example API', $info->title);
     }
 
     public function testObjectId()
@@ -128,7 +128,7 @@ class ReadmeTest extends IntegrationTestCase
                 Schema::create('age')->type(Schema::TYPE_INTEGER),
             );
 
-        $this->assertEquals([
+        $this->assertSame([
             'type' => 'object',
             'properties' => [
                 'username' => [
@@ -149,7 +149,7 @@ class ReadmeTest extends IntegrationTestCase
                 Schema::integer('age'),
             );
 
-        $this->assertEquals([
+        $this->assertSame([
             'type' => 'object',
             'properties' => [
                 'username' => [
@@ -164,15 +164,15 @@ class ReadmeTest extends IntegrationTestCase
 
     public function testDollarRef()
     {
-        $schema = AllOf::create()
+        $allOf = AllOf::create()
             ->schemas(
                 Schema::ref('#/components/schemas/ExampleSchema'),
             );
 
-        $this->assertEquals([
+        $this->assertSame([
             'allOf' => [
                 ['$ref' => '#/components/schemas/ExampleSchema'],
             ],
-        ], $schema->toArray());
+        ], $allOf->toArray());
     }
 }

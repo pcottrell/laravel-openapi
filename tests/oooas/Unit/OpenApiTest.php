@@ -48,7 +48,7 @@ class OpenApiTest extends UnitTestCase
             ->contact($contact);
 
         // Create a schema object to be used where a schema is accepted.
-        $exampleObject = Schema::object()
+        $schema = Schema::object()
             ->properties(
                 Schema::string('id')->format(Schema::FORMAT_UUID),
                 Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
@@ -66,11 +66,11 @@ class OpenApiTest extends UnitTestCase
             ->statusCode(200)
             ->description('OK')
             ->content(
-                MediaType::json()->schema($exampleObject),
+                MediaType::json()->schema($schema),
             );
 
         // Create an operation for a route.
-        $listAudits = Operation::get()
+        $operation = Operation::get()
             ->responses($exampleResponse)
             ->tags($tag)
             ->summary('List all audits')
@@ -83,7 +83,7 @@ class OpenApiTest extends UnitTestCase
             ->summary('Create an audit')
             ->operationId('audits.store')
             ->requestBody(RequestBody::create()->content(
-                MediaType::json()->schema($exampleObject),
+                MediaType::json()->schema($schema),
             ));
 
         // Create parameter schemas.
@@ -115,7 +115,7 @@ class OpenApiTest extends UnitTestCase
             // Create a path along with it's operations.
             PathItem::create()
                 ->route('/audits')
-                ->operations($listAudits, $createAudit),
+                ->operations($operation, $createAudit),
             PathItem::create()
                 ->route('/audits/{audit}')
                 ->operations($readAudit),
@@ -128,17 +128,17 @@ class OpenApiTest extends UnitTestCase
         ];
 
         // Create a security scheme component.
-        $authFlow = OAuthFlow::create()
+        $oAuthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_PASSWORD)
             ->tokenUrl('https://api.example.com/oauth/authorize');
 
         $securityScheme = SecurityScheme::oauth2('OAuth2')
-            ->flows($authFlow);
+            ->flows($oAuthFlow);
 
         $components = Components::create()->securitySchemes($securityScheme);
 
         // Specify the security.
-        $security = SecurityRequirement::create()->securityScheme($securityScheme);
+        $securityRequirement = SecurityRequirement::create()->securityScheme($securityScheme);
 
         // Specify external documentatino for the API.
         $externalDocs = ExternalDocs::create()
@@ -152,7 +152,7 @@ class OpenApiTest extends UnitTestCase
             ->paths(...$paths)
             ->servers(...$servers)
             ->components($components)
-            ->security($security)
+            ->security($securityRequirement)
             ->tags($tag)
             ->externalDocs($externalDocs);
 
@@ -185,10 +185,10 @@ class OpenApiTest extends UnitTestCase
                 );
 
             $openApi->validate();
-        } catch (ValidationException $exception) {
+        } catch (ValidationException $validationException) {
             $exceptionThrown = true;
 
-            $this->assertCount(3, $exception->getErrors());
+            $this->assertCount(3, $validationException->getErrors());
         }
 
         $this->assertTrue($exceptionThrown);

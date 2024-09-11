@@ -21,11 +21,17 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Header extends BaseObject
 {
     public const STYLE_MATRIX = 'matrix';
+
     public const STYLE_LABEL = 'label';
+
     public const STYLE_FORM = 'form';
+
     public const STYLE_SIMPLE = 'simple';
+
     public const STYLE_SPACE_DELIMITED = 'spaceDelimited';
+
     public const STYLE_PIPE_DELIMITED = 'pipeDelimited';
+
     public const STYLE_DEEP_OBJECT = 'deepObject';
 
     /**
@@ -194,29 +200,29 @@ class Header extends BaseObject
     }
 
     /**
-     * @param Example[] $examples
+     * @param Example[] $example
      *
      * @return static
      */
-    public function examples(Example ...$examples): self
+    public function examples(Example ...$example): self
     {
         $instance = clone $this;
 
-        $instance->examples = $examples ?: null;
+        $instance->examples = $example !== [] ? $example : null;
 
         return $instance;
     }
 
     /**
-     * @param MediaType[] $content
+     * @param MediaType[] $mediaType
      *
      * @return static
      */
-    public function content(MediaType ...$content): self
+    public function content(MediaType ...$mediaType): self
     {
         $instance = clone $this;
 
-        $instance->content = $content ?: null;
+        $instance->content = $mediaType !== [] ? $mediaType : null;
 
         return $instance;
     }
@@ -243,8 +249,8 @@ class Header extends BaseObject
             'allowReserved' => $this->allowReserved,
             'schema' => $this->schema,
             'example' => $this->example,
-            'examples' => $examples ?: null,
-            'content' => $content ?: null,
+            'examples' => $examples !== [] ? $examples : null,
+            'content' => $content !== [] ? $content : null,
         ]);
     }
 }

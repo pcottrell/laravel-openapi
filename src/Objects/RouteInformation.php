@@ -10,18 +10,27 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
 
 class RouteInformation
 {
-    public string|null $domain;
+    public string|null $domain = null;
+
     public string $method;
+
     public string $uri;
-    public string|null $name;
+
+    public string|null $name = null;
+
     /** @var string|class-string<Controller> */
     public string $controller;
+
     public Collection $parameters;
+
     /** @var Collection|\Attribute[] */
     public Collection|array $controllerAttributes;
+
     public string $action;
+
     /** @var \ReflectionParameter[] */
     public array $actionParameters;
+
     public Collection $actionAttributes;
 
     /**
@@ -58,10 +67,10 @@ class RouteInformation
             $reflectionMethod = $reflectionClass->getMethod($action);
 
             $controllerAttributes = collect($reflectionClass->getAttributes())
-                ->map(static fn (\ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $reflectionAttribute) => $reflectionAttribute->newInstance());
 
             $actionAttributes = collect($reflectionMethod->getAttributes())
-                ->map(static fn (\ReflectionAttribute $attribute) => $attribute->newInstance());
+                ->map(static fn (\ReflectionAttribute $reflectionAttribute) => $reflectionAttribute->newInstance());
 
             $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value) => $value instanceof Parameter);
 

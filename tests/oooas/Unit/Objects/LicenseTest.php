@@ -19,7 +19,7 @@ class LicenseTest extends UnitTestCase
         $info = Info::create()
             ->license($license);
 
-        $this->assertEquals([
+        $this->assertSame([
             'license' => [
                 'name' => 'MIT',
                 'url' => 'https://goldspecdigital.com',

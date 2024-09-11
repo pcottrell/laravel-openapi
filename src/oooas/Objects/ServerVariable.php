@@ -35,7 +35,7 @@ class ServerVariable extends BaseObject
     {
         $instance = clone $this;
 
-        $instance->enum = $enum ?: null;
+        $instance->enum = $enum !== [] ? $enum : null;
 
         return $instance;
     }
