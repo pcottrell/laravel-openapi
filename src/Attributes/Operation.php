@@ -10,7 +10,6 @@ use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 class Operation
 {
     private const REMOVE_TOP_LEVEL_SECURITY = [];
-
     private const USE_TOP_LEVEL_SECURITY = null;
 
     /**

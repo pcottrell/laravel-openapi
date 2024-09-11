@@ -4,6 +4,7 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
@@ -14,6 +15,7 @@ class ResponseBuilder
         return $routeInformation->actionAttributes
             ->filter(static fn (object $attribute): bool => $attribute instanceof ResponseAttribute)
             ->map(static function (ResponseAttribute $responseAttribute) {
+                /** @var ResponseFactory $factory */
                 $factory = app($responseAttribute->factory);
                 $response = $factory->build();
 

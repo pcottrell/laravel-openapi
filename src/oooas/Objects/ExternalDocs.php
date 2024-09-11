@@ -10,15 +10,8 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class ExternalDocs extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var string
-     */
-    protected $url;
+    protected string|null $description = null;
+    protected string|null $url = null;
 
     /**
      * @return static

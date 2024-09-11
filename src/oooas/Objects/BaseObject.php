@@ -12,11 +12,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
  */
 abstract class BaseObject implements \JsonSerializable
 {
-    /**
-     * @var string|null
-     */
-    protected $ref;
-
+    protected string|null $ref = null;
     protected Extensions $extensions;
 
     /**
@@ -27,18 +23,12 @@ abstract class BaseObject implements \JsonSerializable
         $this->extensions = new Extensions();
     }
 
-    /**
-     * @return static
-     */
-    public static function create(string|null $objectId = null): self
+    public static function create(string|null $objectId = null): static
     {
         return new static($objectId);
     }
 
-    /**
-     * @return static
-     */
-    public static function ref(string $ref, string|null $objectId = null): self
+    public static function ref(string $ref, string|null $objectId = null): static
     {
         $static = new static($objectId);
 
@@ -47,10 +37,7 @@ abstract class BaseObject implements \JsonSerializable
         return $static;
     }
 
-    /**
-     * @return static
-     */
-    public function objectId(string|null $objectId): self
+    public function objectId(string|null $objectId): static
     {
         $instance = clone $this;
 
@@ -62,7 +49,7 @@ abstract class BaseObject implements \JsonSerializable
     /**
      * @return $this
      */
-    public function x(string $key, $value = Extensions::X_EMPTY_VALUE): self
+    public function x(string $key, $value = Extensions::X_EMPTY_VALUE): static
     {
         $instance = clone $this;
 
@@ -75,17 +62,14 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
-    /**
-     * @param int $options
-     */
-    public function toJson($options = 0): string
+    public function toJson(int $options = 0): string
     {
         return json_encode($this->toArray(), $options);
     }
 
     public function toArray(): array
     {
-        if (null !== $this->ref) {
+        if (!is_null($this->ref)) {
             return ['$ref' => $this->ref];
         }
 

@@ -10,15 +10,8 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class License extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $url;
+    protected string|null $name = null;
+    protected string|null $url = null;
 
     /**
      * @return static

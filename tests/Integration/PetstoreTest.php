@@ -25,7 +25,7 @@ class PetstoreTest extends IntegrationTestCase
                 'classes' => [ServerWithoutVariables::class],
                 'expectation' => [
                     [
-                        'url' => 'http://example.com',
+                        'url' => 'https://example.com',
                         'description' => 'sample_description',
                     ],
                 ],
@@ -64,7 +64,7 @@ class PetstoreTest extends IntegrationTestCase
                 'classes' => [ServerWithVariables::class],
                 'expectation' => [
                     [
-                        'url' => 'http://example.com',
+                        'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
                             'variable_name' => [
@@ -115,7 +115,7 @@ class PetstoreTest extends IntegrationTestCase
                 'classes' => [ServerWithMultipleVariableFormatting::class],
                 'expectation' => [
                     [
-                        'url' => 'http://example.com',
+                        'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
                             'variable_name' => [
@@ -167,7 +167,7 @@ class PetstoreTest extends IntegrationTestCase
                 'classes' => [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
                 'expectation' => [
                     [
-                        'url' => 'http://example.com',
+                        'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
                             'variable_name' => [
@@ -177,7 +177,7 @@ class PetstoreTest extends IntegrationTestCase
                         ],
                     ],
                     [
-                        'url' => 'http://example.com',
+                        'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
                             'variable_name' => [
@@ -255,7 +255,7 @@ class PetstoreTest extends IntegrationTestCase
 
     protected function setUp(): void
     {
-        putenv('APP_URL=http://petstore.swagger.io/v1');
+        putenv('APP_URL=https://petstore.swagger.io/v1');
 
         parent::setUp();
 

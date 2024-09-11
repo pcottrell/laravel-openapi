@@ -29,9 +29,9 @@ class PathItemTest extends UnitTestCase
         $this->assertSame([
             'paths' => [
                 '/users' => [
+                    'get' => [],
                     'summary' => 'User endpoints',
                     'description' => 'Get the users',
-                    'get' => [],
                     'servers' => [
                         ['url' => 'https://goldspecdigital.com'],
                     ],

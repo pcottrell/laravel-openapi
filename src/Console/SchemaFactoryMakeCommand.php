@@ -17,9 +17,7 @@ use Symfony\Component\Console\Input\InputOption;
 class SchemaFactoryMakeCommand extends GeneratorCommand
 {
     protected $name = 'openapi:make-schema';
-
     protected $description = 'Create a new Schema factory class';
-
     protected $type = 'Schema';
 
     protected function buildClass($name): array|string
@@ -44,7 +42,6 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
             throw new \InvalidArgumentException('Invalid model');
         }
 
-        /** @var Model $model */
         $model = app($model);
 
         $columns = SchemaFacade::connection($model->getConnectionName())->getColumnListing(config('database.connections.' . config('database.default') . '.prefix', '') . $model->getTable());
@@ -89,7 +86,7 @@ class SchemaFactoryMakeCommand extends GeneratorCommand
                 }
 
                 $args = array_map(static function (string|null $value): string {
-                    if (null === $value) {
+                    if (is_null($value)) {
                         return 'null';
                     }
 

@@ -28,50 +28,35 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class OpenApi extends BaseObject
 {
     public const OPENAPI_3_0_0 = '3.0.0';
-
     public const OPENAPI_3_0_1 = '3.0.1';
-
     public const OPENAPI_3_0_2 = '3.0.2';
 
-    /**
-     * @var string|null
-     */
-    protected $openapi;
-
-    /**
-     * @var Info|null
-     */
-    protected $info;
+    protected string|null $openapi = null;
+    protected Info|null $info = null;
 
     /**
      * @var Server[]|null
      */
-    protected $servers;
+    protected array|null $servers = null;
 
     /**
      * @var PathItem[]|null
      */
-    protected $paths;
+    protected array|null $paths = null;
 
-    /**
-     * @var Components|null
-     */
-    protected $components;
+    protected Components|null $components = null;
 
     /**
      * @var SecurityRequirement[]|null
      */
-    protected $security;
+    protected array|null $security = null;
 
     /**
      * @var Tag[]|null
      */
-    protected $tags;
+    protected array|null $tags = null;
 
-    /**
-     * @var ExternalDocs|null
-     */
-    protected $externalDocs;
+    protected ExternalDocs|null $externalDocs = null;
 
     /**
      * @return static

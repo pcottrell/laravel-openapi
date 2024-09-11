@@ -11,20 +11,9 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Tag extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var ExternalDocs|null
-     */
-    protected $externalDocs;
+    protected string|null $name = null;
+    protected string|null $description = null;
+    protected ExternalDocs|null $externalDocs = null;
 
     /**
      * @return static

@@ -18,201 +18,148 @@ class InfoBuilderTest extends TestCase
             'version' => 'sample_version',
         ];
         yield 'If all the elements are present, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If Contact.name does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'contact' => [
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If Contact.email does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If Contact.url does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If Contact does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If Contact.* does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [],
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'license' => [
-                    'name' => 'sample_license_name',
-                    'url' => 'sample_license_url',
-                ],
-            ]),
+            [...$common, 'contact' => [], 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'license' => [
+                'name' => 'sample_license_name',
+                'url' => 'sample_license_url',
+            ]],
         ];
         yield 'If License.name does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'url' => 'sample_license_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'url' => 'sample_license_url',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ]],
         ];
         yield 'If License.url does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [
-                    'name' => 'sample_license_name',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => [
+                'name' => 'sample_license_name',
+            ]],
         ];
         yield 'If License does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ]],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ]],
         ];
         yield 'If License.* does not exist, the correct json can be output.' => [
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-                'license' => [],
-            ]),
-            array_merge($common, [
-                'contact' => [
-                    'name' => 'sample_contact_name',
-                    'email' => 'sample_contact_email',
-                    'url' => 'sample_contact_url',
-                ],
-            ]),
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ], 'license' => []],
+            [...$common, 'contact' => [
+                'name' => 'sample_contact_name',
+                'email' => 'sample_contact_email',
+                'url' => 'sample_contact_url',
+            ]],
         ];
         yield 'If License and Contacts do not exist, the correct json can be output.' => [
-            array_merge($common),
-            array_merge($common),
+            $common,
+            $common,
         ];
     }
 

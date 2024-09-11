@@ -11,15 +11,8 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Discriminator extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $propertyName;
-
-    /**
-     * @var array|null
-     */
-    protected $mapping;
+    protected string|null $propertyName = null;
+    protected array|null $mapping = null;
 
     /**
      * @return static

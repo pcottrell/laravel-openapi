@@ -14,35 +14,24 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class PathItem extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $route;
-
-    /**
-     * @var string|null
-     */
-    protected $summary;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected string|null $route = null;
+    protected string|null $summary = null;
+    protected string|null $description = null;
 
     /**
      * @var Operation[]|null
      */
-    protected $operations;
+    protected array|null $operations = null;
 
     /**
      * @var Server[]|null
      */
-    protected $servers;
+    protected array|null $servers = null;
 
     /**
      * @var Parameter[]|null
      */
-    protected $parameters;
+    protected array|null $parameters = null;
 
     /**
      * @return static
@@ -130,12 +119,7 @@ class PathItem extends BaseObject
         }
 
         return Arr::filter(
-            array_merge($operations, [
-                'summary' => $this->summary,
-                'description' => $this->description,
-                'servers' => $this->servers,
-                'parameters' => $this->parameters,
-            ]),
+            [...$operations, 'summary' => $this->summary, 'description' => $this->description, 'servers' => $this->servers, 'parameters' => $this->parameters],
         );
     }
 }

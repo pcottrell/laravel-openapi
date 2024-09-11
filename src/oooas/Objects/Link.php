@@ -12,25 +12,10 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Link extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $operationRef;
-
-    /**
-     * @var string|null
-     */
-    protected $operationId;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var Server|null
-     */
-    protected $server;
+    protected string|null $operationRef = null;
+    protected string|null $operationId = null;
+    protected string|null $description = null;
+    protected Server|null $server = null;
 
     /**
      * @return static

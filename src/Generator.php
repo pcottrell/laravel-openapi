@@ -10,6 +10,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
 class Generator
 {
@@ -28,6 +29,9 @@ class Generator
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));

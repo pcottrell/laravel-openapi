@@ -12,25 +12,10 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Example extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $summary;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var mixed|null
-     */
-    protected $value;
-
-    /**
-     * @var string|null
-     */
-    protected $externalValue;
+    protected string|null $summary = null;
+    protected string|null $description = null;
+    protected mixed $value = null;
+    protected string|null $externalValue = null;
 
     /**
      * @return static
@@ -61,7 +46,7 @@ class Example extends BaseObject
      *
      * @return static
      */
-    public function value($value): self
+    public function value(mixed $value): self
     {
         $instance = clone $this;
 

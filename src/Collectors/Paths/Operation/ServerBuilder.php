@@ -4,10 +4,10 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 
-class ServerBuilder
+readonly class ServerBuilder
 {
     public function __construct(
-        private readonly \MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder $serverBuilder,
+        private \MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder $serverBuilder,
     ) {
     }
 

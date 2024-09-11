@@ -112,7 +112,7 @@ class OpenApiTest extends UnitTestCase
 
         // Specify the paths supported by the API.
         $paths = [
-            // Create a path along with it's operations.
+            // Create a path along with its operations.
             PathItem::create()
                 ->route('/audits')
                 ->operations($operation, $createAudit),

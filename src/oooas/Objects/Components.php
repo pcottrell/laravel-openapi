@@ -20,47 +20,47 @@ class Components extends BaseObject
     /**
      * @var Schema[]|null
      */
-    protected $schemas;
+    protected array|null $schemas = null;
 
     /**
      * @var Response[]|null
      */
-    protected $responses;
+    protected array|null $responses = null;
 
     /**
      * @var Parameter[]|null
      */
-    protected $parameters;
+    protected array|null $parameters = null;
 
     /**
      * @var Example[]|null
      */
-    protected $examples;
+    protected array|null $examples = null;
 
     /**
      * @var RequestBody[]|null
      */
-    protected $requestBodies;
+    protected array|null $requestBodies = null;
 
     /**
      * @var Header[]|null
      */
-    protected $headers;
+    protected array|null $headers = null;
 
     /**
      * @var SecurityScheme[]|null
      */
-    protected $securitySchemes;
+    protected array|null $securitySchemes = null;
 
     /**
      * @var Link[]|null
      */
-    protected $links;
+    protected array|null $links = null;
 
     /**
      * @var PathItem[]|null
      */
-    protected $callbacks;
+    protected array|null $callbacks = null;
 
     /**
      * @param SchemaContract[] $schemaContract

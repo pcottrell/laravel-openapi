@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 class ParametersFactoryMakeCommand extends GeneratorCommand
 {
     protected $name = 'openapi:make-parameters';
-
     protected $description = 'Create a new Parameters factory class';
-
     protected $type = 'Parameters';
 
     protected function getStub(): string

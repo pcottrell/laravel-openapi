@@ -4,10 +4,10 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 
-class TagBuilder
+readonly class TagBuilder
 {
     public function __construct(
-        private readonly \MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder $tagBuilder,
+        private \MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder $tagBuilder,
     ) {
     }
 

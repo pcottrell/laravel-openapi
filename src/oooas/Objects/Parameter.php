@@ -23,91 +23,38 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Parameter extends BaseObject
 {
     public const IN_QUERY = 'query';
-
     public const IN_HEADER = 'header';
-
     public const IN_PATH = 'path';
-
     public const IN_COOKIE = 'cookie';
-
     public const STYLE_MATRIX = 'matrix';
-
     public const STYLE_LABEL = 'label';
-
     public const STYLE_FORM = 'form';
-
     public const STYLE_SIMPLE = 'simple';
-
     public const STYLE_SPACE_DELIMITED = 'spaceDelimited';
-
     public const STYLE_PIPE_DELIMITED = 'pipeDelimited';
-
     public const STYLE_DEEP_OBJECT = 'deepObject';
 
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $in;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var bool|null
-     */
-    protected $required;
-
-    /**
-     * @var bool|null
-     */
-    protected $deprecated;
-
-    /**
-     * @var bool|null
-     */
-    protected $allowEmptyValue;
-
-    /**
-     * @var string|null
-     */
-    protected $style;
-
-    /**
-     * @var bool|null
-     */
-    protected $explode;
-
-    /**
-     * @var string|null
-     */
-    protected $allowReserved;
-
-    /**
-     * @var Schema|null
-     */
-    protected $schema;
-
-    /**
-     * @var mixed|null
-     */
-    protected $example;
+    protected string|null $name = null;
+    protected string|null $in = null;
+    protected string|null $description = null;
+    protected bool|null $required = null;
+    protected bool|null $deprecated = null;
+    protected bool|null $allowEmptyValue = null;
+    protected string|null $style = null;
+    protected bool|null $explode = null;
+    protected string|null $allowReserved = null;
+    protected Schema|null $schema = null;
+    protected mixed $example = null;
 
     /**
      * @var Example[]|null
      */
-    protected $examples;
+    protected array|null $examples = null;
 
     /**
      * @var MediaType[]|null
      */
-    protected $content;
+    protected array|null $content = null;
 
     /**
      * @return static
@@ -266,7 +213,7 @@ class Parameter extends BaseObject
      *
      * @return static
      */
-    public function example($example): self
+    public function example(mixed $example): self
     {
         $instance = clone $this;
 

@@ -14,35 +14,12 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Info extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $title;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var string|null
-     */
-    protected $termsOfService;
-
-    /**
-     * @var Contact|null
-     */
-    protected $contact;
-
-    /**
-     * @var License|null
-     */
-    protected $license;
-
-    /**
-     * @var string|null
-     */
-    protected $version;
+    protected string|null $title = null;
+    protected string|null $description = null;
+    protected string|null $termsOfService = null;
+    protected Contact|null $contact = null;
+    protected License|null $license = null;
+    protected string|null $version = null;
 
     /**
      * @return static

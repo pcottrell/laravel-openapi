@@ -17,7 +17,7 @@ class Arr
                 $value = $value->toArray();
             }
 
-            // If the value is a filled array then recursively filter it.
+            // If the value is a filled array, then recursively filter it.
             if (is_array($value)) {
                 $value = static::filter($value);
                 continue;
@@ -29,10 +29,9 @@ class Arr
                 continue;
             }
 
-            // If the value is null then remove it.
-            if (null === $value) {
+            // If the value is null, then remove it.
+            if (is_null($value)) {
                 unset($array[$index]);
-                continue;
             }
         }
 

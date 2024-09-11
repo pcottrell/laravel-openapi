@@ -11,20 +11,14 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class RequestBody extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected string|null $description = null;
 
     /**
      * @var MediaType[]|null
      */
-    protected $content;
+    protected array|null $content = null;
 
-    /**
-     * @var bool|null
-     */
-    protected $required;
+    protected bool|null $required = null;
 
     /**
      * @return static

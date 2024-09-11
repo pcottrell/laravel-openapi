@@ -11,11 +11,8 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
 class RouteInformation
 {
     public string|null $domain = null;
-
     public string $method;
-
     public string $uri;
-
     public string|null $name = null;
 
     /** @var string|class-string<Controller> */
@@ -36,7 +33,7 @@ class RouteInformation
     /**
      * @throws \ReflectionException
      */
-    public static function createFromRoute(Route $route): RouteInformation
+    public static function createFromRoute(Route $route): static
     {
         return tap(new static(), static function (self $instance) use ($route): void {
             $method = collect($route->methods())
@@ -79,7 +76,7 @@ class RouteInformation
             $instance->uri = Str::start($route->uri(), '/');
             $instance->name = $route->getName();
             $instance->controller = $controller;
-            $instance->parameters = $containsControllerLevelParameter ? collect([]) : $parameters;
+            $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $instance->controllerAttributes = $controllerAttributes;
             $instance->action = $action;
             $instance->actionParameters = $reflectionMethod->getParameters();

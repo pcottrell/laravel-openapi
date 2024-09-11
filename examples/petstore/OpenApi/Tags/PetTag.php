@@ -16,7 +16,7 @@ class PetTag extends TagFactory
             ->externalDocs(
                 ExternalDocs::create()
                     ->description('Find out more')
-                    ->url('http://swagger.io'),
+                    ->url('https://swagger.io'),
             );
     }
 }

@@ -1,6 +1,6 @@
 # Responses
 
-In order to create response use this Artisan command:
+To create a response, use this Artisan command:
 
 ```bash
 php artisan openapi:make-response ListUsers
@@ -40,7 +40,7 @@ class UserController extends Controller
 ## Reusable responses
 
 Responses can be reusable. Adding `Vyuldashev\LaravelOpenApi\Contracts\Reusable` will indicate that it should be added to `components/responses` section and reference will be used instead of response definition.
-This can be handy for validation errors object:
+This can be handy for validation error objects:
 
 ```php
 use Vyuldashev\LaravelOpenApi\Contracts\Reusable;

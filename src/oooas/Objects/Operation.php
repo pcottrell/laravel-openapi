@@ -23,90 +23,56 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Operation extends BaseObject
 {
     public const ACTION_GET = 'get';
-
     public const ACTION_PUT = 'put';
-
     public const ACTION_POST = 'post';
-
     public const ACTION_DELETE = 'delete';
-
     public const ACTION_OPTIONS = 'options';
-
     public const ACTION_HEAD = 'head';
-
     public const ACTION_PATCH = 'patch';
-
     public const ACTION_TRACE = 'trace';
 
-    /**
-     * @var string|null
-     */
-    protected $action;
+    protected string|null $action = null;
 
     /**
      * @var string[]|null
      */
-    protected $tags;
+    protected array|null $tags = null;
 
-    /**
-     * @var string|null
-     */
-    protected $summary;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var ExternalDocs|null
-     */
-    protected $externalDocs;
-
-    /**
-     * @var string|null
-     */
-    protected $operationId;
+    protected string|null $summary = null;
+    protected string|null $description = null;
+    protected ExternalDocs|null $externalDocs = null;
+    protected string|null $operationId = null;
 
     /**
      * @var Parameter[]|null
      */
-    protected $parameters;
+    protected array|null $parameters = null;
 
-    /**
-     * @var RequestBody|null
-     */
-    protected $requestBody;
+    protected RequestBody|null $requestBody = null;
 
     /**
      * @var Response[]|null
      */
-    protected $responses;
+    protected array|null $responses = null;
 
-    /**
-     * @var bool|null
-     */
-    protected $deprecated;
+    protected bool|null $deprecated = null;
 
     /**
      * @var SecurityRequirement[]|null
      */
-    protected $security;
+    protected array|null $security = null;
 
-    /**
-     * @var bool|null
-     */
-    protected $noSecurity;
+    protected bool|null $noSecurity = null;
 
     /**
      * @var Server[]|null
      */
-    protected $servers;
+    protected array|null $servers = null;
 
     /**
      * @var PathItem[]|null
      */
-    protected $callbacks;
+    protected array|null $callbacks = null;
 
     /**
      * @return static
@@ -187,7 +153,7 @@ class Operation extends BaseObject
     {
         // Only allow Tag instances and strings.
         foreach ($tags as &$tag) {
-            // If a Tag instance was passed in then extract it's name string.
+            // If a Tag instance was passed in then extract its name string.
             if ($tag instanceof Tag) {
                 $tag = $tag->name;
                 continue;

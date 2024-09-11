@@ -31,10 +31,10 @@ class MediaTypeTest extends UnitTestCase
                     'schema' => [
                         'type' => 'object',
                     ],
+                    'example' => [],
                     'examples' => [
                         'ExampleName' => [],
                     ],
-                    'example' => [],
                     'encoding' => [
                         'EncodingName' => [],
                     ],

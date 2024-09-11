@@ -25,7 +25,7 @@ php artisan vendor:publish --provider="Vyuldashev\LaravelOpenApi\OpenApiServiceP
 
 ## Additional information
 
-Before starting using this package you need to be familiar with OpenAPI specification and it's terms.
+Before starting using this package, you need to be familiar with OpenAPI specification and its terms.
 
 Here are some useful links that will help to gain enough knowledge:
 * [OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md)

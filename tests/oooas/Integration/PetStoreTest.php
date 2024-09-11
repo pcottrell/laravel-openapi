@@ -27,20 +27,20 @@ class PetStoreTest extends IntegrationTestCase
         $contact = Contact::create()
             ->name('Swagger API Team')
             ->email('apiteam@swagger.io')
-            ->url('http://swagger.io');
+            ->url('https://swagger.io');
 
         $license = License::create()
             ->name('Apache 2.0')
             ->url('https://www.apache.org/licenses/LICENSE-2.0.html');
 
         $server = Server::create()
-            ->url('http://petstore.swagger.io/api');
+            ->url('https://petstore.swagger.io/api');
 
         $info = Info::create()
             ->version('1.0.0')
             ->title('Swagger Petstore')
             ->description('A sample API that uses a petstore as an example to demonstrate features in the OpenAPI 3.0 specification')
-            ->termsOfService('http://swagger.io/terms/')
+            ->termsOfService('https://swagger.io/terms/')
             ->contact($contact)
             ->license($license);
 

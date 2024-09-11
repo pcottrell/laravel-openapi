@@ -2,8 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Objects;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\OpenApi as ParentOpenApi;
 
@@ -11,6 +14,11 @@ class OpenApi extends ParentOpenApi
 {
     // This is just a wrapper around parent class security()
     // to allow for multiple security requirements
+    /**
+     * @throws CircularDependencyException
+     * @throws BindingResolutionException
+     * @throws InvalidArgumentException
+     */
     public function multiAuthSecurity(array $security): self
     {
         $securityRequirements = app(SecurityRequirementBuilder::class)->build($security);
@@ -38,7 +46,7 @@ class OpenApi extends ParentOpenApi
             return $instance;
         }
 
-        $instance->security = $securityRequirement[0];
+        $instance->security = is_array($securityRequirement[0]) ? $securityRequirement[0] : [$securityRequirement[0]];
 
         return $instance;
     }

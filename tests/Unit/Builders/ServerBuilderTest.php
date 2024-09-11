@@ -19,7 +19,7 @@ class ServerBuilderTest extends TestCase
             [ServerWithoutVariables::class],
             [
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                 ],
             ],
@@ -28,7 +28,7 @@ class ServerBuilderTest extends TestCase
             [ServerWithVariables::class],
             [
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
                         'variable_name' => [
@@ -43,7 +43,7 @@ class ServerBuilderTest extends TestCase
             [ServerWithEnum::class],
             [
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
                         'variable_name' => [
@@ -63,7 +63,7 @@ class ServerBuilderTest extends TestCase
             [ServerWithMultipleVariableFormatting::class],
             [
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
                         'variable_name' => [
@@ -87,7 +87,7 @@ class ServerBuilderTest extends TestCase
             [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
             [
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
                         'variable_name' => [
@@ -97,7 +97,7 @@ class ServerBuilderTest extends TestCase
                     ],
                 ],
                 [
-                    'url' => 'http://example.com',
+                    'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
                         'variable_name' => [
@@ -157,7 +157,7 @@ class ServerWithoutVariables extends ServerFactory
     public function build(): Server
     {
         return Server::create()
-            ->url('http://example.com')
+            ->url('https://example.com')
             ->description('sample_description');
     }
 }
@@ -167,7 +167,7 @@ class ServerWithVariables extends ServerFactory
     public function build(): Server
     {
         return Server::create()
-            ->url('http://example.com')
+            ->url('https://example.com')
             ->description('sample_description')
             ->variables(
                 ServerVariable::create('variable_name')
@@ -182,7 +182,7 @@ class ServerWithEnum extends ServerFactory
     public function build(): Server
     {
         return Server::create()
-            ->url('http://example.com')
+            ->url('https://example.com')
             ->description('sample_description')
             ->variables(
                 ServerVariable::create('variable_name')
@@ -198,7 +198,7 @@ class ServerWithMultipleVariableFormatting extends ServerFactory
     public function build(): Server
     {
         return Server::create()
-            ->url('http://example.com')
+            ->url('https://example.com')
             ->description('sample_description')
             ->variables(
                 ServerVariable::create('variable_name')

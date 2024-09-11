@@ -2,7 +2,7 @@
 
 Routes are not automatically added to specification.
 
-In order to add route, you need to add `PathItem` attribute to controller class and `Operation` to particular action method.
+To add route, you need to add `PathItem` attribute to controller class and `Operation` to particular action method.
 This attribute will indicate that route which has `UserController@store` definition should be included in `paths`.
 
 ```php

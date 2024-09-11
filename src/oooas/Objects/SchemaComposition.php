@@ -13,14 +13,12 @@ abstract class SchemaComposition extends BaseObject implements SchemaContract
     /**
      * @var Schema[]|null
      */
-    protected $schemas;
+    protected array|null $schemas = null;
 
     /**
      * @param Schema[] $schema
-     *
-     * @return static
      */
-    public function schemas(Schema ...$schema): self
+    public function schemas(Schema ...$schema): static
     {
         $instance = clone $this;
 

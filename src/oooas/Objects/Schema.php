@@ -9,7 +9,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 /**
  * @property string|null $title
  * @property string|null $description
- * @property mixed[]|null $enum
+ * @property array|null $enum
  * @property mixed|null $default
  * @property string|null $format
  * @property string|null $type
@@ -42,191 +42,62 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class Schema extends BaseObject implements SchemaContract
 {
     public const TYPE_ARRAY = 'array';
-
     public const TYPE_BOOLEAN = 'boolean';
-
     public const TYPE_INTEGER = 'integer';
-
     public const TYPE_NUMBER = 'number';
-
     public const TYPE_OBJECT = 'object';
-
     public const TYPE_STRING = 'string';
-
     public const FORMAT_INT32 = 'int32';
-
     public const FORMAT_INT64 = 'int64';
-
     public const FORMAT_FLOAT = 'float';
-
     public const FORMAT_DOUBLE = 'double';
-
     public const FORMAT_BYTE = 'byte';
-
     public const FORMAT_BINARY = 'binary';
-
     public const FORMAT_DATE = 'date';
-
     public const FORMAT_DATE_TIME = 'date-time';
-
     public const FORMAT_PASSWORD = 'password';
-
     public const FORMAT_UUID = 'uuid';
 
-    /**
-     * @var string|null
-     */
-    protected $title;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var mixed[]|null
-     */
-    protected $enum;
-
-    /**
-     * @var mixed|null
-     */
-    protected $default;
-
-    /**
-     * @var string|null
-     */
-    protected $format;
-
-    /**
-     * @var string|null
-     */
-    protected $type;
-
-    /**
-     * @var Schema|null
-     */
-    protected $items;
-
-    /**
-     * @var int|null
-     */
-    protected $maxItems;
-
-    /**
-     * @var int|null
-     */
-    protected $minItems;
-
-    /**
-     * @var bool|null
-     */
-    protected $uniqueItems;
-
-    /**
-     * @var string|null
-     */
-    protected $pattern;
-
-    /**
-     * @var int|null
-     */
-    protected $maxLength;
-
-    /**
-     * @var int|null
-     */
-    protected $minLength;
-
-    /**
-     * @var int|null
-     */
-    protected $maximum;
-
-    /**
-     * @var int|null
-     */
-    protected $exclusiveMaximum;
-
-    /**
-     * @var int|null
-     */
-    protected $minimum;
-
-    /**
-     * @var int|null
-     */
-    protected $exclusiveMinimum;
-
-    /**
-     * @var int|null
-     */
-    protected $multipleOf;
+    protected string|null $title = null;
+    protected string|null $description = null;
+    protected array|null $enum = null;
+    protected mixed $default = null;
+    protected string|null $format = null;
+    protected string|null $type = null;
+    protected Schema|null $items = null;
+    protected int|null $maxItems = null;
+    protected int|null $minItems = null;
+    protected bool|null $uniqueItems = null;
+    protected string|null $pattern = null;
+    protected int|null $maxLength = null;
+    protected int|null $minLength = null;
+    protected int|null $maximum = null;
+    protected int|null $exclusiveMaximum = null;
+    protected int|null $minimum = null;
+    protected int|null $exclusiveMinimum = null;
+    protected int|null $multipleOf = null;
 
     /**
      * @var string[]|null
      */
-    protected $required;
+    protected array|null $required = null;
 
     /**
      * @var SchemaContract[]|null
      */
-    protected $properties;
+    protected array|null $properties = null;
 
-    /**
-     * @var Schema|null
-     */
-    protected $additionalProperties;
-
-    /**
-     * @var int|null
-     */
-    protected $maxProperties;
-
-    /**
-     * @var int|null
-     */
-    protected $minProperties;
-
-    /**
-     * @var bool|null
-     */
-    protected $nullable;
-
-    /**
-     * @var Discriminator|null
-     */
-    protected $discriminator;
-
-    /**
-     * @var bool|null
-     */
-    protected $readOnly;
-
-    /**
-     * @var bool|null
-     */
-    protected $writeOnly;
-
-    /**
-     * @var Xml|null
-     */
-    protected $xml;
-
-    /**
-     * @var ExternalDocs|null
-     */
-    protected $externalDocs;
-
-    /**
-     * @var mixed|null
-     */
-    protected $example;
-
-    /**
-     * @var bool|null
-     */
-    protected $deprecated;
+    protected Schema|null $additionalProperties = null;
+    protected int|null $maxProperties = null;
+    protected int|null $minProperties = null;
+    protected bool|null $nullable = null;
+    protected Discriminator|null $discriminator = null;
+    protected bool|null $readOnly = null;
+    protected bool|null $writeOnly = null;
+    protected Xml|null $xml = null;
+    protected ExternalDocs|null $externalDocs = null;
+    protected mixed $example = null;
+    protected bool|null $deprecated = null;
 
     /**
      * @return static
@@ -313,7 +184,7 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param mixed[] $enum
+     * @param array $enum
      *
      * @return static
      */
@@ -331,7 +202,7 @@ class Schema extends BaseObject implements SchemaContract
      *
      * @return static
      */
-    public function default($default): self
+    public function default(mixed $default): self
     {
         $instance = clone $this;
 
@@ -437,13 +308,11 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param int|float|null $maximum
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function maximum($maximum): self
+    public function maximum(float|int|null $maximum): self
     {
         if (
             !is_int($maximum)
@@ -461,13 +330,11 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param int|float|null $exclusiveMaximum
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function exclusiveMaximum($exclusiveMaximum): self
+    public function exclusiveMaximum(float|int|null $exclusiveMaximum): self
     {
         if (
             !is_int($exclusiveMaximum)
@@ -485,13 +352,11 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param int|float|null $minimum
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function minimum($minimum): self
+    public function minimum(float|int|null $minimum): self
     {
         if (
             !is_int($minimum)
@@ -509,13 +374,11 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param int|float|null $exclusiveMinimum
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function exclusiveMinimum($exclusiveMinimum): self
+    public function exclusiveMinimum(float|int|null $exclusiveMinimum): self
     {
         if (
             !is_int($exclusiveMinimum)
@@ -533,13 +396,11 @@ class Schema extends BaseObject implements SchemaContract
     }
 
     /**
-     * @param int|float|null $multipleOf
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function multipleOf($multipleOf): self
+    public function multipleOf(float|int|null $multipleOf): self
     {
         if (
             !is_int($multipleOf)
@@ -567,8 +428,8 @@ class Schema extends BaseObject implements SchemaContract
     {
         // Only allow Schema instances and strings.
         foreach ($required as &$require) {
-            // If a Schema instance was passed in then extract it's name string.
-            if ($require instanceof Schema) {
+            // If a Schema instance was passed in then extract its name string.
+            if ($require instanceof self) {
                 $require = $require->objectId;
                 continue;
             }
@@ -577,7 +438,7 @@ class Schema extends BaseObject implements SchemaContract
                 continue;
             }
 
-            throw new InvalidArgumentException(sprintf('The required must either be an instance of [%s] or a string.', Schema::class));
+            throw new InvalidArgumentException(sprintf('The required must either be an instance of [%s] or a string.', self::class));
         }
 
         $instance = clone $this;
@@ -604,7 +465,7 @@ class Schema extends BaseObject implements SchemaContract
     /**
      * @return static
      */
-    public function additionalProperties(Schema|null $additionalProperties): self
+    public function additionalProperties(self|null $additionalProperties): self
     {
         $instance = clone $this;
 
@@ -714,7 +575,7 @@ class Schema extends BaseObject implements SchemaContract
      *
      * @return static
      */
-    public function example($example): self
+    public function example(mixed $example): self
     {
         $instance = clone $this;
 

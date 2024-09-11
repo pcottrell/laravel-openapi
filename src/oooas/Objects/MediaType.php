@@ -15,45 +15,27 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class MediaType extends BaseObject
 {
     public const MEDIA_TYPE_APPLICATION_JSON = 'application/json';
-
     public const MEDIA_TYPE_APPLICATION_PDF = 'application/pdf';
-
     public const MEDIA_TYPE_IMAGE_JPEG = 'image/jpeg';
-
     public const MEDIA_TYPE_IMAGE_PNG = 'image/png';
-
     public const MEDIA_TYPE_TEXT_CALENDAR = 'text/calendar';
-
     public const MEDIA_TYPE_TEXT_PLAIN = 'text/plain';
-
     public const MEDIA_TYPE_TEXT_XML = 'text/xml';
-
     public const MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
-    /**
-     * @var string|null
-     */
-    protected $mediaType;
-
-    /**
-     * @var Schema|null
-     */
-    protected $schema;
-
-    /**
-     * @var Example|null
-     */
-    protected $example;
+    protected string|null $mediaType = null;
+    protected Schema|null $schema = null;
+    protected Example|null $example = null;
 
     /**
      * @var Example[]|null
      */
-    protected $examples;
+    protected array|null $examples = null;
 
     /**
      * @var Encoding[]|null
      */
-    protected $encoding;
+    protected array|null $encoding = null;
 
     /**
      * @return static

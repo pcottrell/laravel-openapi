@@ -11,31 +11,26 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class SecurityRequirement extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $securityScheme;
+    protected string|null $securityScheme = null;
 
     /**
      * @var string[]|null
      */
-    protected $scopes;
+    protected array|null $scopes = null;
 
     /**
-     * @param SecurityScheme|string|null $securityScheme
-     *
      * @return static
      *
      * @throws InvalidArgumentException
      */
-    public function securityScheme($securityScheme): self
+    public function securityScheme(SecurityScheme|string|null $securityScheme): self
     {
         // If a SecurityScheme instance passed in, then use its Object ID.
         if ($securityScheme instanceof SecurityScheme) {
             $securityScheme = $securityScheme->objectId;
         }
 
-        // If the $securityScheme is not a string or null then thrown an exception.
+        // If the $securityScheme is not a string or null, then thrown an exception.
         if (!is_string($securityScheme) && !is_null($securityScheme)) {
             throw new InvalidArgumentException(sprintf('The security scheme must either be an instance of [%s], a string or null.', SecurityScheme::class));
         }

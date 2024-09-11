@@ -25,7 +25,7 @@ return [
                 // BearerTokenSecurityScheme::class,
             ],
 
-            // Non standard attributes used by code/doc generation tools can be added here
+            // Non-standard attributes used by code/doc generation tools can be added here
             'extensions' => [
                 // 'x-tagGroups' => [
                 //     [

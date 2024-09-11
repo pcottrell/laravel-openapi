@@ -38,7 +38,7 @@ class ComponentsTest extends UnitTestCase
 
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_IMPLICIT)
-            ->authorizationUrl('http://example.org/api/oauth/dialog');
+            ->authorizationUrl('https://example.org/api/oauth/dialog');
 
         $securityScheme = SecurityScheme::create('OAuth2')
             ->type(SecurityScheme::TYPE_OAUTH2)
@@ -99,7 +99,7 @@ class ComponentsTest extends UnitTestCase
                     'type' => 'oauth2',
                     'flows' => [
                         'implicit' => [
-                            'authorizationUrl' => 'http://example.org/api/oauth/dialog',
+                            'authorizationUrl' => 'https://example.org/api/oauth/dialog',
                         ],
                     ],
                 ],

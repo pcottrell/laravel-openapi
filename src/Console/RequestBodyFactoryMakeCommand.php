@@ -8,9 +8,7 @@ use Illuminate\Support\Str;
 class RequestBodyFactoryMakeCommand extends GeneratorCommand
 {
     protected $name = 'openapi:make-requestbody';
-
     protected $description = 'Create a new RequestBody factory class';
-
     protected $type = 'RequestBody';
 
     protected function getStub(): string

@@ -13,30 +13,11 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Xml extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $namespace;
-
-    /**
-     * @var string|null
-     */
-    protected $prefix;
-
-    /**
-     * @var bool|null
-     */
-    protected $attribute;
-
-    /**
-     * @var bool|null
-     */
-    protected $wrapped;
+    protected string|null $name = null;
+    protected string|null $namespace = null;
+    protected string|null $prefix = null;
+    protected bool|null $attribute = null;
+    protected bool|null $wrapped = null;
 
     /**
      * @return static

@@ -13,30 +13,23 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Response extends BaseObject
 {
-    /**
-     * @var int|null
-     */
-    protected $statusCode;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected int|null $statusCode = null;
+    protected string|null $description = null;
 
     /**
      * @var Header[]|null
      */
-    protected $headers;
+    protected array|null $headers = null;
 
     /**
      * @var MediaType[]|null
      */
-    protected $content;
+    protected array|null $content = null;
 
     /**
      * @var Link[]|null
      */
-    protected $links;
+    protected array|null $links = null;
 
     /**
      * @return static

@@ -47,7 +47,7 @@ class ReadmeTest extends IntegrationTestCase
                 MediaType::json()->schema($userSchema),
             );
 
-        // Create the operation for the route (i.e. GET, POST, etc.).
+        // Create the operation for the route (i.e., GET, POST, etc.).
         $operation = Operation::get()
             ->responses($userResponse)
             ->tags($usersTag)

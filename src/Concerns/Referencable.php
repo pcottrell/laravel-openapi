@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Concerns;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
@@ -13,6 +15,10 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 trait Referencable
 {
+    /**
+     * @throws CircularDependencyException
+     * @throws BindingResolutionException
+     */
     public static function ref(string|null $objectId = null): Schema
     {
         $instance = app(static::class);

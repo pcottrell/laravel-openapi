@@ -14,9 +14,9 @@ use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
-class PathBuilder
+readonly class PathBuilder
 {
-    public function __construct(private readonly OperationBuilder $operationBuilder)
+    public function __construct(private OperationBuilder $operationBuilder)
     {
     }
 
@@ -57,7 +57,7 @@ class PathBuilder
                     (!$collectionAttribute && Generator::COLLECTION_DEFAULT === $collection)
                     || ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
             })
-            ->map(static function (RouteInformation $routeInformation) use ($middlewares): \MohammadAlavi\LaravelOpenApi\Objects\RouteInformation {
+            ->map(static function (RouteInformation $routeInformation) use ($middlewares): RouteInformation {
                 foreach ($middlewares as $middleware) {
                     app($middleware)->before($routeInformation);
                 }
@@ -65,7 +65,7 @@ class PathBuilder
                 return $routeInformation;
             })
             ->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->uri)
-            ->map(function (Collection $routes, $uri) {
+            ->map(function (Collection $routes, $uri): PathItem {
                 $pathItem = PathItem::create()->route($uri);
 
                 $operations = $this->operationBuilder->build($routes);
@@ -87,7 +87,7 @@ class PathBuilder
     {
         return collect(app(Router::class)->getRoutes())
             ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
-            ->map(static fn (Route $route): \MohammadAlavi\LaravelOpenApi\Objects\RouteInformation => RouteInformation::createFromRoute($route))
+            ->map(static fn (Route $route): RouteInformation => RouteInformation::createFromRoute($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
                     ->first(static fn (object $attribute): bool => $attribute instanceof Attributes\PathItem);

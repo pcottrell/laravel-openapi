@@ -36,11 +36,7 @@ class SecurityRequirementBuilder
             return $this->buildSecurityRequirementFrom($securitySchemeFactories[0]);
         }
 
-        if ($this->isMultiAuthArraySecurity($securitySchemeFactories)) {
-            return $this->buildSecurityRequirementFrom($securitySchemeFactories);
-        }
-
-        if ($this->isMultiAuthArraySecurity($securitySchemeFactories[0])) {
+        if ($this->isMultiAuthArraySecurity($securitySchemeFactories) || $this->isMultiAuthArraySecurity($securitySchemeFactories[0])) {
             return $this->buildSecurityRequirementFrom($securitySchemeFactories);
         }
 

@@ -34,7 +34,7 @@ class Operation extends ParentOperation
             return $instance;
         }
 
-        $instance->security = $securityRequirement[0];
+        $instance->security = is_array($securityRequirement[0]) ? $securityRequirement[0] : [$securityRequirement[0]];
 
         return $instance;
     }

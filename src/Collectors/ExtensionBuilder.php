@@ -14,7 +14,7 @@ class ExtensionBuilder
         $attributes
             ->filter(static fn (object $attribute): bool => $attribute instanceof ExtensionAttribute)
             ->each(static function (ExtensionAttribute $extensionAttribute) use ($baseObject): void {
-                if (null !== $extensionAttribute->factory && '' !== $extensionAttribute->factory && '0' !== $extensionAttribute->factory) {
+                if (!is_null($extensionAttribute->factory) && '' !== $extensionAttribute->factory && '0' !== $extensionAttribute->factory) {
                     /** @var ExtensionFactory $factory */
                     $factory = app($extensionAttribute->factory);
                     $key = $factory->key();

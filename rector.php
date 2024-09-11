@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use Rector\CodingStyle\Rector\Stmt\NewlineAfterStatementRector;
 use Rector\Config\RectorConfig;
+use Rector\Php80\Rector\Class_\ClassPropertyAssignToConstructorPromotionRector;
 use Rector\PHPUnit\Set\PHPUnitSetList;
 use Rector\Set\ValueObject\SetList;
 
@@ -29,4 +31,10 @@ return RectorConfig::configure()
         PHPUnitSetList::PHPUNIT_100,
         PHPUnitSetList::ANNOTATIONS_TO_ATTRIBUTES,
         PHPUnitSetList::PHPUNIT_CODE_QUALITY,
+    ])
+    ->withRules([
+        ClassPropertyAssignToConstructorPromotionRector::class,
+    ])
+    ->withSkip([
+        NewlineAfterStatementRector::class,
     ]);

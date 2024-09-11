@@ -8,7 +8,6 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 class GenerateCommand extends Command
 {
     protected $signature = 'openapi:generate {collection=default}';
-
     protected $description = 'Generate OpenAPI specification';
 
     public function handle(Generator $generator): void

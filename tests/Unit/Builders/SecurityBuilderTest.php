@@ -689,12 +689,12 @@ class SecurityBuilderTest extends TestCase
     #[DataProvider('operationSecuritySchemesDataProvider')]
     public function testCanApplyMultipleSecuritySchemesOnOperation(
         array $expectedJson,
-        array $securitySchemeComponents,
+        array $securitySchemeFactories,
         array $globalSecurity,
         string|array|null $pathSecurity,
     ): void {
         $components = Components::create()->securitySchemes(
-            ...collect($securitySchemeComponents)->map(
+            ...collect($securitySchemeFactories)->map(
                 static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build(),
             )->toArray(),
         );

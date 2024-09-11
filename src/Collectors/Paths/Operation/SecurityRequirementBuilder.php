@@ -3,14 +3,18 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
-class SecurityRequirementBuilder
+readonly class SecurityRequirementBuilder
 {
     public function __construct(
-        private readonly \MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder $securityRequirementBuilder,
+        private \MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder $securityRequirementBuilder,
     ) {
     }
 
+    /**
+     * @throws InvalidArgumentException
+     */
     public function build(string|array|null $securitySchemeFactories): SecurityRequirement
     {
         return $this->securityRequirementBuilder->build($securitySchemeFactories);

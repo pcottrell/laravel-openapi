@@ -35,6 +35,6 @@ class Collection
 
     private function isStringable(string $name): bool
     {
-        return class_exists($name) && is_subclass_of($name, \Stringable::class, true);
+        return class_exists($name) && is_subclass_of($name, \Stringable::class);
     }
 }

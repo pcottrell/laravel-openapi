@@ -17,6 +17,7 @@ return (new PhpCsFixer\Config())
         '@Symfony' => true,
         '@PSR12' => true,
         'concat_space' => ['spacing' => 'one'],
+        'class_attributes_separation' => ['elements' => ['const' => 'none', 'property' => 'none']],
         'method_argument_space' => [
             'on_multiline' => 'ensure_fully_multiline',
         ],

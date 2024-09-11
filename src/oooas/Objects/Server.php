@@ -11,20 +11,13 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Server extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $url;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected string|null $url = null;
+    protected string|null $description = null;
 
     /**
      * @var ServerVariable[]|null
      */
-    protected $variables;
+    protected array|null $variables = null;
 
     /**
      * @return static

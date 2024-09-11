@@ -14,17 +14,10 @@ class ServerVariable extends BaseObject
     /**
      * @var string[]|null
      */
-    protected $enum;
+    protected array|null $enum = null;
 
-    /**
-     * @var string|null
-     */
-    protected $default;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
+    protected string|null $default = null;
+    protected string|null $description = null;
 
     /**
      * @param string[] $enum

@@ -4,6 +4,7 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
@@ -14,6 +15,7 @@ class CallbackBuilder
         return $routeInformation->actionAttributes
             ->filter(static fn (object $attribute): bool => $attribute instanceof CallbackAttribute)
             ->map(static function (CallbackAttribute $callbackAttribute) {
+                /** @var CallbackFactory $factory */
                 $factory = app($callbackAttribute->factory);
                 $pathItem = $factory->build();
 

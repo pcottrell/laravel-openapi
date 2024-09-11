@@ -13,30 +13,16 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Encoding extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $contentType;
+    protected string|null $contentType = null;
 
     /**
      * @var Header[]|null
      */
-    protected $headers;
+    protected array|null $headers = null;
 
-    /**
-     * @var string|null
-     */
-    protected $style;
-
-    /**
-     * @var bool|null
-     */
-    protected $explode;
-
-    /**
-     * @var bool|null
-     */
-    protected $allowReserved;
+    protected string|null $style = null;
+    protected bool|null $explode = null;
+    protected bool|null $allowReserved = null;
 
     /**
      * @return static

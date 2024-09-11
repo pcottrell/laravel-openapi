@@ -1,6 +1,6 @@
 # Parameters
 
-In order to add path or query parameters to route you need to create `Parameters` object factory. 
+To add path or query parameters to route you need to create `Parameters` object factory. 
 
 You may generate a new one using Artisan command:
 
@@ -101,7 +101,7 @@ class UserController extends Controller
 ```
 
 ::: tip
-Use @param tag in order to add description to {user} parameter.
+Use @param tag to add description to {user} parameter.
 :::
 
 The following definition will be generated:

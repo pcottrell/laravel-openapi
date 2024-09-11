@@ -10,10 +10,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Not extends BaseObject implements SchemaContract
 {
-    /**
-     * @var Schema|null
-     */
-    protected $schema;
+    protected Schema|null $schema = null;
 
     /**
      * @return static

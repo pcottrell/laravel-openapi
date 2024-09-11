@@ -11,20 +11,9 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Contact extends BaseObject
 {
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $url;
-
-    /**
-     * @var string|null
-     */
-    protected $email;
+    protected string|null $name = null;
+    protected string|null $url = null;
+    protected string|null $email = null;
 
     /**
      * @return static

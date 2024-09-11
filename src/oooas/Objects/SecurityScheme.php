@@ -17,58 +17,26 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 class SecurityScheme extends BaseObject
 {
     public const TYPE_API_KEY = 'apiKey';
-
     public const TYPE_HTTP = 'http';
-
     public const TYPE_OAUTH2 = 'oauth2';
-
     public const TYPE_OPEN_ID_CONNECT = 'openIdConnect';
-
     public const IN_QUERY = 'query';
-
     public const IN_HEADER = 'header';
-
     public const IN_COOKIE = 'cookie';
 
-    /**
-     * @var string|null
-     */
-    protected $type;
-
-    /**
-     * @var string|null
-     */
-    protected $description;
-
-    /**
-     * @var string|null
-     */
-    protected $name;
-
-    /**
-     * @var string|null
-     */
-    protected $in;
-
-    /**
-     * @var string|null
-     */
-    protected $scheme;
-
-    /**
-     * @var string|null
-     */
-    protected $bearerFormat;
+    protected string|null $type = null;
+    protected string|null $description = null;
+    protected string|null $name = null;
+    protected string|null $in = null;
+    protected string|null $scheme = null;
+    protected string|null $bearerFormat = null;
 
     /**
      * @var OAuthFlow[]|null
      */
-    protected $flows;
+    protected array|null $flows = null;
 
-    /**
-     * @var string|null
-     */
-    protected $openIdConnectUrl;
+    protected string|null $openIdConnectUrl = null;
 
     /**
      * @return static
