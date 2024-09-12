@@ -1,31 +1,30 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Objects\Link;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
+use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 
-#[CoversClass(Link::class)]
-class LinkTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe('Link', function (): void {
+    it('can be created with all parameters', function (): void {
+        $server = Server::create('testServer');
         $link = Link::create('LinkName')
-            ->operationId('goldspecdigital')
-            ->description('The GoldSpec Digital website');
+            ->operationRef('testRef')
+            ->operationId('testId')
+            ->description('Some descriptions')
+            ->server($server);
 
         $response = Response::create()
             ->links($link);
 
-        $this->assertSame([
+        expect($response->toArray())->toEqual([
             'links' => [
                 'LinkName' => [
-                    'operationId' => 'goldspecdigital',
-                    'description' => 'The GoldSpec Digital website',
+                    'operationRef' => 'testRef',
+                    'operationId' => 'testId',
+                    'description' => 'Some descriptions',
+                    'server' => $server->toArray(),
                 ],
             ],
-        ], $response->toArray());
-    }
-}
+        ]);
+    });
+})->covers(Link::class);
