@@ -5,8 +5,9 @@ use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryInvalidStub;
 use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryStub;
 
 describe('Operation', function (): void {
-    it('can be instantiated with no parameters', function (): void {
+    it('can be created with no parameters', function (): void {
         $operation = new Operation();
+
         expect($operation->id)->toBeNull()
             ->and($operation->tags)->toBeNull()
             ->and($operation->security)->toBeNull()
@@ -17,7 +18,7 @@ describe('Operation', function (): void {
             ->and($operation->deprecated)->toBeNull();
     });
 
-    it('can can be instantiated properly', function (): void {
+    it('can be created with all parameters', function (): void {
         $operation = new Operation(
             id: 'id',
             tags: 'tags',
@@ -28,6 +29,7 @@ describe('Operation', function (): void {
             description: 'description',
             deprecated: true,
         );
+
         expect($operation->id)->toBe('id')
             ->and($operation->tags)->toBe('tags')
             ->and($operation->security)->toBe(SecuritySchemeFactoryStub::class)
@@ -40,6 +42,8 @@ describe('Operation', function (): void {
 
     it('doesnt accept invalid security combinations', function (string|array $security): void {
         $this->expectException(InvalidArgumentException::class);
+
+
         new Operation(security: $security);
     })->with([
         [
@@ -98,22 +102,22 @@ describe('Operation', function (): void {
         expect($operation->security)->toBeNull();
     });
 
-    it('can be instantiated with a class FQN security', function (): void {
+    it('can be created with a class FQN security', function (): void {
         $operation = new Operation(security: SecuritySchemeFactoryStub::class);
         expect($operation->security)->toBe(SecuritySchemeFactoryStub::class);
     });
 
-    it('can be instantiated with an array of class FQN securities', function (): void {
+    it('can be created with an array of class FQN securities', function (): void {
         $operation = new Operation(security: [SecuritySchemeFactoryStub::class]);
         expect($operation->security)->toBe([SecuritySchemeFactoryStub::class]);
     });
 
-    it('can be instantiated with an array of arrays of class FQN securities', function (): void {
+    it('can be created with an array of arrays of class FQN securities', function (): void {
         $operation = new Operation(security: [[SecuritySchemeFactoryStub::class]]);
         expect($operation->security)->toBe([[SecuritySchemeFactoryStub::class]]);
     });
 
-    it('can be instantiated with a combination of class FQN and array of class FQN securities', function (): void {
+    it('can be created with a combination of class FQN and array of class FQN securities', function (): void {
         $operation = new Operation(security: [SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
         expect($operation->security)->toBe([SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
     });
