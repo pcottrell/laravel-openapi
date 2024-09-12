@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /**
  * @property string|null $mediaType
- * @property Schema|null $schema
+ * @property SchemaContract|null $schema
  * @property Example|null $example
  * @property Example[]|null $examples
  * @property Encoding[]|null $encoding
@@ -24,7 +24,7 @@ class MediaType extends BaseObject
     public const MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
     protected string|null $mediaType = null;
-    protected Schema|null $schema = null;
+    protected SchemaContract|null $schema = null;
     protected Example|null $example = null;
 
     /**

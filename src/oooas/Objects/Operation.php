@@ -16,7 +16,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property RequestBody|null $requestBody
  * @property Response[]|null $responses
  * @property bool|null $deprecated
- * @property SecurityRequirement[]|null $security
+ * @property SecurityRequirement|SecurityRequirement[]|null $security
  * @property bool|null $noSecurity
  * @property Server[]|null $servers
  */
@@ -58,9 +58,9 @@ class Operation extends BaseObject
     protected bool|null $deprecated = null;
 
     /**
-     * @var SecurityRequirement[]|null
+     * @var SecurityRequirement|SecurityRequirement[]|null
      */
-    protected array|null $security = null;
+    protected SecurityRequirement|array|null $security = null;
 
     protected bool|null $noSecurity = null;
 

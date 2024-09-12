@@ -21,7 +21,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property Server[]|null $servers
  * @property PathItem[]|null $paths
  * @property Components|null $components
- * @property SecurityRequirement[]|null $security
+ * @property SecurityRequirement|SecurityRequirement[]|null $security
  * @property Tag[]|null $tags
  * @property ExternalDocs|null $externalDocs
  */
@@ -47,9 +47,9 @@ class OpenApi extends BaseObject
     protected Components|null $components = null;
 
     /**
-     * @var SecurityRequirement[]|null
+     * @var SecurityRequirement|SecurityRequirement[]|null
      */
-    protected array|null $security = null;
+    protected SecurityRequirement|array|null $security = null;
 
     /**
      * @var Tag[]|null

@@ -13,7 +13,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  * @property mixed|null $default
  * @property string|null $format
  * @property string|null $type
- * @property Schema[]|null $items
+ * @property SchemaContract[]|null $items
  * @property int|null $maxItems
  * @property int|null $minItems
  * @property bool|null $uniqueItems
@@ -64,7 +64,7 @@ class Schema extends BaseObject implements SchemaContract
     protected mixed $default = null;
     protected string|null $format = null;
     protected string|null $type = null;
-    protected Schema|null $items = null;
+    protected SchemaContract|null $items = null;
     protected int|null $maxItems = null;
     protected int|null $minItems = null;
     protected bool|null $uniqueItems = null;

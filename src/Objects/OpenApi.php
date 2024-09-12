@@ -46,7 +46,7 @@ class OpenApi extends ParentOpenApi
             return $instance;
         }
 
-        $instance->security = is_array($securityRequirement[0]) ? $securityRequirement[0] : [$securityRequirement[0]];
+        $instance->security = $securityRequirement[0];
 
         return $instance;
     }
