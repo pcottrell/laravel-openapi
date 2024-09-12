@@ -27,7 +27,7 @@ class Collection
     private function getString(string $name): string
     {
         if ($this->isStringable($name)) {
-            /** @var class-string<\Stringable> $name */
+            /* @var class-string<\Stringable> $name */
             return (string) (new $name());
         }
 
