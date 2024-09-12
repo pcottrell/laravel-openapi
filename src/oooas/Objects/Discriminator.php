@@ -5,17 +5,12 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $propertyName
- * @property array|null $mapping
- */
 class Discriminator extends BaseObject
 {
     protected string|null $propertyName = null;
     protected array|null $mapping = null;
 
-    /** @return static */
-    public function propertyName(string|null $propertyName): self
+    public function propertyName(string|null $propertyName): static
     {
         $instance = clone $this;
 
@@ -24,12 +19,8 @@ class Discriminator extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     *
-     * @throws InvalidArgumentException
-     */
-    public function mapping(array $mapping): self
+    /** @throws InvalidArgumentException */
+    public function mapping(array $mapping): static
     {
         // Ensure the mappings are string => string.
         foreach ($mapping as $key => $value) {

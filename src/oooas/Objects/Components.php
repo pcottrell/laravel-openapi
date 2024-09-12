@@ -5,19 +5,9 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property Schema[]|null $schemas
- * @property Response[]|null $responses
- * @property Parameter[]|null $parameters
- * @property Example[]|null $examples
- * @property RequestBody[]|null $requestBodies
- * @property Header[]|null $headers
- * @property SecurityScheme[]|null $securitySchemes
- * @property Link[]|null $links
- */
 class Components extends BaseObject
 {
-    /** @var Schema[]|null */
+    /** @var SchemaContract[]|null */
     protected array|null $schemas = null;
 
     /** @var Response[]|null */
@@ -44,12 +34,7 @@ class Components extends BaseObject
     /** @var PathItem[]|null */
     protected array|null $callbacks = null;
 
-    /**
-     * @param SchemaContract[] $schemaContract
-     *
-     * @return static
-     */
-    public function schemas(SchemaContract ...$schemaContract): self
+    public function schemas(SchemaContract ...$schemaContract): static
     {
         $instance = clone $this;
 
@@ -58,12 +43,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Response[] $response
-     *
-     * @return static
-     */
-    public function responses(Response ...$response): self
+    public function responses(Response ...$response): static
     {
         $instance = clone $this;
 
@@ -72,12 +52,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Parameter[] $parameter
-     *
-     * @return static
-     */
-    public function parameters(Parameter ...$parameter): self
+    public function parameters(Parameter ...$parameter): static
     {
         $instance = clone $this;
 
@@ -86,12 +61,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Example[] $example
-     *
-     * @return static
-     */
-    public function examples(Example ...$example): self
+    public function examples(Example ...$example): static
     {
         $instance = clone $this;
 
@@ -100,12 +70,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param RequestBody[] $requestBody
-     *
-     * @return static
-     */
-    public function requestBodies(RequestBody ...$requestBody): self
+    public function requestBodies(RequestBody ...$requestBody): static
     {
         $instance = clone $this;
 
@@ -114,12 +79,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Header[] $header
-     *
-     * @return static
-     */
-    public function headers(Header ...$header): self
+    public function headers(Header ...$header): static
     {
         $instance = clone $this;
 
@@ -128,12 +88,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param SecurityScheme[] $securityScheme
-     *
-     * @return static
-     */
-    public function securitySchemes(SecurityScheme ...$securityScheme): self
+    public function securitySchemes(SecurityScheme ...$securityScheme): static
     {
         $instance = clone $this;
 
@@ -142,12 +97,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Link[] $link
-     *
-     * @return static
-     */
-    public function links(Link ...$link): self
+    public function links(Link ...$link): static
     {
         $instance = clone $this;
 
@@ -156,12 +106,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param PathItem[] $pathItem
-     *
-     * @return static
-     */
-    public function callbacks(PathItem ...$pathItem): self
+    public function callbacks(PathItem ...$pathItem): static
     {
         $instance = clone $this;
 

@@ -5,21 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $name
- * @property string|null $in
- * @property string|null $description
- * @property bool|null $required
- * @property bool|null $deprecated
- * @property bool|null $allowEmptyValue
- * @property string|null $style
- * @property bool|null $explode
- * @property bool|null $allowReserved
- * @property Schema|null $schema
- * @property mixed|null $example
- * @property Example[]|null $examples
- * @property MediaType[]|null $content
- */
 class Parameter extends BaseObject
 {
     public const IN_QUERY = 'query';
@@ -42,8 +27,8 @@ class Parameter extends BaseObject
     protected bool|null $allowEmptyValue = null;
     protected string|null $style = null;
     protected bool|null $explode = null;
-    protected string|null $allowReserved = null;
-    protected Schema|null $schema = null;
+    protected bool|null $allowReserved = null;
+    protected SchemaContract|null $schema = null;
     protected mixed $example = null;
 
     /** @var Example[]|null */
@@ -52,14 +37,12 @@ class Parameter extends BaseObject
     /** @var MediaType[]|null */
     protected array|null $content = null;
 
-    /** @return static */
-    public static function query(string|null $objectId = null): self
+    public static function query(string|null $objectId = null): static
     {
         return static::create($objectId)->in(static::IN_QUERY);
     }
 
-    /** @return static */
-    public function in(string|null $in): self
+    public function in(string|null $in): static
     {
         $instance = clone $this;
 
@@ -68,26 +51,22 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public static function header(string|null $objectId = null): self
+    public static function header(string|null $objectId = null): static
     {
         return static::create($objectId)->in(static::IN_HEADER);
     }
 
-    /** @return static */
-    public static function path(string|null $objectId = null): self
+    public static function path(string|null $objectId = null): static
     {
         return static::create($objectId)->in(static::IN_PATH);
     }
 
-    /** @return static */
-    public static function cookie(string|null $objectId = null): self
+    public static function cookie(string|null $objectId = null): static
     {
         return static::create($objectId)->in(static::IN_COOKIE);
     }
 
-    /** @return static */
-    public function name(string|null $name): self
+    public function name(string|null $name): static
     {
         $instance = clone $this;
 
@@ -96,8 +75,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -106,8 +84,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function required(bool|null $required = true): self
+    public function required(bool|null $required = true): static
     {
         $instance = clone $this;
 
@@ -116,8 +93,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function deprecated(bool|null $deprecated = true): self
+    public function deprecated(bool|null $deprecated = true): static
     {
         $instance = clone $this;
 
@@ -126,8 +102,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function allowEmptyValue(bool|null $allowEmptyValue = true): self
+    public function allowEmptyValue(bool|null $allowEmptyValue = true): static
     {
         $instance = clone $this;
 
@@ -136,8 +111,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function style(string|null $style): self
+    public function style(string|null $style): static
     {
         $instance = clone $this;
 
@@ -146,8 +120,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function explode(bool|null $explode = true): self
+    public function explode(bool|null $explode = true): static
     {
         $instance = clone $this;
 
@@ -156,8 +129,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function allowReserved(bool|null $allowReserved = true): self
+    public function allowReserved(bool|null $allowReserved = true): static
     {
         $instance = clone $this;
 
@@ -166,8 +138,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function schema(SchemaContract|null $schema): self
+    public function schema(SchemaContract|null $schema): static
     {
         $instance = clone $this;
 
@@ -176,12 +147,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param mixed|null $example
-     *
-     * @return static
-     */
-    public function example(mixed $example): self
+    public function example(mixed $example): static
     {
         $instance = clone $this;
 
@@ -190,12 +156,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Example[]|null $example
-     *
-     * @return static
-     */
-    public function examples(Example ...$example): self
+    public function examples(Example ...$example): static
     {
         $instance = clone $this;
 
@@ -204,12 +165,7 @@ class Parameter extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param MediaType[] $mediaType
-     *
-     * @return static
-     */
-    public function content(MediaType ...$mediaType): self
+    public function content(MediaType ...$mediaType): static
     {
         $instance = clone $this;
 

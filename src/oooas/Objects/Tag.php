@@ -4,19 +4,13 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $name
- * @property string|null $description
- * @property ExternalDocs|null $externalDocs
- */
 class Tag extends BaseObject
 {
     protected string|null $name = null;
     protected string|null $description = null;
     protected ExternalDocs|null $externalDocs = null;
 
-    /** @return static */
-    public function name(string|null $name): self
+    public function name(string|null $name): static
     {
         $instance = clone $this;
 
@@ -25,8 +19,7 @@ class Tag extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -35,8 +28,7 @@ class Tag extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function externalDocs(ExternalDocs|null $externalDocs): self
+    public function externalDocs(ExternalDocs|null $externalDocs): static
     {
         $instance = clone $this;
 

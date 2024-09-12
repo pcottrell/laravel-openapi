@@ -5,13 +5,11 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/** @property Schema|null $schema */
 class Not extends BaseObject implements SchemaContract
 {
     protected Schema|null $schema = null;
 
-    /** @return static */
-    public function schema(Schema|null $schema): self
+    public function schema(Schema|null $schema): static
     {
         $instance = clone $this;
 

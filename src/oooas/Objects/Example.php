@@ -4,12 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $summary
- * @property string|null $description
- * @property mixed|null $value
- * @property string|null $externalValue
- */
 class Example extends BaseObject
 {
     protected string|null $summary = null;
@@ -17,8 +11,7 @@ class Example extends BaseObject
     protected mixed $value = null;
     protected string|null $externalValue = null;
 
-    /** @return static */
-    public function summary(string|null $summary): self
+    public function summary(string|null $summary): static
     {
         $instance = clone $this;
 
@@ -27,8 +20,7 @@ class Example extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -37,12 +29,7 @@ class Example extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param mixed|null $value
-     *
-     * @return static
-     */
-    public function value(mixed $value): self
+    public function value(mixed $value): static
     {
         $instance = clone $this;
 
@@ -51,8 +38,7 @@ class Example extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function externalValue(string|null $externalValue): self
+    public function externalValue(string|null $externalValue): static
     {
         $instance = clone $this;
 

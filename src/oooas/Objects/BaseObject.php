@@ -5,19 +5,12 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
 
-/**
- * @property string|null $objectId
- * @property string|null $ref
- * @property array|null $x
- */
+/** @property array|null $x */
 abstract class BaseObject implements \JsonSerializable
 {
     protected string|null $ref = null;
     protected Extensions $extensions;
 
-    /**
-     * BaseObject constructor.
-     */
     public function __construct(protected string|null $objectId = null)
     {
         $this->extensions = new Extensions();
@@ -46,7 +39,6 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
-    /** @return $this */
     public function x(string $key, $value = Extensions::X_EMPTY_VALUE): static
     {
         $instance = clone $this;
@@ -60,9 +52,10 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
+    /** @throws \JsonException */
     public function toJson(int $options = 0): string
     {
-        return json_encode($this->toArray(), $options);
+        return json_encode($this->toArray(), JSON_THROW_ON_ERROR | $options);
     }
 
     public function toArray(): array

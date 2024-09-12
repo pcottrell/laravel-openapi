@@ -4,16 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $type
- * @property string|null $description
- * @property string|null $name
- * @property string|null $in
- * @property string|null $scheme
- * @property string|null $bearerFormat
- * @property OAuthFlow[]|null $flows
- * @property string|null $openIdConnectUrl
- */
 class SecurityScheme extends BaseObject
 {
     public const TYPE_API_KEY = 'apiKey';
@@ -36,14 +26,12 @@ class SecurityScheme extends BaseObject
 
     protected string|null $openIdConnectUrl = null;
 
-    /** @return static */
-    public static function oauth2(string|null $objectId = null): self
+    public static function oauth2(string|null $objectId = null): static
     {
         return static::create($objectId)->type(static::TYPE_OAUTH2);
     }
 
-    /** @return static */
-    public function type(string|null $type): self
+    public function type(string|null $type): static
     {
         $instance = clone $this;
 
@@ -52,8 +40,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -62,8 +49,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function name(string|null $name): self
+    public function name(string|null $name): static
     {
         $instance = clone $this;
 
@@ -72,8 +58,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function in(string|null $in): self
+    public function in(string|null $in): static
     {
         $instance = clone $this;
 
@@ -82,8 +67,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function scheme(string|null $scheme): self
+    public function scheme(string|null $scheme): static
     {
         $instance = clone $this;
 
@@ -92,8 +76,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function bearerFormat(string|null $bearerFormat): self
+    public function bearerFormat(string|null $bearerFormat): static
     {
         $instance = clone $this;
 
@@ -102,12 +85,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param OAuthFlow[] $oAuthFlow
-     *
-     * @return static
-     */
-    public function flows(OAuthFlow ...$oAuthFlow): self
+    public function flows(OAuthFlow ...$oAuthFlow): static
     {
         $instance = clone $this;
 
@@ -116,8 +94,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function openIdConnectUrl(string|null $openIdConnectUrl): self
+    public function openIdConnectUrl(string|null $openIdConnectUrl): static
     {
         $instance = clone $this;
 

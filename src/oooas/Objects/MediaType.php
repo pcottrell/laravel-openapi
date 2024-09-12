@@ -5,13 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $mediaType
- * @property SchemaContract|null $schema
- * @property Example|null $example
- * @property Example[]|null $examples
- * @property Encoding[]|null $encoding
- */
 class MediaType extends BaseObject
 {
     public const MEDIA_TYPE_APPLICATION_JSON = 'application/json';
@@ -33,15 +26,13 @@ class MediaType extends BaseObject
     /** @var Encoding[]|null */
     protected array|null $encoding = null;
 
-    /** @return static */
-    public static function json(string|null $objectId = null): self
+    public static function json(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_JSON);
     }
 
-    /** @return static */
-    public function mediaType(string|null $mediaType): self
+    public function mediaType(string|null $mediaType): static
     {
         $instance = clone $this;
 
@@ -50,57 +41,49 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public static function pdf(string|null $objectId = null): self
+    public static function pdf(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_PDF);
     }
 
-    /** @return static */
-    public static function jpeg(string|null $objectId = null): self
+    public static function jpeg(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_IMAGE_JPEG);
     }
 
-    /** @return static */
-    public static function png(string|null $objectId = null): self
+    public static function png(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_IMAGE_PNG);
     }
 
-    /** @return static */
-    public static function calendar(string|null $objectId = null): self
+    public static function calendar(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_CALENDAR);
     }
 
-    /** @return static */
-    public static function plainText(string|null $objectId = null): self
+    public static function plainText(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_PLAIN);
     }
 
-    /** @return static */
-    public static function xml(string|null $objectId = null): self
+    public static function xml(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_XML);
     }
 
-    /** @return static */
-    public static function formUrlEncoded(string|null $objectId = null): self
+    public static function formUrlEncoded(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED);
     }
 
-    /** @return static */
-    public function schema(SchemaContract|null $schema): self
+    public function schema(SchemaContract|null $schema): static
     {
         $instance = clone $this;
 
@@ -109,8 +92,7 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function example(Example|null $example): self
+    public function example(Example|null $example): static
     {
         $instance = clone $this;
 
@@ -119,12 +101,7 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Example[]|null $example
-     *
-     * @return static
-     */
-    public function examples(Example ...$example): self
+    public function examples(Example ...$example): static
     {
         $instance = clone $this;
 
@@ -133,12 +110,7 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Encoding[] $encoding
-     *
-     * @return static
-     */
-    public function encoding(Encoding ...$encoding): self
+    public function encoding(Encoding ...$encoding): static
     {
         $instance = clone $this;
 

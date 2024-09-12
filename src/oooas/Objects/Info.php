@@ -4,14 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $title
- * @property string|null $description
- * @property string|null $termsOfService
- * @property Contact|null $contact
- * @property License|null $license
- * @property string|null $version
- */
 class Info extends BaseObject
 {
     protected string|null $title = null;
@@ -21,8 +13,7 @@ class Info extends BaseObject
     protected License|null $license = null;
     protected string|null $version = null;
 
-    /** @return static */
-    public function title(string|null $title): self
+    public function title(string|null $title): static
     {
         $instance = clone $this;
 
@@ -31,8 +22,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -41,8 +31,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function termsOfService(string|null $termsOfService): self
+    public function termsOfService(string|null $termsOfService): static
     {
         $instance = clone $this;
 
@@ -51,8 +40,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function contact(Contact|null $contact): self
+    public function contact(Contact|null $contact): static
     {
         $instance = clone $this;
 
@@ -61,8 +49,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function license(License|null $license): self
+    public function license(License|null $license): static
     {
         $instance = clone $this;
 
@@ -71,8 +58,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function version(string|null $version): self
+    public function version(string|null $version): static
     {
         $instance = clone $this;
 

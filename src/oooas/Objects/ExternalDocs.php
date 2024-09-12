@@ -4,17 +4,12 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $description
- * @property string|null $url
- */
 class ExternalDocs extends BaseObject
 {
     protected string|null $description = null;
     protected string|null $url = null;
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -23,8 +18,7 @@ class ExternalDocs extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function url(string|null $url): self
+    public function url(string|null $url): static
     {
         $instance = clone $this;
 

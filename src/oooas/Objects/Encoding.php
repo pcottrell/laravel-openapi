@@ -4,13 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $contentType
- * @property Header[]|null $headers
- * @property string|null $style
- * @property bool|null $explode
- * @property bool|null $allowReserved
- */
 class Encoding extends BaseObject
 {
     protected string|null $contentType = null;
@@ -22,8 +15,7 @@ class Encoding extends BaseObject
     protected bool|null $explode = null;
     protected bool|null $allowReserved = null;
 
-    /** @return static */
-    public function contentType(string|null $contentType): self
+    public function contentType(string|null $contentType): static
     {
         $instance = clone $this;
 
@@ -32,12 +24,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Header[] $header
-     *
-     * @return static
-     */
-    public function headers(Header ...$header): self
+    public function headers(Header ...$header): static
     {
         $instance = clone $this;
 
@@ -46,8 +33,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function style(string|null $style): self
+    public function style(string|null $style): static
     {
         $instance = clone $this;
 
@@ -56,8 +42,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function explode(bool|null $explode = true): self
+    public function explode(bool|null $explode = true): static
     {
         $instance = clone $this;
 
@@ -66,8 +51,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function allowReserved(bool|null $allowReserved = true): self
+    public function allowReserved(bool|null $allowReserved = true): static
     {
         $instance = clone $this;
 

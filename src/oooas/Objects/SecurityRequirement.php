@@ -5,10 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $securityScheme
- * @property string[]|null $scopes
- */
 class SecurityRequirement extends BaseObject
 {
     protected string|null $securityScheme = null;
@@ -16,12 +12,8 @@ class SecurityRequirement extends BaseObject
     /** @var string[]|null */
     protected array|null $scopes = null;
 
-    /**
-     * @return static
-     *
-     * @throws InvalidArgumentException
-     */
-    public function securityScheme(SecurityScheme|string|null $securityScheme): self
+    /** @throws InvalidArgumentException */
+    public function securityScheme(SecurityScheme|string|null $securityScheme): static
     {
         // If a SecurityScheme instance passed in, then use its Object ID.
         if ($securityScheme instanceof SecurityScheme) {
@@ -40,12 +32,7 @@ class SecurityRequirement extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param string[] $scopes
-     *
-     * @return static
-     */
-    public function scopes(string ...$scopes): self
+    public function scopes(string ...$scopes): static
     {
         $instance = clone $this;
 

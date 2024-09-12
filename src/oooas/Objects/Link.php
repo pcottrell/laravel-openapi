@@ -4,12 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $operationRef
- * @property string|null $operationId
- * @property string|null $description
- * @property Server|null $server
- */
 class Link extends BaseObject
 {
     protected string|null $operationRef = null;
@@ -17,8 +11,7 @@ class Link extends BaseObject
     protected string|null $description = null;
     protected Server|null $server = null;
 
-    /** @return static */
-    public function operationRef(string|null $operationRef): self
+    public function operationRef(string|null $operationRef): static
     {
         $instance = clone $this;
 
@@ -27,8 +20,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function operationId(string|null $operationId): self
+    public function operationId(string|null $operationId): static
     {
         $instance = clone $this;
 
@@ -37,8 +29,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -47,8 +38,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function server(Server|null $server): self
+    public function server(Server|null $server): static
     {
         $instance = clone $this;
 

@@ -15,16 +15,6 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $openapi
- * @property Info|null $info
- * @property Server[]|null $servers
- * @property PathItem[]|null $paths
- * @property Components|null $components
- * @property SecurityRequirement|SecurityRequirement[]|null $security
- * @property Tag[]|null $tags
- * @property ExternalDocs|null $externalDocs
- */
 class OpenApi extends BaseObject
 {
     public const OPENAPI_3_0_0 = '3.0.0';
@@ -50,8 +40,7 @@ class OpenApi extends BaseObject
 
     protected ExternalDocs|null $externalDocs = null;
 
-    /** @return static */
-    public function openapi(string|null $openapi): self
+    public function openapi(string|null $openapi): static
     {
         $instance = clone $this;
 
@@ -60,8 +49,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function info(Info|null $info): self
+    public function info(Info|null $info): static
     {
         $instance = clone $this;
 
@@ -70,12 +58,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Server[] $server
-     *
-     * @return static
-     */
-    public function servers(Server ...$server): self
+    public function servers(Server ...$server): static
     {
         $instance = clone $this;
 
@@ -84,12 +67,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param PathItem[] $pathItem
-     *
-     * @return static
-     */
-    public function paths(PathItem ...$pathItem): self
+    public function paths(PathItem ...$pathItem): static
     {
         $instance = clone $this;
 
@@ -98,8 +76,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function components(Components|null $components): self
+    public function components(Components|null $components): static
     {
         $instance = clone $this;
 
@@ -108,12 +85,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param SecurityRequirement[] $securityRequirement
-     *
-     * @return static
-     */
-    public function security(SecurityRequirement ...$securityRequirement): self
+    public function security(SecurityRequirement ...$securityRequirement): static
     {
         $instance = clone $this;
 
@@ -122,12 +94,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Tag[] $tag
-     *
-     * @return static
-     */
-    public function tags(Tag ...$tag): self
+    public function tags(Tag ...$tag): static
     {
         $instance = clone $this;
 
@@ -136,8 +103,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function externalDocs(ExternalDocs|null $externalDocs): self
+    public function externalDocs(ExternalDocs|null $externalDocs): static
     {
         $instance = clone $this;
 

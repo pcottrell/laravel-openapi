@@ -4,11 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $url
- * @property string|null $description
- * @property ServerVariable[]|null $variables
- */
 class Server extends BaseObject
 {
     protected string|null $url = null;
@@ -17,8 +12,7 @@ class Server extends BaseObject
     /** @var ServerVariable[]|null */
     protected array|null $variables = null;
 
-    /** @return static */
-    public function url(string|null $url): self
+    public function url(string|null $url): static
     {
         $instance = clone $this;
 
@@ -27,8 +21,7 @@ class Server extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -37,12 +30,7 @@ class Server extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param ServerVariable[] $serverVariable
-     *
-     * @return static
-     */
-    public function variables(ServerVariable ...$serverVariable): self
+    public function variables(ServerVariable ...$serverVariable): static
     {
         $instance = clone $this;
 

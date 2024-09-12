@@ -4,14 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $route
- * @property string|null $summary
- * @property string|null $description
- * @property Operation[]|null $operations
- * @property Server[]|null $servers
- * @property Parameter[]|null $parameters
- */
 class PathItem extends BaseObject
 {
     protected string|null $route = null;
@@ -27,8 +19,7 @@ class PathItem extends BaseObject
     /** @var Parameter[]|null */
     protected array|null $parameters = null;
 
-    /** @return static */
-    public function route(string|null $route): self
+    public function route(string|null $route): static
     {
         $instance = clone $this;
 
@@ -37,8 +28,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function summary(string|null $summary): self
+    public function summary(string|null $summary): static
     {
         $instance = clone $this;
 
@@ -47,8 +37,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -57,12 +46,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Operation[] $operation
-     *
-     * @return static
-     */
-    public function operations(Operation ...$operation): self
+    public function operations(Operation ...$operation): static
     {
         $instance = clone $this;
 
@@ -71,12 +55,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Server[] $server
-     *
-     * @return static
-     */
-    public function servers(Server ...$server): self
+    public function servers(Server ...$server): static
     {
         $instance = clone $this;
 
@@ -85,12 +64,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Parameter[] $parameter
-     *
-     * @return static
-     */
-    public function parameters(Parameter ...$parameter): self
+    public function parameters(Parameter ...$parameter): static
     {
         $instance = clone $this;
 

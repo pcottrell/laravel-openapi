@@ -13,7 +13,7 @@ class Operation extends ParentOperation
      * You should only send one security requirement per operation.
      * If you send more than one, the first one will be used.
      */
-    public function security(SecurityRequirement ...$securityRequirement): self
+    public function security(SecurityRequirement ...$securityRequirement): static
     {
         $instance = clone $this;
 

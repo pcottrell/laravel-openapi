@@ -4,13 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property int|null $statusCode
- * @property string|null $description
- * @property Header[]|null $headers
- * @property MediaType[]|null $content
- * @property Link[]|null $links
- */
 class Response extends BaseObject
 {
     protected int|null $statusCode = null;
@@ -25,16 +18,14 @@ class Response extends BaseObject
     /** @var Link[]|null */
     protected array|null $links = null;
 
-    /** @return static */
-    public static function ok(string|null $objectId = null): self
+    public static function ok(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(200)
             ->description('OK');
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -43,8 +34,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function statusCode(int|null $statusCode): self
+    public function statusCode(int|null $statusCode): static
     {
         $instance = clone $this;
 
@@ -53,92 +43,77 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public static function created(string|null $objectId = null): self
+    public static function created(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(201)
             ->description('Created');
     }
 
-    /** @return static */
-    public static function movedPermanently(string|null $objectId = null): self
+    public static function movedPermanently(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(301)
             ->description('Moved Permanently');
     }
 
-    /** @return static */
-    public static function movedTemporarily(string|null $objectId = null): self
+    public static function movedTemporarily(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(302)
             ->description('Moved Temporarily');
     }
 
-    /** @return static */
-    public static function badRequest(string|null $objectId = null): self
+    public static function badRequest(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(400)
             ->description('Bad Request');
     }
 
-    /** @return static */
-    public static function unauthorized(string|null $objectId = null): self
+    public static function unauthorized(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(401)
             ->description('Unauthorized');
     }
 
-    /** @return static */
-    public static function forbidden(string|null $objectId = null): self
+    public static function forbidden(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(403)
             ->description('Forbidden');
     }
 
-    /** @return static */
-    public static function notFound(string|null $objectId = null): self
+    public static function notFound(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(404)
             ->description('Not Found');
     }
 
-    /** @return static */
-    public static function unprocessableEntity(string|null $objectId = null): self
+    public static function unprocessableEntity(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(422)
             ->description('Unprocessable Entity');
     }
 
-    /** @return static */
-    public static function tooManyRequests(string|null $objectId = null): self
+    public static function tooManyRequests(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(429)
             ->description('Too Many Requests');
     }
 
-    /** @return static */
-    public static function internalServerError(string|null $objectId = null): self
+    public static function internalServerError(string|null $objectId = null): static
     {
         return static::create($objectId)
             ->statusCode(500)
             ->description('Internal Server Error');
     }
 
-    /**
-     * @param Header[] $header
-     *
-     * @return static
-     */
-    public function headers(Header ...$header): self
+    public function headers(Header ...$header): static
     {
         $instance = clone $this;
 
@@ -147,12 +122,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param MediaType[] $mediaType
-     *
-     * @return static
-     */
-    public function content(MediaType ...$mediaType): self
+    public function content(MediaType ...$mediaType): static
     {
         $instance = clone $this;
 
@@ -161,12 +131,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Link[] $link
-     *
-     * @return static
-     */
-    public function links(Link ...$link): self
+    public function links(Link ...$link): static
     {
         $instance = clone $this;
 

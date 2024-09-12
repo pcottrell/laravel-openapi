@@ -4,13 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $name
- * @property string|null $namespace
- * @property string|null $prefix
- * @property bool|null $attribute
- * @property bool|null $wrapped
- */
 class Xml extends BaseObject
 {
     protected string|null $name = null;
@@ -19,8 +12,7 @@ class Xml extends BaseObject
     protected bool|null $attribute = null;
     protected bool|null $wrapped = null;
 
-    /** @return static */
-    public function name(string|null $name): self
+    public function name(string|null $name): static
     {
         $instance = clone $this;
 
@@ -29,8 +21,7 @@ class Xml extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function namespace(string|null $namespace): self
+    public function namespace(string|null $namespace): static
     {
         $instance = clone $this;
 
@@ -39,8 +30,7 @@ class Xml extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function prefix(string|null $prefix): self
+    public function prefix(string|null $prefix): static
     {
         $instance = clone $this;
 
@@ -49,8 +39,7 @@ class Xml extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function attribute(bool|null $attribute = true): self
+    public function attribute(bool|null $attribute = true): static
     {
         $instance = clone $this;
 
@@ -59,8 +48,7 @@ class Xml extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function wrapped(bool|null $wrapped = true): self
+    public function wrapped(bool|null $wrapped = true): static
     {
         $instance = clone $this;
 

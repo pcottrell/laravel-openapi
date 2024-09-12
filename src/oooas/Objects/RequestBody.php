@@ -4,11 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $description
- * @property MediaType[]|null $content
- * @property bool|null $required
- */
 class RequestBody extends BaseObject
 {
     protected string|null $description = null;
@@ -18,8 +13,7 @@ class RequestBody extends BaseObject
 
     protected bool|null $required = null;
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -28,12 +22,7 @@ class RequestBody extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param MediaType[] $mediaType
-     *
-     * @return static
-     */
-    public function content(MediaType ...$mediaType): self
+    public function content(MediaType ...$mediaType): static
     {
         $instance = clone $this;
 
@@ -42,8 +31,7 @@ class RequestBody extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function required(bool|null $required = true): self
+    public function required(bool|null $required = true): static
     {
         $instance = clone $this;
 

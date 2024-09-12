@@ -4,11 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string[]|null $enum
- * @property string|null $default
- * @property string|null $description
- */
 class ServerVariable extends BaseObject
 {
     /** @var string[]|null */
@@ -17,12 +12,7 @@ class ServerVariable extends BaseObject
     protected string|null $default = null;
     protected string|null $description = null;
 
-    /**
-     * @param string[] $enum
-     *
-     * @return static
-     */
-    public function enum(string ...$enum): self
+    public function enum(string ...$enum): static
     {
         $instance = clone $this;
 
@@ -31,8 +21,7 @@ class ServerVariable extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function default(string|null $default): self
+    public function default(string|null $default): static
     {
         $instance = clone $this;
 
@@ -41,8 +30,7 @@ class ServerVariable extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 

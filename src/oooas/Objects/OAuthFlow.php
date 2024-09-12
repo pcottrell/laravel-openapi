@@ -5,13 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $flow
- * @property string|null $authorizationUrl
- * @property string|null $tokenUrl
- * @property string|null $refreshUrl
- * @property array|null $scopes
- */
 class OAuthFlow extends BaseObject
 {
     public const FLOW_IMPLICIT = 'implicit';
@@ -25,8 +18,7 @@ class OAuthFlow extends BaseObject
     protected string|null $refreshUrl = null;
     protected array|null $scopes = null;
 
-    /** @return static */
-    public function flow(string|null $flow): self
+    public function flow(string|null $flow): static
     {
         $instance = clone $this;
 
@@ -35,8 +27,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function authorizationUrl(string|null $authorizationUrl): self
+    public function authorizationUrl(string|null $authorizationUrl): static
     {
         $instance = clone $this;
 
@@ -45,8 +36,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function tokenUrl(string|null $tokenUrl): self
+    public function tokenUrl(string|null $tokenUrl): static
     {
         $instance = clone $this;
 
@@ -55,8 +45,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function refreshUrl(string|null $refreshUrl): self
+    public function refreshUrl(string|null $refreshUrl): static
     {
         $instance = clone $this;
 
@@ -65,12 +54,8 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     *
-     * @throws InvalidArgumentException
-     */
-    public function scopes(array|null $scopes): self
+    /** @throws InvalidArgumentException */
+    public function scopes(array|null $scopes): static
     {
         // Ensure the scopes are string => string.
         foreach ($scopes as $key => $value) {

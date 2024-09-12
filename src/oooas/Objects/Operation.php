@@ -5,21 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property string|null $action
- * @property string[]|null $tags
- * @property string|null $summary
- * @property string|null $description
- * @property ExternalDocs|null $externalDocs
- * @property string|null $operationId
- * @property Parameter[]|null $parameters
- * @property RequestBody|null $requestBody
- * @property Response[]|null $responses
- * @property bool|null $deprecated
- * @property SecurityRequirement|SecurityRequirement[]|null $security
- * @property bool|null $noSecurity
- * @property Server[]|null $servers
- */
 class Operation extends BaseObject
 {
     public const ACTION_GET = 'get';
@@ -62,14 +47,12 @@ class Operation extends BaseObject
     /** @var PathItem[]|null */
     protected array|null $callbacks = null;
 
-    /** @return static */
-    public static function get(string|null $objectId = null): self
+    public static function get(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_GET);
     }
 
-    /** @return static */
-    public function action(string|null $action): self
+    public function action(string|null $action): static
     {
         $instance = clone $this;
 
@@ -78,50 +61,38 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public static function put(string|null $objectId = null): self
+    public static function put(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_PUT);
     }
 
-    /** @return static */
-    public static function post(string|null $objectId = null): self
+    public static function post(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_POST);
     }
 
-    /** @return static */
-    public static function delete(string|null $objectId = null): self
+    public static function delete(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_DELETE);
     }
 
-    /** @return static */
-    public static function head(string|null $objectId = null): self
+    public static function head(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_HEAD);
     }
 
-    /** @return static */
-    public static function patch(string|null $objectId = null): self
+    public static function patch(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_PATCH);
     }
 
-    /** @return static */
-    public static function trace(string|null $objectId = null): self
+    public static function trace(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_TRACE);
     }
 
-    /**
-     * @param Tag[]|string[] $tags
-     *
-     * @return static
-     *
-     * @throws InvalidArgumentException
-     */
-    public function tags(...$tags): self
+    /** @throws InvalidArgumentException */
+    public function tags(Tag|string ...$tags): static
     {
         // Only allow Tag instances and strings.
         foreach ($tags as &$tag) {
@@ -145,8 +116,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function summary(string|null $summary): self
+    public function summary(string|null $summary): static
     {
         $instance = clone $this;
 
@@ -155,8 +125,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function description(string|null $description): self
+    public function description(string|null $description): static
     {
         $instance = clone $this;
 
@@ -165,8 +134,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function externalDocs(ExternalDocs|null $externalDocs): self
+    public function externalDocs(ExternalDocs|null $externalDocs): static
     {
         $instance = clone $this;
 
@@ -175,8 +143,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function operationId(string|null $operationId): self
+    public function operationId(string|null $operationId): static
     {
         $instance = clone $this;
 
@@ -185,12 +152,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Parameter[] $parameter
-     *
-     * @return static
-     */
-    public function parameters(Parameter ...$parameter): self
+    public function parameters(Parameter ...$parameter): static
     {
         $instance = clone $this;
 
@@ -199,8 +161,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function requestBody(RequestBody|null $requestBody): self
+    public function requestBody(RequestBody|null $requestBody): static
     {
         $instance = clone $this;
 
@@ -209,12 +170,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Response[] $response
-     *
-     * @return static
-     */
-    public function responses(Response ...$response): self
+    public function responses(Response ...$response): static
     {
         $instance = clone $this;
 
@@ -223,8 +179,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function deprecated(bool|null $deprecated = true): self
+    public function deprecated(bool|null $deprecated = true): static
     {
         $instance = clone $this;
 
@@ -233,12 +188,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param SecurityRequirement[]|null $securityRequirement
-     *
-     * @return static
-     */
-    public function security(SecurityRequirement ...$securityRequirement): self
+    public function security(SecurityRequirement ...$securityRequirement): static
     {
         $instance = clone $this;
 
@@ -248,8 +198,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /** @return static */
-    public function noSecurity(bool|null $noSecurity = true): self
+    public function noSecurity(bool|null $noSecurity = true): static
     {
         $instance = clone $this;
 
@@ -258,12 +207,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param Server[] $server
-     *
-     * @return static
-     */
-    public function servers(Server ...$server): self
+    public function servers(Server ...$server): static
     {
         $instance = clone $this;
 
@@ -272,12 +216,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @param PathItem[] $pathItem
-     *
-     * @return $this
-     */
-    public function callbacks(PathItem ...$pathItem): self
+    public function callbacks(PathItem ...$pathItem): static
     {
         $instance = clone $this;
 
