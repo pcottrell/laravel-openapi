@@ -67,7 +67,7 @@ describe('MediaType', function (): void {
                     'example' => [],
                     'examples' => [
                         'ExampleName' => [],
-                        'ExampleName2' => []
+                        'ExampleName2' => [],
                     ],
                     'encoding' => [
                         'EncodingName' => [],
