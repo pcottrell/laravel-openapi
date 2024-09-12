@@ -76,6 +76,11 @@ class Operation extends BaseObject
         return static::create($objectId)->action(static::ACTION_DELETE);
     }
 
+    public static function options(string|null $objectId = null): static
+    {
+        return static::create($objectId)->action(static::ACTION_OPTIONS);
+    }
+
     public static function head(string|null $objectId = null): static
     {
         return static::create($objectId)->action(static::ACTION_HEAD);
@@ -91,27 +96,18 @@ class Operation extends BaseObject
         return static::create($objectId)->action(static::ACTION_TRACE);
     }
 
-    /** @throws InvalidArgumentException */
     public function tags(Tag|string ...$tags): static
     {
-        // Only allow Tag instances and strings.
-        foreach ($tags as &$tag) {
-            // If a Tag instance was passed in then extract its name string.
+        $allStringTags = array_map(static function ($tag) {
             if ($tag instanceof Tag) {
-                $tag = $tag->name;
-                continue;
+                return (string) $tag;
             }
-
-            if (is_string($tag)) {
-                continue;
-            }
-
-            throw new InvalidArgumentException(sprintf('The tags must either be a string or an instance of [%s].', Tag::class));
-        }
+            return $tag;
+        }, $tags);
 
         $instance = clone $this;
 
-        $instance->tags = [] !== $tags ? $tags : null;
+        $instance->tags = [] !== $allStringTags ? $allStringTags : null;
 
         return $instance;
     }
