@@ -55,7 +55,7 @@ describe('Operation', function (): void {
             'parameters' => [[]],
             'requestBody' => [],
             'responses' => [
-                'default' => []
+                'default' => [],
             ],
             'deprecated' => true,
             'security' => [

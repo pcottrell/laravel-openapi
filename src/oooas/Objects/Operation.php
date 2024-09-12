@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Operation extends BaseObject
@@ -102,6 +101,7 @@ class Operation extends BaseObject
             if ($tag instanceof Tag) {
                 return (string) $tag;
             }
+
             return $tag;
         }, $tags);
 
