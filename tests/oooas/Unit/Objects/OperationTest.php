@@ -12,26 +12,25 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Operation::class)]
-class OperationTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe('Operation', function (): void {
+    it('can be created with no parameters', function (): void {
+        $operation = new Operation();
+
+        expect($operation->toArray())->toBeEmpty();
+    });
+
+    it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
         $securityScheme = SecurityScheme::create('OAuth2')
             ->type(SecurityScheme::TYPE_OAUTH2);
-
         $callback = PathItem::create('MyEvent')
             ->route('{$request.query.callbackUrl}')
             ->operations(
-                Operation::post()->requestBody(
+                Operation::$actionMethod()->requestBody(
                     RequestBody::create()
                         ->description('something happened'),
                 ),
             );
-
         $operation = Operation::create()
             ->action(Operation::ACTION_GET)
             ->tags(Tag::create()->name('Users'))
@@ -47,58 +46,66 @@ class OperationTest extends UnitTestCase
             ->servers(Server::create())
             ->callbacks($callback);
 
-        $pathItem = PathItem::create()
-            ->operations($operation);
-
-        $this->assertEquals([
-            'get' => [
-                'tags' => ['Users'],
-                'summary' => 'Lorem ipsum',
-                'description' => 'Dolar sit amet',
-                'externalDocs' => [],
-                'operationId' => 'users.show',
-                'parameters' => [
-                    [],
-                ],
-                'requestBody' => [],
-                'responses' => [
-                    'default' => [],
-                ],
-                'deprecated' => true,
-                'security' => [
-                    [
-                        'OAuth2' => [],
-                    ],
-                ],
-                'servers' => [
-                    [],
-                ],
-                'callbacks' => [
-                    'MyEvent' => [
-                        '{$request.query.callbackUrl}' => [
-                            'post' => [
-                                'requestBody' => [
-                                    'description' => 'something happened',
-                                ],
+        expect($operation->toArray())->toEqual([
+            'tags' => ['Users'],
+            'summary' => 'Lorem ipsum',
+            'description' => 'Dolar sit amet',
+            'externalDocs' => [],
+            'operationId' => 'users.show',
+            'parameters' => [[]],
+            'requestBody' => [],
+            'responses' => [
+                'default' => []
+            ],
+            'deprecated' => true,
+            'security' => [
+                ['OAuth2' => []],
+            ],
+            'servers' => [[]],
+            'callbacks' => [
+                'MyEvent' => [
+                    '{$request.query.callbackUrl}' => [
+                        $operationName => [
+                            'requestBody' => [
+                                'description' => 'something happened',
                             ],
                         ],
                     ],
                 ],
             ],
-        ], $pathItem->toArray());
-    }
+        ]);
+    })->with([
+        'get action' => ['get', Operation::ACTION_GET],
+        'put action' => ['put', Operation::ACTION_PUT],
+        'post action' => ['post', Operation::ACTION_POST],
+        'delete action' => ['delete', Operation::ACTION_DELETE],
+        'options action' => ['options', Operation::ACTION_OPTIONS],
+        'head action' => ['head', Operation::ACTION_HEAD],
+        'patch action' => ['patch', Operation::ACTION_PATCH],
+        'trace action' => ['trace', Operation::ACTION_TRACE],
+    ]);
 
-    public function testCreateWithNoSecurityWorks(): void
-    {
+    it('can be created with now security', function (): void {
         $operation = Operation::get()
             ->noSecurity();
 
-        $pathItem = PathItem::create()->operations($operation);
+        expect($operation->toArray())->toEqual([
+            'security' => [],
+        ]);
+    });
 
-        $this->assertSame([
-            'get' => [
-                'security' => [],
-            ],
-        ], $pathItem->toArray());
-    }
-}
+    it('can accepts tags in multiple ways', function (array $tag, $expectation): void {
+        $operation = Operation::get()
+            ->tags(...$tag);
+
+        expect($operation->toArray())->toEqual([
+            'tags' => $expectation,
+        ]);
+    })->with([
+        'one string tag' => [['Users'], ['Users']],
+        'multiple string tags' => [['Users', 'Admins'], ['Users', 'Admins']],
+        'one object tag' => [[Tag::create()->name('Users')], ['Users']],
+        'multiple object tags' => [[Tag::create()->name('Users'), Tag::create()->name('Admins')], ['Users', 'Admins']],
+        'mixed tags' => [['Users', Tag::create()->name('Admins')], ['Users', 'Admins']],
+    ]);
+})->covers(Operation::class);
