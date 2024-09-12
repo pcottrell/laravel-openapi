@@ -4,31 +4,31 @@ namespace Tests\oooas\Unit\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Tag::class)]
-class TagTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe('Tag', function (): void {
+    it('can be created with no parameters', function (): void {
+        $tag = Tag::create();
+
+        expect($tag->toArray())->toBeEmpty();
+    });
+
+    it('can be created with all parameters', function (): void {
         $tag = Tag::create()
             ->name('Users')
             ->description('All user endpoints')
             ->externalDocs(ExternalDocs::create());
 
-        $openApi = OpenApi::create()
-            ->tags($tag);
+        expect($tag->toArray())->toEqual([
+            'name' => 'Users',
+            'description' => 'All user endpoints',
+            'externalDocs' => [],
+        ]);
+    });
 
-        $this->assertSame([
-            'tags' => [
-                [
-                    'name' => 'Users',
-                    'description' => 'All user endpoints',
-                    'externalDocs' => [],
-                ],
-            ],
-        ], $openApi->toArray());
-    }
-}
+    it('can be cast to string', function (): void {
+        $tag = Tag::create()
+            ->name('Users');
+
+        expect((string) $tag)->toBe('Users');
+    });
+})->covers(Tag::class);
