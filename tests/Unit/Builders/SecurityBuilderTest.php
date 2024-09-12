@@ -489,9 +489,7 @@ class SecurityBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     private static function jwtSecuritySchemeProvider(): array
     {
         return [
@@ -503,9 +501,7 @@ class SecurityBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     private static function apiKeyAuthSecuritySchemeProvider(): array
     {
         return [
@@ -516,9 +512,7 @@ class SecurityBuilderTest extends TestCase
         ];
     }
 
-    /**
-     * @return string[]
-     */
+    /** @return string[] */
     private static function bearerAuthSecuritySchemeProvider(): array
     {
         return [
@@ -847,7 +841,7 @@ class SecurityBuilderTest extends TestCase
         ]);
         $routeInformation->uri = '/example';
 
-        /** @var $builder OperationSecurityBuilder */
+        /** @var OperationSecurityBuilder $builder */
         $securityRequirementBuilder = app(OperationSecurityBuilder::class);
 
         $operation = Operation::create()

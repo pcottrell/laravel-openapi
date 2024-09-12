@@ -8,14 +8,10 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecurityRequirement extends ParentSecurityRequirement
 {
-    /**
-     * @var array<array-key, SecurityScheme|array<array-key, SecurityScheme>>
-     */
+    /** @var array<array-key, SecurityScheme|array<array-key, SecurityScheme>> */
     protected array $multiAuthSecurityScheme = [];
 
-    /**
-     * @param array<array-key, SecurityScheme|array<array-key, SecurityScheme>> $multiAuthSecurityScheme
-     */
+    /** @param array<array-key, SecurityScheme|array<array-key, SecurityScheme>> $multiAuthSecurityScheme */
     public function multiAuthSecurityScheme(array $multiAuthSecurityScheme): self
     {
         $instance = clone $this;

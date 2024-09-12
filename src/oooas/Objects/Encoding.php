@@ -15,18 +15,14 @@ class Encoding extends BaseObject
 {
     protected string|null $contentType = null;
 
-    /**
-     * @var Header[]|null
-     */
+    /** @var Header[]|null */
     protected array|null $headers = null;
 
     protected string|null $style = null;
     protected bool|null $explode = null;
     protected bool|null $allowReserved = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function contentType(string|null $contentType): self
     {
         $instance = clone $this;
@@ -50,9 +46,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function style(string|null $style): self
     {
         $instance = clone $this;
@@ -62,9 +56,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function explode(bool|null $explode = true): self
     {
         $instance = clone $this;
@@ -74,9 +66,7 @@ class Encoding extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function allowReserved(bool|null $allowReserved = true): self
     {
         $instance = clone $this;

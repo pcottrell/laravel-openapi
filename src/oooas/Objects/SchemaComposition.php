@@ -5,19 +5,13 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/**
- * @property Schema[]|null $schemas
- */
+/** @property Schema[]|null $schemas */
 abstract class SchemaComposition extends BaseObject implements SchemaContract
 {
-    /**
-     * @var Schema[]|null
-     */
+    /** @var Schema[]|null */
     protected array|null $schemas = null;
 
-    /**
-     * @param Schema[] $schema
-     */
+    /** @param Schema[] $schema */
     public function schemas(Schema ...$schema): static
     {
         $instance = clone $this;

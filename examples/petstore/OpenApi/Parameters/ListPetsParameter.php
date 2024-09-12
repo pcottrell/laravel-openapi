@@ -8,9 +8,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 class ListPetsParameter extends ParameterFactory
 {
-    /**
-     * @return Parameter[]
-     */
+    /** @return Parameter[] */
     public function build(): array
     {
         return [

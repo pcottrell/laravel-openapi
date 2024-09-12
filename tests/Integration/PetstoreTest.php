@@ -12,9 +12,7 @@ use Tests\Unit\Builders\ServerWithMultipleVariableFormatting;
 use Tests\Unit\Builders\ServerWithoutVariables;
 use Tests\Unit\Builders\ServerWithVariables;
 
-/**
- * @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml
- */
+/** @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml */
 #[CoversClass(PetController::class)]
 class PetstoreTest extends IntegrationTestCase
 {

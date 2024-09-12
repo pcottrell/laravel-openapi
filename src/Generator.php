@@ -29,9 +29,7 @@ class Generator
     ) {
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));

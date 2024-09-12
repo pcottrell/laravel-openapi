@@ -77,14 +77,10 @@ class Schema extends BaseObject implements SchemaContract
     protected int|null $exclusiveMinimum = null;
     protected int|null $multipleOf = null;
 
-    /**
-     * @var string[]|null
-     */
+    /** @var string[]|null */
     protected array|null $required = null;
 
-    /**
-     * @var SchemaContract[]|null
-     */
+    /** @var SchemaContract[]|null */
     protected array|null $properties = null;
 
     protected Schema|null $additionalProperties = null;
@@ -99,17 +95,13 @@ class Schema extends BaseObject implements SchemaContract
     protected mixed $example = null;
     protected bool|null $deprecated = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function array(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_ARRAY);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function type(string|null $type): self
     {
         $instance = clone $this;
@@ -119,49 +111,37 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function boolean(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_BOOLEAN);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function integer(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_INTEGER);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function number(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_NUMBER);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function object(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_OBJECT);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function string(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_STRING);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function title(string|null $title): self
     {
         $instance = clone $this;
@@ -171,9 +151,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -211,9 +189,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function format(string|null $format): self
     {
         $instance = clone $this;
@@ -223,9 +199,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function items(SchemaContract $schemaContract): self
     {
         $instance = clone $this;
@@ -235,9 +209,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function maxItems(int|null $maxItems): self
     {
         $instance = clone $this;
@@ -247,9 +219,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function minItems(int|null $minItems): self
     {
         $instance = clone $this;
@@ -259,9 +229,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function uniqueItems(bool|null $uniqueItems = true): self
     {
         $instance = clone $this;
@@ -271,9 +239,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function pattern(string|null $pattern): self
     {
         $instance = clone $this;
@@ -283,9 +249,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function maxLength(int|null $maxLength): self
     {
         $instance = clone $this;
@@ -295,9 +259,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function minLength(int|null $minLength): self
     {
         $instance = clone $this;
@@ -462,9 +424,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function additionalProperties(self|null $additionalProperties): self
     {
         $instance = clone $this;
@@ -474,9 +434,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function maxProperties(int|null $maxProperties): self
     {
         $instance = clone $this;
@@ -486,9 +444,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function minProperties(int|null $minProperties): self
     {
         $instance = clone $this;
@@ -498,9 +454,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function nullable(bool|null $nullable = true): self
     {
         $instance = clone $this;
@@ -510,9 +464,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function discriminator(Discriminator|null $discriminator): self
     {
         $instance = clone $this;
@@ -522,9 +474,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function readOnly(bool|null $readOnly = true): self
     {
         $instance = clone $this;
@@ -534,9 +484,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function writeOnly(bool|null $writeOnly = true): self
     {
         $instance = clone $this;
@@ -546,9 +494,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function xml(Xml|null $xml): self
     {
         $instance = clone $this;
@@ -558,9 +504,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function externalDocs(ExternalDocs|null $externalDocs): self
     {
         $instance = clone $this;
@@ -584,9 +528,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function deprecated(bool|null $deprecated = true): self
     {
         $instance = clone $this;

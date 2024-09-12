@@ -11,9 +11,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecurityRequirementBuilder
 {
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function build(string|array|null $securitySchemeFactories): SecurityRequirement
     {
         if (is_null($securitySchemeFactories) || '' === $securitySchemeFactories) {

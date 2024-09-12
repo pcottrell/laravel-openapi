@@ -27,28 +27,20 @@ class MediaType extends BaseObject
     protected SchemaContract|null $schema = null;
     protected Example|null $example = null;
 
-    /**
-     * @var Example[]|null
-     */
+    /** @var Example[]|null */
     protected array|null $examples = null;
 
-    /**
-     * @var Encoding[]|null
-     */
+    /** @var Encoding[]|null */
     protected array|null $encoding = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function json(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_JSON);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function mediaType(string|null $mediaType): self
     {
         $instance = clone $this;
@@ -58,72 +50,56 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function pdf(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_PDF);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function jpeg(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_IMAGE_JPEG);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function png(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_IMAGE_PNG);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function calendar(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_CALENDAR);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function plainText(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_PLAIN);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function xml(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_TEXT_XML);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function formUrlEncoded(string|null $objectId = null): self
     {
         return static::create($objectId)
             ->mediaType(static::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function schema(SchemaContract|null $schema): self
     {
         $instance = clone $this;
@@ -133,9 +109,7 @@ class MediaType extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function example(Example|null $example): self
     {
         $instance = clone $this;

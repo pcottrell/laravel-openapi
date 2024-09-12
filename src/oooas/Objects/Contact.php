@@ -15,9 +15,7 @@ class Contact extends BaseObject
     protected string|null $url = null;
     protected string|null $email = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function name(string|null $name): self
     {
         $instance = clone $this;
@@ -27,9 +25,7 @@ class Contact extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function url(string|null $url): self
     {
         $instance = clone $this;
@@ -39,9 +35,7 @@ class Contact extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function email(string|null $email): self
     {
         $instance = clone $this;

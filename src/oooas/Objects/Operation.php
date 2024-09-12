@@ -33,9 +33,7 @@ class Operation extends BaseObject
 
     protected string|null $action = null;
 
-    /**
-     * @var string[]|null
-     */
+    /** @var string[]|null */
     protected array|null $tags = null;
 
     protected string|null $summary = null;
@@ -43,48 +41,34 @@ class Operation extends BaseObject
     protected ExternalDocs|null $externalDocs = null;
     protected string|null $operationId = null;
 
-    /**
-     * @var Parameter[]|null
-     */
+    /** @var Parameter[]|null */
     protected array|null $parameters = null;
 
     protected RequestBody|null $requestBody = null;
 
-    /**
-     * @var Response[]|null
-     */
+    /** @var Response[]|null */
     protected array|null $responses = null;
 
     protected bool|null $deprecated = null;
 
-    /**
-     * @var SecurityRequirement|SecurityRequirement[]|null
-     */
+    /** @var SecurityRequirement|SecurityRequirement[]|null */
     protected SecurityRequirement|array|null $security = null;
 
     protected bool|null $noSecurity = null;
 
-    /**
-     * @var Server[]|null
-     */
+    /** @var Server[]|null */
     protected array|null $servers = null;
 
-    /**
-     * @var PathItem[]|null
-     */
+    /** @var PathItem[]|null */
     protected array|null $callbacks = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function get(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_GET);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function action(string|null $action): self
     {
         $instance = clone $this;
@@ -94,49 +78,37 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function put(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_PUT);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function post(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_POST);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function delete(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_DELETE);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function head(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_HEAD);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function patch(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_PATCH);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function trace(string|null $objectId = null): self
     {
         return static::create($objectId)->action(static::ACTION_TRACE);
@@ -173,9 +145,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function summary(string|null $summary): self
     {
         $instance = clone $this;
@@ -185,9 +155,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -197,9 +165,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function externalDocs(ExternalDocs|null $externalDocs): self
     {
         $instance = clone $this;
@@ -209,9 +175,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function operationId(string|null $operationId): self
     {
         $instance = clone $this;
@@ -235,9 +199,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function requestBody(RequestBody|null $requestBody): self
     {
         $instance = clone $this;
@@ -261,9 +223,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function deprecated(bool|null $deprecated = true): self
     {
         $instance = clone $this;
@@ -288,9 +248,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function noSecurity(bool|null $noSecurity = true): self
     {
         $instance = clone $this;

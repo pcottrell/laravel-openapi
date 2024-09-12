@@ -18,24 +18,16 @@ class PathItem extends BaseObject
     protected string|null $summary = null;
     protected string|null $description = null;
 
-    /**
-     * @var Operation[]|null
-     */
+    /** @var Operation[]|null */
     protected array|null $operations = null;
 
-    /**
-     * @var Server[]|null
-     */
+    /** @var Server[]|null */
     protected array|null $servers = null;
 
-    /**
-     * @var Parameter[]|null
-     */
+    /** @var Parameter[]|null */
     protected array|null $parameters = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function route(string|null $route): self
     {
         $instance = clone $this;
@@ -45,9 +37,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function summary(string|null $summary): self
     {
         $instance = clone $this;
@@ -57,9 +47,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;

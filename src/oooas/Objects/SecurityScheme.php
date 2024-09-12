@@ -31,24 +31,18 @@ class SecurityScheme extends BaseObject
     protected string|null $scheme = null;
     protected string|null $bearerFormat = null;
 
-    /**
-     * @var OAuthFlow[]|null
-     */
+    /** @var OAuthFlow[]|null */
     protected array|null $flows = null;
 
     protected string|null $openIdConnectUrl = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function oauth2(string|null $objectId = null): self
     {
         return static::create($objectId)->type(static::TYPE_OAUTH2);
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function type(string|null $type): self
     {
         $instance = clone $this;
@@ -58,9 +52,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -70,9 +62,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function name(string|null $name): self
     {
         $instance = clone $this;
@@ -82,9 +72,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function in(string|null $in): self
     {
         $instance = clone $this;
@@ -94,9 +82,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function scheme(string|null $scheme): self
     {
         $instance = clone $this;
@@ -106,9 +92,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function bearerFormat(string|null $bearerFormat): self
     {
         $instance = clone $this;
@@ -132,9 +116,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function openIdConnectUrl(string|null $openIdConnectUrl): self
     {
         $instance = clone $this;

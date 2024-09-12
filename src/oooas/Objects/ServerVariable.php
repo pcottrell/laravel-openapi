@@ -11,9 +11,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class ServerVariable extends BaseObject
 {
-    /**
-     * @var string[]|null
-     */
+    /** @var string[]|null */
     protected array|null $enum = null;
 
     protected string|null $default = null;
@@ -33,9 +31,7 @@ class ServerVariable extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function default(string|null $default): self
     {
         $instance = clone $this;
@@ -45,9 +41,7 @@ class ServerVariable extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;

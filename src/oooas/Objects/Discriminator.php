@@ -14,9 +14,7 @@ class Discriminator extends BaseObject
     protected string|null $propertyName = null;
     protected array|null $mapping = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function propertyName(string|null $propertyName): self
     {
         $instance = clone $this;

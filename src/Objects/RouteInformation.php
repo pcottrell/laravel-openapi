@@ -30,9 +30,7 @@ class RouteInformation
 
     public Collection $actionAttributes;
 
-    /**
-     * @throws \ReflectionException
-     */
+    /** @throws \ReflectionException */
     public static function createFromRoute(Route $route): static
     {
         return tap(new static(), static function (self $instance) use ($route): void {

@@ -21,9 +21,7 @@ class Info extends BaseObject
     protected License|null $license = null;
     protected string|null $version = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function title(string|null $title): self
     {
         $instance = clone $this;
@@ -33,9 +31,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -45,9 +41,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function termsOfService(string|null $termsOfService): self
     {
         $instance = clone $this;
@@ -57,9 +51,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function contact(Contact|null $contact): self
     {
         $instance = clone $this;
@@ -69,9 +61,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function license(License|null $license): self
     {
         $instance = clone $this;
@@ -81,9 +71,7 @@ class Info extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function version(string|null $version): self
     {
         $instance = clone $this;

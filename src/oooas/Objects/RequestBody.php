@@ -13,16 +13,12 @@ class RequestBody extends BaseObject
 {
     protected string|null $description = null;
 
-    /**
-     * @var MediaType[]|null
-     */
+    /** @var MediaType[]|null */
     protected array|null $content = null;
 
     protected bool|null $required = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -46,9 +42,7 @@ class RequestBody extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function required(bool|null $required = true): self
     {
         $instance = clone $this;

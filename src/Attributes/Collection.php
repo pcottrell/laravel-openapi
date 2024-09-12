@@ -7,14 +7,19 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
 class Collection
 {
-    /** @var string|string[] */
-    public string|array $name;
+    /** @var string|class-string<\Stringable>|(string|class-string<\Stringable>)[] */
+    public readonly string|array $name;
 
     public function __construct(string|array $name = Generator::COLLECTION_DEFAULT)
     {
         $this->name = $this->prepareCollection($name);
     }
 
+    /**
+     * @param string|class-string<\Stringable>|(string|class-string<\Stringable>)[] $name
+     *
+     * @return (string|class-string<\Stringable>)[]
+     */
     private function prepareCollection(string|array $name): array
     {
         if (is_string($name)) {
@@ -24,18 +29,25 @@ class Collection
         return array_map(fn (string $item): string => $this->getString($item), $name);
     }
 
+    /** @param string|class-string<\Stringable> $name */
     private function getString(string $name): string
     {
         if ($this->isStringable($name)) {
-            /* @var class-string<\Stringable> $name */
-            return (string) (new $name());
+            return $this->stringableToString($name);
         }
 
         return $name;
     }
 
+    /** @param string|class-string<\Stringable> $name */
     private function isStringable(string $name): bool
     {
         return class_exists($name) && is_subclass_of($name, \Stringable::class);
+    }
+
+    /** @param class-string<\Stringable> $stringable */
+    private function stringableToString(string $stringable): string
+    {
+        return (string) new $stringable();
     }
 }

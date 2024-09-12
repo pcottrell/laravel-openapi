@@ -38,19 +38,13 @@ class Header extends BaseObject
     protected Schema|null $schema = null;
     protected mixed $example = null;
 
-    /**
-     * @var Example[]|null
-     */
+    /** @var Example[]|null */
     protected array|null $examples = null;
 
-    /**
-     * @var MediaType[]|null
-     */
+    /** @var MediaType[]|null */
     protected array|null $content = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -60,9 +54,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function required(bool|null $required = true): self
     {
         $instance = clone $this;
@@ -72,9 +64,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function deprecated(bool|null $deprecated = true): self
     {
         $instance = clone $this;
@@ -84,9 +74,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function allowEmptyValue(bool|null $allowEmptyValue = true): self
     {
         $instance = clone $this;
@@ -96,9 +84,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function style(string|null $style): self
     {
         $instance = clone $this;
@@ -108,9 +94,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function explode(bool|null $explode = true): self
     {
         $instance = clone $this;
@@ -120,9 +104,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function allowReserved(bool|null $allowReserved = true): self
     {
         $instance = clone $this;
@@ -132,9 +114,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function schema(SchemaContract|null $schema): self
     {
         $instance = clone $this;

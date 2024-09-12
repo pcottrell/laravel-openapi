@@ -14,14 +14,10 @@ class Server extends BaseObject
     protected string|null $url = null;
     protected string|null $description = null;
 
-    /**
-     * @var ServerVariable[]|null
-     */
+    /** @var ServerVariable[]|null */
     protected array|null $variables = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function url(string|null $url): self
     {
         $instance = clone $this;
@@ -31,9 +27,7 @@ class Server extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;

@@ -15,9 +15,7 @@ class Tag extends BaseObject
     protected string|null $description = null;
     protected ExternalDocs|null $externalDocs = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function name(string|null $name): self
     {
         $instance = clone $this;
@@ -27,9 +25,7 @@ class Tag extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -39,9 +35,7 @@ class Tag extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function externalDocs(ExternalDocs|null $externalDocs): self
     {
         $instance = clone $this;

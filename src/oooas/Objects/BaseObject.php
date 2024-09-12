@@ -46,9 +46,7 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
-    /**
-     * @return $this
-     */
+    /** @return $this */
     public function x(string $key, $value = Extensions::X_EMPTY_VALUE): static
     {
         $instance = clone $this;
@@ -89,9 +87,7 @@ abstract class BaseObject implements \JsonSerializable
         return $this->toArray();
     }
 
-    /**
-     * @throws PropertyDoesNotExistException
-     */
+    /** @throws PropertyDoesNotExistException */
     public function __get(string $name)
     {
         if (property_exists($this, $name)) {

@@ -11,9 +11,7 @@ readonly class TagBuilder
     ) {
     }
 
-    /**
-     * @return Tag[]
-     */
+    /** @return Tag[] */
     public function build(array $tagFactories): array
     {
         return $this->tagBuilder->build($tagFactories);

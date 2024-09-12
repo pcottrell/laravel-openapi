@@ -34,33 +34,23 @@ class OpenApi extends BaseObject
     protected string|null $openapi = null;
     protected Info|null $info = null;
 
-    /**
-     * @var Server[]|null
-     */
+    /** @var Server[]|null */
     protected array|null $servers = null;
 
-    /**
-     * @var PathItem[]|null
-     */
+    /** @var PathItem[]|null */
     protected array|null $paths = null;
 
     protected Components|null $components = null;
 
-    /**
-     * @var SecurityRequirement|SecurityRequirement[]|null
-     */
+    /** @var SecurityRequirement|SecurityRequirement[]|null */
     protected SecurityRequirement|array|null $security = null;
 
-    /**
-     * @var Tag[]|null
-     */
+    /** @var Tag[]|null */
     protected array|null $tags = null;
 
     protected ExternalDocs|null $externalDocs = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function openapi(string|null $openapi): self
     {
         $instance = clone $this;
@@ -70,9 +60,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function info(Info|null $info): self
     {
         $instance = clone $this;
@@ -110,9 +98,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function components(Components|null $components): self
     {
         $instance = clone $this;
@@ -150,9 +136,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function externalDocs(ExternalDocs|null $externalDocs): self
     {
         $instance = clone $this;
@@ -162,9 +146,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    /**
-     * @throws ValidationException
-     */
+    /** @throws ValidationException */
     public function validate(): void
     {
         if (!class_exists(Validator::class)) {

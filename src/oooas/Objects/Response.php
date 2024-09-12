@@ -16,24 +16,16 @@ class Response extends BaseObject
     protected int|null $statusCode = null;
     protected string|null $description = null;
 
-    /**
-     * @var Header[]|null
-     */
+    /** @var Header[]|null */
     protected array|null $headers = null;
 
-    /**
-     * @var MediaType[]|null
-     */
+    /** @var MediaType[]|null */
     protected array|null $content = null;
 
-    /**
-     * @var Link[]|null
-     */
+    /** @var Link[]|null */
     protected array|null $links = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function ok(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -41,9 +33,7 @@ class Response extends BaseObject
             ->description('OK');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -53,9 +43,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function statusCode(int|null $statusCode): self
     {
         $instance = clone $this;
@@ -65,9 +53,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function created(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -75,9 +61,7 @@ class Response extends BaseObject
             ->description('Created');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function movedPermanently(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -85,9 +69,7 @@ class Response extends BaseObject
             ->description('Moved Permanently');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function movedTemporarily(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -95,9 +77,7 @@ class Response extends BaseObject
             ->description('Moved Temporarily');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function badRequest(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -105,9 +85,7 @@ class Response extends BaseObject
             ->description('Bad Request');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function unauthorized(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -115,9 +93,7 @@ class Response extends BaseObject
             ->description('Unauthorized');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function forbidden(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -125,9 +101,7 @@ class Response extends BaseObject
             ->description('Forbidden');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function notFound(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -135,9 +109,7 @@ class Response extends BaseObject
             ->description('Not Found');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function unprocessableEntity(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -145,9 +117,7 @@ class Response extends BaseObject
             ->description('Unprocessable Entity');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function tooManyRequests(string|null $objectId = null): self
     {
         return static::create($objectId)
@@ -155,9 +125,7 @@ class Response extends BaseObject
             ->description('Too Many Requests');
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public static function internalServerError(string|null $objectId = null): self
     {
         return static::create($objectId)

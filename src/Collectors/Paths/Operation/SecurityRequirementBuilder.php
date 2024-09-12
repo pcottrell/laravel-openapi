@@ -12,9 +12,7 @@ readonly class SecurityRequirementBuilder
     ) {
     }
 
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function build(string|array|null $securitySchemeFactories): SecurityRequirement
     {
         return $this->securityRequirementBuilder->build($securitySchemeFactories);

@@ -9,8 +9,6 @@ abstract class ParameterFactory
 {
     use Referencable;
 
-    /**
-     * @return Parameter[]
-     */
+    /** @return Parameter[] */
     abstract public function build(): array;
 }

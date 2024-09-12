@@ -9,9 +9,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class OAuth2PasswordGrantSecurityScheme extends SecuritySchemeFactory
 {
-    /**
-     * @throws InvalidArgumentException
-     */
+    /** @throws InvalidArgumentException */
     public function build(): SecurityScheme
     {
         return SecurityScheme::create('OAuth2PasswordGrant')

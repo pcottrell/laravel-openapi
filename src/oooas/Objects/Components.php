@@ -17,49 +17,31 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
  */
 class Components extends BaseObject
 {
-    /**
-     * @var Schema[]|null
-     */
+    /** @var Schema[]|null */
     protected array|null $schemas = null;
 
-    /**
-     * @var Response[]|null
-     */
+    /** @var Response[]|null */
     protected array|null $responses = null;
 
-    /**
-     * @var Parameter[]|null
-     */
+    /** @var Parameter[]|null */
     protected array|null $parameters = null;
 
-    /**
-     * @var Example[]|null
-     */
+    /** @var Example[]|null */
     protected array|null $examples = null;
 
-    /**
-     * @var RequestBody[]|null
-     */
+    /** @var RequestBody[]|null */
     protected array|null $requestBodies = null;
 
-    /**
-     * @var Header[]|null
-     */
+    /** @var Header[]|null */
     protected array|null $headers = null;
 
-    /**
-     * @var SecurityScheme[]|null
-     */
+    /** @var SecurityScheme[]|null */
     protected array|null $securitySchemes = null;
 
-    /**
-     * @var Link[]|null
-     */
+    /** @var Link[]|null */
     protected array|null $links = null;
 
-    /**
-     * @var PathItem[]|null
-     */
+    /** @var PathItem[]|null */
     protected array|null $callbacks = null;
 
     /**

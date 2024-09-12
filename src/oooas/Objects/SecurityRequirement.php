@@ -13,9 +13,7 @@ class SecurityRequirement extends BaseObject
 {
     protected string|null $securityScheme = null;
 
-    /**
-     * @var string[]|null
-     */
+    /** @var string[]|null */
     protected array|null $scopes = null;
 
     /**

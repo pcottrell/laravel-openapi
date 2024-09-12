@@ -17,9 +17,7 @@ class Example extends BaseObject
     protected mixed $value = null;
     protected string|null $externalValue = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function summary(string|null $summary): self
     {
         $instance = clone $this;
@@ -29,9 +27,7 @@ class Example extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -55,9 +51,7 @@ class Example extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function externalValue(string|null $externalValue): self
     {
         $instance = clone $this;

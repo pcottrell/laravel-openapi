@@ -25,9 +25,7 @@ class OAuthFlow extends BaseObject
     protected string|null $refreshUrl = null;
     protected array|null $scopes = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function flow(string|null $flow): self
     {
         $instance = clone $this;
@@ -37,9 +35,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function authorizationUrl(string|null $authorizationUrl): self
     {
         $instance = clone $this;
@@ -49,9 +45,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function tokenUrl(string|null $tokenUrl): self
     {
         $instance = clone $this;
@@ -61,9 +55,7 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function refreshUrl(string|null $refreshUrl): self
     {
         $instance = clone $this;

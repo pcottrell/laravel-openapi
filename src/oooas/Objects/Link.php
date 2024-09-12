@@ -17,9 +17,7 @@ class Link extends BaseObject
     protected string|null $description = null;
     protected Server|null $server = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function operationRef(string|null $operationRef): self
     {
         $instance = clone $this;
@@ -29,9 +27,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function operationId(string|null $operationId): self
     {
         $instance = clone $this;
@@ -41,9 +37,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function description(string|null $description): self
     {
         $instance = clone $this;
@@ -53,9 +47,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function server(Server|null $server): self
     {
         $instance = clone $this;

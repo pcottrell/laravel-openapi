@@ -13,9 +13,7 @@ class License extends BaseObject
     protected string|null $name = null;
     protected string|null $url = null;
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function name(string|null $name): self
     {
         $instance = clone $this;
@@ -25,9 +23,7 @@ class License extends BaseObject
         return $instance;
     }
 
-    /**
-     * @return static
-     */
+    /** @return static */
     public function url(string|null $url): self
     {
         $instance = clone $this;

@@ -4,9 +4,7 @@ namespace MohammadAlavi\ObjectOrientedOAS\Utilities;
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
 
-/**
- * @internal
- */
+/** @internal */
 class Arr
 {
     public static function filter(array $array): array
