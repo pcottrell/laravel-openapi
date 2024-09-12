@@ -23,7 +23,7 @@ class ParameterBuilder
     protected function buildPath(RouteInformation $routeInformation): Collection
     {
         return $routeInformation->parameters
-            ->map(static function (array $parameter) use ($routeInformation): \MohammadAlavi\ObjectOrientedOAS\Objects\Parameter|null {
+            ->map(static function (array $parameter) use ($routeInformation): Parameter|null {
                 $schema = Schema::string();
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
