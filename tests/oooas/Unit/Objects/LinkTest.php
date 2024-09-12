@@ -1,7 +1,6 @@
 <?php
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\Link;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 
 describe('Link', function (): void {
@@ -13,18 +12,11 @@ describe('Link', function (): void {
             ->description('Some descriptions')
             ->server($server);
 
-        $response = Response::create()
-            ->links($link);
-
-        expect($response->toArray())->toEqual([
-            'links' => [
-                'LinkName' => [
-                    'operationRef' => 'testRef',
-                    'operationId' => 'testId',
-                    'description' => 'Some descriptions',
-                    'server' => $server->toArray(),
-                ],
-            ],
+        expect($link->toArray())->toEqual([
+            'operationRef' => 'testRef',
+            'operationId' => 'testId',
+            'description' => 'Some descriptions',
+            'server' => $server->toArray(),
         ]);
     });
 })->covers(Link::class);
