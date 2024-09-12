@@ -2,7 +2,6 @@
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\Encoding;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Example;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
@@ -16,7 +15,7 @@ describe('MediaType', function (): void {
             ->and($mediaType->encoding)->toBeNull();
     });
 
-    it('can be instantiated properly', function (): void {
+    it('can be instantiated with all parameters', function (): void {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
             ->schema(Schema::object())
@@ -47,7 +46,7 @@ describe('MediaType', function (): void {
         'objectId' => ['objectId'],
     ]);
 
-    it('can generate media type object', function (): void {
+    it('can be generated', function (): void {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
             ->schema(Schema::object())
@@ -55,24 +54,17 @@ describe('MediaType', function (): void {
             ->example(Example::create())
             ->encoding(Encoding::create('EncodingName'));
 
-        $response = Response::create()
-            ->content($mediaType);
-
-        expect($response->toArray())->toEqual([
-            'content' => [
-                'application/json' => [
-                    'schema' => [
-                        'type' => 'object',
-                    ],
-                    'example' => [],
-                    'examples' => [
-                        'ExampleName' => [],
-                        'ExampleName2' => []
-                    ],
-                    'encoding' => [
-                        'EncodingName' => [],
-                    ],
-                ],
+        expect($mediaType->toArray())->toEqual([
+            'schema' => [
+                'type' => 'object',
+            ],
+            'example' => [],
+            'examples' => [
+                'ExampleName' => [],
+                'ExampleName2' => [],
+            ],
+            'encoding' => [
+                'EncodingName' => [],
             ],
         ]);
     });
