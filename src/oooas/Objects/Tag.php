@@ -4,7 +4,7 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Tag extends BaseObject
+class Tag extends BaseObject implements \Stringable
 {
     protected string|null $name = null;
     protected string|null $description = null;
@@ -35,6 +35,11 @@ class Tag extends BaseObject
         $instance->externalDocs = $externalDocs;
 
         return $instance;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 
     protected function generate(): array
