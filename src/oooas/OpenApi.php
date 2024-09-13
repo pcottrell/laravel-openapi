@@ -2,9 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS;
 
-use JsonSchema\Constraints\BaseConstraint;
-use JsonSchema\Validator;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\ValidationException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
@@ -20,6 +17,7 @@ class OpenApi extends BaseObject
     public const OPENAPI_3_0_0 = '3.0.0';
     public const OPENAPI_3_0_1 = '3.0.1';
     public const OPENAPI_3_0_2 = '3.0.2';
+    public const OPENAPI_3_0_3 = '3.0.3';
 
     protected string|null $openapi = null;
     protected Info|null $info = null;
@@ -110,28 +108,6 @@ class OpenApi extends BaseObject
         $instance->externalDocs = $externalDocs;
 
         return $instance;
-    }
-
-    /** @throws ValidationException */
-    public function validate(): void
-    {
-        if (!class_exists(Validator::class)) {
-            throw new \RuntimeException('justinrainbow/json-schema should be installed for validation');
-        }
-
-        $data = BaseConstraint::arrayToObjectRecursive($this->generate());
-
-        $schema = file_get_contents(
-            realpath(__DIR__ . '/schemas/v3.0.json'),
-        );
-        $schema = json_decode($schema);
-
-        $validator = new Validator();
-        $validator->validate($data, $schema);
-
-        if (!$validator->isValid()) {
-            throw new ValidationException($validator->getErrors());
-        }
     }
 
     protected function generate(): array

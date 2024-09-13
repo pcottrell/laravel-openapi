@@ -4,7 +4,7 @@
     "title": "API Specification",
     "description": "For using the Example App API",
     "contact": {
-      "name": "GoldSpec Digital",
+      "name": "Example",
       "url": "https://example.com",
       "email": "hello@example.com"
     },
@@ -255,7 +255,7 @@
     }
   ],
   "externalDocs": {
-    "description": "GitHub Wiki",
-    "url": "https://github.com/goldspecdigital/oooas"
+    "description": "Example",
+    "url": "https://example.com"
   }
 }
