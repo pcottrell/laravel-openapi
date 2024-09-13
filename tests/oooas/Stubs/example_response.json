@@ -5,8 +5,8 @@
     "description": "For using the Example App API",
     "contact": {
       "name": "GoldSpec Digital",
-      "url": "https://goldspecdigital.com",
-      "email": "hello@goldspecdigital.com"
+      "url": "https://example.com",
+      "email": "hello@example.com"
     },
     "version": "v1"
   },

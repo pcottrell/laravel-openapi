@@ -16,7 +16,7 @@ class ExampleTest extends UnitTestCase
             ->summary('Summary ipsum')
             ->description('Description ipsum')
             ->value('Value')
-            ->externalValue('https://goldspecdigital.com/example.json');
+            ->externalValue('https://example.com/example.json');
 
         $mediaType = MediaType::json()
             ->example($example);
@@ -26,7 +26,7 @@ class ExampleTest extends UnitTestCase
                 'summary' => 'Summary ipsum',
                 'description' => 'Description ipsum',
                 'value' => 'Value',
-                'externalValue' => 'https://goldspecdigital.com/example.json',
+                'externalValue' => 'https://example.com/example.json',
             ],
         ], $mediaType->toArray());
     }

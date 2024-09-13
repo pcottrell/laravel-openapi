@@ -14,9 +14,9 @@ class OAuthFlowTest extends UnitTestCase
     {
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_AUTHORIZATION_CODE)
-            ->authorizationUrl('https://api.goldspecdigital.com/oauth/authorization')
-            ->tokenUrl('https://api.goldspecdigital.com/oauth/token')
-            ->refreshUrl('https://api.goldspecdigital.com/oauth/token')
+            ->authorizationUrl('https://api.example.com/oauth/authorization')
+            ->tokenUrl('https://api.example.com/oauth/token')
+            ->refreshUrl('https://api.example.com/oauth/token')
             ->scopes(['read:user' => 'Read the user profile']);
 
         $securityScheme = SecurityScheme::create()
@@ -25,9 +25,9 @@ class OAuthFlowTest extends UnitTestCase
         $this->assertSame([
             'flows' => [
                 'authorizationCode' => [
-                    'authorizationUrl' => 'https://api.goldspecdigital.com/oauth/authorization',
-                    'tokenUrl' => 'https://api.goldspecdigital.com/oauth/token',
-                    'refreshUrl' => 'https://api.goldspecdigital.com/oauth/token',
+                    'authorizationUrl' => 'https://api.example.com/oauth/authorization',
+                    'tokenUrl' => 'https://api.example.com/oauth/token',
+                    'refreshUrl' => 'https://api.example.com/oauth/token',
                     'scopes' => [
                         'read:user' => 'Read the user profile',
                     ],

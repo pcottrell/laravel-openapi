@@ -37,8 +37,8 @@ class OpenApiTest extends UnitTestCase
         // Factory creation method.
         $contact = Contact::create()
             ->name('GoldSpec Digital')
-            ->url('https://goldspecdigital.com')
-            ->email('hello@goldspecdigital.com');
+            ->url('https://example.com')
+            ->email('hello@example.com');
 
         // Alternative method chaining creation method.
         $info = Info::create()

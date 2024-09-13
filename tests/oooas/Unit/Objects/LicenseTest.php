@@ -14,7 +14,7 @@ class LicenseTest extends UnitTestCase
     {
         $license = License::create()
             ->name('MIT')
-            ->url('https://goldspecdigital.com');
+            ->url('https://example.com');
 
         $info = Info::create()
             ->license($license);
@@ -22,7 +22,7 @@ class LicenseTest extends UnitTestCase
         $this->assertSame([
             'license' => [
                 'name' => 'MIT',
-                'url' => 'https://goldspecdigital.com',
+                'url' => 'https://example.com',
             ],
         ], $info->toArray());
     }

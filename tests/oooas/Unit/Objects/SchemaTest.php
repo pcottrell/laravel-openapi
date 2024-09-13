@@ -31,7 +31,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -58,7 +58,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
@@ -77,7 +77,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -95,7 +95,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
@@ -120,7 +120,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -144,7 +144,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
@@ -168,7 +168,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -191,7 +191,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
@@ -218,7 +218,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -248,7 +248,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],
@@ -271,7 +271,7 @@ class SchemaTest extends UnitTestCase
             ->readOnly()
             ->writeOnly()
             ->xml(Xml::create())
-            ->externalDocs(ExternalDocs::create()->url('https://goldspecdigital.com'))
+            ->externalDocs(ExternalDocs::create()->url('https://example.com'))
             ->example(['Venus'])
             ->deprecated();
 
@@ -293,7 +293,7 @@ class SchemaTest extends UnitTestCase
                 'readOnly' => true,
                 'writeOnly' => true,
                 'xml' => [],
-                'externalDocs' => ['url' => 'https://goldspecdigital.com'],
+                'externalDocs' => ['url' => 'https://example.com'],
                 'example' => ['Venus'],
                 'deprecated' => true,
             ],

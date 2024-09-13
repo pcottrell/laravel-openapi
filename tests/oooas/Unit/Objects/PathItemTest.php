@@ -20,7 +20,7 @@ class PathItemTest extends UnitTestCase
             ->summary('User endpoints')
             ->description('Get the users')
             ->operations(Operation::get())
-            ->servers(Server::create()->url('https://goldspecdigital.com'))
+            ->servers(Server::create()->url('https://example.com'))
             ->parameters(Parameter::create()->name('Test parameter'));
 
         $openApi = OpenApi::create()
@@ -33,7 +33,7 @@ class PathItemTest extends UnitTestCase
                     'summary' => 'User endpoints',
                     'description' => 'Get the users',
                     'servers' => [
-                        ['url' => 'https://goldspecdigital.com'],
+                        ['url' => 'https://example.com'],
                     ],
                     'parameters' => [
                         ['name' => 'Test parameter'],

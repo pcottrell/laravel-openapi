@@ -17,7 +17,7 @@ class InfoTest extends UnitTestCase
         $info = Info::create()
             ->title('Pretend API')
             ->description('A pretend API')
-            ->termsOfService('https://goldspecdigital.com')
+            ->termsOfService('https://example.com')
             ->contact(Contact::create())
             ->license(License::create())
             ->version('v1');
@@ -29,7 +29,7 @@ class InfoTest extends UnitTestCase
             'info' => [
                 'title' => 'Pretend API',
                 'description' => 'A pretend API',
-                'termsOfService' => 'https://goldspecdigital.com',
+                'termsOfService' => 'https://example.com',
                 'contact' => [],
                 'license' => [],
                 'version' => 'v1',

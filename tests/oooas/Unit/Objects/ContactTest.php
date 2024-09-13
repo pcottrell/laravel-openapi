@@ -14,8 +14,8 @@ class ContactTest extends UnitTestCase
     {
         $contact = Contact::create()
             ->name('GoldSpec Digital')
-            ->url('https://goldspecdigital.com')
-            ->email('hello@goldspecdigital.com');
+            ->url('https://example.com')
+            ->email('hello@example.com');
 
         $info = Info::create()
             ->contact($contact);
@@ -23,8 +23,8 @@ class ContactTest extends UnitTestCase
         $this->assertSame([
             'contact' => [
                 'name' => 'GoldSpec Digital',
-                'url' => 'https://goldspecdigital.com',
-                'email' => 'hello@goldspecdigital.com',
+                'url' => 'https://example.com',
+                'email' => 'hello@example.com',
             ],
         ], $info->toArray());
     }
