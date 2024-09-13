@@ -27,6 +27,7 @@ describe('SecurityScheme', function (): void {
             ->openIdConnectUrl('https://example.com');
 
         expect($securityScheme->toArray())->toEqual([
+            'name' => 'OAuth2',
             'type' => 'oauth2',
             'description' => 'Standard auth',
             'in' => 'header',
