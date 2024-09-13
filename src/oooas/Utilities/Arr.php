@@ -23,7 +23,7 @@ class Arr
 
             // If the value is a specification extension, then skip the null
             // check below.
-            if (is_string($index) && 0 === mb_strpos($index, 'x-')) {
+            if (is_string($index) && Extensions::isExtension($index)) {
                 continue;
             }
 

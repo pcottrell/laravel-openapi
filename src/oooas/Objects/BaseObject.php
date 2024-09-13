@@ -44,7 +44,7 @@ abstract class BaseObject implements \JsonSerializable
     {
         Assert::stringNotEmpty($key);
 
-        if ($this->prefixed($key)) {
+        if (Extensions::isExtension($key)) {
             $key = mb_substr($key, 2);
         }
 
@@ -96,7 +96,7 @@ abstract class BaseObject implements \JsonSerializable
         }
 
         // Get a single extension.
-        if ($this->prefixed($name)) {
+        if (Extensions::isExtension($name)) {
             $key = mb_strtolower(substr_replace($name, '', 0, 2));
 
             if (isset($this->extensions[$key])) {
@@ -105,10 +105,5 @@ abstract class BaseObject implements \JsonSerializable
         }
 
         throw new PropertyDoesNotExistException(sprintf('[%s] is not a valid property.', $name));
-    }
-
-    private function prefixed(string $name, string $with = 'x-'): bool
-    {
-        return 0 === mb_strpos($name, $with);
     }
 }

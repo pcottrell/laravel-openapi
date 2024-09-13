@@ -14,6 +14,7 @@ use MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException;
 class Extensions implements \ArrayAccess
 {
     public const X_EMPTY_VALUE = 'X_EMPTY_VALUE';
+    public const EXTENSION_PREFIX = 'x-';
 
     protected array $items = [];
 
@@ -45,11 +46,11 @@ class Extensions implements \ArrayAccess
 
     protected function normalizeOffset(string $offset): string
     {
-        if (0 === mb_strpos($offset, 'x-')) {
+        if (static::isExtension($offset)) {
             return $offset;
         }
 
-        return 'x-' . $offset;
+        return static::EXTENSION_PREFIX . $offset;
     }
 
     /**
@@ -85,5 +86,10 @@ class Extensions implements \ArrayAccess
     public function toArray(): array
     {
         return $this->items;
+    }
+
+    public static function isExtension(string $value): bool
+    {
+        return 0 === mb_strpos($value, static::EXTENSION_PREFIX);
     }
 }
