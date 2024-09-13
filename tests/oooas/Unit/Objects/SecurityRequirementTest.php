@@ -2,54 +2,57 @@
 
 namespace Tests\oooas\Unit\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(SecurityRequirement::class)]
-class SecurityRequirementTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
-        $oauthFlow = OAuthFlow::create()
-            ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS)
-            ->scopes(['read:user' => 'Access all user info']);
+describe('SecurityRequirement', function (): void {
+    it('can be created with no parameters', function (): void {
+        $securityRequirement = SecurityRequirement::create();
 
-        $securityScheme = SecurityScheme::create('OAuth2')
-            ->type(SecurityScheme::TYPE_OAUTH2)
-            ->flows($oauthFlow);
+        expect($securityRequirement->toArray())->toBe(['' => []]);
+    });
 
+    it('can be created with all parameters', function (SecurityScheme|string $securityScheme, $expectation): void {
         $securityRequirement = SecurityRequirement::create()
             ->securityScheme($securityScheme)
             ->scopes('read:user');
 
-        $openApi = OpenApi::create()
-            ->security($securityRequirement);
-
-        $this->assertSame([
-            'security' => [
-                ['OAuth2' => ['read:user']],
+        expect($securityRequirement->toArray())->toEqual($expectation);
+    })->with([
+        'security object' => [
+            SecurityScheme::create('SecObj'),
+            [
+                'SecObj' => ['read:user'],
             ],
-        ], $openApi->toArray());
-    }
+        ],
+        'string security' => [
+            'SecStr',
+            [
+                'SecStr' => ['read:user'],
+            ],
+        ],
+    ]);
 
-    public function testCreateWithNoScopesWorks(): void
-    {
-        $securityScheme = SecurityScheme::create('OAuth2');
-
+    it('can be created with no scopes', function (SecurityScheme|string|null $securityScheme, array $expectation): void {
         $securityRequirement = SecurityRequirement::create()
-            ->securityScheme($securityScheme);
+        ->securityScheme($securityScheme);
 
-        $openApi = OpenApi::create()
-            ->security($securityRequirement);
+        expect($securityRequirement->toArray())->toEqual($expectation);
+    })->with([
+        'security scheme object' => [SecurityScheme::create('OAuth2'), ['OAuth2' => []]],
+        'security scheme name' => ['OAuth2', ['OAuth2' => []]],
+        // TODO: Are these two even valid OpenAPI 3.1 objects? I mean, with empty '' security name!
+        'null security scheme name' => [null, ['' => []]],
+        'empty security scheme name' => ['', ['' => []]],
+    ]);
 
-        $this->assertSame([
-            'security' => [
-                ['OAuth2' => []],
-            ],
-        ], $openApi->toArray());
-    }
-}
+    it('can be created with scopes', function (...$scopes): void {
+        $securityRequirement = SecurityRequirement::create('OAuth2')
+            ->scopes(...$scopes);
+
+        expect($securityRequirement->toArray())->toEqual(['' => $scopes]);
+    })->with([
+        'with single scope' => ['read:user'],
+        'with multiple scopes' => ['read:user', 'write:user'],
+    ]);
+})->covers(SecurityRequirement::class);
