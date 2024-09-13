@@ -8,7 +8,6 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
 
 describe('ExtensionsTest', function (): void {
     dataset('schemaDataSet', [
