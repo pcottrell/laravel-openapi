@@ -19,16 +19,17 @@ class Discriminator extends BaseObject
         return $instance;
     }
 
-    /** @throws InvalidArgumentException */
+    /**
+     * @param array<string, string> $mapping
+     *
+     * @throws InvalidArgumentException
+     */
     public function mapping(array $mapping): static
     {
-        // Ensure the mappings are string => string.
         foreach ($mapping as $key => $value) {
-            if (is_string($key) && is_string($value)) {
-                continue;
+            if (!is_string($key) || !is_string($value)) {
+                throw new InvalidArgumentException('Each mapping must have a string key and a string value.');
             }
-
-            throw new InvalidArgumentException('Each mapping must have a string key and a string value.');
         }
 
         $instance = clone $this;
