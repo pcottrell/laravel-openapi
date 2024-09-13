@@ -1,21 +1,13 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Objects\Discriminator;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
-use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOAS\Objects\OneOf;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Xml;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Schema::class)]
-class SchemaTest extends UnitTestCase
-{
-    public function testCreateArrayWithAllParametersWorks(): void
-    {
+describe('Schema', function (): void {
+    it('can create array schema with all parameters', function (): void {
         $schema = Schema::create()
             ->title('Schema title')
             ->description('Schema description')
@@ -35,38 +27,32 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
-
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'enum' => [
-                    ['Earth'],
-                    ['Venus'],
-                    ['Mars'],
-                ],
-                'default' => ['Earth'],
-                'type' => 'array',
-                'items' => ['type' => 'string'],
-                'maxItems' => 10,
-                'minItems' => 1,
-                'uniqueItems' => true,
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'enum' => [
+                ['Earth'],
+                ['Venus'],
+                ['Mars'],
             ],
-        ], $mediaType->toArray());
-    }
+            'default' => ['Earth'],
+            'type' => 'array',
+            'items' => ['type' => 'string'],
+            'maxItems' => 10,
+            'minItems' => 1,
+            'uniqueItems' => true,
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-    public function testCreateBooleanWithAllParametersWorks(): void
-    {
+    it('can create boolean schema with all parameters', function (): void {
         $schema = Schema::create()
             ->title('Schema title')
             ->description('Schema description')
@@ -81,29 +67,23 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'default' => false,
+            'type' => 'boolean',
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'default' => false,
-                'type' => 'boolean',
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
-            ],
-        ], $mediaType->toArray());
-    }
-
-    public function testCreateIntegerWithAllParametersWorks(): void
-    {
+    it('can create integer schema with all parameters', function (): void {
         $schema = Schema::create()
             ->title('Schema title')
             ->description('Schema description')
@@ -124,35 +104,29 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'default' => false,
+            'format' => 'int32',
+            'type' => 'integer',
+            'maximum' => 100,
+            'exclusiveMaximum' => 101,
+            'minimum' => 1,
+            'exclusiveMinimum' => 0,
+            'multipleOf' => 2,
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'default' => false,
-                'format' => 'int32',
-                'type' => 'integer',
-                'maximum' => 100,
-                'exclusiveMaximum' => 101,
-                'minimum' => 1,
-                'exclusiveMinimum' => 0,
-                'multipleOf' => 2,
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
-            ],
-        ], $mediaType->toArray());
-    }
-
-    public function testCreateNumberWithAllParametersWorks(): void
-    {
+    it('can create number schema with all parameters', function (): void {
         $schema = Schema::create()
             ->title('Schema title')
             ->description('Schema description')
@@ -172,36 +146,29 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'default' => false,
+            'type' => 'number',
+            'maximum' => 100,
+            'exclusiveMaximum' => 101,
+            'minimum' => 1,
+            'exclusiveMinimum' => 0,
+            'multipleOf' => 2,
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'default' => false,
-                'type' => 'number',
-                'maximum' => 100,
-                'exclusiveMaximum' => 101,
-                'minimum' => 1,
-                'exclusiveMinimum' => 0,
-                'multipleOf' => 2,
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
-            ],
-        ], $mediaType->toArray());
-    }
-
-    public function testCreateObjectWithAllParametersWorks(): void
-    {
-        $property = Schema::string('id')
-            ->format(Schema::FORMAT_UUID);
+    it('can create object schema with all parameters', function (): void {
+        $property = Schema::string('id')->format(Schema::FORMAT_UUID);
 
         $schema = Schema::create()
             ->title('Schema title')
@@ -222,41 +189,35 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
-
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'default' => false,
-                'type' => 'object',
-                'required' => ['id'],
-                'properties' => [
-                    'id' => [
-                        'type' => 'string',
-                        'format' => 'uuid',
-                    ],
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'default' => false,
+            'type' => 'object',
+            'required' => ['id'],
+            'properties' => [
+                'id' => [
+                    'type' => 'string',
+                    'format' => 'uuid',
                 ],
-                'additionalProperties' => [
-                    'type' => 'integer',
-                ],
-                'maxProperties' => 10,
-                'minProperties' => 1,
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
             ],
-        ], $mediaType->toArray());
-    }
+            'additionalProperties' => [
+                'type' => 'integer',
+            ],
+            'maxProperties' => 10,
+            'minProperties' => 1,
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-    public function testCreateStringWithAllParametersWorks(): void
-    {
+    it('can create string schema with all parameters', function (): void {
         $schema = Schema::create()
             ->title('Schema title')
             ->description('Schema description')
@@ -275,48 +236,38 @@ class SchemaTest extends UnitTestCase
             ->example(['Venus'])
             ->deprecated();
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
+        expect($schema->toArray())->toEqual([
+            'title' => 'Schema title',
+            'description' => 'Schema description',
+            'default' => false,
+            'format' => 'uuid',
+            'type' => 'string',
+            'pattern' => '/[a-zA-Z]+/',
+            'maxLength' => 10,
+            'minLength' => 1,
+            'nullable' => true,
+            'discriminator' => ['propertyName' => 'Property name'],
+            'readOnly' => true,
+            'writeOnly' => true,
+            'xml' => [],
+            'externalDocs' => ['url' => 'https://example.com'],
+            'example' => ['Venus'],
+            'deprecated' => true,
+        ]);
+    });
 
-        $this->assertEquals([
-            'schema' => [
-                'title' => 'Schema title',
-                'description' => 'Schema description',
-                'default' => false,
-                'format' => 'uuid',
-                'type' => 'string',
-                'pattern' => '/[a-zA-Z]+/',
-                'maxLength' => 10,
-                'minLength' => 1,
-                'nullable' => true,
-                'discriminator' => ['propertyName' => 'Property name'],
-                'readOnly' => true,
-                'writeOnly' => true,
-                'xml' => [],
-                'externalDocs' => ['url' => 'https://example.com'],
-                'example' => ['Venus'],
-                'deprecated' => true,
-            ],
-        ], $mediaType->toArray());
-    }
+    it('can create array schema with ref', function (): void {
+        $schema = Schema::array()->items(Schema::ref('#/components/schemas/pet'));
 
-    public function testCreateArrayWithRefWorks(): void
-    {
-        $schema = Schema::array()
-            ->items(
-                Schema::ref('#/components/schemas/pet'),
-            );
-
-        $this->assertSame([
+        expect($schema->toArray())->toEqual([
             'type' => 'array',
             'items' => [
                 '$ref' => '#/components/schemas/pet',
             ],
-        ], $schema->toArray());
-    }
+        ]);
+    });
 
-    public function testCreateObjectWithOneOfWorks(): void
-    {
+    it('can create object schema with oneOf', function (): void {
         $string = Schema::string();
         $number = Schema::number();
 
@@ -326,25 +277,31 @@ class SchemaTest extends UnitTestCase
                 OneOf::create('poly_type')->schemas($string, $number),
             );
 
-        $mediaType = MediaType::create()
-            ->schema($schema);
-
-        $this->assertSame([
-            'schema' => [
-                'type' => 'object',
-                'properties' => [
-                    'poly_type' => [
-                        'oneOf' => [
-                            [
-                                'type' => 'string',
-                            ],
-                            [
-                                'type' => 'number',
-                            ],
-                        ],
+        expect($schema->toArray())->toEqual([
+            'type' => 'object',
+            'properties' => [
+                'poly_type' => [
+                    'oneOf' => [
+                        ['type' => 'string'],
+                        ['type' => 'number'],
                     ],
                 ],
             ],
-        ], $mediaType->toArray());
-    }
-}
+        ]);
+    });
+
+    it('can create schemas using methods', function ($method, $expectation): void {
+        $schema = Schema::$method();
+
+        expect($schema->toArray())->toEqual([
+            'type' => $expectation,
+        ]);
+    })->with([
+        'array' => ['array', Schema::TYPE_ARRAY],
+        'boolean' => ['boolean', Schema::TYPE_BOOLEAN],
+        'integer' => ['integer', Schema::TYPE_INTEGER],
+        'number' => ['number', Schema::TYPE_NUMBER],
+        'object' => ['object', Schema::TYPE_OBJECT],
+        'string' => ['string', Schema::TYPE_STRING],
+    ]);
+})->covers(Schema::class);
