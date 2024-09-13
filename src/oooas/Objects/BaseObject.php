@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
 use Webmozart\Assert\Assert;
@@ -45,7 +44,7 @@ abstract class BaseObject implements \JsonSerializable
     {
         Assert::stringNotEmpty($key);
 
-        if (0 === mb_strpos($key, 'x-')) {
+        if ($this->prefixed($key)) {
             $key = mb_substr($key, 2);
         }
 
@@ -97,7 +96,7 @@ abstract class BaseObject implements \JsonSerializable
         }
 
         // Get a single extension.
-        if (!empty($name) && 0 === mb_strpos($name, 'x-')) {
+        if ($this->prefixed($name)) {
             $key = mb_strtolower(substr_replace($name, '', 0, 2));
 
             if (isset($this->extensions[$key])) {
@@ -106,5 +105,10 @@ abstract class BaseObject implements \JsonSerializable
         }
 
         throw new PropertyDoesNotExistException(sprintf('[%s] is not a valid property.', $name));
+    }
+
+    private function prefixed(string $name, string $with = 'x-'): bool
+    {
+        return 0 === mb_strpos($name, $with);
     }
 }
