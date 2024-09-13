@@ -41,10 +41,9 @@ describe('Operation', function (): void {
     });
 
     it('doesnt accept invalid security combinations', function (string|array $security): void {
-        $this->expectException(InvalidArgumentException::class);
-
-
-        new Operation(security: $security);
+        expect(function () use ($security): void {
+            new Operation(security: $security);
+        })->toThrow(InvalidArgumentException::class);
     })->with([
         [
             '',
@@ -123,17 +122,20 @@ describe('Operation', function (): void {
     });
 
     it('throws an exception when an invalid security is passed', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Operation(security: 'InvalidSecurity');
+        expect(function (): void {
+            new Operation(security: 'InvalidSecurity');
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('throws an exception when an invalid security is passed in an array', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Operation(security: ['InvalidSecurity']);
+        expect(function (): void {
+            new Operation(security: ['InvalidSecurity']);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('throws an exception when security is not an instance of SecuritySchemeFactory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Operation(security: SecuritySchemeFactoryInvalidStub::class);
+        expect(function (): void {
+            new Operation(security: SecuritySchemeFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 })->covers(Operation::class);

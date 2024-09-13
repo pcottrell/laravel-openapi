@@ -11,12 +11,14 @@ describe('Callable', function (): void {
     });
 
     it('can handle invalid factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Callback(CallbackFactoryInvalidStub::class);
+        expect(function (): void {
+            new Callback(CallbackFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle non existent factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Callback('NonExistentFactory');
+        expect(function (): void {
+            new Callback('NonExistentFactory');
+        })->toThrow(InvalidArgumentException::class);
     });
 })->covers(Callback::class);

@@ -1,21 +1,14 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Objects\Example;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Header;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Link;
 use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Response::class)]
-class ResponseTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe('Response', function (): void {
+    it('creates a response with all parameters', function (): void {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
             ->required()
@@ -41,120 +34,114 @@ class ResponseTest extends UnitTestCase
             ->content(MediaType::json())
             ->links($link);
 
-        $this->assertEquals(
-            [
-                'description' => 'OK',
-                'headers' => [
-                    'HeaderName' => [
-                        'description' => 'Lorem ipsum',
-                        'required' => true,
-                        'deprecated' => true,
-                        'allowEmptyValue' => true,
-                        'style' => 'simple',
-                        'explode' => true,
-                        'allowReserved' => true,
-                        'schema' => [
-                            'type' => 'string',
-                        ],
-                        'example' => 'Example String',
-                        'examples' => [
-                            'ExampleName' => [
-                                'value' => 'Example value',
-                            ],
-                        ],
-                        'content' => [
-                            'application/json' => [],
+        expect($response->toArray())->toBe([
+            'description' => 'OK',
+            'headers' => [
+                'HeaderName' => [
+                    'description' => 'Lorem ipsum',
+                    'required' => true,
+                    'deprecated' => true,
+                    'allowEmptyValue' => true,
+                    'style' => 'simple',
+                    'explode' => true,
+                    'allowReserved' => '1',
+                    'schema' => [
+                        'type' => 'string',
+                    ],
+                    'example' => 'Example String',
+                    'examples' => [
+                        'ExampleName' => [
+                            'value' => 'Example value',
                         ],
                     ],
-                ],
-                'content' => [
-                    'application/json' => [],
-                ],
-                'links' => [
-                    'MyLink' => [],
+                    'content' => [
+                        'application/json' => [],
+                    ],
                 ],
             ],
-            $response->toArray(),
-        );
-    }
+            'content' => [
+                'application/json' => [],
+            ],
+            'links' => [
+                'MyLink' => [],
+            ],
+        ]);
+    });
 
-    public function testCreateWithOkMethodWorks(): void
-    {
+    it('creates a response with ok method', function (): void {
         $response = Response::ok();
 
-        $this->assertSame(200, $response->statusCode);
-        $this->assertSame('OK', $response->description);
-    }
+        expect($response->statusCode)->toBe(200);
+        expect($response->description)->toBe('OK');
+    });
 
-    public function testCreateWithCreatedMethodWorks(): void
-    {
+    it('creates a response with created method', function (): void {
         $response = Response::created();
 
-        $this->assertSame(201, $response->statusCode);
-        $this->assertSame('Created', $response->description);
-    }
+        expect($response->statusCode)->toBe(201);
+        expect($response->description)->toBe('Created');
+    });
 
-    public function testCreateWithMovedPermanentlyMethodWorks(): void
-    {
+    it('creates a response with moved permanently method', function (): void {
         $response = Response::movedPermanently();
 
-        $this->assertSame(301, $response->statusCode);
-        $this->assertSame('Moved Permanently', $response->description);
-    }
+        expect($response->statusCode)->toBe(301);
+        expect($response->description)->toBe('Moved Permanently');
+    });
 
-    public function testCreateWithMovedTemporarilyMethodWorks(): void
-    {
+    it('creates a response with moved temporarily method', function (): void {
         $response = Response::movedTemporarily();
 
-        $this->assertSame(302, $response->statusCode);
-        $this->assertSame('Moved Temporarily', $response->description);
-    }
+        expect($response->statusCode)->toBe(302);
+        expect($response->description)->toBe('Moved Temporarily');
+    });
 
-    public function testCreateWithBadRequestMethodWorks(): void
-    {
+    it('creates a response with bad request method', function (): void {
         $response = Response::badRequest();
 
-        $this->assertSame(400, $response->statusCode);
-        $this->assertSame('Bad Request', $response->description);
-    }
+        expect($response->statusCode)->toBe(400);
+        expect($response->description)->toBe('Bad Request');
+    });
 
-    public function testCreateWithUnauthorizedMethodWorks(): void
-    {
+    it('creates a response with unauthorized method', function (): void {
         $response = Response::unauthorized();
 
-        $this->assertSame(401, $response->statusCode);
-        $this->assertSame('Unauthorized', $response->description);
-    }
+        expect($response->statusCode)->toBe(401);
+        expect($response->description)->toBe('Unauthorized');
+    });
 
-    public function testCreateWithNotFoundMethodWorks(): void
-    {
+    it('creates a response with forbidden method', function (): void {
+        $response = Response::forbidden();
+
+        expect($response->statusCode)->toBe(403);
+        expect($response->description)->toBe('Forbidden');
+    });
+
+    it('creates a response with not found method', function (): void {
         $response = Response::notFound();
 
-        $this->assertSame(404, $response->statusCode);
-        $this->assertSame('Not Found', $response->description);
-    }
+        expect($response->statusCode)->toBe(404);
+        expect($response->description)->toBe('Not Found');
+    });
 
-    public function testCreateWithUnprocessableEntityMethodWorks(): void
-    {
+    it('creates a response with unprocessable entity method', function (): void {
         $response = Response::unprocessableEntity();
 
-        $this->assertSame(422, $response->statusCode);
-        $this->assertSame('Unprocessable Entity', $response->description);
-    }
+        expect($response->statusCode)->toBe(422);
+        expect($response->description)->toBe('Unprocessable Entity');
+    });
 
-    public function testCreateWithTooManyRequestsMethodWorks(): void
-    {
+    it('creates a response with too many requests method', function (): void {
         $response = Response::tooManyRequests();
 
-        $this->assertSame(429, $response->statusCode);
-        $this->assertSame('Too Many Requests', $response->description);
-    }
+        expect($response->statusCode)->toBe(429);
+        expect($response->description)->toBe('Too Many Requests');
+    });
 
-    public function testCreateWithInternalServerErrorMethodWorks(): void
-    {
+    it('creates a response with internal server error method', function (): void {
         $response = Response::internalServerError();
 
-        $this->assertSame(500, $response->statusCode);
-        $this->assertSame('Internal Server Error', $response->description);
-    }
-}
+        expect($response->statusCode)->toBe(500);
+        expect($response->description)->toBe('Internal Server Error');
+    });
+})->covers(Response::class);

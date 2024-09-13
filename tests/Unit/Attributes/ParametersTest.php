@@ -11,12 +11,14 @@ describe('Parameters', function (): void {
     });
 
     it('can handle invalid factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Parameter(factory: ParametersFactoryInvalidStub::class);
+        expect(function (): void {
+            new Parameter(factory: ParametersFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle none existing factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Parameter(factory: 'NonExistentFactory');
+        expect(function (): void {
+            new Parameter(factory: 'NonExistentFactory');
+        })->toThrow(InvalidArgumentException::class);
     });
 })->covers(Parameter::class);

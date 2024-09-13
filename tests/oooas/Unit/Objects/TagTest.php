@@ -18,7 +18,7 @@ describe('Tag', function (): void {
             ->description('All user endpoints')
             ->externalDocs(ExternalDocs::create());
 
-        expect($tag->toArray())->toEqual([
+        expect($tag->toArray())->toBe([
             'name' => 'Users',
             'description' => 'All user endpoints',
             'externalDocs' => [],

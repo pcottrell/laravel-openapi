@@ -26,10 +26,10 @@ describe('SecurityScheme', function (): void {
             ->flows($oauthFlow)
             ->openIdConnectUrl('https://example.com');
 
-        expect($securityScheme->toArray())->toEqual([
-            'name' => 'OAuth2',
+        expect($securityScheme->toArray())->toBe([
             'type' => 'oauth2',
             'description' => 'Standard auth',
+            'name' => 'OAuth2',
             'in' => 'header',
             'scheme' => 'basic',
             'bearerFormat' => 'JWT',

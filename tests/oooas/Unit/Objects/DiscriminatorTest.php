@@ -17,7 +17,7 @@ describe('Discriminator', function (): void {
             ->propertyName('Discriminator Name')
             ->mapping(['key' => 'value']);
 
-        expect($discriminator->toArray())->toEqual([
+        expect($discriminator->toArray())->toBe([
             'propertyName' => 'Discriminator Name',
             'mapping' => [
                 'key' => 'value',
@@ -26,10 +26,9 @@ describe('Discriminator', function (): void {
     });
 
     it('throws an exception when mapping is not an [string => string] array', function (array $mapping): void {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Each mapping must have a string key and a string value.');
-
-        Discriminator::create()->mapping($mapping);
+        expect(function () use ($mapping): void {
+            Discriminator::create()->mapping($mapping);
+        })->toThrow(InvalidArgumentException::class, 'Each mapping must have a string key and a string value.');
     })->with([
         'no string key' => [[1 => 'value']],
         'no string value' => [['key' => 1]],

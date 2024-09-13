@@ -20,7 +20,7 @@ describe('OAuthFlow', function (): void {
             ->refreshUrl('https://api.example.com/oauth/token')
             ->scopes($scopes);
 
-        expect($oauthFlow->toArray())->toEqual([
+        expect($oauthFlow->toArray())->toBe([
             'authorizationUrl' => 'https://api.example.com/oauth/authorization',
             'tokenUrl' => 'https://api.example.com/oauth/token',
             'refreshUrl' => 'https://api.example.com/oauth/token',
@@ -38,10 +38,9 @@ describe('OAuthFlow', function (): void {
     });
 
     it('throws an exception when scopes is not an [string => string] array', function (array $scopes): void {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Each scope must have a string key and a string value.');
-
-        OAuthFlow::create()->scopes($scopes);
+        expect(function () use ($scopes): void {
+            OAuthFlow::create()->scopes($scopes);
+        })->toThrow(InvalidArgumentException::class, 'Each scope must have a string key and a string value.');
     })->with([
         'no string key' => [[1 => 'read:user']],
         'no string value' => [['read:user' => 1]],

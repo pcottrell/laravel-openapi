@@ -17,7 +17,7 @@ describe('SecurityRequirement', function (): void {
             ->securityScheme($securityScheme)
             ->scopes('read:user');
 
-        expect($securityRequirement->toArray())->toEqual($expectation);
+        expect($securityRequirement->toArray())->toBe($expectation);
     })->with([
         'security object' => [
             SecurityScheme::create('SecObj'),
@@ -37,7 +37,7 @@ describe('SecurityRequirement', function (): void {
         $securityRequirement = SecurityRequirement::create()
         ->securityScheme($securityScheme);
 
-        expect($securityRequirement->toArray())->toEqual($expectation);
+        expect($securityRequirement->toArray())->toBe($expectation);
     })->with([
         'security scheme object' => [SecurityScheme::create('OAuth2'), ['OAuth2' => []]],
         'security scheme name' => ['OAuth2', ['OAuth2' => []]],
@@ -50,7 +50,7 @@ describe('SecurityRequirement', function (): void {
         $securityRequirement = SecurityRequirement::create('OAuth2')
             ->scopes(...$scopes);
 
-        expect($securityRequirement->toArray())->toEqual(['' => $scopes]);
+        expect($securityRequirement->toArray())->toBe(['' => $scopes]);
     })->with([
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],

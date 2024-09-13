@@ -11,12 +11,14 @@ describe('RequestBody', function (): void {
     });
 
     it('can handle invalid factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new RequestBody(factory: RequestBodyFactoryInvalidStub::class);
+        expect(function (): void {
+            new RequestBody(factory: RequestBodyFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle none existing factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new RequestBody(factory: 'NonExistentFactory');
+        expect(function (): void {
+            new RequestBody(factory: 'NonExistentFactory');
+        })->toThrow(InvalidArgumentException::class);
     });
 })->covers(RequestBody::class);

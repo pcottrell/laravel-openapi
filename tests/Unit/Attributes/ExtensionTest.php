@@ -26,12 +26,14 @@ describe('Extension', function (): void {
     });
 
     it('can handle invalid factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Extension(factory: ExtensionFactoryInvalidStub::class);
+        expect(function (): void {
+            new Extension(factory: ExtensionFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle none existing factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Extension(factory: 'NonExistentFactory');
+        expect(function (): void {
+            new Extension(factory: 'NonExistentFactory');
+        })->toThrow(InvalidArgumentException::class);
     });
 })->covers(Extension::class);

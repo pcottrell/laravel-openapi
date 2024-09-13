@@ -20,7 +20,7 @@ describe('MediaType', function (): void {
             ->example(Example::create())
             ->encoding(Encoding::create('EncodingName'));
 
-        expect($mediaType->toArray())->toEqual([
+        expect($mediaType->toArray())->toBe([
             'schema' => [
                 'type' => 'object',
             ],

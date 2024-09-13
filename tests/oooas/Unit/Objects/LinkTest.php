@@ -18,7 +18,7 @@ describe('Link', function (): void {
             ->description('Some descriptions')
             ->server($server);
 
-        expect($link->toArray())->toEqual([
+        expect($link->toArray())->toBe([
             'operationRef' => 'testRef',
             'operationId' => 'testId',
             'description' => 'Some descriptions',

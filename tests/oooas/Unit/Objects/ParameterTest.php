@@ -28,7 +28,7 @@ describe('Parameter', function (): void {
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
 
-        expect($parameter->toArray())->toEqual([
+        expect($parameter->toArray())->toBe([
             'name' => 'user',
             'in' => 'path',
             'description' => 'User ID',

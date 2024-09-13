@@ -11,13 +11,15 @@ describe('Response', function (): void {
     });
 
     it('can handle invalid factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Response(factory: ResponseFactoryInvalidStub::class);
+        expect(function (): void {
+            new Response(factory: ResponseFactoryInvalidStub::class);
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle none existing factory', function (): void {
-        $this->expectException(InvalidArgumentException::class);
-        new Response(factory: 'NonExistentFactory');
+        expect(function (): void {
+            new Response(factory: 'NonExistentFactory');
+        })->toThrow(InvalidArgumentException::class);
     });
 
     it('can handle null status code', function (): void {

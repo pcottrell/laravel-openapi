@@ -27,7 +27,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'enum' => [
@@ -67,7 +67,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -104,7 +104,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -146,7 +146,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -189,7 +189,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -197,8 +197,8 @@ describe('Schema', function (): void {
             'required' => ['id'],
             'properties' => [
                 'id' => [
-                    'type' => 'string',
                     'format' => 'uuid',
+                    'type' => 'string',
                 ],
             ],
             'additionalProperties' => [
@@ -236,7 +236,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -259,7 +259,7 @@ describe('Schema', function (): void {
     it('can create array schema with ref', function (): void {
         $schema = Schema::array()->items(Schema::ref('#/components/schemas/pet'));
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'type' => 'array',
             'items' => [
                 '$ref' => '#/components/schemas/pet',
@@ -277,7 +277,7 @@ describe('Schema', function (): void {
                 OneOf::create('poly_type')->schemas($string, $number),
             );
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'type' => 'object',
             'properties' => [
                 'poly_type' => [
@@ -293,7 +293,7 @@ describe('Schema', function (): void {
     it('can create schemas using methods', function ($method, $expectation): void {
         $schema = Schema::$method();
 
-        expect($schema->toArray())->toEqual([
+        expect($schema->toArray())->toBe([
             'type' => $expectation,
         ]);
     })->with([

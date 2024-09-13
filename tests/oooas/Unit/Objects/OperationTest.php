@@ -46,7 +46,7 @@ describe('Operation', function (): void {
             ->servers(Server::create())
             ->callbacks($callback);
 
-        expect($operation->toArray())->toEqual([
+        expect($operation->toArray())->toBe([
             'tags' => ['Users'],
             'summary' => 'Lorem ipsum',
             'description' => 'Dolar sit amet',
@@ -89,7 +89,7 @@ describe('Operation', function (): void {
         $operation = Operation::get()
             ->noSecurity();
 
-        expect($operation->toArray())->toEqual([
+        expect($operation->toArray())->toBe([
             'security' => [],
         ]);
     });
@@ -98,7 +98,7 @@ describe('Operation', function (): void {
         $operation = Operation::get()
             ->tags(...$tag);
 
-        expect($operation->toArray())->toEqual([
+        expect($operation->toArray())->toBe([
             'tags' => $expectation,
         ]);
     })->with([
