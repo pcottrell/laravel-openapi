@@ -54,16 +54,19 @@ class OAuthFlow extends BaseObject
         return $instance;
     }
 
-    /** @throws InvalidArgumentException */
+    /**
+     * @param array<string, string>|null $scopes
+     *
+     * @throws InvalidArgumentException
+     */
     public function scopes(array|null $scopes): static
     {
-        // Ensure the scopes are string => string.
-        foreach ($scopes as $key => $value) {
-            if (is_string($key) && is_string($value)) {
-                continue;
+        if (is_array($scopes)) {
+            foreach ($scopes as $key => $value) {
+                if (!is_string($key) || !is_string($value)) {
+                    throw new InvalidArgumentException('Each scope must have a string key and a string value.');
+                }
             }
-
-            throw new InvalidArgumentException('Each scope must have a string key and a string value.');
         }
 
         $instance = clone $this;
