@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
 use Webmozart\Assert\Assert;
