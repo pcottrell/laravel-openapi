@@ -94,6 +94,20 @@ describe('BaseObject', function (): void {
 }');
     });
 
+    it('can be json serialized', function (): void {
+        $object = BaseObjectStub::create('test');
+
+        expect($object->jsonSerialize())->toBe([
+            'objectId' => 'test',
+        ]);
+    });
+
+    it('has a magic getter', function (): void {
+        $object = BaseObjectStub::create('test');
+
+        expect($object->objectId)->toBe('test');
+    });
+
     it('should throw an exception if property does not exist', function (): void {
         $object = BaseObjectStub::create('test');
 
