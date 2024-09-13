@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class SecurityRequirement extends BaseObject
@@ -12,15 +11,10 @@ class SecurityRequirement extends BaseObject
     /** @var string[]|null */
     protected array|null $scopes = null;
 
-    /** @throws InvalidArgumentException */
     public function securityScheme(SecurityScheme|string|null $securityScheme): static
     {
         if ($securityScheme instanceof SecurityScheme) {
             $securityScheme = $securityScheme->objectId;
-        }
-
-        if (!is_string($securityScheme) && !is_null($securityScheme)) {
-            throw new InvalidArgumentException(sprintf('The security scheme must either be an instance of [%s], a string or null.', SecurityScheme::class));
         }
 
         $instance = clone $this;
