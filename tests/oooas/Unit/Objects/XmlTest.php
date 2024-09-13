@@ -14,7 +14,7 @@ class XmlTest extends UnitTestCase
     {
         $xml = Xml::create()
             ->name('Xml name')
-            ->namespace('xsi:goldspecdigital')
+            ->namespace('xsi:example')
             ->prefix('gsd')
             ->attribute()
             ->wrapped();
@@ -26,7 +26,7 @@ class XmlTest extends UnitTestCase
             'type' => 'object',
             'xml' => [
                 'name' => 'Xml name',
-                'namespace' => 'xsi:goldspecdigital',
+                'namespace' => 'xsi:example',
                 'prefix' => 'gsd',
                 'attribute' => true,
                 'wrapped' => true,

@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;

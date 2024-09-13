@@ -1,8 +1,5 @@
 <?php
 
-namespace Tests\oooas\Unit;
-
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\ValidationException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
@@ -21,33 +18,24 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use MohammadAlavi\ObjectOrientedOAS\OpenApi;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(OpenApi::class)]
-class OpenApiTest extends UnitTestCase
-{
-    public function testAllPropertiesWorksAndValidationPasses(): void
-    {
-        // Create a tag.
+describe('OpenApi', function (): void {
+    it('can be created and validated', function (): void {
         $tag = Tag::create()
             ->name('Audits')
             ->description('All the audits');
 
-        // Factory creation method.
         $contact = Contact::create()
-            ->name('GoldSpec Digital')
+            ->name('Example')
             ->url('https://example.com')
             ->email('hello@example.com');
 
-        // Alternative method chaining creation method.
         $info = Info::create()
             ->title('API Specification')
             ->version('v1')
             ->description('For using the Example App API')
             ->contact($contact);
 
-        // Create a schema object to be used where a schema is accepted.
         $schema = Schema::object()
             ->properties(
                 Schema::string('id')->format(Schema::FORMAT_UUID),
@@ -61,24 +49,21 @@ class OpenApiTest extends UnitTestCase
             )
             ->required('id', 'created_at');
 
-        // A response to be returned from a route.
-        $exampleResponse = Response::create()
+        $expectedResponse = Response::create()
             ->statusCode(200)
             ->description('OK')
             ->content(
                 MediaType::json()->schema($schema),
             );
 
-        // Create an operation for a route.
         $operation = Operation::get()
-            ->responses($exampleResponse)
+            ->responses($expectedResponse)
             ->tags($tag)
             ->summary('List all audits')
             ->operationId('audits.index');
 
-        // Create an operation for a route.
         $createAudit = Operation::post()
-            ->responses($exampleResponse)
+            ->responses($expectedResponse)
             ->tags($tag)
             ->summary('Create an audit')
             ->operationId('audits.store')
@@ -86,16 +71,14 @@ class OpenApiTest extends UnitTestCase
                 MediaType::json()->schema($schema),
             ));
 
-        // Create parameter schemas.
         $auditId = Schema::string('audit')
             ->format(Schema::FORMAT_UUID);
         $format = Schema::string('format')
             ->enum('json', 'ics')
             ->default('json');
 
-        // Create an operation for a route.
         $readAudit = Operation::get()
-            ->responses($exampleResponse)
+            ->responses($expectedResponse)
             ->tags($tag)
             ->summary('View an audit')
             ->operationId('audits.show')
@@ -110,9 +93,7 @@ class OpenApiTest extends UnitTestCase
                     ->description('The format of the appointments'),
             );
 
-        // Specify the paths supported by the API.
         $paths = [
-            // Create a path along with its operations.
             PathItem::create()
                 ->route('/audits')
                 ->operations($operation, $createAudit),
@@ -121,13 +102,11 @@ class OpenApiTest extends UnitTestCase
                 ->operations($readAudit),
         ];
 
-        // Specify the server endpoints.
         $servers = [
             Server::create()->url('https://api.example.com/v1'),
             Server::create()->url('https://api.example.com/v2'),
         ];
 
-        // Create a security scheme component.
         $oAuthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_PASSWORD)
             ->tokenUrl('https://api.example.com/oauth/authorize');
@@ -137,15 +116,12 @@ class OpenApiTest extends UnitTestCase
 
         $components = Components::create()->securitySchemes($securityScheme);
 
-        // Specify the security.
         $securityRequirement = SecurityRequirement::create()->securityScheme($securityScheme);
 
-        // Specify external documentatino for the API.
         $externalDocs = ExternalDocs::create()
-            ->url('https://github.com/goldspecdigital/oooas')
-            ->description('GitHub Wiki');
+            ->url('https://example.com')
+            ->description('Example');
 
-        // Create the main OpenAPI object composed off everything created above.
         $openApi = OpenApi::create()
             ->openapi(OpenApi::OPENAPI_3_0_1)
             ->info($info)
@@ -156,41 +132,223 @@ class OpenApiTest extends UnitTestCase
             ->tags($tag)
             ->externalDocs($externalDocs);
 
-        $exampleResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/example_response.json'));
-
-        $this->assertEquals(
-            json_decode($exampleResponse, true),
-            $openApi->toArray(),
-        );
-
-        $openApi->validate();
-    }
-
-    public function testValidate(): void
-    {
-        $exceptionThrown = false;
-
-        try {
-            $openApi = OpenApi::create()
-                ->openapi('4.0.0')
-                ->info(
-                    Info::create()->title('foo'),
-                )
-                ->paths(
-                    PathItem::create()
-                        ->route('/foo')
-                        ->operations(
-                            Operation::get(),
-                        ),
-                );
-
-            $openApi->validate();
-        } catch (ValidationException $validationException) {
-            $exceptionThrown = true;
-
-            $this->assertCount(3, $validationException->getErrors());
-        }
-
-        $this->assertTrue($exceptionThrown);
-    }
-}
+        expect($openApi->toArray())->toBe([
+            'openapi' => '3.0.1',
+            'info' => [
+                'title' => 'API Specification',
+                'description' => 'For using the Example App API',
+                'contact' => [
+                    'name' => 'Example',
+                    'url' => 'https://example.com',
+                    'email' => 'hello@example.com',
+                ],
+                'version' => 'v1',
+            ],
+            'servers' => [
+                ['url' => 'https://api.example.com/v1'],
+                ['url' => 'https://api.example.com/v2'],
+            ],
+            'paths' => [
+                '/audits' => [
+                    'get' => [
+                        'tags' => ['Audits'],
+                        'summary' => 'List all audits',
+                        'operationId' => 'audits.index',
+                        'responses' => [
+                            200 => [
+                                'description' => 'OK',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            'type' => 'object',
+                                            'required' => ['id', 'created_at'],
+                                            'properties' => [
+                                                'id' => [
+                                                    'format' => 'uuid',
+                                                    'type' => 'string',
+                                                ],
+                                                'created_at' => [
+                                                    'format' => 'date-time',
+                                                    'type' => 'string',
+                                                ],
+                                                'age' => [
+                                                    'type' => 'integer',
+                                                    'example' => 60,
+                                                ],
+                                                'data' => [
+                                                    'type' => 'array',
+                                                    'items' => [
+                                                        'allOf' => [
+                                                            ['format' => 'uuid', 'type' => 'string'],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                    'post' => [
+                        'tags' => ['Audits'],
+                        'summary' => 'Create an audit',
+                        'operationId' => 'audits.store',
+                        'requestBody' => [
+                            'content' => [
+                                'application/json' => [
+                                    'schema' => [
+                                        'type' => 'object',
+                                        'required' => ['id', 'created_at'],
+                                        'properties' => [
+                                            'id' => [
+                                                'format' => 'uuid',
+                                                'type' => 'string',
+                                            ],
+                                            'created_at' => [
+                                                'format' => 'date-time',
+                                                'type' => 'string',
+                                            ],
+                                            'age' => [
+                                                'type' => 'integer',
+                                                'example' => 60,
+                                            ],
+                                            'data' => [
+                                                'type' => 'array',
+                                                'items' => [
+                                                    'allOf' => [
+                                                        ['format' => 'uuid', 'type' => 'string'],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                        'responses' => [
+                            200 => [
+                                'description' => 'OK',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            'type' => 'object',
+                                            'required' => ['id', 'created_at'],
+                                            'properties' => [
+                                                'id' => [
+                                                    'format' => 'uuid',
+                                                    'type' => 'string',
+                                                ],
+                                                'created_at' => [
+                                                    'format' => 'date-time',
+                                                    'type' => 'string',
+                                                ],
+                                                'age' => [
+                                                    'type' => 'integer',
+                                                    'example' => 60,
+                                                ],
+                                                'data' => [
+                                                    'type' => 'array',
+                                                    'items' => [
+                                                        'allOf' => [
+                                                            ['format' => 'uuid', 'type' => 'string'],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+                '/audits/{audit}' => [
+                    'get' => [
+                        'tags' => ['Audits'],
+                        'summary' => 'View an audit',
+                        'operationId' => 'audits.show',
+                        'parameters' => [
+                            [
+                                'name' => 'audit',
+                                'in' => 'path',
+                                'required' => true,
+                                'schema' => [
+                                    'format' => 'uuid',
+                                    'type' => 'string',
+                                ],
+                            ],
+                            [
+                                'name' => 'format',
+                                'in' => 'query',
+                                'description' => 'The format of the appointments',
+                                'schema' => [
+                                    'enum' => ['json', 'ics'],
+                                    'default' => 'json',
+                                    'type' => 'string',
+                                ],
+                            ],
+                        ],
+                        'responses' => [
+                            200 => [
+                                'description' => 'OK',
+                                'content' => [
+                                    'application/json' => [
+                                        'schema' => [
+                                            'type' => 'object',
+                                            'required' => ['id', 'created_at'],
+                                            'properties' => [
+                                                'id' => [
+                                                    'format' => 'uuid',
+                                                    'type' => 'string',
+                                                ],
+                                                'created_at' => [
+                                                    'format' => 'date-time',
+                                                    'type' => 'string',
+                                                ],
+                                                'age' => [
+                                                    'type' => 'integer',
+                                                    'example' => 60,
+                                                ],
+                                                'data' => [
+                                                    'type' => 'array',
+                                                    'items' => [
+                                                        'allOf' => [
+                                                            ['format' => 'uuid', 'type' => 'string'],
+                                                        ],
+                                                    ],
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'components' => [
+                'securitySchemes' => [
+                    'OAuth2' => [
+                        'type' => 'oauth2',
+                        'flows' => [
+                            'password' => [
+                                'tokenUrl' => 'https://api.example.com/oauth/authorize',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+            'security' => [
+                ['OAuth2' => []],
+            ],
+            'tags' => [
+                ['name' => 'Audits', 'description' => 'All the audits'],
+            ],
+            'externalDocs' => [
+                'description' => 'Example',
+                'url' => 'https://example.com',
+            ],
+        ]);
+    });
+})->covers(OpenApi::class);

@@ -13,7 +13,7 @@ class ContactTest extends UnitTestCase
     public function testCreateWithAllParametersWorks(): void
     {
         $contact = Contact::create()
-            ->name('GoldSpec Digital')
+            ->name('Example')
             ->url('https://example.com')
             ->email('hello@example.com');
 
@@ -22,7 +22,7 @@ class ContactTest extends UnitTestCase
 
         $this->assertSame([
             'contact' => [
-                'name' => 'GoldSpec Digital',
+                'name' => 'Example',
                 'url' => 'https://example.com',
                 'email' => 'hello@example.com',
             ],

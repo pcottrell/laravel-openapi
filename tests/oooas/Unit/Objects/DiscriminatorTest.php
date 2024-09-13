@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Discriminator;
 

@@ -1,7 +1,5 @@
 <?php
 
-namespace Tests\oooas\Unit\Objects;
-
 use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
