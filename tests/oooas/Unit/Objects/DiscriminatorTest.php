@@ -2,31 +2,48 @@
 
 namespace Tests\oooas\Unit\Objects;
 
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Discriminator;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Discriminator::class)]
-class DiscriminatorTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe('Discriminator', function (): void {
+    it('can be created with no parameters', function (): void {
+        $discriminator = Discriminator::create();
+
+        expect($discriminator->toArray())->toBeEmpty();
+    });
+
+    it('can be created with all parameters', function (): void {
         $discriminator = Discriminator::create()
             ->propertyName('Discriminator Name')
             ->mapping(['key' => 'value']);
 
-        $schema = Schema::object()
-            ->discriminator($discriminator);
-
-        $this->assertSame([
-            'type' => 'object',
-            'discriminator' => [
-                'propertyName' => 'Discriminator Name',
-                'mapping' => [
-                    'key' => 'value',
-                ],
+        expect($discriminator->toArray())->toEqual([
+            'propertyName' => 'Discriminator Name',
+            'mapping' => [
+                'key' => 'value',
             ],
-        ], $schema->toArray());
-    }
-}
+        ]);
+    });
+
+    it('throws an exception when mapping is not an [string => string] array', function (array $mapping): void {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Each mapping must have a string key and a string value.');
+
+        Discriminator::create()->mapping($mapping);
+    })->with([
+        'no string key' => [[1 => 'value']],
+        'no string value' => [['key' => 1]],
+    ]);
+
+    it('will have no mapping if an empty array is passed', function (): void {
+        $discriminator = Discriminator::create()->mapping([]);
+
+        expect($discriminator->toArray())->toBeEmpty();
+    });
+
+    it('can be create with default (no mapping) mapping', function (): void {
+        $discriminator = Discriminator::create();
+
+        expect($discriminator->toArray())->toBeEmpty();
+    });
+})->covers(Discriminator::class);
