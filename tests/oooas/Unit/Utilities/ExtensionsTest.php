@@ -1,98 +1,99 @@
 <?php
 
-namespace Tests\oooas\Unit\Utilities;
-
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use Tests\UnitTestCase;
 
-#[CoversClass(Extensions::class)]
-class ExtensionsTest extends UnitTestCase
-{
-    public static function schemasDataProvider(): \Iterator
-    {
-        yield [Components::class];
-        yield [Operation::class];
-        yield [PathItem::class];
-        yield [Response::class];
-        yield [Schema::class];
-    }
+describe('ExtensionsTest', function (): void {
+    it('normalizes extension', function (string $key, string $expecNormalizedKey): void {
+        $extensions = new Extensions();
+        $extensions->offsetSet($key, 'value');
 
-    #[DataProvider('schemasDataProvider')]
-    public function testCreateWithExtensions(string $schema): void
-    {
-        $object = $schema::create()
-            ->x('key', 'value')
-            ->x('x-foo', 'bar')
-            ->x('x-baz', null)
-            ->x('x-array', Schema::array()->items(Schema::string()));
+        expect($extensions->offsetGet($expecNormalizedKey))->toBe('value');
+    })->with([
+        ['testA', 'x-testA'],
+        ['x-testB', 'x-testB'],
+    ]);
 
-        $this->assertEquals([
-            'x-key' => 'value',
-            'x-foo' => 'bar',
-            'x-baz' => null,
-            'x-array' => Schema::array()->items(Schema::string()),
-        ], $object->toArray());
+    it('checks if extension exists', function (): void {
+        $extensions = new Extensions();
 
-        $this->assertSame(
-            '{"x-key":"value","x-foo":"bar","x-baz":null,"x-array":{"type":"array","items":{"type":"string"}}}',
-            $object->toJson(),
+        expect($extensions->offsetExists('test'))->toBeFalse();
+    });
+
+    it('checks if extension exists with x-', function (): void {
+        $extensions = new Extensions();
+
+        expect($extensions->offsetExists('x-test'))->toBeFalse();
+    });
+
+    it('gets extension', function (): void {
+        $extensions = new Extensions();
+
+        $extensions['test'] = 'test';
+
+        expect($extensions->offsetGet('test'))->toBe('test');
+    });
+
+    it('gets extension with x-', function (): void {
+        $extensions = new Extensions();
+
+        $extensions['x-test'] = 'test';
+
+        expect($extensions->offsetGet('x-test'))->toBe('test');
+    });
+
+    it('sets extension', function (): void {
+        $extensions = new Extensions();
+
+        $extensions['test'] = 'test';
+
+        expect($extensions->offsetGet('test'))->toBe('test');
+    });
+
+    it('sets extension with x-', function (): void {
+        $extensions = new Extensions();
+
+        $extensions['x-test'] = 'test';
+
+        expect($extensions->offsetGet('x-test'))->toBe('test');
+    });
+
+    it('throws exception if extension does not exist', function (): void {
+        $extensions = new Extensions();
+
+        expect(fn () => $extensions->offsetGet('test'))->toThrow(
+            MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException::class,
+            '[test] is not a valid extension.',
         );
-    }
+    });
 
-    public function testCanUnsetExtensions(): void
-    {
-        $object = Schema::create()
-            ->x('key', 'value')
-            ->x('x-foo', 'bar')
-            ->x('x-baz', null);
+    it('throws exception if extension does not exist with x-', function (): void {
+        $extensions = new Extensions();
 
-        $object = $object->x('key');
+        expect(fn () => $extensions->offsetGet('x-test'))->toThrow(
+            MohammadAlavi\ObjectOrientedOAS\Exceptions\ExtensionDoesNotExistException::class,
+            '[x-test] is not a valid extension.',
+        );
+    });
 
-        $this->assertEquals([
-            'x-foo' => 'bar',
-            'x-baz' => null,
-        ], $object->toArray());
+    it('silently ignores non-existing offset when unsetting', function (): void {
+        $extensions = new Extensions();
 
-        $this->assertSame('{"x-foo":"bar","x-baz":null}', $object->toJson());
-    }
+        expect(isset($extensions['nonexistent']))->toBeFalse();
 
-    #[DataProvider('schemasDataProvider')]
-    public function testGetSingleExtension(string $schema): void
-    {
-        $object = $schema::create()->x('foo', 'bar');
+        unset($extensions['nonexistent']);
 
-        $this->assertSame('bar', $object->{'x-foo'});
-    }
+        expect($extensions->offsetExists('test'))->toBeFalse();
+    });
 
-    #[DataProvider('schemasDataProvider')]
-    public function testGetSingleExtensionDoesNotExist(string $schema): void
-    {
-        $object = $schema::create()->x('foo', 'bar');
+    it('can be converted to array', function (): void {
+        $extensions = new Extensions();
+        $extensions['test'] = 'test';
 
-        $this->expectException(PropertyDoesNotExistException::class);
-        $this->expectExceptionMessage('[x-key] is not a valid property');
-        $this->assertSame('bar', $object->{'x-key'});
-    }
+        expect($extensions->toArray())->toBe(['x-test' => 'test']);
+    });
 
-    #[DataProvider('schemasDataProvider')]
-    public function testGetAllExtensions(string $schema): void
-    {
-        $object = $schema::create();
-
-        $this->assertSame([], $object->x);
-
-        $object = $object
-            ->x('key', 'value')
-            ->x('foo', 'bar');
-
-        $this->assertSame(['x-key' => 'value', 'x-foo' => 'bar'], $object->x);
-    }
-}
+    it('can guess if a string is an extension', function (): void {
+        expect(Extensions::isExtension('x-test'))->toBeTrue();
+        expect(Extensions::isExtension('test'))->toBeFalse();
+    });
+})->covers(Extensions::class);
