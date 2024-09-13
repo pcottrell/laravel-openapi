@@ -4,36 +4,44 @@ namespace Tests\oooas\Unit\Utilities;
 
 use MohammadAlavi\ObjectOrientedOAS\OpenApi;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Arr::class)]
-class ArrTest extends UnitTestCase
-{
-    public function testNullValuesAreRemovedFromArray(): void
-    {
+describe('ArrTest', function (): void {
+    it('removes null values', function (): void {
         $array = ['test' => null];
 
         $array = Arr::filter($array);
 
-        $this->assertCount(0, $array);
-    }
+        expect($array)->toBeEmpty();
+    });
 
-    public function testNonNullValuesRemain(): void
-    {
+    it('keeps non-null values', function (): void {
+        $openApi = OpenApi::create();
         $array = [
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => OpenApi::create(),
+            'object' => $openApi,
         ];
 
         $array = Arr::filter($array);
 
-        $this->assertCount(4, $array);
-        $this->assertArrayHasKey('false', $array);
-        $this->assertArrayHasKey('0', $array);
-        $this->assertArrayHasKey('string', $array);
-        $this->assertArrayHasKey('object', $array);
-    }
-}
+        expect($array)->toBe([
+            'false' => false,
+            '0' => 0,
+            'string' => 'string',
+            'object' => $openApi,
+        ]);
+    });
+
+    it('skips specification extensions', function (): void {
+        $array = [
+            'x-test' => null,
+        ];
+
+        $array = Arr::filter($array);
+
+        expect($array)->toBe([
+            'x-test' => null,
+        ]);
+    });
+})->covers(Arr::class);
