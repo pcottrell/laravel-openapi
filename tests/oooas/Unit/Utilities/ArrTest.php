@@ -15,12 +15,11 @@ describe('ArrTest', function (): void {
     });
 
     it('keeps non-null values', function (): void {
-        $openApi = OpenApi::create();
         $array = [
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => $openApi,
+            'object' => OpenApi::create(),
         ];
 
         $array = Arr::filter($array);
@@ -29,7 +28,7 @@ describe('ArrTest', function (): void {
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => $openApi,
+            'object' => [],
         ]);
     });
 
