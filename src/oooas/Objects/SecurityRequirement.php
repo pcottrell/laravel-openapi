@@ -15,12 +15,10 @@ class SecurityRequirement extends BaseObject
     /** @throws InvalidArgumentException */
     public function securityScheme(SecurityScheme|string|null $securityScheme): static
     {
-        // If a SecurityScheme instance passed in, then use its Object ID.
         if ($securityScheme instanceof SecurityScheme) {
             $securityScheme = $securityScheme->objectId;
         }
 
-        // If the $securityScheme is not a string or null, then thrown an exception.
         if (!is_string($securityScheme) && !is_null($securityScheme)) {
             throw new InvalidArgumentException(sprintf('The security scheme must either be an instance of [%s], a string or null.', SecurityScheme::class));
         }
