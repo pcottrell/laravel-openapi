@@ -2,8 +2,10 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
+use Webmozart\Assert\Assert;
 
 /** @property array|null $x */
 abstract class BaseObject implements \JsonSerializable
@@ -41,11 +43,13 @@ abstract class BaseObject implements \JsonSerializable
 
     public function x(string $key, $value = Extensions::X_EMPTY_VALUE): static
     {
-        $instance = clone $this;
+        Assert::stringNotEmpty($key);
 
         if (0 === mb_strpos($key, 'x-')) {
             $key = mb_substr($key, 2);
         }
+
+        $instance = clone $this;
 
         $instance->extensions[$key] = $value;
 
@@ -93,7 +97,7 @@ abstract class BaseObject implements \JsonSerializable
         }
 
         // Get a single extension.
-        if (0 === mb_strpos($name, 'x-')) {
+        if (!empty($name) && 0 === mb_strpos($name, 'x-')) {
             $key = mb_strtolower(substr_replace($name, '', 0, 2));
 
             if (isset($this->extensions[$key])) {
