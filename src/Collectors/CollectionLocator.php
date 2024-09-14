@@ -10,14 +10,14 @@ use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 /**
  * Collects all classes that have the Collection attribute with the given collection name.
  */
-final readonly class ClassCollector
+final readonly class CollectionLocator
 {
     public function __construct(
         private array $directories,
     ) {
     }
 
-    public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
+    public function find(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return collect($this->directories)
             ->map(static function (string $directory): array {

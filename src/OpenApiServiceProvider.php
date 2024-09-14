@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
-use MohammadAlavi\LaravelOpenApi\Collectors\ClassCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\Component\CallbackCollector;
 use MohammadAlavi\LaravelOpenApi\Collectors\Component\RequestBodyCollector;
 use MohammadAlavi\LaravelOpenApi\Collectors\Component\ResponseCollector;
@@ -26,15 +26,15 @@ class OpenApiServiceProvider extends ServiceProvider
             'openapi',
         );
 
-        $this->app->singleton(CallbackCollector::class, fn (Application $application): CallbackCollector => new CallbackCollector(new ClassCollector($this->getPathsFromConfig('callbacks'))));
+        $this->app->singleton(CallbackCollector::class, fn (Application $application): CallbackCollector => new CallbackCollector(new CollectionLocator($this->getPathsFromConfig('callbacks'))));
 
-        $this->app->singleton(RequestBodyCollector::class, fn (Application $application): RequestBodyCollector => new RequestBodyCollector(new ClassCollector($this->getPathsFromConfig('request_bodies'))));
+        $this->app->singleton(RequestBodyCollector::class, fn (Application $application): RequestBodyCollector => new RequestBodyCollector(new CollectionLocator($this->getPathsFromConfig('request_bodies'))));
 
-        $this->app->singleton(ResponseCollector::class, fn (Application $application): ResponseCollector => new ResponseCollector(new ClassCollector($this->getPathsFromConfig('responses'))));
+        $this->app->singleton(ResponseCollector::class, fn (Application $application): ResponseCollector => new ResponseCollector(new CollectionLocator($this->getPathsFromConfig('responses'))));
 
-        $this->app->singleton(SchemaCollector::class, fn (Application $application): SchemaCollector => new SchemaCollector(new ClassCollector($this->getPathsFromConfig('schemas'))));
+        $this->app->singleton(SchemaCollector::class, fn (Application $application): SchemaCollector => new SchemaCollector(new CollectionLocator($this->getPathsFromConfig('schemas'))));
 
-        $this->app->singleton(SecuritySchemeCollector::class, fn (Application $application): SecuritySchemeCollector => new SecuritySchemeCollector(new ClassCollector($this->getPathsFromConfig('security_schemes'))));
+        $this->app->singleton(SecuritySchemeCollector::class, fn (Application $application): SecuritySchemeCollector => new SecuritySchemeCollector(new CollectionLocator($this->getPathsFromConfig('security_schemes'))));
 
         $this->app->singleton(Generator::class, static function (Application $application): Generator {
             $config = config('openapi');

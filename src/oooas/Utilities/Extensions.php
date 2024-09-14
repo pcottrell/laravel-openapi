@@ -53,6 +53,11 @@ class Extensions implements \ArrayAccess
         return static::EXTENSION_PREFIX . $offset;
     }
 
+    public static function isExtension(string $value): bool
+    {
+        return 0 === mb_strpos($value, static::EXTENSION_PREFIX);
+    }
+
     /**
      * Offset to set.
      *
@@ -86,10 +91,5 @@ class Extensions implements \ArrayAccess
     public function toArray(): array
     {
         return $this->items;
-    }
-
-    public static function isExtension(string $value): bool
-    {
-        return 0 === mb_strpos($value, static::EXTENSION_PREFIX);
     }
 }

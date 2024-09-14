@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\Collectors\ClassCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
@@ -14,13 +14,13 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 final readonly class CallbackCollector
 {
     public function __construct(
-        private ClassCollector $classCollector,
+        private CollectionLocator $collectionLocator,
     ) {
     }
 
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
-        return $this->classCollector->collect($collection)
+        return $this->collectionLocator->find($collection)
             ->filter(static fn ($class): bool => is_a($class, CallbackFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function ($class) {
                 /** @var CallbackFactory $instance */

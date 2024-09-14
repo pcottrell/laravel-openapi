@@ -32,7 +32,6 @@ describe('ExtensionsTest', function (): void {
             'x-baz' => null,
             'x-array' => $arraySchema,
         ])->and($object->toJson())->toBe('{"x-key":"value","x-foo":"bar","x-baz":null,"x-array":{"type":"array","items":{"type":"string"}}}');
-
     })->with('schemaDataSet');
 
     it('can unset extensions', function (): void {
@@ -47,7 +46,6 @@ describe('ExtensionsTest', function (): void {
             'x-foo' => 'bar',
             'x-baz' => null,
         ])->and($object->toJson())->toBe('{"x-foo":"bar","x-baz":null}');
-
     });
 
     it('gets single extension', function (string $schema): void {
