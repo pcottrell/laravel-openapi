@@ -8,9 +8,9 @@ use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\IntegrationTestCase;
-use Tests\Unit\Builders\ServerWithMultipleVariableFormatting;
-use Tests\Unit\Builders\ServerWithoutVariables;
-use Tests\Unit\Builders\ServerWithVariables;
+use Tests\Unit\Collectors\ServerWithMultipleVariableFormatting;
+use Tests\Unit\Collectors\ServerWithoutVariables;
+use Tests\Unit\Collectors\ServerWithVariables;
 
 /** @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml */
 #[CoversClass(PetController::class)]

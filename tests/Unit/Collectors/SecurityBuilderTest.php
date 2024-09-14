@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Builders;
+namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;

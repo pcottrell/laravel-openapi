@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Builders\Components\Stubs;
+namespace Tests\Unit\Collectors\Components\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 

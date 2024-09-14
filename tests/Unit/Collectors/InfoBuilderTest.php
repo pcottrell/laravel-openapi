@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Builders;
+namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
