@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter as ParameterAttribute;

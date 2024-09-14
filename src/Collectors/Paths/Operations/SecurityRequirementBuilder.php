@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations;
 
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;

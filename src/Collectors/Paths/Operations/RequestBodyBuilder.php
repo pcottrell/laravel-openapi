@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
