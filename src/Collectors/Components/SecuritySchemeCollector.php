@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Components;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;

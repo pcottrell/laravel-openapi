@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
-use MohammadAlavi\LaravelOpenApi\Collectors\Component\RequestBodyCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Components\RequestBodyCollector;
 use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 
 describe('RequestBodyCollector', function (): void {

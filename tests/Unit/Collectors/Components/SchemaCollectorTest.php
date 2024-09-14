@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
-use MohammadAlavi\LaravelOpenApi\Collectors\Component\SchemaCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Components\SchemaCollector;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 describe('SchemaCollector', function (): void {

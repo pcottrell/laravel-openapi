@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
-use MohammadAlavi\LaravelOpenApi\Collectors\Component\ResponseCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Components\ResponseCollector;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
 describe('ResponseCollector', function (): void {

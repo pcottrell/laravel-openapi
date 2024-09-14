@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
-use MohammadAlavi\LaravelOpenApi\Collectors\Component\CallbackCollector;
+use MohammadAlavi\LaravelOpenApi\Collectors\Components\CallbackCollector;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
 describe('CallbackCollector', function (): void {

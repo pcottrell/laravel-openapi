@@ -1,14 +1,14 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
+namespace MohammadAlavi\LaravelOpenApi\Collectors\Components;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-final readonly class ResponseCollector
+final readonly class RequestBodyCollector
 {
     public function __construct(
         private CollectionLocator $collectionLocator,
@@ -18,9 +18,9 @@ final readonly class ResponseCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return $this->collectionLocator->find($collection)
-            ->filter(static fn ($class): bool => is_a($class, ResponseFactory::class, true) && is_a($class, Reusable::class, true))
+            ->filter(static fn ($class): bool => is_a($class, RequestBodyFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function ($class) {
-                /** @var ResponseFactory $instance */
+                /** @var RequestBodyFactory $instance */
                 $instance = app($class);
 
                 return $instance->build();
