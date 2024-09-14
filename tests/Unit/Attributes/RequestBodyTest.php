@@ -1,18 +1,18 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
-use Tests\Doubles\Stubs\Attributes\RequestBodyFactoryInvalidStub;
-use Tests\Doubles\Stubs\Attributes\RequestBodyFactoryStub;
+use Tests\Doubles\Stubs\Attributes\RequestBodyFactoryInvalid;
+use Tests\Doubles\Stubs\Attributes\RequestBodyFactory;
 
 describe('RequestBody', function (): void {
     it('can set valid factory', function (): void {
-        $RequestBody = new RequestBody(factory: RequestBodyFactoryStub::class);
-        expect($RequestBody->factory)->toBe(RequestBodyFactoryStub::class);
+        $RequestBody = new RequestBody(factory: RequestBodyFactory::class);
+        expect($RequestBody->factory)->toBe(RequestBodyFactory::class);
     });
 
     it('can handle invalid factory', function (): void {
         expect(function (): void {
-            new RequestBody(factory: RequestBodyFactoryInvalidStub::class);
+            new RequestBody(factory: RequestBodyFactoryInvalid::class);
         })->toThrow(InvalidArgumentException::class);
     });
 

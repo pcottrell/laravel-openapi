@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory as AbstractFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
-class ExtensionFactoryStub extends ExtensionFactory
+class ExtensionFactory extends AbstractFactory
 {
     public function build(): array
     {

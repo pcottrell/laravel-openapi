@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory as AbstractFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
 
-class ParameterFactoryStub extends ParameterFactory
+class ParameterFactory extends AbstractFactory
 {
     public function build(): array
     {

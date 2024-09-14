@@ -1,18 +1,18 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
-use Tests\Doubles\Stubs\Attributes\CallbackFactoryInvalidStub;
-use Tests\Doubles\Stubs\Attributes\CallbackFactoryStub;
+use Tests\Doubles\Stubs\Attributes\CallbackFactoryInvalid;
+use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 
 describe('Callable', function (): void {
     it('can set valid factory', function (): void {
-        $callback = new Callback(CallbackFactoryStub::class);
+        $callback = new Callback(CallbackFactory::class);
         expect($callback)->toBeInstanceOf(Callback::class);
     });
 
     it('can handle invalid factory', function (): void {
         expect(function (): void {
-            new Callback(CallbackFactoryInvalidStub::class);
+            new Callback(CallbackFactoryInvalid::class);
         })->toThrow(InvalidArgumentException::class);
     });
 

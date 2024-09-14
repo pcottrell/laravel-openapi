@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory as AbstractFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
-class ResponseFactoryStub extends ResponseFactory
+class ResponseFactory extends AbstractFactory
 {
     public function build(): Response
     {

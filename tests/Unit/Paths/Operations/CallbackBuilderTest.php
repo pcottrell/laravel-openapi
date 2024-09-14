@@ -5,14 +5,14 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use Tests\Doubles\Stubs\Attributes\CallbackFactoryStub;
+use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Paths\Operations\ReusableCallbackFactory;
 
 describe('CallbackBuilder', function (): void {
     it('can be created', function (): void {
         $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
         $routeInformation->actionAttributes = collect([
-            new Callback(CallbackFactoryStub::class),
+            new Callback(CallbackFactory::class),
         ]);
         $parameterBuilder = new CallbackBuilder();
 
@@ -22,10 +22,10 @@ describe('CallbackBuilder', function (): void {
             ->and($result[0])->toBeInstanceOf(PathItem::class);
     });
 
-    it('can handle reusable callback components', function (): void {
+    it('can handle reusable components', function (): void {
         $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
         $routeInformation->actionAttributes = collect([
-            new Callback(CallbackFactoryStub::class),
+            new Callback(CallbackFactory::class),
             new Callback(ReusableCallbackFactory::class),
         ]);
         $parameterBuilder = new CallbackBuilder();

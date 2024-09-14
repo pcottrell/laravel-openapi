@@ -2,6 +2,6 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-class ParametersFactoryInvalidStub
+class ParametersFactoryInvalid
 {
 }

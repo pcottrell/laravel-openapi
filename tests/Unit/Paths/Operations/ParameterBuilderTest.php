@@ -5,14 +5,14 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Parameter as ParameterAttribute;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ParameterBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
-use Tests\Doubles\Stubs\Attributes\ParameterFactoryStub;
+use Tests\Doubles\Stubs\Attributes\ParameterFactory;
 use Tests\Doubles\Stubs\Paths\Operations\TestController;
 
 describe('ParameterBuilder', function (): void {
     it('can be created', function (): void {
         $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
         $routeInformation->actionAttributes = collect([
-            new ParameterAttribute(ParameterFactoryStub::class),
+            new ParameterAttribute(ParameterFactory::class),
         ]);
         $parameterBuilder = new ParameterBuilder();
 

@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
-use Tests\Doubles\Stubs\Attributes\SecuritySchemeFactoryInvalidStub;
-use Tests\Doubles\Stubs\Attributes\SecuritySchemeFactoryStub;
+use Tests\Doubles\Stubs\Attributes\SecuritySchemeFactoryInvalid;
+use Tests\Doubles\Stubs\Attributes\SecuritySchemeFactory;
 
 describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {
@@ -22,7 +22,7 @@ describe('Operation', function (): void {
         $operation = new Operation(
             id: 'id',
             tags: 'tags',
-            security: SecuritySchemeFactoryStub::class,
+            security: SecuritySchemeFactory::class,
             method: 'method',
             servers: 'servers',
             summary: 'summary',
@@ -32,7 +32,7 @@ describe('Operation', function (): void {
 
         expect($operation->id)->toBe('id')
             ->and($operation->tags)->toBe('tags')
-            ->and($operation->security)->toBe(SecuritySchemeFactoryStub::class)
+            ->and($operation->security)->toBe(SecuritySchemeFactory::class)
             ->and($operation->method)->toBe('method')
             ->and($operation->servers)->toBe('servers')
             ->and($operation->summary)->toBe('summary')
@@ -82,7 +82,7 @@ describe('Operation', function (): void {
             ['non-empty', [null, '']],
         ],
         [
-            ['InvalidSecurity', SecuritySchemeFactoryStub::class],
+            ['InvalidSecurity', SecuritySchemeFactory::class],
         ],
     ]);
 
@@ -102,23 +102,23 @@ describe('Operation', function (): void {
     });
 
     it('can be created with a class FQN security', function (): void {
-        $operation = new Operation(security: SecuritySchemeFactoryStub::class);
-        expect($operation->security)->toBe(SecuritySchemeFactoryStub::class);
+        $operation = new Operation(security: SecuritySchemeFactory::class);
+        expect($operation->security)->toBe(SecuritySchemeFactory::class);
     });
 
     it('can be created with an array of class FQN securities', function (): void {
-        $operation = new Operation(security: [SecuritySchemeFactoryStub::class]);
-        expect($operation->security)->toBe([SecuritySchemeFactoryStub::class]);
+        $operation = new Operation(security: [SecuritySchemeFactory::class]);
+        expect($operation->security)->toBe([SecuritySchemeFactory::class]);
     });
 
     it('can be created with an array of arrays of class FQN securities', function (): void {
-        $operation = new Operation(security: [[SecuritySchemeFactoryStub::class]]);
-        expect($operation->security)->toBe([[SecuritySchemeFactoryStub::class]]);
+        $operation = new Operation(security: [[SecuritySchemeFactory::class]]);
+        expect($operation->security)->toBe([[SecuritySchemeFactory::class]]);
     });
 
     it('can be created with a combination of class FQN and array of class FQN securities', function (): void {
-        $operation = new Operation(security: [SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
-        expect($operation->security)->toBe([SecuritySchemeFactoryStub::class, [SecuritySchemeFactoryStub::class]]);
+        $operation = new Operation(security: [SecuritySchemeFactory::class, [SecuritySchemeFactory::class]]);
+        expect($operation->security)->toBe([SecuritySchemeFactory::class, [SecuritySchemeFactory::class]]);
     });
 
     it('throws an exception when an invalid security is passed', function (): void {
@@ -135,7 +135,7 @@ describe('Operation', function (): void {
 
     it('throws an exception when security is not an instance of SecuritySchemeFactory', function (): void {
         expect(function (): void {
-            new Operation(security: SecuritySchemeFactoryInvalidStub::class);
+            new Operation(security: SecuritySchemeFactoryInvalid::class);
         })->toThrow(InvalidArgumentException::class);
     });
 })->covers(Operation::class);

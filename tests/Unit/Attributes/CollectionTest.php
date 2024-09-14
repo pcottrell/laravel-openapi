@@ -2,7 +2,7 @@
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use Tests\Doubles\Stubs\Attributes\StringableStub;
+use Tests\Doubles\Stubs\Attributes\Stringable;
 
 describe('Collection', function (): void {
     it('can fall back to default collection', function (): void {
@@ -21,12 +21,12 @@ describe('Collection', function (): void {
     });
 
     it('can accept array of stringables as collection name', function (): void {
-        $collection = new Collection([StringableStub::class]);
+        $collection = new Collection([Stringable::class]);
         expect($collection->name)->toBe(['stringable']);
     });
 
     it('can accept mixed array of strings and stringables as collection name', function (): void {
-        $collection = new Collection(['collection', StringableStub::class]);
+        $collection = new Collection(['collection', Stringable::class]);
         expect($collection->name)->toBe(['collection', 'stringable']);
     });
 })->covers(Collection::class);

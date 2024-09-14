@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory as AbstractFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
-class CallbackFactoryStub extends CallbackFactory
+class CallbackFactory extends AbstractFactory
 {
     public function build(): PathItem
     {
