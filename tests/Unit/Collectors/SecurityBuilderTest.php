@@ -13,6 +13,9 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme;
+use Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme;
+use Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme;
 use Tests\TestCase;
 
 #[CoversClass(OperationSecurityBuilder::class)]
@@ -33,9 +36,9 @@ class SecurityBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [ // available global securities (components)
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [], // applied global security
             null, // use default global securities
@@ -56,11 +59,11 @@ class SecurityBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             null,
         ];
@@ -100,30 +103,30 @@ class SecurityBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                BearerSecurityScheme::class,
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
                 [
                     // TODO: should this duplication be removed?
                     //  I don't think it is removed automatically.
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
             null,
@@ -143,10 +146,10 @@ class SecurityBuilderTest extends TestCase
                 'pathSecurity' => [],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [],
         ];
@@ -169,12 +172,12 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class, // available global securities (components)
+                JwtSecurityScheme::class, // available global securities (components)
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class, // applied global securities
+                JwtSecurityScheme::class, // applied global securities
             ],
-            \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class, // security overrides
+            JwtSecurityScheme::class, // security overrides
         ];
         yield 'Override global security - single auth class string' => [
             [
@@ -196,13 +199,13 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
-            \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+            JwtSecurityScheme::class,
         ];
         yield 'Override global security - single auth array' => [
             [
@@ -224,14 +227,14 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
         ];
         yield 'Override global security - multi-auth (and) - single auth global security' => [
@@ -256,17 +259,17 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
             ],
         ];
@@ -293,20 +296,20 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -334,19 +337,19 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -375,22 +378,22 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -419,18 +422,18 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
             ],
         ];
@@ -463,26 +466,26 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    BearerSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -537,11 +540,11 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                JwtSecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
             ],
         ];
@@ -560,10 +563,10 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
         ];
         // Both JWT and ApiKey authentication required
@@ -583,13 +586,13 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -612,15 +615,15 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
             [
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                    JwtSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
             ],
         ];
@@ -657,24 +660,24 @@ class SecurityBuilderTest extends TestCase
                 ],
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                JwtSecurityScheme::class,
+                ApiKeySecurityScheme::class,
+                BearerSecurityScheme::class,
             ],
             [
-                \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                BearerSecurityScheme::class,
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    JwtSecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme::class,
+                    BearerSecurityScheme::class,
                 ],
-                \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class,
+                JwtSecurityScheme::class,
                 [
-                    \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                    ApiKeySecurityScheme::class,
                 ],
-                \Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme::class,
+                ApiKeySecurityScheme::class,
             ],
         ];
     }
@@ -781,7 +784,7 @@ class SecurityBuilderTest extends TestCase
      */
     public function testCanBuildUpTheSecurityScheme(): void
     {
-        $jwtSecurityScheme = app(\Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class);
+        $jwtSecurityScheme = app(JwtSecurityScheme::class);
         $securityScheme = $jwtSecurityScheme->build();
 
         $components = Components::create()
@@ -791,7 +794,7 @@ class SecurityBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->multiAuthSecurity([\Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class])
+            ->multiAuthSecurity([JwtSecurityScheme::class])
             ->components($components)
             ->paths(
                 PathItem::create()
@@ -826,7 +829,7 @@ class SecurityBuilderTest extends TestCase
      */
     public function testWeCanAddOperationSecurityUsingBuilder(): void
     {
-        $jwtSecurityScheme = app(\Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class);
+        $jwtSecurityScheme = app(JwtSecurityScheme::class);
         $securityScheme = $jwtSecurityScheme->build();
 
         $components = Components::create()
@@ -836,7 +839,7 @@ class SecurityBuilderTest extends TestCase
         $routeInformation->action = 'get';
         $routeInformation->name = 'test route';
         $routeInformation->actionAttributes = collect([
-            new AttributesOperation(security: \Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme::class),
+            new AttributesOperation(security: JwtSecurityScheme::class),
         ]);
         $routeInformation->uri = '/example';
 
