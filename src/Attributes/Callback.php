@@ -9,6 +9,8 @@ class Callback
 {
     public string $factory;
 
+    // TODO: these should be made readonly and public
+    //  We should also add class-string param docs for them
     public function __construct(string $factory)
     {
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Callbacks\\' . $factory;

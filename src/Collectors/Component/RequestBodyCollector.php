@@ -3,6 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors\Component;
 
 use Illuminate\Support\Collection;
+use MohammadAlavi\LaravelOpenApi\Collectors\ClassCollector;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
