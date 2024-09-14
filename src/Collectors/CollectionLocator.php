@@ -8,7 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Helpers\ClassMapGenerator;
 
 /**
- * Collects all classes that have the Collection attribute with the given collection name.
+ * Locates all classes that have the Collection attribute with the given collection name.
  */
 final readonly class CollectionLocator
 {
