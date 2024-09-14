@@ -14,9 +14,9 @@ describe('ParameterBuilder', function (): void {
         $routeInformation->actionAttributes = collect([
             new ParameterAttribute(ParameterFactory::class),
         ]);
-        $parameterBuilder = new ParameterBuilder();
+        $builder = new ParameterBuilder();
 
-        $result = $parameterBuilder->build($routeInformation);
+        $result = $builder->build($routeInformation);
 
         expect($result)->toHaveCount(3)
             ->and($result[0])->toBeInstanceOf(Parameter::class)
@@ -28,9 +28,9 @@ describe('ParameterBuilder', function (): void {
         $routeInformation = RouteInformation::createFromRoute(Route::get('/example/{id}', static fn () => 'example'));
         $routeInformation->actionAttributes = collect();
 
-        $parameterBuilder = new ParameterBuilder();
+        $builder = new ParameterBuilder();
 
-        $result = $parameterBuilder->build($routeInformation);
+        $result = $builder->build($routeInformation);
 
         expect($result)->toHaveCount(1)
             ->and($result[0])->toBeInstanceOf(Parameter::class)
