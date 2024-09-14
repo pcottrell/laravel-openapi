@@ -16,7 +16,6 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
 class OperationBuilder
 {
@@ -32,11 +31,7 @@ class OperationBuilder
     ) {
     }
 
-    /**
-     * @param RouteInformation[]|Collection $routes
-     *
-     * @throws InvalidArgumentException
-     */
+    /** @param RouteInformation[]|Collection $routes */
     public function build(array|Collection $routes): array
     {
         $operations = [];
