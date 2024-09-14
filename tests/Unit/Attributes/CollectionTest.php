@@ -2,7 +2,7 @@
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use Tests\Stubs\Attributes\StringableStub;
+use Tests\Doubles\Stubs\Attributes\StringableStub;
 
 describe('Collection', function (): void {
     it('can fall back to default collection', function (): void {

@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
-use Tests\Stubs\Attributes\CallbackFactoryInvalidStub;
-use Tests\Stubs\Attributes\CallbackFactoryStub;
+use Tests\Doubles\Stubs\Attributes\CallbackFactoryInvalidStub;
+use Tests\Doubles\Stubs\Attributes\CallbackFactoryStub;
 
 describe('Callable', function (): void {
     it('can set valid factory', function (): void {

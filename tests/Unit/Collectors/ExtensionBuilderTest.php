@@ -27,7 +27,7 @@ class ExtensionBuilderTest extends TestCase
         /** @var ExtensionBuilder $extensionBuilder */
         $extensionBuilder = resolve(ExtensionBuilder::class);
         $extensionBuilder->build($operation, collect([
-            new Extension(factory: \Tests\Stubs\FakeExtension::class),
+            new Extension(factory: \Tests\Doubles\Stubs\FakeExtension::class),
         ]));
 
         $this->assertSame([

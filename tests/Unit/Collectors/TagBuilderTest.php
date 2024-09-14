@@ -14,7 +14,7 @@ class TagBuilderTest extends TestCase
     public static function singleTagProvider(): \Iterator
     {
         yield 'Can build tag from array with one FQCN' => [
-            [\Tests\Stubs\Tags\WithoutExternalDoc::class],
+            [\Tests\Doubles\Stubs\Tags\WithoutExternalDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -23,7 +23,7 @@ class TagBuilderTest extends TestCase
             ],
         ];
         yield 'Can build tag without external docs' => [
-            [\Tests\Stubs\Tags\WithoutExternalDoc::class],
+            [\Tests\Doubles\Stubs\Tags\WithoutExternalDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -32,7 +32,7 @@ class TagBuilderTest extends TestCase
             ],
         ];
         yield 'Can build tag with external docs' => [
-            [\Tests\Stubs\Tags\WithExternalObjectDoc::class],
+            [\Tests\Doubles\Stubs\Tags\WithExternalObjectDoc::class],
             [
                 [
                     'name' => 'PostWithExternalObjectDoc',
@@ -49,7 +49,7 @@ class TagBuilderTest extends TestCase
     public static function multiTagProvider(): \Iterator
     {
         yield 'Can build multiple tags from an array of FQCNs' => [
-            [\Tests\Stubs\Tags\WithoutExternalDoc::class, \Tests\Stubs\Tags\WithExternalObjectDoc::class],
+            [\Tests\Doubles\Stubs\Tags\WithoutExternalDoc::class, \Tests\Doubles\Stubs\Tags\WithExternalObjectDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -69,9 +69,9 @@ class TagBuilderTest extends TestCase
 
     public static function invalidTagProvider(): \Iterator
     {
-        yield [\Tests\Stubs\Tags\WithoutName::class];
-        yield [\Tests\Stubs\Tags\EmptyStringName::class];
-        yield [\Tests\Stubs\Tags\NullName::class];
+        yield [\Tests\Doubles\Stubs\Tags\WithoutName::class];
+        yield [\Tests\Doubles\Stubs\Tags\EmptyStringName::class];
+        yield [\Tests\Doubles\Stubs\Tags\NullName::class];
     }
 
     #[DataProvider('singleTagProvider')]

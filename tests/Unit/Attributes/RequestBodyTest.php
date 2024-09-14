@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
-use Tests\Stubs\Attributes\RequestBodyFactoryInvalidStub;
-use Tests\Stubs\Attributes\RequestBodyFactoryStub;
+use Tests\Doubles\Stubs\Attributes\RequestBodyFactoryInvalidStub;
+use Tests\Doubles\Stubs\Attributes\RequestBodyFactoryStub;
 
 describe('RequestBody', function (): void {
     it('can set valid factory', function (): void {

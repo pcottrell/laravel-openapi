@@ -6,10 +6,10 @@ use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Tests\Stubs\Servers\ServerWithEnum;
-use Tests\Stubs\Servers\ServerWithMultipleVariableFormatting;
-use Tests\Stubs\Servers\ServerWithoutVariables;
-use Tests\Stubs\Servers\ServerWithVariables;
+use Tests\Doubles\Stubs\Servers\ServerWithEnum;
+use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
+use Tests\Doubles\Stubs\Servers\ServerWithoutVariables;
+use Tests\Doubles\Stubs\Servers\ServerWithVariables;
 use Tests\TestCase;
 
 #[CoversClass(ServerBuilder::class)]
