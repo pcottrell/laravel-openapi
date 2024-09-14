@@ -4,11 +4,9 @@ namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
-use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\TestCase;
 
@@ -29,7 +27,7 @@ class ExtensionBuilderTest extends TestCase
         /** @var ExtensionBuilder $extensionBuilder */
         $extensionBuilder = resolve(ExtensionBuilder::class);
         $extensionBuilder->build($operation, collect([
-            new Extension(factory: FakeExtension::class),
+            new Extension(factory: \Tests\Stubs\FakeExtension::class),
         ]));
 
         $this->assertSame([
@@ -71,18 +69,5 @@ class ExtensionBuilderTest extends TestCase
                 ],
             ],
         ], $openApi->toArray());
-    }
-}
-
-class FakeExtension extends ExtensionFactory
-{
-    public function key(): string
-    {
-        return 'uuid';
-    }
-
-    public function value(): array|string|Schema|null
-    {
-        return Schema::string()->format(Schema::FORMAT_UUID);
     }
 }

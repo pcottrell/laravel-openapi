@@ -3,8 +3,6 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -16,7 +14,7 @@ class TagBuilderTest extends TestCase
     public static function singleTagProvider(): \Iterator
     {
         yield 'Can build tag from array with one FQCN' => [
-            [WithoutExternalDoc::class],
+            [\Tests\Stubs\Tags\WithoutExternalDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -25,7 +23,7 @@ class TagBuilderTest extends TestCase
             ],
         ];
         yield 'Can build tag without external docs' => [
-            [WithoutExternalDoc::class],
+            [\Tests\Stubs\Tags\WithoutExternalDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -34,7 +32,7 @@ class TagBuilderTest extends TestCase
             ],
         ];
         yield 'Can build tag with external docs' => [
-            [WithExternalObjectDoc::class],
+            [\Tests\Stubs\Tags\WithExternalObjectDoc::class],
             [
                 [
                     'name' => 'PostWithExternalObjectDoc',
@@ -51,7 +49,7 @@ class TagBuilderTest extends TestCase
     public static function multiTagProvider(): \Iterator
     {
         yield 'Can build multiple tags from an array of FQCNs' => [
-            [WithoutExternalDoc::class, WithExternalObjectDoc::class],
+            [\Tests\Stubs\Tags\WithoutExternalDoc::class, \Tests\Stubs\Tags\WithExternalObjectDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
@@ -71,9 +69,9 @@ class TagBuilderTest extends TestCase
 
     public static function invalidTagProvider(): \Iterator
     {
-        yield [WithoutName::class];
-        yield [EmptyStringName::class];
-        yield [NullName::class];
+        yield [\Tests\Stubs\Tags\WithoutName::class];
+        yield [\Tests\Stubs\Tags\EmptyStringName::class];
+        yield [\Tests\Stubs\Tags\NullName::class];
     }
 
     #[DataProvider('singleTagProvider')]
@@ -121,59 +119,5 @@ class TagBuilderTest extends TestCase
 
         $tagBuilder = app(TagBuilder::class);
         $tagBuilder->build([$invalidTag]);
-    }
-}
-
-class WithoutName extends TagFactory
-{
-    public function build(): Tag
-    {
-        return Tag::create()
-            ->description('Post Tag');
-    }
-}
-
-class EmptyStringName extends TagFactory
-{
-    public function build(): Tag
-    {
-        return Tag::create()
-            ->name('')
-            ->description('Post Tag');
-    }
-}
-
-class NullName extends TagFactory
-{
-    public function build(): Tag
-    {
-        return Tag::create()
-            ->name(null)
-            ->description('Post Tag');
-    }
-}
-
-class WithoutExternalDoc extends TagFactory
-{
-    public function build(): Tag
-    {
-        return Tag::create()
-            ->name('PostWithoutExternalDoc')
-            ->description('Post Tag');
-    }
-}
-
-class WithExternalObjectDoc extends TagFactory
-{
-    public function build(): Tag
-    {
-        return Tag::create()
-            ->name('PostWithExternalObjectDoc')
-            ->description('Post Tag')
-            ->externalDocs(
-                ExternalDocs::create()
-                    ->description('External API documentation')
-                    ->url('https://example.com/external-docs'),
-            );
     }
 }

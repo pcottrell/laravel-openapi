@@ -3,11 +3,13 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
-use MohammadAlavi\ObjectOrientedOAS\Objects\ServerVariable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Stubs\Servers\ServerWithEnum;
+use Tests\Stubs\Servers\ServerWithMultipleVariableFormatting;
+use Tests\Stubs\Servers\ServerWithoutVariables;
+use Tests\Stubs\Servers\ServerWithVariables;
 use Tests\TestCase;
 
 #[CoversClass(ServerBuilder::class)]
@@ -149,65 +151,5 @@ class ServerBuilderTest extends TestCase
         $servers = $serverBuilder->build($tagFactories);
 
         $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->toArray())->toArray());
-    }
-}
-
-class ServerWithoutVariables extends ServerFactory
-{
-    public function build(): Server
-    {
-        return Server::create()
-            ->url('https://example.com')
-            ->description('sample_description');
-    }
-}
-
-class ServerWithVariables extends ServerFactory
-{
-    public function build(): Server
-    {
-        return Server::create()
-            ->url('https://example.com')
-            ->description('sample_description')
-            ->variables(
-                ServerVariable::create('variable_name')
-                    ->default('variable_defalut')
-                    ->description('variable_description'),
-            );
-    }
-}
-
-class ServerWithEnum extends ServerFactory
-{
-    public function build(): Server
-    {
-        return Server::create()
-            ->url('https://example.com')
-            ->description('sample_description')
-            ->variables(
-                ServerVariable::create('variable_name')
-                    ->default('variable_defalut')
-                    ->description('variable_description')
-                    ->enum('A', 'B', 'C'),
-            );
-    }
-}
-
-class ServerWithMultipleVariableFormatting extends ServerFactory
-{
-    public function build(): Server
-    {
-        return Server::create()
-            ->url('https://example.com')
-            ->description('sample_description')
-            ->variables(
-                ServerVariable::create('variable_name')
-                    ->default('variable_defalut')
-                    ->description('variable_description')
-                    ->enum('A', 'B'),
-                ServerVariable::create('variable_name_B')
-                    ->default('sample')
-                    ->description('sample'),
-            );
     }
 }
