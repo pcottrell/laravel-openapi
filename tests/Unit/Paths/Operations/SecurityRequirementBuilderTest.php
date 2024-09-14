@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Unit\Collectors;
+namespace Tests\Unit\Paths\Operations;
 
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirementBuilder as OperationSecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
@@ -19,8 +19,8 @@ use Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme;
 use Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme;
 use Tests\TestCase;
 
-#[CoversClass(OperationSecurityBuilder::class)]
-class SecurityBuilderTest extends TestCase
+#[CoversClass(SecurityRequirementBuilder::class)]
+class SecurityRequirementBuilderTest extends TestCase
 {
     public static function operationSecuritySchemesDataProvider(): \Iterator
     {
@@ -839,8 +839,8 @@ class SecurityBuilderTest extends TestCase
         ]);
         $routeInformation->uri = '/example';
 
-        /** @var OperationSecurityBuilder $builder */
-        $securityRequirementBuilder = app(OperationSecurityBuilder::class);
+        /** @var SecurityRequirementBuilder $builder */
+        $securityRequirementBuilder = app(SecurityRequirementBuilder::class);
 
         $operation = Operation::create()
             ->security($securityRequirementBuilder->build($routeInformation->actionAttributes[0]->security))
