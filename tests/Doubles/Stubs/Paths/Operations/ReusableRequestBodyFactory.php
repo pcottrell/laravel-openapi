@@ -10,6 +10,6 @@ class ReusableRequestBodyFactory extends AbstractFactory implements Reusable
 {
     public function build(): RequestBody
     {
-        return RequestBody::create();
+        return RequestBody::create('test');
     }
 }

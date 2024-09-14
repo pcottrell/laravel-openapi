@@ -21,8 +21,7 @@ class ErrorValidationResponse extends ResponseFactory implements Reusable
                 ->example(['field' => ['Something is wrong with this field!']]),
         );
 
-        return Response::create('ErrorValidation')
-            ->description('Validation errors')
+        return Response::unprocessableEntity('ErrorValidation')
             ->content(
                 MediaType::json()->schema($schema),
             );

@@ -31,6 +31,6 @@ describe('RequestBodyBuilder', function (): void {
         $result = $builder->build($routeInformation);
 
         expect($result)->toBeInstanceOf(RequestBody::class)
-            ->and($result->ref)->toBe('#/components/requestBodies/' . $result->objectId);
+            ->and($result->ref)->toBe('#/components/requestBodies/test');
     });
 })->covers(RequestBodyBuilder::class);

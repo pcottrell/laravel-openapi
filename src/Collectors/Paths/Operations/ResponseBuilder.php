@@ -21,8 +21,8 @@ class ResponseBuilder
 
                 if ($factory instanceof Reusable) {
                     return Response::ref('#/components/responses/' . $response->objectId)
-                        ->statusCode($responseAttribute->statusCode)
-                        ->description($responseAttribute->description);
+                        ->statusCode($response->statusCode)
+                        ->description($response->description);
                 }
 
                 return $response;

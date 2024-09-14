@@ -38,6 +38,6 @@ describe('CallbackBuilder', function (): void {
             ->and($pathItem)->toBeInstanceOf(PathItem::class)
             ->and($pathItem->ref)->toBeNull()
             ->and($reusablePathItem)->toBeInstanceOf(PathItem::class)
-            ->and($reusablePathItem->ref)->toBe('#/components/callbacks/' . $result[0]->objectId);
+            ->and($reusablePathItem->ref)->toBe('#/components/callbacks/test');
     });
 })->covers(CallbackBuilder::class);
