@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Response;
-use Tests\Unit\Attributes\Stubs\ResponseFactoryInvalidStub;
-use Tests\Unit\Attributes\Stubs\ResponseFactoryStub;
+use Tests\Stubs\Attributes\ResponseFactoryInvalidStub;
+use Tests\Stubs\Attributes\ResponseFactoryStub;
 
 describe('Response', function (): void {
     it('can set valid factory', function (): void {

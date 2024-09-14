@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
-use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryInvalidStub;
-use Tests\Unit\Attributes\Stubs\SecuritySchemeFactoryStub;
+use Tests\Stubs\Attributes\SecuritySchemeFactoryInvalidStub;
+use Tests\Stubs\Attributes\SecuritySchemeFactoryStub;
 
 describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {

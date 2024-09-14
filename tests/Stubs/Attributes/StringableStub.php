@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Attributes\Stubs;
+namespace Tests\Stubs\Attributes;
 
 class StringableStub implements \Stringable
 {

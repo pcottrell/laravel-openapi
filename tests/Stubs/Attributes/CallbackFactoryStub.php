@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Attributes\Stubs;
+namespace Tests\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;

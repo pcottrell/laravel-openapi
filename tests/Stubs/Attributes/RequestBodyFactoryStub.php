@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Attributes\Stubs;
+namespace Tests\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
