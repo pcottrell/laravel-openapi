@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Collectors;
 
+use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operation\SecurityRequirementBuilder as OperationSecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
@@ -695,17 +696,12 @@ class SecurityBuilderTest extends TestCase
             )->toArray(),
         );
 
-        $action = 'get';
         $route = '/foo';
-        $routeInformation = app(RouteInformation::class);
-        $routeInformation->parameters = collect();
-        $routeInformation->method = $action;
-        $routeInformation->action = $action;
-        $routeInformation->name = 'test route';
+        $action = 'get';
+        $routeInformation = RouteInformation::createFromRoute(Route::$action($route, static fn () => 'example'));
         $routeInformation->actionAttributes = collect([
             new AttributesOperation(security: $pathSecurity),
         ]);
-        $routeInformation->uri = '/example';
         $operation = app(OperationBuilder::class)->build([$routeInformation])[0];
         $openApi = OpenApi::create();
 
