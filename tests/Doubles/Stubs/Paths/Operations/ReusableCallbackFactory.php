@@ -1,0 +1,15 @@
+<?php
+
+namespace Tests\Doubles\Stubs\Paths\Operations;
+
+use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+
+class ReusableCallbackFactory extends CallbackFactory implements Reusable
+{
+    public function build(): PathItem
+    {
+        return PathItem::create();
+    }
+}
