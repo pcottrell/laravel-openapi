@@ -11,8 +11,8 @@
 |
 */
 
-uses(Tests\IntegrationTestCase::class)->in('Integration', 'oooas/Integration');
-uses(Tests\UnitTestCase::class)->in('Unit', 'oooas/Unit');
+pest()->extends(Tests\IntegrationTestCase::class)->in('Integration', 'oooas/Integration');
+pest()->extends(Tests\UnitTestCase::class)->in('Unit', 'oooas/Unit');
 
 /*
 |--------------------------------------------------------------------------
