@@ -14,9 +14,9 @@ describe('CallbackBuilder', function (): void {
         $routeInformation->actionAttributes = collect([
             new Callback(CallbackFactory::class),
         ]);
-        $parameterBuilder = new CallbackBuilder();
+        $builder = new CallbackBuilder();
 
-        $result = $parameterBuilder->build($routeInformation);
+        $result = $builder->build($routeInformation);
 
         expect($result)->toHaveCount(1)
             ->and($result[0])->toBeInstanceOf(PathItem::class);
@@ -28,16 +28,16 @@ describe('CallbackBuilder', function (): void {
             new Callback(CallbackFactory::class),
             new Callback(ReusableCallbackFactory::class),
         ]);
-        $parameterBuilder = new CallbackBuilder();
+        $builder = new CallbackBuilder();
 
-        $result = $parameterBuilder->build($routeInformation);
+        $result = $builder->build($routeInformation);
 
-        $callback = $result[0];
-        $reusableCallback = $result[1];
+        $pathItem = $result[0];
+        $reusablePathItem = $result[1];
         expect($result)->toHaveCount(2)
-            ->and($callback)->toBeInstanceOf(PathItem::class)
-            ->and($callback->ref)->toBeNull()
-            ->and($reusableCallback)->toBeInstanceOf(PathItem::class)
-            ->and($reusableCallback->ref)->toBe('#/components/callbacks/' . $result[0]->objectId);
+            ->and($pathItem)->toBeInstanceOf(PathItem::class)
+            ->and($pathItem->ref)->toBeNull()
+            ->and($reusablePathItem)->toBeInstanceOf(PathItem::class)
+            ->and($reusablePathItem->ref)->toBe('#/components/callbacks/' . $result[0]->objectId);
     });
 })->covers(CallbackBuilder::class);
