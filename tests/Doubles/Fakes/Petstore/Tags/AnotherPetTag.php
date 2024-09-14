@@ -1,18 +1,18 @@
 <?php
 
-namespace Examples\Petstore\Tags;
+namespace Tests\Doubles\Fakes\Petstore\Tags;
 
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 
-class PetTag extends TagFactory
+class AnotherPetTag extends TagFactory
 {
     public function build(): Tag
     {
         return Tag::create()
-            ->name('Pet')
-            ->description('Everything about your Pets')
+            ->name('AnotherPet')
+            ->description('Everything about your other Pets!')
             ->externalDocs(
                 ExternalDocs::create()
                     ->description('Find out more')

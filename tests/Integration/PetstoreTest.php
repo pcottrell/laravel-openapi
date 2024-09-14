@@ -2,11 +2,11 @@
 
 namespace Tests\Integration;
 
-use Examples\Petstore\PetController;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Doubles\Fakes\Petstore\PetController;
 use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Servers\ServerWithoutVariables;
 use Tests\Doubles\Stubs\Servers\ServerWithVariables;
@@ -266,7 +266,7 @@ class PetstoreTest extends IntegrationTestCase
     protected function getEnvironmentSetUp($app): void
     {
         $app['config']->set('openapi.locations.schemas', [
-            __DIR__ . '/../../examples/Petstore/Schemas',
+            __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
         ]);
     }
 }

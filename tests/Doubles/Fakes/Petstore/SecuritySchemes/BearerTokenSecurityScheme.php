@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\SecuritySchemes;
+namespace Tests\Doubles\Fakes\Petstore\SecuritySchemes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;

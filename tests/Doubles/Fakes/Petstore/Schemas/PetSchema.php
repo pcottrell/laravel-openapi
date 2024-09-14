@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\Schemas;
+namespace Tests\Doubles\Fakes\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
@@ -10,11 +10,6 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 class PetSchema extends SchemaFactory implements Reusable
 {
-    /**
-     * @return Schema
-     *
-     * @throws InvalidArgumentException
-     */
     public function build(): SchemaContract
     {
         return Schema::object('Pet')

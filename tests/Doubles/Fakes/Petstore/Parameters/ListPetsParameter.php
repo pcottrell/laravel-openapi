@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\Parameters;
+namespace Tests\Doubles\Fakes\Petstore\Parameters;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;

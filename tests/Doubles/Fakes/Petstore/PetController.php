@@ -1,14 +1,14 @@
 <?php
 
-namespace Examples\Petstore;
+namespace Tests\Doubles\Fakes\Petstore;
 
-use Examples\Petstore\Parameters\ListPetsParameter;
-use Examples\Petstore\Responses\ErrorValidationResponse;
-use Examples\Petstore\SecuritySchemes\BearerTokenSecurityScheme;
-use Examples\Petstore\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
-use Examples\Petstore\Tags\AnotherPetTag;
-use Examples\Petstore\Tags\PetTag;
 use MohammadAlavi\LaravelOpenApi\Attributes as OpenApi;
+use Tests\Doubles\Fakes\Petstore\Parameters\ListPetsParameter;
+use Tests\Doubles\Fakes\Petstore\Responses\ErrorValidationResponse;
+use Tests\Doubles\Fakes\Petstore\SecuritySchemes\BearerTokenSecurityScheme;
+use Tests\Doubles\Fakes\Petstore\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
+use Tests\Doubles\Fakes\Petstore\Tags\AnotherPetTag;
+use Tests\Doubles\Fakes\Petstore\Tags\PetTag;
 
 #[OpenApi\PathItem]
 class PetController
