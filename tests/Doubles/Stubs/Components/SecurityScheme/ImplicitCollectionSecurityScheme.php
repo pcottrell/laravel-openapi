@@ -1,13 +1,11 @@
 <?php
 
-namespace Tests\Doubles\Fakes\Collectable\Components\SecurityScheme;
+namespace Tests\Doubles\Stubs\Components\SecurityScheme;
 
-use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
-#[Collection('test')]
-class ExplicitCollectionSecurityScheme extends SecuritySchemeFactory
+class ImplicitCollectionSecurityScheme extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {

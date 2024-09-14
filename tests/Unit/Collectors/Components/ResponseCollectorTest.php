@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 
 describe('ResponseCollector', function (): void {
     beforeEach(function () {
-        $locator = new CollectionLocator([realpath(__DIR__ . '/../../../Doubles/Fakes/Collectable/Components/Response')]);
+        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Components/Response']);
         $this->collector = new ResponseCollector($locator);
     });
 

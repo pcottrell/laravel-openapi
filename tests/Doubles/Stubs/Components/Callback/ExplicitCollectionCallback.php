@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Fakes\Collectable\Components\Callback;
+namespace Tests\Doubles\Stubs\Components\Callback;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;

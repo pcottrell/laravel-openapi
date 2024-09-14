@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 describe('SecuritySchemeCollector', function (): void {
     beforeEach(function () {
-        $locator = new CollectionLocator([realpath(__DIR__ . '/../../../Doubles/Fakes/Collectable/Components/SecurityScheme')]);
+        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Components/SecurityScheme']);
         $this->collector = new SecuritySchemeCollector($locator);
     });
 
