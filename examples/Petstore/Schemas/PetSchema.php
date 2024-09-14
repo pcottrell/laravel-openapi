@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\OpenApi\Schemas;
+namespace Examples\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;

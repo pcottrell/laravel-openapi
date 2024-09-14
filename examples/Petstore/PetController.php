@@ -2,12 +2,12 @@
 
 namespace Examples\Petstore;
 
-use Examples\Petstore\OpenApi\Parameters\ListPetsParameter;
-use Examples\Petstore\OpenApi\Responses\ErrorValidationResponse;
-use Examples\Petstore\OpenApi\SecuritySchemes\BearerTokenSecurityScheme;
-use Examples\Petstore\OpenApi\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
-use Examples\Petstore\OpenApi\Tags\AnotherPetTag;
-use Examples\Petstore\OpenApi\Tags\PetTag;
+use Examples\Petstore\Parameters\ListPetsParameter;
+use Examples\Petstore\Responses\ErrorValidationResponse;
+use Examples\Petstore\SecuritySchemes\BearerTokenSecurityScheme;
+use Examples\Petstore\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
+use Examples\Petstore\Tags\AnotherPetTag;
+use Examples\Petstore\Tags\PetTag;
 use MohammadAlavi\LaravelOpenApi\Attributes as OpenApi;
 
 #[OpenApi\PathItem]

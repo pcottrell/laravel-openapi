@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\OpenApi\Parameters;
+namespace Examples\Petstore\Parameters;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;

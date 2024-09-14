@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\OpenApi\Tags;
+namespace Examples\Petstore\Tags;
 
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;

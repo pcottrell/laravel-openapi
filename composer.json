@@ -51,13 +51,13 @@
     "autoload": {
         "psr-4": {
             "MohammadAlavi\\LaravelOpenApi\\": "src/",
-            "MohammadAlavi\\ObjectOrientedOAS\\": "src/oooas"
+            "MohammadAlavi\\ObjectOrientedOAS\\": "src/oooas/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "Examples\\Petstore\\": "examples/petstore/"
+            "Examples\\": "examples/"
         }
     },
     "config": {

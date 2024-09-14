@@ -1,6 +1,6 @@
 <?php
 
-namespace Examples\Petstore\OpenApi\Responses;
+namespace Examples\Petstore\Responses;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
