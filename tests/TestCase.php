@@ -2,8 +2,6 @@
 
 namespace Tests;
 
-use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\OpenApiServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
