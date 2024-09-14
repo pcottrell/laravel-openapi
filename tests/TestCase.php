@@ -15,9 +15,4 @@ abstract class TestCase extends BaseTestCase
             OpenApiServiceProvider::class,
         ];
     }
-
-    protected function generate(): OpenApi
-    {
-        return $this->app->make(Generator::class)->generate();
-    }
 }
