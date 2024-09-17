@@ -20,23 +20,22 @@ use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 class OperationBuilder
 {
     public function __construct(
-        protected TagBuilder $tagBuilder,
-        protected ServerBuilder $serverBuilder,
-        protected ParameterBuilder $parameterBuilder,
-        protected RequestBodyBuilder $requestBodyBuilder,
-        protected ResponseBuilder $responseBuilder,
-        protected SecurityRequirementBuilder $securityRequirementBuilder,
-        protected CallbackBuilder $callbackBuilder,
-        protected ExtensionBuilder $extensionBuilder,
+        private readonly TagBuilder $tagBuilder,
+        private readonly ServerBuilder $serverBuilder,
+        private readonly ParameterBuilder $parameterBuilder,
+        private readonly RequestBodyBuilder $requestBodyBuilder,
+        private readonly ResponseBuilder $responseBuilder,
+        private readonly SecurityRequirementBuilder $securityRequirementBuilder,
+        private readonly CallbackBuilder $callbackBuilder,
+        private readonly ExtensionBuilder $extensionBuilder,
     ) {
     }
 
-    /** @param RouteInformation[]|Collection $routes */
+    /** @param RouteInformation[]|Collection<int, RouteInformation> $routes */
     public function build(array|Collection $routes): array
     {
         $operations = [];
 
-        /** @var RouteInformation[] $routes */
         foreach ($routes as $route) {
             [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers] = $this->parseOperationAttribute($route);
 
