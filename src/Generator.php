@@ -10,12 +10,14 @@ use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
 class Generator
 {
+    // TODO: Is this the right place for this constant?
     public const COLLECTION_DEFAULT = 'default';
 
     // TODO: Document the OpenAPIVersion enum
@@ -44,7 +46,7 @@ class Generator
         $security = $this->getConfigFor('security', $collection);
 
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
-        $paths = $this->pathBuilder->build($collection, Arr::get($middlewaresConfig, 'paths', []));
+        $paths = $this->pathBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
         $components = $this->componentCollector->collect($collection, Arr::get($middlewaresConfig, 'components', []));
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
@@ -67,5 +69,14 @@ class Generator
     private function getConfigFor(string $configKey, string $collection): array
     {
         return Arr::get($this->config, 'collections.' . $collection . '.' . $configKey, []);
+    }
+
+    /** @return PathMiddleware[] */
+    private function getMiddlewares(array $middlewaresConfig): array
+    {
+        return Arr::map(
+            Arr::get($middlewaresConfig, 'paths', []),
+            static fn (string $middlewares) => app($middlewares),
+        );
     }
 }
