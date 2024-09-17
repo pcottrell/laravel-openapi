@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Stubs\Paths\Operations;
+namespace Tests\Doubles\Stubs\Collectors\Paths\Operations;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory as AbstractFactory;

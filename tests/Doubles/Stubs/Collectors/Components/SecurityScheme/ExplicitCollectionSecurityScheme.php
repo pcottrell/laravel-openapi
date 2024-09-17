@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Stubs\Components\SecurityScheme;
+namespace Tests\Doubles\Stubs\Collectors\Components\SecurityScheme;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;

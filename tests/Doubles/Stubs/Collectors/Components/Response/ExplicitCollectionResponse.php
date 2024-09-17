@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Stubs\Components\Response;
+namespace Tests\Doubles\Stubs\Collectors\Components\Response;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;

@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ResponseBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use Tests\Doubles\Stubs\Attributes\ResponseFactory;
-use Tests\Doubles\Stubs\Paths\Operations\ReusableResponseFactory;
+use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableResponseFactory;
 
 describe('ResponseBuilder', function (): void {
     it('can be created', function (): void {

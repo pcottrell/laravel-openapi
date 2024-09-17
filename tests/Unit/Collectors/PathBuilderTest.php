@@ -9,7 +9,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use Tests\Doubles\Stubs\Components\PathMiddlewareStub;
+use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;
 
 describe('PathBuilder', function (): void {
     beforeEach(function (): void {

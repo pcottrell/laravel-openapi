@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ParameterBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
-use Tests\Doubles\Stubs\Paths\Operations\TestController;
+use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestController;
 
 describe('ParameterBuilder', function (): void {
     it('can be created', function (): void {

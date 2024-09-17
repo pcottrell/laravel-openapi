@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Doubles\Stubs\Components\Response;
+namespace Tests\Doubles\Stubs\Collectors\Components\Response;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;

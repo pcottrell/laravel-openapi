@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
-use Tests\Doubles\Stubs\Paths\Operations\ReusableCallbackFactory;
+use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableCallbackFactory;
 
 describe('CallbackBuilder', function (): void {
     it('can be created', function (): void {
