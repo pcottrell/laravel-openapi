@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Paths\Operations;
+namespace Tests\Unit\Collectors\Paths\Operations;
 
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
