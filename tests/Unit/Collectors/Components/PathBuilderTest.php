@@ -5,7 +5,7 @@ use Mockery\MockInterface;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\RouteCollector;
+use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;

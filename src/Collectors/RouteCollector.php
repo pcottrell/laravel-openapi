@@ -6,12 +6,13 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes;
+use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector as RouteCollectorContract;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
-class RouteCollector
+readonly class RouteCollector implements RouteCollectorContract
 {
     public function __construct(
-        private readonly Router $router,
+        private Router $router,
     ) {
     }
 

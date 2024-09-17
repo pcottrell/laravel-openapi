@@ -6,6 +6,7 @@ use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
+use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
