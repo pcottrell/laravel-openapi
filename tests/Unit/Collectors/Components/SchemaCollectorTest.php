@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 describe('SchemaCollector', function (): void {
     beforeEach(function () {
-        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Components/Schema']);
+        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/Schema']);
         $this->collector = new SchemaCollector($locator);
     });
 

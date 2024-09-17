@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 
 describe('CallbackCollector', function (): void {
     beforeEach(function () {
-        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Components/Callback']);
+        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/Callback']);
         $this->collector = new CallbackCollector($locator);
     });
 

@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 
 describe('RequestBodyCollector', function (): void {
     beforeEach(function () {
-        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Components/RequestBody']);
+        $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/RequestBody']);
         $this->collector = new RequestBodyCollector($locator);
     });
 
