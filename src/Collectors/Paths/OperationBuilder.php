@@ -31,67 +31,62 @@ class OperationBuilder
     ) {
     }
 
-    /** @param RouteInformation[]|Collection<int, RouteInformation> $routes */
     public function build(array|Collection $routes): array
     {
-        $operations = [];
-
-        foreach ($routes as $route) {
-            [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers] = $this->parseOperationAttribute($route);
-
-            $parameters = $this->parameterBuilder->build($route);
-            $requestBody = $this->requestBodyBuilder->build($route);
-            $responses = $this->responseBuilder->build($route);
-            $callbacks = $this->callbackBuilder->build($route);
-
-            $operation = Operation::create()
-                ->action($method)
-                ->tags(...$tags)
-                ->summary($summary)
-                ->description($description)
-                ->deprecated($deprecated)
-                ->operationId($operationId)
-                ->parameters(...$parameters)
-                ->requestBody($requestBody)
-                ->responses(...$responses)
-                ->callbacks(...$callbacks)
-                ->security($security)
-                ->servers(...$servers);
-
-            $this->extensionBuilder->build($operation, $route->actionAttributes);
-
-            $operations[] = $operation;
-        }
-
-        return $operations;
+        return collect($routes)->map(fn ($route) => $this->buildOperation($route))->all();
     }
 
-    private function parseOperationAttribute(RouteInformation $routeInformation): array
+    private function buildOperation(RouteInformation $route): Operation
     {
-        $operationId = null;
-        $tags = [];
-        $security = null;
-        $method = Str::lower($routeInformation->method);
-        $servers = [];
-        $summary = null;
-        $description = null;
-        $deprecated = null;
+        [
+            $operationId,
+            $tags,
+            $security,
+            $method,
+            $summary,
+            $description,
+            $deprecated,
+            $servers
+        ] = $this->parseOperationAttribute($route);
 
-        /** @var OperationAttribute|null $operation */
-        $operation = $routeInformation->actionAttributes
-            ->first(static fn (object $attribute): bool => $attribute instanceof OperationAttribute);
+        $parameters = $this->parameterBuilder->build($route);
+        $requestBody = $this->requestBodyBuilder->build($route);
+        $responses = $this->responseBuilder->build($route);
+        $callbacks = $this->callbackBuilder->build($route);
 
-        if (!is_null($operation)) {
-            $operationId = $operation->id;
-            $tags = $this->tagBuilder->build(Arr::wrap($operation->tags));
-            $security = $this->securityRequirementBuilder->build($operation->security);
-            $method = $operation->method ?? $method;
-            $servers = $this->serverBuilder->build(Arr::wrap($operation->servers));
-            $summary = $operation->summary;
-            $description = $operation->description;
-            $deprecated = $operation->deprecated;
-        }
+        $operation = Operation::create()
+            ->action($method)
+            ->tags(...$tags)
+            ->summary($summary)
+            ->description($description)
+            ->deprecated($deprecated)
+            ->operationId($operationId)
+            ->parameters(...$parameters)
+            ->requestBody($requestBody)
+            ->responses(...$responses)
+            ->callbacks(...$callbacks)
+            ->security($security)
+            ->servers(...$servers);
 
-        return [$operationId, $tags, $security, $method, $summary, $description, $deprecated, $servers];
+        $this->extensionBuilder->build($operation, $route->actionAttributes);
+
+        return $operation;
+    }
+
+    private function parseOperationAttribute(RouteInformation $route): array
+    {
+        $operation = $route->actionAttributes
+            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
+
+        return [
+            $operation?->id,
+            $this->tagBuilder->build(Arr::wrap($operation?->tags)),
+            $this->securityRequirementBuilder->build($operation?->security),
+            $operation?->method ?? Str::lower($route->method),
+            $operation?->summary,
+            $operation?->description,
+            $operation?->deprecated,
+            $this->serverBuilder->build(Arr::wrap($operation?->servers)),
+        ];
     }
 }
