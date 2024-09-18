@@ -9,6 +9,6 @@ class SecuritySchemeFactory extends AbstractFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create();
+        return SecurityScheme::create('TestSecurityScheme');
     }
 }
