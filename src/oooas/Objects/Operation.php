@@ -6,6 +6,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Operation extends BaseObject
 {
+    // TODO: refactor all const everywhere to enum
     public const ACTION_GET = 'get';
     public const ACTION_PUT = 'put';
     public const ACTION_POST = 'post';

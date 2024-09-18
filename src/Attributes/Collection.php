@@ -5,10 +5,10 @@ namespace MohammadAlavi\LaravelOpenApi\Attributes;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::TARGET_METHOD)]
-class Collection
+readonly class Collection
 {
     /** @var string|class-string<\Stringable>|(string|class-string<\Stringable>)[] */
-    public readonly string|array $name;
+    public string|array $name;
 
     public function __construct(string|array $name = Generator::COLLECTION_DEFAULT)
     {

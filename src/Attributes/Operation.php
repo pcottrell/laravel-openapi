@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
-class Operation
+readonly class Operation
 {
     private const REMOVE_TOP_LEVEL_SECURITY = [];
     private const USE_TOP_LEVEL_SECURITY = null;

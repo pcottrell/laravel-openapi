@@ -81,7 +81,13 @@ class PathItem extends BaseObject
         }
 
         return Arr::filter(
-            [...$operations, 'summary' => $this->summary, 'description' => $this->description, 'servers' => $this->servers, 'parameters' => $this->parameters],
+            [
+                ...$operations,
+                'summary' => $this->summary,
+                'description' => $this->description,
+                'servers' => $this->servers,
+                'parameters' => $this->parameters,
+            ],
         );
     }
 }

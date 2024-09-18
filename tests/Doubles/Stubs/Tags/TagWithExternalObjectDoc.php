@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 
-class WithExternalObjectDoc extends TagFactory
+class TagWithExternalObjectDoc extends TagFactory
 {
     public function build(): Tag
     {

@@ -5,12 +5,12 @@ namespace Tests\Doubles\Stubs\Tags;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 
-class WithoutExternalDoc extends TagFactory
+class TagNullName extends TagFactory
 {
     public function build(): Tag
     {
         return Tag::create()
-            ->name('PostWithoutExternalDoc')
+            ->name(null)
             ->description('Post Tag');
     }
 }
