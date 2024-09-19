@@ -7,6 +7,8 @@ namespace MohammadAlavi\LaravelOpenApi\Contracts;
  *
  * @see https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#componentsObject
  */
+// TODO: How does this even work?
+//  https://swagger.io/specification/#components-object
 interface Reusable
 {
 }
