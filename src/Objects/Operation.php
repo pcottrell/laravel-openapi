@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Operation as ParentOperation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 
@@ -46,6 +46,6 @@ class Operation extends ParentOperation
 
     private function isPublic(SecurityRequirement $securityRequirement): bool
     {
-        return PublicSecurityScheme::NAME === $securityRequirement->securityScheme;
+        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 }

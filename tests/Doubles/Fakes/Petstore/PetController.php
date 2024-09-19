@@ -41,26 +41,26 @@ class PetController
     }
 
     #[OpenApi\Operation(
-        id: 'multiAuthSecurityFirstTest',
+        id: 'nestedSecurityFirstTest',
         tags: [PetTag::class],
         security: [OAuth2PasswordGrantSecurityScheme::class, BearerTokenSecurityScheme::class],
         summary: 'List all pets.',
         description: 'List all pets from the database.',
     )]
     #[OpenApi\Parameter(ListPetsParameter::class)]
-    public function multiAuthSecurityFirst(): void
+    public function nestedSecurityFirst(): void
     {
     }
 
     #[OpenApi\Operation(
-        id: 'multiAuthSecuritySecondTest',
+        id: 'nestedSecuritySecondTest',
         tags: AnotherPetTag::class,
         security: [BearerTokenSecurityScheme::class, [OAuth2PasswordGrantSecurityScheme::class, BearerTokenSecurityScheme::class]],
         summary: 'List all pets.',
         description: 'List all pets from the database.',
         deprecated: null,
     )]
-    public function multiAuthSecuritySecond(): void
+    public function nestedSecuritySecond(): void
     {
     }
 }

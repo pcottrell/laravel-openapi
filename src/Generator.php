@@ -56,7 +56,7 @@ class Generator
             ->servers(...$servers)
             ->paths(...$paths)
             ->components($components)
-            ->multiAuthSecurity($security)
+            ->nestedSecurity($security)
             ->tags(...$tags);
 
         foreach ($extensions as $key => $value) {

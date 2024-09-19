@@ -5,105 +5,112 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecurityRequirementBuilder
 {
-    /** @throws InvalidArgumentException */
-    public function build(string|array|null $securitySchemeFactories): SecurityRequirement
+    /** @param class-string<SecuritySchemeFactory>|class-string<SecuritySchemeFactory>[]|null $factories */
+    public function build(array|string|null $factories): SecurityRequirement
     {
-        if (is_null($securitySchemeFactories) || '' === $securitySchemeFactories) {
-            return $this->buildSecurityRequirementFrom(DefaultSecurityScheme::class);
+        if (is_null($factories) || '' === $factories) {
+            return $this->buildSecurityRequirement(DefaultSecurityScheme::class);
         }
 
-        if ([] === $securitySchemeFactories) {
-            return $this->buildSecurityRequirementFrom(PublicSecurityScheme::class);
+        if ([] === $factories) {
+            return $this->buildSecurityRequirement(NoSecurityScheme::class);
         }
 
-        if ($this->isSingleAuthStringSecurity($securitySchemeFactories)) {
-            return $this->buildSecurityRequirementFrom($securitySchemeFactories);
+        if ($this->isValidSecurityFactory($factories)) {
+            return $this->buildSecurityRequirement($factories);
         }
 
-        if ($this->isSingleAuthArraySecurity($securitySchemeFactories)) {
-            if ($this->hasSingleArraySecurityWithin($securitySchemeFactories)) {
-                return $this->buildSecurityRequirementFrom($securitySchemeFactories[0][0]);
+        if ($this->isSingleElementArray($factories)) {
+            if ($this->hasSingleElementArrayWithin($factories)) {
+                return $this->buildSecurityRequirement($factories[0][0]);
             }
 
-            return $this->buildSecurityRequirementFrom($securitySchemeFactories[0]);
+            return $this->buildSecurityRequirement($factories[0]);
         }
 
-        if ($this->isMultiAuthArraySecurity($securitySchemeFactories) || $this->isMultiAuthArraySecurity($securitySchemeFactories[0])) {
-            return $this->buildSecurityRequirementFrom($securitySchemeFactories);
+        if ($this->isMultiElementArray($factories) || $this->isMultiElementArray($factories[0])) {
+            return $this->buildNestedSecurityRequirement($factories);
         }
 
         throw new \RuntimeException('Invalid security configuration');
     }
 
-    /**
-     * @param class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories
-     *
-     * @throws InvalidArgumentException
-     */
-    private function buildSecurityRequirementFrom(string|array $factories): SecurityRequirement
+    private function buildSecurityRequirement(string $factory): SecurityRequirement
     {
-        if (is_string($factories)) {
-            /** @var SecuritySchemeFactory $factory */
-            $factory = app($factories);
-            $securityScheme = $factory->build();
+        return SecurityRequirement::create()
+            ->securityScheme(
+                $this->buildSecurityScheme($factory),
+            );
+    }
 
-            return SecurityRequirement::create()->securityScheme($securityScheme);
-        }
+    /** @param class-string<SecuritySchemeFactory> $factory */
+    private function buildSecurityScheme(string $factory): SecurityScheme
+    {
+        return app($factory)->build();
+    }
 
-        return SecurityRequirement::create()->multiAuthSecurityScheme($this->buildMultiAuthSecuritySchemeFrom($factories));
+    private function isValidSecurityFactory(array|string|null $factory): bool
+    {
+        return is_string($factory) && is_a($factory, SecuritySchemeFactory::class, true);
+    }
+
+    private function isSingleElementArray(array|string|null $factories): bool
+    {
+        return !$this->isValidSecurityFactory($factories)
+            && is_array($factories)
+            && 1 === count($factories)
+            && ($this->isValidSecurityFactory($factories[0]) || $this->hasSingleElementArrayWithin($factories));
+    }
+
+    private function hasSingleElementArrayWithin(array|string|null $value): bool
+    {
+        return is_array($value[0]) && $this->isSingleElementArray($value[0]);
+    }
+
+    private function isMultiElementArray(array|string|null $factories): bool
+    {
+        return !$this->isSingleElementArray($factories)
+            && is_array($factories)
+            && count($factories) > 1;
     }
 
     /**
-     * @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $securitySchemeFactories
+     * @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories
+     */
+    private function buildNestedSecurityRequirement(array $factories): SecurityRequirement
+    {
+        return SecurityRequirement::create()
+            ->nestedSecurityScheme(
+                $this->buildNestedSecurityScheme($factories),
+            );
+    }
+
+    /**
+     * @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories
      *
      * @return array<array-key, SecurityScheme|array<array-key, SecurityScheme>>
      */
-    private function buildMultiAuthSecuritySchemeFrom(array $securitySchemeFactories): array
+    private function buildNestedSecurityScheme(array $factories): array
     {
         // TODO: cannot have "no security e.g. []" while providing multiple other securities
         // iterate over all $this->securitySchemeFactories items and check if any of them are NoSecurity
         // throw new \Exception('Cannot disable security while providing multiple other securities');
-        return collect($securitySchemeFactories)
-            // if item is a string, then we have to AND the security items
-            // if item is an array, then we have to OR the security items
-            ->map(static function ($factory) {
-                if (is_a($factory, SecuritySchemeFactory::class, true)) {
-                    return app($factory)->build();
+        return collect($factories)
+            ->map(function ($factory) {
+                if (is_array($factory)) {
+                    return $this->buildNestedSecurityScheme($factory);
                 }
 
-                return collect($factory)
-                    ->map(static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build());
+                if ($this->isValidSecurityFactory($factory)) {
+                    return $this->buildSecurityScheme($factory);
+                }
+
+                throw new \RuntimeException('Invalid security configuration');
             })->toArray();
-    }
-
-    private function isSingleAuthStringSecurity(array|string|null $security): bool
-    {
-        return is_string($security);
-    }
-
-    private function isSingleAuthArraySecurity(array|string|null $security): bool
-    {
-        return !$this->isSingleAuthStringSecurity($security)
-            && is_countable($security)
-            && 1 === count($security)
-            && (is_string($security[0]) || $this->hasSingleArraySecurityWithin($security));
-    }
-
-    private function hasSingleArraySecurityWithin(array|string|null $value): bool
-    {
-        return is_array($value[0]) && 1 === count($value[0]) && is_string($value[0][0]);
-    }
-
-    private function isMultiAuthArraySecurity(array|string|null $security): bool
-    {
-        return !$this->isSingleAuthArraySecurity($security)
-            && is_countable($security)
-            && count($security) > 1;
     }
 }

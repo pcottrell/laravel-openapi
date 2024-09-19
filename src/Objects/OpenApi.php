@@ -5,8 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\Objects;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\PublicSecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\OpenApi as ParentOpenApi;
 
@@ -17,9 +16,8 @@ class OpenApi extends ParentOpenApi
     /**
      * @throws CircularDependencyException
      * @throws BindingResolutionException
-     * @throws InvalidArgumentException
      */
-    public function multiAuthSecurity(array $security): static
+    public function nestedSecurity(array $security): static
     {
         $securityRequirements = app(SecurityRequirementBuilder::class)->build($security);
 
@@ -53,6 +51,6 @@ class OpenApi extends ParentOpenApi
 
     private function hasNoGlobalSecurity(SecurityRequirement $securityRequirement): bool
     {
-        return PublicSecurityScheme::NAME === $securityRequirement->securityScheme;
+        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 }

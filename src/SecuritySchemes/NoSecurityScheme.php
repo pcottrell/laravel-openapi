@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\SecuritySchemes;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
-class PublicSecurityScheme extends SecuritySchemeFactory
+class NoSecurityScheme extends SecuritySchemeFactory
 {
     public const NAME = 'NoSecuritySecurityScheme';
 

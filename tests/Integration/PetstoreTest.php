@@ -129,7 +129,7 @@ class PetstoreTest extends IntegrationTestCase
                     ],
                 ],
             ],
-            'path' => '/multiAuthSecurityFirstTest',
+            'path' => '/nestedSecurityFirstTest',
             'method' => 'delete',
             'expectation' => [
                 'tags' => [
@@ -137,7 +137,7 @@ class PetstoreTest extends IntegrationTestCase
                 ],
                 'summary' => 'List all pets.',
                 'description' => 'List all pets from the database.',
-                'operationId' => 'multiAuthSecurityFirstTest',
+                'operationId' => 'nestedSecurityFirstTest',
                 'parameters' => [
                     [
                         'name' => 'limit',
@@ -191,7 +191,7 @@ class PetstoreTest extends IntegrationTestCase
                     ],
                 ],
             ],
-            'path' => '/multiAuthSecuritySecondTest',
+            'path' => '/nestedSecuritySecondTest',
             'method' => 'put',
             'expectation' => [
                 'tags' => [
@@ -199,7 +199,7 @@ class PetstoreTest extends IntegrationTestCase
                 ],
                 'summary' => 'List all pets.',
                 'description' => 'List all pets from the database.',
-                'operationId' => 'multiAuthSecuritySecondTest',
+                'operationId' => 'nestedSecuritySecondTest',
                 'security' => [
                     [
                         'BearerToken' => [],
@@ -259,8 +259,8 @@ class PetstoreTest extends IntegrationTestCase
 
         Route::get('/pets', [PetController::class, 'index']);
         Route::post('/multiPetTag', [PetController::class, 'multiPetTag']);
-        Route::delete('/multiAuthSecurityFirstTest', [PetController::class, 'multiAuthSecurityFirst']);
-        Route::put('/multiAuthSecuritySecondTest', [PetController::class, 'multiAuthSecuritySecond']);
+        Route::delete('/nestedSecurityFirstTest', [PetController::class, 'nestedSecurityFirst']);
+        Route::put('/nestedSecuritySecondTest', [PetController::class, 'nestedSecuritySecond']);
     }
 
     protected function getEnvironmentSetUp($app): void

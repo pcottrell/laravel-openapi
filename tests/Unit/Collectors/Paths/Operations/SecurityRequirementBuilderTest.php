@@ -707,7 +707,7 @@ class SecurityRequirementBuilderTest extends TestCase
 
         $openApi = $openApi
             ->components($components)
-            ->multiAuthSecurity($globalSecurity)
+            ->nestedSecurity($globalSecurity)
             ->paths(
                 PathItem::create()
                     ->route($route)
@@ -752,7 +752,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->multiAuthSecurity($globalSecurity)
+            ->nestedSecurity($globalSecurity)
             ->components($components)
             ->paths(
                 PathItem::create()
@@ -790,7 +790,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->multiAuthSecurity([JwtSecurityScheme::class])
+            ->nestedSecurity([JwtSecurityScheme::class])
             ->components($components)
             ->paths(
                 PathItem::create()

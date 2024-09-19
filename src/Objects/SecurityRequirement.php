@@ -9,21 +9,21 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 class SecurityRequirement extends ParentSecurityRequirement
 {
     /** @var array<array-key, SecurityScheme|array<array-key, SecurityScheme>> */
-    protected array $multiAuthSecurityScheme = [];
+    protected array $nestedSecurityScheme = [];
 
-    /** @param array<array-key, SecurityScheme|array<array-key, SecurityScheme>> $multiAuthSecurityScheme */
-    public function multiAuthSecurityScheme(array $multiAuthSecurityScheme): self
+    /** @param array<array-key, SecurityScheme|array<array-key, SecurityScheme>> $nestedSecurityScheme */
+    public function nestedSecurityScheme(array $nestedSecurityScheme): self
     {
         $instance = clone $this;
 
-        $instance->multiAuthSecurityScheme = $multiAuthSecurityScheme;
+        $instance->nestedSecurityScheme = $nestedSecurityScheme;
 
         return $instance;
     }
 
     protected function generate(): array
     {
-        if ([] !== $this->multiAuthSecurityScheme) {
+        if ([] !== $this->nestedSecurityScheme) {
             return $this->generateMultiAuth();
         }
 
@@ -33,7 +33,7 @@ class SecurityRequirement extends ParentSecurityRequirement
     private function generateMultiAuth(): array
     {
         // TODO: maybe skip generating if empty?
-        $spec = collect($this->multiAuthSecurityScheme)->map(
+        $spec = collect($this->nestedSecurityScheme)->map(
             static function ($securityScheme) {
                 if ($securityScheme instanceof SecurityScheme) {
                     return self::create()->securityScheme($securityScheme)->generate();
