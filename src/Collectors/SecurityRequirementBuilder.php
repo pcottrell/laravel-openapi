@@ -109,8 +109,6 @@ class SecurityRequirementBuilder
                 if ($this->isValidSecurityFactory($factory)) {
                     return $this->buildSecurityScheme($factory);
                 }
-
-                throw new \RuntimeException('Invalid security configuration');
             })->toArray();
     }
 }
