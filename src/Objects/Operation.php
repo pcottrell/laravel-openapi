@@ -15,6 +15,10 @@ class Operation extends ParentOperation
      */
     public function security(SecurityRequirement ...$securityRequirement): static
     {
+        if ([] === $securityRequirement) {
+            return $this;
+        }
+
         $instance = clone $this;
 
         // true overrides "global security" = [] in the generated OpenAPI spec
