@@ -31,10 +31,10 @@ describe('OpenApi', function (): void {
         ]);
     });
 
-    it('can be created using security method', function (array $securitySchemes, array $expectation): void {
+    it('can be created using security method', function (array $securityReqs, array $expectation): void {
         $openApi = OpenApi::create();
 
-        $result = $openApi->security(...$securitySchemes);
+        $result = $openApi->security(...$securityReqs);
 
         expect($result->toArray())->toBe($expectation);
     })->with([
@@ -56,7 +56,7 @@ describe('OpenApi', function (): void {
                 ],
             ],
         ],
-        'one security requirement' => [
+        'nested security' => [
             [
                 (new SecurityRequirementBuilder())->build([
                     ASecuritySchemeFactory::class,
@@ -74,7 +74,7 @@ describe('OpenApi', function (): void {
                 ],
             ],
         ],
-        'multiple security requirement' => [
+        'multiple nested security' => [
             [
                 (new SecurityRequirementBuilder())->build([
                     BSecuritySchemeFactory::class,
