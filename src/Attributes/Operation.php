@@ -17,14 +17,14 @@ class Operation
      * @param class-string<ServerFactory>|array<array-key, class-string<ServerFactory>>|null $servers
      */
     public function __construct(
-        public string|null $id = null,
+        public ?string $id = null,
         public string|array|null $tags = null,
         public string|array|null $security = null,
-        public string|null $method = null,
+        public ?string $method = null,
         public string|array|null $servers = null,
-        public string|null $summary = null,
-        public string|null $description = null,
-        public bool|null $deprecated = null,
+        public ?string $summary = null,
+        public ?string $description = null,
+        public ?bool $deprecated = null,
     ) {
         $this->validateSecurity($this->security);
     }
