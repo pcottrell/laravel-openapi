@@ -4,9 +4,11 @@ namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Route;
+use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
+use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
 class RouteInformation
 {
@@ -16,21 +18,22 @@ class RouteInformation
     public string|null $name = null;
 
     /** @var string|class-string<Controller> */
-    public string $controller;
+    public string $controller = 'Closure';
 
+    /** @var Collection<int, Parameter> */
     public Collection $parameters;
 
-    /** @var Collection|\Attribute[] */
-    public Collection|array $controllerAttributes;
+    /** @var Collection<int, \Attribute> */
+    public Collection $controllerAttributes;
 
-    public string $action;
+    public string $action = 'Closure';
 
     /** @var \ReflectionParameter[] */
-    public array $actionParameters;
+    public array $actionParameters = [];
 
+    /** @var Collection<int, \Attribute> */
     public Collection $actionAttributes;
 
-    /** @throws \ReflectionException */
     public static function createFromRoute(Route $route): static
     {
         return tap(new static(), static function (self $instance) use ($route): void {
@@ -39,13 +42,8 @@ class RouteInformation
                 ->filter(static fn ($value): bool => !in_array($value, ['head', 'options'], true))
                 ->first();
 
-            $actionNameParts = explode('@', $route->getActionName());
-
-            if (2 === count($actionNameParts)) {
-                [$controller, $action] = $actionNameParts;
-            } else {
-                [$controller] = $actionNameParts;
-                $action = '__invoke';
+            if (is_null($method)) {
+                throw new InvalidArgumentException('Unsupported HTTP method [' . implode(', ', $route->methods()) . '] for route: ' . $route->uri());
             }
 
             preg_match_all('/{(.*?)}/', $route->uri, $parameters);
@@ -58,27 +56,58 @@ class RouteInformation
                 ]);
             }
 
-            $reflectionClass = new \ReflectionClass($controller);
-            $reflectionMethod = $reflectionClass->getMethod($action);
+            if (static::isControllerAction($route)) {
+                [$controller, $action] = Str::parseCallback($route->getAction('uses'));
+                $instance->action = $action;
+                $instance->controller = $controller;
+            } elseif (!$route->getAction('uses') instanceof \Closure) {
+                $instance->controller = $route->getAction()[0];
+                $instance->action = '__invoke';
+            } else {
+                $instance->controller = 'Closure';
+                $instance->action = 'Closure';
+            }
 
-            $controllerAttributes = collect($reflectionClass->getAttributes())
-                ->map(static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance());
+            $instance->parameters = collect();
+            $instance->actionAttributes = collect();
+            if ('Closure' !== $instance->controller) {
+                $reflectionClass = new \ReflectionClass($instance->controller);
+                $reflectionMethod = $reflectionClass->getMethod($instance->action);
+                $instance->actionParameters = $reflectionMethod->getParameters();
 
-            $actionAttributes = collect($reflectionMethod->getAttributes())
-                ->map(static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance());
+                $controllerAttributes = collect($reflectionClass->getAttributes())->map(
+                    static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
+                );
 
-            $containsControllerLevelParameter = $actionAttributes->contains(static fn ($value): bool => $value instanceof Parameter);
+                $instance->actionAttributes = collect($reflectionMethod->getAttributes())->map(
+                    static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
+                );
+            }
 
+            $containsControllerLevelParameter = $instance->actionAttributes->contains(static fn ($value): bool => $value instanceof Parameter);
+
+            $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $instance->domain = $route->domain();
             $instance->method = $method;
             $instance->uri = Str::start($route->uri(), '/');
             $instance->name = $route->getName();
-            $instance->controller = $controller;
-            $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
-            $instance->controllerAttributes = $controllerAttributes;
-            $instance->action = $action;
-            $instance->actionParameters = $reflectionMethod->getParameters();
-            $instance->actionAttributes = $actionAttributes;
+            $instance->controllerAttributes = $controllerAttributes ?? collect();
         });
+    }
+
+    /**
+     * Checks whether the route's action is a controller.
+     */
+    private static function isControllerAction(Route $route): bool
+    {
+        return is_string($route->action['uses']) && ! static::isSerializedClosure($route);
+    }
+
+    /**
+     * Determine if the route action is a serialized Closure.
+     */
+    private static function isSerializedClosure(Route $route): bool
+    {
+        return RouteAction::containsSerializedClosure($route->action);
     }
 }
