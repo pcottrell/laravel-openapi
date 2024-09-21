@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Helpers;
+namespace MohammadAlavi\LaravelOpenApi\Services;
 
 class ClassMapGenerator
 {

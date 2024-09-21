@@ -3,8 +3,8 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\Helpers\BuilderHelper;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
+use Webmozart\Assert\Assert;
 
 class ServerBuilder
 {
@@ -18,9 +18,10 @@ class ServerBuilder
         return collect($serverFactories)
             ->filter(static fn ($serverFactory): bool => app($serverFactory) instanceof ServerFactory)
             ->map(static function (string $serverFactory): Server {
+                /** @var Server $server */
                 $server = app($serverFactory)->build();
-
-                throw_if(BuilderHelper::hasInvalidField($server->toArray(), 'url'), new \InvalidArgumentException('Server url is required.'));
+                // TODO: this can be moved to Serve Constructor I think
+                Assert::stringNotEmpty($server->url);
 
                 return $server;
             })

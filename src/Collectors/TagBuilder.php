@@ -3,8 +3,8 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\LaravelOpenApi\Helpers\BuilderHelper;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use Webmozart\Assert\Assert;
 
 class TagBuilder
 {
@@ -21,8 +21,8 @@ class TagBuilder
                 /** @var TagFactory $tagFactoryInstance */
                 $tagFactoryInstance = app($tagFactory);
                 $tag = $tagFactoryInstance->build();
-
-                throw_if(BuilderHelper::hasInvalidField($tag->toArray(), 'name'), new \InvalidArgumentException('Tag name is required.'));
+                // TODO: this can be moved to Serve Constructor I think
+                Assert::stringNotEmpty($tag->name);
 
                 return $tag;
             })
