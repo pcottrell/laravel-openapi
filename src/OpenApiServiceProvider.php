@@ -3,7 +3,9 @@
 namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
@@ -17,6 +19,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
+use MohammadAlavi\LaravelOpenApi\Http\OpenApiController;
 
 class OpenApiServiceProvider extends ServiceProvider
 {
@@ -131,6 +134,21 @@ class OpenApiServiceProvider extends ServiceProvider
             ], 'openapi-config');
         }
 
-        $this->loadRoutesFrom(__DIR__ . '/../routes/api.php');
+        // TODO: allow to disable this, so user can register their own routes.
+        //  Like how Laravel Passport does it.
+        Route::group(['as' => 'openapi.'], static function (): void {
+            foreach (config('openapi.collections', []) as $name => $config) {
+                $uri = Arr::get($config, 'route.uri');
+
+                if (!$uri) {
+                    continue;
+                }
+
+                Route::get($uri, [OpenApiController::class, 'show'])
+                    ->name($name . '.specification')
+                    ->prefix('/api')
+                    ->middleware(['api', ...Arr::get($config, 'route.middleware')]);
+            }
+        });
     }
 }
