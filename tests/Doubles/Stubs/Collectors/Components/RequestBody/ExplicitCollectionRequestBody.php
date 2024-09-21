@@ -12,6 +12,6 @@ class ExplicitCollectionRequestBody extends RequestBodyFactory implements Reusab
 {
     public function build(): RequestBody
     {
-        return RequestBody::create();
+        return RequestBody::create('test collection RequestBody');
     }
 }

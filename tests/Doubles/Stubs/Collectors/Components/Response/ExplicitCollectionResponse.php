@@ -12,6 +12,6 @@ class ExplicitCollectionResponse extends ResponseFactory implements Reusable
 {
     public function build(): Response
     {
-        return Response::create();
+        return Response::create('test collection Response');
     }
 }

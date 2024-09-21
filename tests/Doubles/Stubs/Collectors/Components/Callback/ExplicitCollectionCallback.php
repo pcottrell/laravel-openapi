@@ -12,6 +12,6 @@ class ExplicitCollectionCallback extends CallbackFactory implements Reusable
 {
     public function build(): PathItem
     {
-        return PathItem::create();
+        return PathItem::create('test collection PathItem');
     }
 }

@@ -10,6 +10,7 @@ class ImplicitCollectionSchema extends SchemaFactory implements Reusable
 {
     public function build(): Schema
     {
-        return Schema::object();
+        return Schema::object('default collection Schema')
+            ->properties(Schema::integer('id'));
     }
 }

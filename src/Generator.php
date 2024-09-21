@@ -2,8 +2,6 @@
 
 namespace MohammadAlavi\LaravelOpenApi;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\CircularDependencyException;
 use Illuminate\Support\Arr;
 use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
 use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
@@ -13,7 +11,6 @@ use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 
 class Generator
 {
@@ -33,11 +30,6 @@ class Generator
     ) {
     }
 
-    /**
-     * @throws InvalidArgumentException
-     * @throws BindingResolutionException
-     * @throws CircularDependencyException
-     */
     public function generate(string $collection = self::COLLECTION_DEFAULT): OpenApi
     {
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));

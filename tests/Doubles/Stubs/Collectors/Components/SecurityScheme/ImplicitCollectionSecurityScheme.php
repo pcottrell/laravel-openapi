@@ -9,6 +9,6 @@ class ImplicitCollectionSecurityScheme extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create();
+        return SecurityScheme::create('default collection SecurityScheme');
     }
 }

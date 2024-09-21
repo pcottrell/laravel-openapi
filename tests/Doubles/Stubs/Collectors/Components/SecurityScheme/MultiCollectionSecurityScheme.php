@@ -4,10 +4,11 @@ namespace Tests\Doubles\Stubs\Collectors\Components\SecurityScheme;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
-#[Collection('test')]
-class ExplicitCollectionSecurityScheme extends SecuritySchemeFactory
+#[Collection(['test', Generator::COLLECTION_DEFAULT])]
+class MultiCollectionSecurityScheme extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
