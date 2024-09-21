@@ -50,7 +50,7 @@ describe('ComponentCollector', function (): void {
         expect($result)->unless(
             is_null($result),
             fn (Expectation $result) => $result->toBeInstanceOf(Components::class)
-                ->and($result->value->toArray())->toBe($expectation),
+                ->and($result->value->toArray())->toEqual($expectation),
         );
     })->with(
         [
