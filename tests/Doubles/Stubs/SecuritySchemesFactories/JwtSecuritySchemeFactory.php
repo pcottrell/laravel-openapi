@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\Doubles\Stubs\SecuritySchemes;
+namespace Tests\Doubles\Stubs\SecuritySchemesFactories;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
-class JwtSecurityScheme extends SecuritySchemeFactory
+class JwtSecuritySchemeFactory extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {

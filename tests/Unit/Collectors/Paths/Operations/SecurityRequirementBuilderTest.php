@@ -14,9 +14,9 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
-use Tests\Doubles\Stubs\SecuritySchemes\ApiKeySecurityScheme;
-use Tests\Doubles\Stubs\SecuritySchemes\BearerSecurityScheme;
-use Tests\Doubles\Stubs\SecuritySchemes\JwtSecurityScheme;
+use Tests\Doubles\Stubs\SecuritySchemesFactories\ApiKeySecuritySchemeFactory;
+use Tests\Doubles\Stubs\SecuritySchemesFactories\BearerSecuritySchemeFactory;
+use Tests\Doubles\Stubs\SecuritySchemesFactories\JwtSecuritySchemeFactory;
 use Tests\TestCase;
 
 #[CoversClass(SecurityRequirementBuilder::class)]
@@ -37,9 +37,9 @@ class SecurityRequirementBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [ // available global securities (components)
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [], // applied global security
             null, // use default global securities
@@ -60,11 +60,11 @@ class SecurityRequirementBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [
-                ApiKeySecurityScheme::class,
-                JwtSecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             null,
         ];
@@ -104,30 +104,30 @@ class SecurityRequirementBuilderTest extends TestCase
                 'pathSecurity' => null,
             ],
             [
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
-                JwtSecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
                 [
-                    ApiKeySecurityScheme::class,
-                    JwtSecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
-                BearerSecurityScheme::class,
+                BearerSecuritySchemeFactory::class,
                 [
-                    BearerSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
                 [
-                    BearerSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
-                    JwtSecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
                 [
                     // TODO: should this duplication be removed?
                     //  I don't think it is removed automatically.
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
             null,
@@ -147,10 +147,10 @@ class SecurityRequirementBuilderTest extends TestCase
                 'pathSecurity' => [],
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [],
         ];
@@ -173,12 +173,12 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class, // available global securities (components)
+                JwtSecuritySchemeFactory::class, // available global securities (components)
             ],
             [
-                JwtSecurityScheme::class, // applied global securities
+                JwtSecuritySchemeFactory::class, // applied global securities
             ],
-            JwtSecurityScheme::class, // security overrides
+            JwtSecuritySchemeFactory::class, // security overrides
         ];
         yield 'Override global security - single auth class string' => [
             [
@@ -200,13 +200,13 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
-            JwtSecurityScheme::class,
+            JwtSecuritySchemeFactory::class,
         ];
         yield 'Override global security - single auth array' => [
             [
@@ -228,14 +228,14 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
-                JwtSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
         ];
         yield 'Override global security - multi-auth (and) - single auth global security' => [
@@ -260,17 +260,17 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
-                JwtSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
                 [
-                    ApiKeySecurityScheme::class,
-                    BearerSecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -297,20 +297,20 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
                 [
-                    BearerSecurityScheme::class,
-                    JwtSecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
             ],
             [
                 [
-                    JwtSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -338,19 +338,19 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
-                BearerSecurityScheme::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
                 [
-                    JwtSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
                 [
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -379,22 +379,22 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
                 [
-                    BearerSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
             [
                 [
-                    JwtSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
                 [
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -423,18 +423,18 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                BearerSecurityScheme::class,
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                BearerSecuritySchemeFactory::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
-                JwtSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
                 [
-                    JwtSecurityScheme::class,
-                    BearerSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -467,26 +467,26 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                BearerSecurityScheme::class,
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                BearerSecuritySchemeFactory::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
                 [
-                    BearerSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
             [
                 [
-                    BearerSecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
                 [
-                    JwtSecurityScheme::class,
-                    BearerSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
                 [
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -541,11 +541,11 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
             ],
             [
                 [
-                    JwtSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -564,10 +564,10 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
         ];
         // Both JWT and ApiKey authentication required
@@ -587,13 +587,13 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
                 [
-                    JwtSecurityScheme::class,
-                    ApiKeySecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -616,15 +616,15 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
             [
                 [
-                    JwtSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
                 ],
                 [
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
             ],
         ];
@@ -661,24 +661,24 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
             [
-                JwtSecurityScheme::class,
-                ApiKeySecurityScheme::class,
-                BearerSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
+                ApiKeySecuritySchemeFactory::class,
+                BearerSecuritySchemeFactory::class,
             ],
             [
-                BearerSecurityScheme::class,
+                BearerSecuritySchemeFactory::class,
                 [
-                    JwtSecurityScheme::class,
-                    BearerSecurityScheme::class,
+                    JwtSecuritySchemeFactory::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
                 [
-                    BearerSecurityScheme::class,
+                    BearerSecuritySchemeFactory::class,
                 ],
-                JwtSecurityScheme::class,
+                JwtSecuritySchemeFactory::class,
                 [
-                    ApiKeySecurityScheme::class,
+                    ApiKeySecuritySchemeFactory::class,
                 ],
-                ApiKeySecurityScheme::class,
+                ApiKeySecuritySchemeFactory::class,
             ],
         ];
     }
@@ -780,7 +780,7 @@ class SecurityRequirementBuilderTest extends TestCase
      */
     public function testCanBuildUpTheSecurityScheme(): void
     {
-        $jwtSecurityScheme = app(JwtSecurityScheme::class);
+        $jwtSecurityScheme = app(JwtSecuritySchemeFactory::class);
         $securityScheme = $jwtSecurityScheme->build();
 
         $components = Components::create()
@@ -790,7 +790,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->nestedSecurity([JwtSecurityScheme::class])
+            ->nestedSecurity([JwtSecuritySchemeFactory::class])
             ->components($components)
             ->paths(
                 PathItem::create()
@@ -825,7 +825,7 @@ class SecurityRequirementBuilderTest extends TestCase
      */
     public function testWeCanAddOperationSecurityUsingBuilder(): void
     {
-        $jwtSecurityScheme = app(JwtSecurityScheme::class);
+        $jwtSecurityScheme = app(JwtSecuritySchemeFactory::class);
         $securityScheme = $jwtSecurityScheme->build();
 
         $components = Components::create()
@@ -835,7 +835,7 @@ class SecurityRequirementBuilderTest extends TestCase
         $routeInformation->action = 'get';
         $routeInformation->name = 'test route';
         $routeInformation->actionAttributes = collect([
-            new AttributesOperation(security: JwtSecurityScheme::class),
+            new AttributesOperation(security: JwtSecuritySchemeFactory::class),
         ]);
         $routeInformation->uri = '/example';
 
