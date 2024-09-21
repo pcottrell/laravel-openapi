@@ -18,3 +18,4 @@ Dont use our InvalidArgumentException, either use Webmozart Assert or use PHP's 
 Dont use any string, make intentions clear. Use Objects!
 Move away from using static methods. Use Dependency Injection instead
 Go through TODOs and FIXMEs and fix them
+Run Pest mutation, type coverage, test coverage, architetual tests, everything!
