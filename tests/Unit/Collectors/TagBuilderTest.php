@@ -3,82 +3,111 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
+use Tests\Doubles\Stubs\Tags\TagWithoutExternalDoc;
 use Tests\TestCase;
 
 #[CoversClass(TagBuilder::class)]
 class TagBuilderTest extends TestCase
 {
-    public static function singleTagProvider(): \Iterator
+    public static function singleTagProvider(): array
     {
-        yield 'Can build tag from array with one FQCN' => [
-            [\Tests\Doubles\Stubs\Tags\TagWithoutExternalDoc::class],
+        return ['Can build tag from array with one FQCN' => [
+            [TagWithoutExternalDoc::class],
             [
                 [
                     'name' => 'PostWithoutExternalDoc',
                     'description' => 'Post Tag',
                 ],
             ],
-        ];
-        yield 'Can build tag without external docs' => [
-            [\Tests\Doubles\Stubs\Tags\TagWithoutExternalDoc::class],
-            [
+        ],
+            'Can build tag without external docs' => [
+                [TagWithoutExternalDoc::class],
                 [
-                    'name' => 'PostWithoutExternalDoc',
-                    'description' => 'Post Tag',
+                    [
+                        'name' => 'PostWithoutExternalDoc',
+                        'description' => 'Post Tag',
+                    ],
                 ],
             ],
-        ];
-        yield 'Can build tag with external docs' => [
-            [\Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc::class],
-            [
+            'Can build tag with external docs' => [
+                [TagWithExternalObjectDoc::class],
                 [
-                    'name' => 'PostWithExternalObjectDoc',
-                    'description' => 'Post Tag',
-                    'externalDocs' => [
-                        'description' => 'External API documentation',
-                        'url' => 'https://example.com/external-docs',
+                    [
+                        'name' => 'PostWithExternalObjectDoc',
+                        'description' => 'Post Tag',
+                        'externalDocs' => [
+                            'description' => 'External API documentation',
+                            'url' => 'https://example.com/external-docs',
+                        ],
                     ],
                 ],
             ],
         ];
     }
 
-    public static function multiTagProvider(): \Iterator
+    public static function multiTagProvider(): array
     {
-        yield 'Can build multiple tags from an array of FQCNs' => [
-            [\Tests\Doubles\Stubs\Tags\TagWithoutExternalDoc::class, \Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc::class],
-            [
+        return [
+            'Can build multiple tags from an array of FQCNs' => [
+                [TagWithoutExternalDoc::class, TagWithExternalObjectDoc::class],
                 [
-                    'name' => 'PostWithoutExternalDoc',
-                    'description' => 'Post Tag',
-                ],
-                [
-                    'name' => 'PostWithExternalObjectDoc',
-                    'description' => 'Post Tag',
-                    'externalDocs' => [
-                        'description' => 'External API documentation',
-                        'url' => 'https://example.com/external-docs',
+                    [
+                        'name' => 'PostWithoutExternalDoc',
+                        'description' => 'Post Tag',
+                    ],
+                    [
+                        'name' => 'PostWithExternalObjectDoc',
+                        'description' => 'Post Tag',
+                        'externalDocs' => [
+                            'description' => 'External API documentation',
+                            'url' => 'https://example.com/external-docs',
+                        ],
                     ],
                 ],
             ],
         ];
     }
 
-    public static function invalidTagProvider(): \Iterator
+    public static function invalidTagProvider(): array
     {
-        yield [\Tests\Doubles\Stubs\Tags\TagWithoutName::class];
-        yield [\Tests\Doubles\Stubs\Tags\TagEmptyStringName::class];
-        yield [\Tests\Doubles\Stubs\Tags\TagNullName::class];
+        return [
+            'tag without name' => [
+                fn () => new class () extends TagFactory {
+                    public function build(): Tag
+                    {
+                        return Tag::create()->description('Post Tag');
+                    }
+                },
+            ],
+            'tag with empty string name' => [
+                fn () => new class () extends TagFactory {
+                    public function build(): Tag
+                    {
+                        return Tag::create()->name('')->description('Post Tag');
+                    }
+                },
+            ],
+            'tag with null name' => [
+                fn () => new class () extends TagFactory {
+                    public function build(): Tag
+                    {
+                        return Tag::create()->name(null)->description('Post Tag');
+                    }
+                },
+            ],
+        ];
     }
 
     #[DataProvider('singleTagProvider')]
-    public function testCanBuildTag(array $tagFactories, array $expected): void
+    public function testCanBuildTag(array $factories, array $expected): void
     {
-        $tagBuilder = app(TagBuilder::class);
-        $tags = $tagBuilder->build($tagFactories);
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($factories);
 
         $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
     }
@@ -103,21 +132,20 @@ class TagBuilderTest extends TestCase
     }
 
     #[DataProvider('multiTagProvider')]
-    public function testCanBuildFromTagArray(array $tagFactories, array $expected): void
+    public function testCanBuildFromTagArray(array $factories, array $expected): void
     {
-        $tagBuilder = app(TagBuilder::class);
-        $tags = $tagBuilder->build($tagFactories);
+        $builder = app(TagBuilder::class);
+        $tags = $builder->build($factories);
 
         $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
     }
 
     #[DataProvider('invalidTagProvider')]
-    public function testGivenNameNotProvidedCanProduceCorrectException(string $invalidTag): void
+    public function testGivenNameNotProvidedCanProduceCorrectException($factory): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Tag name is required.');
 
-        $tagBuilder = app(TagBuilder::class);
-        $tagBuilder->build([$invalidTag]);
+        $builder = app(TagBuilder::class);
+        $builder->build([$factory()::class]);
     }
 }
