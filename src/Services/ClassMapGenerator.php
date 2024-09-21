@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Services;
 
+use Webmozart\Assert\Assert;
+
 class ClassMapGenerator
 {
     /**
@@ -14,6 +16,7 @@ class ClassMapGenerator
     public static function createMap(\Iterator|string $dir): array
     {
         if (is_string($dir)) {
+            Assert::directory($dir);
             $dir = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($dir));
         }
 
