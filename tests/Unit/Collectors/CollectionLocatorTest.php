@@ -29,7 +29,7 @@ describe('CollectionLocator', function (): void {
             ->each(
                 fn (Expectation $item) => $item
                 ->unless(
-                    fn () => str_contains($item->value, 'Implicit') || $item->value === PathMiddlewareStub::class,
+                    fn () => str_contains($item->value, 'Implicit') || PathMiddlewareStub::class === $item->value,
                     fn (Expectation $item) => $item->toUse(Collection::class),
                 ),
             );
