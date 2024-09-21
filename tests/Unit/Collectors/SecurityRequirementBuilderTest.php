@@ -123,13 +123,6 @@ describe('SecurityRequirementBuilder', function (): void {
         ],
     ]);
 
-    it('can be created using security method', function (string|array|null $factories, array $expectation): void {
-        $builder = new SecurityRequirementBuilder();
-
-        $result = $builder->build($factories);
-
-        expect($result->toArray())->toBe($expectation);
-    })->with([
-
-    ])->skip();
+    it('can be created using security method', function (): void {
+    })->todo();
 })->covers(SecurityRequirementBuilder::class);
