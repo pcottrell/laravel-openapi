@@ -30,48 +30,33 @@ class OpenApiServiceProvider extends ServiceProvider
             'openapi',
         );
 
-        $this->app->singleton(
-            CallbackCollector::class,
-            fn (Application $application): CallbackCollector => new CallbackCollector(
-                new CollectionLocator(
-                    $this->getPathsFromConfig('callbacks'),
-                ),
+        $this->app->when(CallbackCollector::class)->needs(CollectionLocator::class)->give(
+            fn (): CollectionLocator => new CollectionLocator(
+                $this->getPathsFromConfig('callbacks'),
             ),
         );
 
-        $this->app->singleton(
-            RequestBodyCollector::class,
-            fn (Application $application): RequestBodyCollector => new RequestBodyCollector(
-                new CollectionLocator(
-                    $this->getPathsFromConfig('request_bodies'),
-                ),
+        $this->app->when(RequestBodyCollector::class)->needs(CollectionLocator::class)->give(
+            fn (): CollectionLocator => new CollectionLocator(
+                $this->getPathsFromConfig('request_bodies'),
             ),
         );
 
-        $this->app->singleton(
-            ResponseCollector::class,
-            fn (Application $application): ResponseCollector => new ResponseCollector(
-                new CollectionLocator(
-                    $this->getPathsFromConfig('responses'),
-                ),
+        $this->app->when(ResponseCollector::class)->needs(CollectionLocator::class)->give(
+            fn (): CollectionLocator => new CollectionLocator(
+                $this->getPathsFromConfig('responses'),
             ),
         );
 
-        $this->app->singleton(
-            SchemaCollector::class,
-            fn (Application $application): SchemaCollector => new SchemaCollector(
-                new CollectionLocator(
-                    $this->getPathsFromConfig('schemas'),
-                ),
+        $this->app->when(SchemaCollector::class)->needs(CollectionLocator::class)->give(
+            fn (): CollectionLocator => new CollectionLocator(
+                $this->getPathsFromConfig('schemas'),
             ),
         );
 
-        $this->app->singleton(
-            SecuritySchemeCollector::class,
-            fn (Application $application): SecuritySchemeCollector => new SecuritySchemeCollector(
-                new CollectionLocator(
-                    $this->getPathsFromConfig('security_schemes'),
-                ),
+        $this->app->when(SecuritySchemeCollector::class)->needs(CollectionLocator::class)->give(
+            fn (): CollectionLocator => new CollectionLocator(
+                $this->getPathsFromConfig('security_schemes'),
             ),
         );
 

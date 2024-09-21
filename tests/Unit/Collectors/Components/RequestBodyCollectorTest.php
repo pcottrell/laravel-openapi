@@ -15,7 +15,7 @@ describe('RequestBodyCollector', function (): void {
         $result = $this->collector->collect();
 
         expect($result)->toBeInstanceOf(Collection::class)
-            ->and($result->count())->toBe(1)
+            ->and($result->count())->toBe(2)
             ->and($result->first())->toBeInstanceOf(RequestBody::class);
     });
 
@@ -23,7 +23,7 @@ describe('RequestBodyCollector', function (): void {
         $result = $this->collector->collect('test');
 
         expect($result)->toBeInstanceOf(Collection::class)
-            ->and($result->count())->toBe(1)
+            ->and($result->count())->toBe(2)
             ->and($result->first())->toBeInstanceOf(RequestBody::class);
     });
 
