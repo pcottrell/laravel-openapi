@@ -4,12 +4,14 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
+/** @link https://swagger.io/specification/#security-scheme-object */
 class SecurityScheme extends BaseObject
 {
     public const TYPE_API_KEY = 'apiKey';
     public const TYPE_HTTP = 'http';
     public const TYPE_OAUTH2 = 'oauth2';
     public const TYPE_OPEN_ID_CONNECT = 'openIdConnect';
+    // TODO: missing TYPE_MUTUAL_TLS
     public const IN_QUERY = 'query';
     public const IN_HEADER = 'header';
     public const IN_COOKIE = 'cookie';
@@ -49,6 +51,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
+    // TODO: is only required when type is apiKey
     public function name(string|null $name): static
     {
         $instance = clone $this;
@@ -58,6 +61,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
+    // TODO: is only required when type is apiKey
     public function in(string|null $in): static
     {
         $instance = clone $this;
@@ -67,6 +71,8 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
+    // TODO: only required for http type and should be limited to some standard values
+    // https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml
     public function scheme(string|null $scheme): static
     {
         $instance = clone $this;
@@ -76,6 +82,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
+    // TODO: is only required when type is http with 'bearer' scheme
     public function bearerFormat(string|null $bearerFormat): static
     {
         $instance = clone $this;
