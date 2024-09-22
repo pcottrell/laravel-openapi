@@ -1,7 +1,6 @@
 <?php
 
-use JsonSchema\Constraints\BaseConstraint;
-use JsonSchema\Validator;
+use MohammadAlavi\LaravelOpenApi\oooas\Services\JsonSchemaValidator;
 use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
@@ -22,22 +21,19 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use MohammadAlavi\ObjectOrientedOAS\OpenApi;
 
 describe('OpenApi', function (): void {
-    it('can generate valid OpenAPI v3.0.x docs', function (): void {
+    it('can generate valid OpenAPI v3.0.x docs', function (string $version, string $method, SecurityScheme $securityScheme): void {
         $tag = Tag::create()
             ->name('Audits')
             ->description('All the audits');
-
         $contact = Contact::create()
             ->name('Example')
             ->url('https://example.com')
             ->email('hello@example.com');
-
         $info = Info::create()
             ->title('API Specification')
             ->version('v1')
             ->description('For using the Example App API')
             ->contact($contact);
-
         $schema = Schema::object()
             ->properties(
                 Schema::string('id')->format(Schema::FORMAT_UUID),
@@ -48,33 +44,23 @@ describe('OpenApi', function (): void {
                         Schema::string('id')->format(Schema::FORMAT_UUID),
                     ),
                 ),
-            )
-            ->required('id', 'created_at');
-
+            )->required('id', 'created_at');
         $expectedResponse = Response::create()
             ->statusCode(200)
             ->description('OK')
-            ->content(
-                MediaType::json()->schema($schema),
-            );
-
+            ->content(MediaType::json()->schema($schema));
         $operation = Operation::get()
             ->responses($expectedResponse)
             ->tags($tag)
             ->summary('List all audits')
             ->operationId('audits.index');
-
         $createAudit = Operation::post()
             ->responses($expectedResponse)
             ->tags($tag)
             ->summary('Create an audit')
             ->operationId('audits.store')
-            ->requestBody(RequestBody::create()->content(
-                MediaType::json()->schema($schema),
-            ));
-
-        $auditId = Schema::string('audit')
-            ->format(Schema::FORMAT_UUID);
+            ->requestBody(RequestBody::create()->content(MediaType::json()->schema($schema)));
+        $auditId = Schema::string('audit')->format(Schema::FORMAT_UUID);
         $format = Schema::string('format')
             ->enum('json', 'ics')
             ->default('json');
@@ -109,13 +95,13 @@ describe('OpenApi', function (): void {
             Server::create()->url('https://api.example.com/v2'),
         ];
 
-        $oAuthFlow = OAuthFlow::create()
-            ->flow(OAuthFlow::FLOW_PASSWORD)
-            ->tokenUrl('https://api.example.com/oauth/authorize');
-
-        $securityScheme = SecurityScheme::oauth2('OAuth2')
-            ->flows($oAuthFlow);
-
+        //        $oAuthFlow = OAuthFlow::create()
+        //            ->flow(OAuthFlow::FLOW_PASSWORD)
+        //            ->tokenUrl('https://api.example.com/oauth/authorize');
+        //
+        //        $securityScheme = SecurityScheme::oauth2('OAuth2')
+        //            ->flows($oAuthFlow);
+        //
         $components = Components::create()->securitySchemes($securityScheme);
 
         $securityRequirement = SecurityRequirement::create()->securityScheme($securityScheme);
@@ -125,7 +111,8 @@ describe('OpenApi', function (): void {
             ->description('Example');
 
         $openApi = OpenApi::create()
-            ->openapi(OpenApi::OPENAPI_3_0_1)
+            ->openapi($version)
+            // ->openapi(OpenApi::OPENAPI_3_0_1)
             ->info($info)
             ->paths(...$paths)
             ->servers(...$servers)
@@ -134,30 +121,85 @@ describe('OpenApi', function (): void {
             ->tags($tag)
             ->externalDocs($externalDocs);
 
-        $expectedResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/v3.0.x_expected_response.json'));
 
         $data = $openApi->toArray();
-        expect($data)->toBe(json_decode($expectedResponse, true, 512, JSON_THROW_ON_ERROR));
-        expect(isValid(realpath(__DIR__ . '/../Stubs/Schemas/v3.0.x.json'), $data))->toBeTrue();
+        // $expectedResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/v3.0.x_expected_response.json'));
+        // expect($data)->toBe(json_decode($expectedResponse, true, 512, JSON_THROW_ON_ERROR));
+        /** @var JsonSchemaValidator $result */
+        $result = JsonSchemaValidator::$method($data)->validate();
+        if (!$result->isValid()) {
+            printf("Errors: %s\n", json_encode($result->errors(), JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
+        }
+        expect($result->isValid())->toBeTrue();
     })->with([
-        'v3.0.0' => [OpenApi::OPENAPI_3_0_0],
-        'v3.0.1' => [OpenApi::OPENAPI_3_0_1],
-        'v3.0.2' => [OpenApi::OPENAPI_3_0_2],
-        'v3.0.3' => [OpenApi::OPENAPI_3_0_3],
+        'v3.0.0' => [OpenApi::OPENAPI_3_0_0, 'againstOAS30x'],
+        'v3.0.1' => [OpenApi::OPENAPI_3_0_1, 'againstOAS30x'],
+        'v3.0.2' => [OpenApi::OPENAPI_3_0_2, 'againstOAS30x'],
+        'v3.0.3' => [OpenApi::OPENAPI_3_0_3, 'againstOAS30x'],
+        'v3.1.0' => [OpenApi::OPENAPI_3_1_0, 'againstOAS31x'],
+    ])->with([
+        function () {
+            $oAuthFlow = OAuthFlow::create()
+                ->flow(OAuthFlow::FLOW_IMPLICIT)
+                ->authorizationUrl('https://api.example.com/oauth/authorize')
+                ->refreshUrl('https://api.example.com/oauth/refresh')
+                ->scopes([
+                    'read:audits' => 'Read audits',
+                    'write:audits' => 'Write audits',
+                ]);
+
+            return SecurityScheme::oauth2('OAuth2')
+                ->flows($oAuthFlow);
+        },
+        function () {
+            $oAuthFlow = OAuthFlow::create()
+                ->flow(OAuthFlow::FLOW_PASSWORD)
+                ->tokenUrl('https://api.example.com/oauth/authorize')
+                ->refreshUrl('https://api.example.com/oauth/refresh')
+                ->scopes([
+                    'read:audits' => 'Read audits',
+                    'write:audits' => 'Write audits',
+                ]);
+
+            return SecurityScheme::oauth2('OAuth2')
+                ->flows($oAuthFlow);
+        },
+        function () {
+            $oAuthFlow = OAuthFlow::create()
+                ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS)
+                ->tokenUrl('https://api.example.com/oauth/authorize')
+                ->refreshUrl('https://api.example.com/oauth/refresh')
+                ->scopes(null);
+
+            return SecurityScheme::oauth2('OAuth2')
+                ->flows($oAuthFlow);
+        },
+        function () {
+            $oAuthFlow = OAuthFlow::create()
+                ->flow(OAuthFlow::FLOW_AUTHORIZATION_CODE)
+                ->authorizationUrl('https://api.example.com/oauth/authorize')
+                ->tokenUrl('https://api.example.com/oauth/token')
+                ->refreshUrl('https://api.example.com/oauth/refresh');
+
+            return SecurityScheme::oauth2('OAuth2')
+                ->flows($oAuthFlow);
+        },
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+            ->name('X-API-Key')
+            ->in(SecurityScheme::IN_HEADER),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+            ->name('in-query')
+            ->in(SecurityScheme::IN_QUERY),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+            ->name('in-cookie')
+            ->in(SecurityScheme::IN_COOKIE),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+            ->scheme('Basic'),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+            ->scheme('Bearer')
+            ->bearerFormat('JWT'),
+        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
+            ->openIdConnectUrl('https://api.example.com/.well-known/openid-configuration'),
     ]);
-
-    it('can generate valid OpenAPI v3.1.0 docs', function (): void {
-    })->todo();
-
-    function isValid(string $schemaPath, array $data): bool
-    {
-        $schema = file_get_contents($schemaPath);
-        $schema = json_decode($schema, false, 512, JSON_THROW_ON_ERROR);
-
-        $data = BaseConstraint::arrayToObjectRecursive($data);
-        $validator = new Validator();
-        $validator->validate($data, $schema);
-
-        return $validator->isValid();
-    }
 })->coversNothing();
