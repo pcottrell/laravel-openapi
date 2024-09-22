@@ -99,7 +99,7 @@ class SecurityRequirementBuilder
     {
         return collect($factories)
             ->map(function (array|string|null $factory) {
-                if (is_array($factory) && count($factory) > 1) {
+                if (is_array($factory) && count($factory) > 0) {
                     return $this->buildNestedSecurityScheme($factory);
                 }
 
