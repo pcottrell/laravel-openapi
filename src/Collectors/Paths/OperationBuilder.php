@@ -33,7 +33,7 @@ class OperationBuilder
 
     public function build(array|Collection $routes): array
     {
-        return collect($routes)->map(fn ($route) => $this->buildOperation($route))->all();
+        return collect($routes)->map(fn (RouteInformation $route) => $this->buildOperation($route))->all();
     }
 
     private function buildOperation(RouteInformation $route): Operation

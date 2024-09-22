@@ -18,8 +18,8 @@ final readonly class SchemaCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return $this->collectionLocator->find($collection)
-            ->filter(static fn ($class): bool => is_a($class, SchemaFactory::class, true) && is_a($class, Reusable::class, true))
-            ->map(static function ($class) {
+            ->filter(static fn (string $class): bool => is_a($class, SchemaFactory::class, true) && is_a($class, Reusable::class, true))
+            ->map(static function (string $class) {
                 /** @var SchemaFactory $instance */
                 $instance = app($class);
 

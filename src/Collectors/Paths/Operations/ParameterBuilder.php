@@ -62,7 +62,7 @@ class ParameterBuilder
         /** @var ParameterAttribute|null $parameters */
         $parameters = $routeInformation
             ->actionAttributes->first(
-                static fn ($attribute): bool => $attribute instanceof ParameterAttribute,
+                static fn (object $attribute): bool => $attribute instanceof ParameterAttribute,
                 [],
             );
 

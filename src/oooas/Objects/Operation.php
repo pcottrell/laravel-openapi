@@ -98,7 +98,7 @@ class Operation extends BaseObject
 
     public function tags(Tag|string ...$tags): static
     {
-        $allStringTags = array_map(static function ($tag) {
+        $allStringTags = array_map(static function (Tag|string $tag) {
             if ($tag instanceof Tag) {
                 return (string) $tag;
             }

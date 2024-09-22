@@ -21,8 +21,8 @@ final readonly class CallbackCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return $this->collectionLocator->find($collection)
-            ->filter(static fn ($class): bool => is_a($class, CallbackFactory::class, true) && is_a($class, Reusable::class, true))
-            ->map(static function ($class) {
+            ->filter(static fn (string $class): bool => is_a($class, CallbackFactory::class, true) && is_a($class, Reusable::class, true))
+            ->map(static function (string $class) {
                 /** @var CallbackFactory $instance */
                 $instance = app($class);
 

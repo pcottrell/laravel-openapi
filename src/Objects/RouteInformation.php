@@ -38,8 +38,8 @@ class RouteInformation
     {
         return tap(new static(), static function (self $instance) use ($route): void {
             $method = collect($route->methods())
-                ->map(static fn ($value) => Str::lower($value))
-                ->filter(static fn ($value): bool => !in_array($value, ['head', 'options'], true))
+                ->map(static fn (string $value) => Str::lower($value))
+                ->filter(static fn (string $value): bool => !in_array($value, ['head', 'options'], true))
                 ->first();
 
             if (is_null($method)) {
@@ -50,7 +50,7 @@ class RouteInformation
             $parameters = collect($parameters[1]);
 
             if (count($parameters) > 0) {
-                $parameters = $parameters->map(static fn ($parameter): array => [
+                $parameters = $parameters->map(static fn (string $parameter): array => [
                     'name' => Str::replaceLast('?', '', $parameter),
                     'required' => !Str::endsWith($parameter, '?'),
                 ]);
@@ -84,7 +84,7 @@ class RouteInformation
                 );
             }
 
-            $containsControllerLevelParameter = $instance->actionAttributes->contains(static fn ($value): bool => $value instanceof Parameter);
+            $containsControllerLevelParameter = $instance->actionAttributes->contains(static fn (object $value): bool => $value instanceof Parameter);
 
             $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $instance->domain = $route->domain();

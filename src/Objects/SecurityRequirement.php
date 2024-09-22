@@ -34,21 +34,23 @@ class SecurityRequirement extends ParentSecurityRequirement
     {
         // TODO: maybe skip generating if empty?
         $spec = collect($this->nestedSecurityScheme)->map(
-            static function ($securityScheme) {
+            static function (SecurityScheme|array $securityScheme) {
                 if ($securityScheme instanceof SecurityScheme) {
                     return self::create()->securityScheme($securityScheme)->generate();
                 }
 
                 return collect($securityScheme)->map(
-                    static fn (SecurityScheme $securityScheme): array => self::create()->securityScheme($securityScheme)->generate(),
+                    static fn (SecurityScheme $securityScheme): array => self::create()
+                        ->securityScheme($securityScheme)
+                        ->generate(),
                 )->collapse();
             },
         );
 
         // merge "and" & "or" security schemes based on https://swagger.io/docs/specification/authentication/
-        $fixedSpec = $spec->reduce(static function (Collection $carry, $item) {
+        $fixedSpec = $spec->reduce(static function (Collection $carry, Collection|array $item) {
             if (count($item) > 1) {
-                return $carry->add($item->reduce(
+                return $carry->add(collect($item)->reduce(
                     static fn (Collection $carry, array $item) => $carry->merge($item),
                     collect(),
                 ));

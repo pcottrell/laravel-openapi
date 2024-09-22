@@ -40,7 +40,7 @@ abstract class BaseObject implements \JsonSerializable
         return $instance;
     }
 
-    public function x(string $key, $value = Extensions::X_EMPTY_VALUE): static
+    public function x(string $key, mixed $value = Extensions::X_EMPTY_VALUE): static
     {
         Assert::stringNotEmpty($key);
 

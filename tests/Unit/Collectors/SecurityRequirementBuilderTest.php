@@ -65,12 +65,6 @@ describe('SecurityRequirementBuilder', function (): void {
                 ['BSecurityScheme' => [], 'ASecurityScheme' => []],
             ],
         ],
-        //        'nested single class string security with empty array' => [
-        //            [[ASecuritySchemeFactory::class, []]],
-        //            [
-        //                ['ASecurityScheme' => []],
-        //            ],
-        //        ],
         'one element array security' => [
             [ASecuritySchemeFactory::class],
             [
@@ -120,6 +114,12 @@ describe('SecurityRequirementBuilder', function (): void {
         'nested empty array with empty array' => [
             [[[]]],
             [],
+        ],
+        'nested single class string security with empty array' => [
+            [[ASecuritySchemeFactory::class, []]],
+            [
+                ['ASecurityScheme' => []],
+            ],
         ],
     ]);
 

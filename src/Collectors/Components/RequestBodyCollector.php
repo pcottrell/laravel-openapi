@@ -18,8 +18,8 @@ final readonly class RequestBodyCollector
     public function collect(string $collection = Generator::COLLECTION_DEFAULT): Collection
     {
         return $this->collectionLocator->find($collection)
-            ->filter(static fn ($class): bool => is_a($class, RequestBodyFactory::class, true) && is_a($class, Reusable::class, true))
-            ->map(static function ($class) {
+            ->filter(static fn (string $class): bool => is_a($class, RequestBodyFactory::class, true) && is_a($class, Reusable::class, true))
+            ->map(static function (string $class) {
                 /** @var RequestBodyFactory $instance */
                 $instance = app($class);
 

@@ -25,7 +25,7 @@ readonly class PathBuilder
             ->filter(fn (RouteInformation $route) => $this->shouldIncludeRoute($route, $collection))
             ->map(fn (RouteInformation $route) => $this->applyBeforeMiddleware($route, $middlewares))
             ->groupBy(static fn (RouteInformation $route) => $route->uri)
-            ->map(fn (Collection $routes, $uri) => $this->createPathItem($routes, $uri))
+            ->map(fn (Collection $routes, string $uri) => $this->createPathItem($routes, $uri))
             ->map(fn (PathItem $pathItem) => $this->applyAfterMiddleware($pathItem, $middlewares))
             ->values()
             ->toArray();

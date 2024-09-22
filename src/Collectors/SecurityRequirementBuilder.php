@@ -97,18 +97,17 @@ class SecurityRequirementBuilder
      */
     private function buildNestedSecurityScheme(array $factories): array
     {
-        // TODO: cannot have "no security e.g. []" while providing multiple other securities
-        // iterate over all $this->securitySchemeFactories items and check if any of them are NoSecurity
-        // throw new \Exception('Cannot disable security while providing multiple other securities');
         return collect($factories)
-            ->map(function ($factory) {
-                if (is_array($factory)) {
+            ->map(function (array|string|null $factory) {
+                if (is_array($factory) && count($factory) > 1) {
                     return $this->buildNestedSecurityScheme($factory);
                 }
 
                 if ($this->isValidSecurityFactory($factory)) {
                     return $this->buildSecurityScheme($factory);
                 }
+
+                throw new \RuntimeException('Invalid security configuration');
             })->toArray();
     }
 }
