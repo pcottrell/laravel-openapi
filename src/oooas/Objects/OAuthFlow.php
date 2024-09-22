@@ -5,6 +5,8 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
+// TODO: there are 2 different objects OAuthFlow and OAuthFlows, but we only have one!
+//  https://swagger.io/specification/#oauth-flows-object
 class OAuthFlow extends BaseObject
 {
     public const FLOW_IMPLICIT = 'implicit';
