@@ -18,6 +18,7 @@ class OpenApi extends BaseObject
     public const OPENAPI_3_0_1 = '3.0.1';
     public const OPENAPI_3_0_2 = '3.0.2';
     public const OPENAPI_3_0_3 = '3.0.3';
+    public const OPENAPI_3_1_0 = '3.1.0';
 
     protected string|null $openapi = null;
     protected Info|null $info = null;
