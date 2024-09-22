@@ -4,13 +4,14 @@ namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-/** @link https://swagger.io/specification/#security-scheme-object */
+/** @see https://swagger.io/specification/#security-scheme-object */
 class SecurityScheme extends BaseObject
 {
     public const TYPE_API_KEY = 'apiKey';
     public const TYPE_HTTP = 'http';
     public const TYPE_OAUTH2 = 'oauth2';
     public const TYPE_OPEN_ID_CONNECT = 'openIdConnect';
+
     // TODO: missing TYPE_MUTUAL_TLS
     public const IN_QUERY = 'query';
     public const IN_HEADER = 'header';
