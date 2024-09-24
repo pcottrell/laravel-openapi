@@ -16,6 +16,7 @@ class SecurityRequirements
     public function requireAll(SecurityRequirement $requirement): self
     {
         $this->requirements[] = $requirement->toArray();
+
         return $this;
     }
 
@@ -24,6 +25,7 @@ class SecurityRequirements
         foreach ($requirements as $requirement) {
             $this->requirements[] = $requirement->toArray();
         }
+
         return $this;
     }
 
