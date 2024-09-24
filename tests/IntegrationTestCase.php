@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 
 abstract class IntegrationTestCase extends TestCase
 {
-    protected function generate(): OpenApi
+    public function generate(): OpenApi
     {
         return $this->app->make(Generator::class)->generate();
     }

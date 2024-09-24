@@ -9,7 +9,7 @@ use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
 
 describe('Operation', function (): void {
     it('can set security', function (array $securityReqs, array $expectation): void {
-        $operation = new Operation();
+        $operation = Operation::create();
 
         $result = $operation->security(...$securityReqs);
 

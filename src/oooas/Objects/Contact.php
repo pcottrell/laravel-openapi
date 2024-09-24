@@ -37,7 +37,7 @@ class Contact extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'name' => $this->name,

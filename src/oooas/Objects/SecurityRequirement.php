@@ -1,7 +1,9 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedOAS\Objects;
+namespace MohammadAlavi\LaravelOpenApi\oooas\Objects;
 
+use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
+use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class SecurityRequirement extends BaseObject
@@ -33,7 +35,7 @@ class SecurityRequirement extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             $this->securityScheme => $this->scopes ?? [],

@@ -20,7 +20,7 @@ abstract class SchemaComposition extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             $this->compositionType() => $this->schemas,

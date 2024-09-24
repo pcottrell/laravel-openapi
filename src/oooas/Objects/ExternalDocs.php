@@ -27,7 +27,7 @@ class ExternalDocs extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'description' => $this->description,

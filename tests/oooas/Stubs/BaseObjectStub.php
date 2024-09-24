@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class BaseObjectStub extends BaseObject
 {
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'objectId' => $this->objectId,

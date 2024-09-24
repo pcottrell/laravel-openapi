@@ -1,19 +1,19 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 
 describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {
-        $operation = new Operation();
+        $operation = Operation::create();
 
         expect($operation->toArray())->toBeEmpty();
     });

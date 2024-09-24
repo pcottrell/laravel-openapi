@@ -156,7 +156,7 @@ describe('OperationBuilder', function (): void {
                             'deprecated' => true,
                             // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
                             //  it will be null in the SecurityRequirement object $securityScheme field
-                            'security' => (new SecurityRequirement())->securityScheme((new SecuritySchemeFactory())->build()),
+                            'security' => (SecurityRequirement::create())->securityScheme((new SecuritySchemeFactory())->build()),
                             'action' => 'get',
                             'servers' => [(new ServerWithMultipleVariableFormatting())->build()],
                             'tags' => ['PostWithExternalObjectDoc'],

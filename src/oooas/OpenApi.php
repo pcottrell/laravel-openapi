@@ -2,12 +2,12 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Info;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
@@ -111,7 +111,7 @@ class OpenApi extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $paths = [];
         foreach ($this->paths ?? [] as $path) {

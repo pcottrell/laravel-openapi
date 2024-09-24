@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Unit\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 describe('SecurityRequirement', function (): void {

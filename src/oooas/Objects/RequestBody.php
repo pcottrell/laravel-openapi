@@ -40,7 +40,7 @@ class RequestBody extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $content = [];
         foreach ($this->content ?? [] as $contentItem) {

@@ -8,6 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Tests\Doubles\Stubs\FakeExtension;
 use Tests\TestCase;
 
 #[CoversClass(ExtensionBuilder::class)]
@@ -25,9 +26,9 @@ class ExtensionBuilderTest extends TestCase
             );
 
         /** @var ExtensionBuilder $extensionBuilder */
-        $extensionBuilder = resolve(ExtensionBuilder::class);
+        $extensionBuilder = app(ExtensionBuilder::class);
         $extensionBuilder->build($operation, collect([
-            new Extension(factory: \Tests\Doubles\Stubs\FakeExtension::class),
+            new Extension(factory: FakeExtension::class),
         ]));
 
         $this->assertSame([
@@ -53,7 +54,7 @@ class ExtensionBuilderTest extends TestCase
             );
 
         /** @var ExtensionBuilder $extensionBuilder */
-        $extensionBuilder = resolve(ExtensionBuilder::class);
+        $extensionBuilder = app(ExtensionBuilder::class);
         $extensionBuilder->build($operation, collect([
             new Extension(key: 'foo', value: 'bar'),
             new Extension(key: 'x-key', value: '1'),

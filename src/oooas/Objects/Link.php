@@ -47,7 +47,7 @@ class Link extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'operationRef' => $this->operationRef,

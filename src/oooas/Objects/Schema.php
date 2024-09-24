@@ -376,7 +376,7 @@ class Schema extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $properties = [];
         foreach ($this->properties ?? [] as $property) {

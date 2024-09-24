@@ -18,7 +18,7 @@ describe('Referensable', function (): void {
     it('throws exception if class does not implement Reusable', function (): void {
         $schema = NotReusableResponseFactory::ref();
 
-        $schema::ref();
+        $schema::ref('#/components/schemas/SchemaObjectId');
     })->throws(InvalidArgumentException::class);
 
     it('doesnt work with parameter factory', function (): void {

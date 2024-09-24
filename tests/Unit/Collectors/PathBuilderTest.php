@@ -66,9 +66,7 @@ describe('PathBuilder', function (): void {
     });
 
     it('can be created with default collection', function (): void {
-        $operationBuilder = Mockery::mock(OperationBuilder::class, static function (MockInterface $mock) {
-            $mock->expects('build')->times(3)->andReturn([]);
-        });
+        $operationBuilder = app(OperationBuilder::class);
         $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
 
         $result = $pathBuilder->build(Generator::COLLECTION_DEFAULT);
@@ -81,9 +79,7 @@ describe('PathBuilder', function (): void {
     });
 
     it('can be created with custom collection', function (): void {
-        $operationBuilder = Mockery::mock(OperationBuilder::class, static function (MockInterface $mock) {
-            $mock->expects('build')->times(2)->andReturn([]);
-        });
+        $operationBuilder = app(OperationBuilder::class);
         $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
 
         $result = $pathBuilder->build('custom');
@@ -96,9 +92,7 @@ describe('PathBuilder', function (): void {
     });
 
     it('can be created with middleware', function (): void {
-        $operationBuilder = Mockery::mock(OperationBuilder::class, static function (MockInterface $mock) {
-            $mock->expects('build')->times(2)->andReturn([]);
-        });
+        $operationBuilder = app(OperationBuilder::class);
         $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
         $middlewareSpyA = Mockery::spy(PathMiddlewareStub::class);
         $middlewareSpyB = Mockery::spy(PathMiddlewareStub::class);

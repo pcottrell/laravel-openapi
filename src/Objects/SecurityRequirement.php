@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement as ParentSecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement as ParentSecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecurityRequirement extends ParentSecurityRequirement
@@ -21,7 +21,7 @@ class SecurityRequirement extends ParentSecurityRequirement
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         if ([] !== $this->nestedSecurityScheme) {
             return $this->generateMultiAuth();

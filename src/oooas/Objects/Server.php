@@ -39,7 +39,7 @@ class Server extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $variables = [];
         foreach ($this->variables ?? [] as $variable) {

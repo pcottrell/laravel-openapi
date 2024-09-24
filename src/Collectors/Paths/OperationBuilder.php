@@ -17,17 +17,17 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
-class OperationBuilder
+final readonly class OperationBuilder
 {
     public function __construct(
-        private readonly TagBuilder $tagBuilder,
-        private readonly ServerBuilder $serverBuilder,
-        private readonly ParameterBuilder $parameterBuilder,
-        private readonly RequestBodyBuilder $requestBodyBuilder,
-        private readonly ResponseBuilder $responseBuilder,
-        private readonly SecurityRequirementBuilder $securityRequirementBuilder,
-        private readonly CallbackBuilder $callbackBuilder,
-        private readonly ExtensionBuilder $extensionBuilder,
+        private TagBuilder $tagBuilder,
+        private ServerBuilder $serverBuilder,
+        private ParameterBuilder $parameterBuilder,
+        private RequestBodyBuilder $requestBodyBuilder,
+        private ResponseBuilder $responseBuilder,
+        private SecurityRequirementBuilder $securityRequirementBuilder,
+        private CallbackBuilder $callbackBuilder,
+        private ExtensionBuilder $extensionBuilder,
     ) {
     }
 

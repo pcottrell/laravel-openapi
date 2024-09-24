@@ -130,7 +130,7 @@ class Header extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {

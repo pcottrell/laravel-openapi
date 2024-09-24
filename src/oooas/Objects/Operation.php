@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Operation extends BaseObject
@@ -222,7 +223,7 @@ class Operation extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $responses = [];
         foreach ($this->responses ?? [] as $response) {

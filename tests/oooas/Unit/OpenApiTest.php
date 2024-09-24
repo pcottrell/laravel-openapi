@@ -1,5 +1,6 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
@@ -13,7 +14,6 @@ use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityRequirement;
 use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
 use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;

@@ -18,7 +18,7 @@ class Not extends BaseObject implements SchemaContract
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'not' => $this->schema,

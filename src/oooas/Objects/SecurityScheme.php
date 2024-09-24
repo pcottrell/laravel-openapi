@@ -111,7 +111,7 @@ class SecurityScheme extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $flows = [];
         foreach ($this->flows ?? [] as $flow) {

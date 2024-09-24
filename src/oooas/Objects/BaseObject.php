@@ -2,19 +2,20 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Objects;
 
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
-use MohammadAlavi\ObjectOrientedOAS\Utilities\Extensions;
-use Webmozart\Assert\Assert;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Extensible;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Generatable;
+use MohammadAlavi\LaravelOpenApi\oooas\Traits\Extension;
 
 /** @property array|null $x */
-abstract class BaseObject implements \JsonSerializable
+abstract class BaseObject implements \JsonSerializable, Generatable, Extensible
 {
-    protected string|null $ref = null;
-    protected Extensions $extensions;
+    use Extension;
 
-    public function __construct(protected string|null $objectId = null)
-    {
-        $this->extensions = new Extensions();
+    protected string|null $ref = null;
+
+    protected function __construct(
+        protected readonly string|null $objectId = null,
+    ) {
     }
 
     public static function create(string|null $objectId = null): static
@@ -22,6 +23,10 @@ abstract class BaseObject implements \JsonSerializable
         return new static($objectId);
     }
 
+    // TODO: It seems not all objects need the ref method.
+    //  Only objects that can be Components and reusable needs this method.
+    //  Maybe this can be moved to a trait + interface.
+    //  https://swagger.io/specification/#components-object
     public static function ref(string $ref, string|null $objectId = null): static
     {
         $static = new static($objectId);
@@ -29,30 +34,6 @@ abstract class BaseObject implements \JsonSerializable
         $static->ref = $ref;
 
         return $static;
-    }
-
-    public function objectId(string|null $objectId): static
-    {
-        $instance = clone $this;
-
-        $instance->objectId = $objectId;
-
-        return $instance;
-    }
-
-    public function x(string $key, mixed $value = Extensions::X_EMPTY_VALUE): static
-    {
-        Assert::stringNotEmpty($key);
-
-        if (Extensions::isExtension($key)) {
-            $key = mb_substr($key, 2);
-        }
-
-        $instance = clone $this;
-
-        $instance->extensions[$key] = $value;
-
-        return $instance;
     }
 
     /** @throws \JsonException */
@@ -69,11 +50,9 @@ abstract class BaseObject implements \JsonSerializable
 
         return array_merge(
             $this->generate(),
-            $this->extensions->toArray(),
+            $this->extensions()->toArray(),
         );
     }
-
-    abstract protected function generate(): array;
 
     /**
      * Specify data which should be serialized to JSON.
@@ -81,29 +60,5 @@ abstract class BaseObject implements \JsonSerializable
     public function jsonSerialize(): array
     {
         return $this->toArray();
-    }
-
-    /** @throws PropertyDoesNotExistException */
-    public function __get(string $name)
-    {
-        if (property_exists($this, $name)) {
-            return $this->$name;
-        }
-
-        // Get all extensions.
-        if ('x' === $name) {
-            return $this->extensions->toArray();
-        }
-
-        // Get a single extension.
-        if (Extensions::isExtension($name)) {
-            $key = mb_strtolower(substr_replace($name, '', 0, 2));
-
-            if (isset($this->extensions[$key])) {
-                return $this->extensions[$key];
-            }
-        }
-
-        throw new PropertyDoesNotExistException(sprintf('[%s] is not a valid property.', $name));
     }
 }

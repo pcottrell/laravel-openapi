@@ -6,7 +6,7 @@ use Tests\oooas\Stubs\BaseObjectStub;
 
 describe('BaseObject', function (): void {
     it('can be created with objectId', function (): void {
-        $object = new BaseObjectStub('test');
+        $object = BaseObjectStub::create('test');
 
         expect($object->toArray())->toBe([
             'objectId' => 'test',
@@ -26,14 +26,6 @@ describe('BaseObject', function (): void {
 
         expect($object->toArray())->toBe([
             '$ref' => 'test',
-        ]);
-    });
-
-    it('can set objectId after creation', function (): void {
-        $object = BaseObjectStub::create()->objectId('test');
-
-        expect($object->toArray())->toBe([
-            'objectId' => 'test',
         ]);
     });
 

@@ -115,7 +115,7 @@ class Components extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $schemas = [];
         foreach ($this->schemas ?? [] as $schema) {

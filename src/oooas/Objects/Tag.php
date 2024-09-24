@@ -42,7 +42,7 @@ class Tag extends BaseObject implements \Stringable
         return $this->name;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         return Arr::filter([
             'name' => $this->name,

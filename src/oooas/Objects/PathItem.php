@@ -73,7 +73,7 @@ class PathItem extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $operations = [];
         foreach ($this->operations ?? [] as $operation) {

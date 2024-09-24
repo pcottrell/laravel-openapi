@@ -140,7 +140,7 @@ class Response extends BaseObject
         return $instance;
     }
 
-    protected function generate(): array
+    public function generate(): array
     {
         $headers = [];
         foreach ($this->headers ?? [] as $header) {
