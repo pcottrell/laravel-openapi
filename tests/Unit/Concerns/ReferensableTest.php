@@ -30,7 +30,7 @@ describe('Referensable', function (): void {
     it('can be created for all factories', function (Reusable $factory, string $expected): void {
         $schema = $factory::ref();
 
-        expect($schema)->toBeInstanceOf(\MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::class)
+        expect($schema)->toBeInstanceOf(MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::class)
             ->and($schema->serialize())->toBe([
                 '$ref' => $expected,
             ]);
@@ -100,9 +100,9 @@ describe('Referensable', function (): void {
             new class () extends ResponseFactory implements Reusable {
                 use Referencable;
 
-                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
+                public function build(): MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
                 {
-                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create('ResponseItemObjectId');
+                    return MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create('ResponseItemObjectId');
                 }
             }, '#/components/responses/ResponseItemObjectId',
         ],
@@ -110,9 +110,9 @@ describe('Referensable', function (): void {
             new class () extends ResponseFactory implements Reusable {
                 use Referencable;
 
-                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
+                public function build(): MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
                 {
-                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create();
+                    return MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create();
                 }
             }, '#/components/responses/',
         ],
@@ -120,9 +120,9 @@ describe('Referensable', function (): void {
             new class () extends SchemaFactory implements Reusable {
                 use Referencable;
 
-                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
+                public function build(): MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
                 {
-                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create('SchemaItemObjectId');
+                    return MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create('SchemaItemObjectId');
                 }
             }, '#/components/schemas/SchemaItemObjectId',
         ],
@@ -130,9 +130,9 @@ describe('Referensable', function (): void {
             new class () extends SchemaFactory implements Reusable {
                 use Referencable;
 
-                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
+                public function build(): MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
                 {
-                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create();
+                    return MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create();
                 }
             }, '#/components/schemas/',
         ],
