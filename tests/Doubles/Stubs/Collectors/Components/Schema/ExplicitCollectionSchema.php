@@ -5,7 +5,7 @@ namespace Tests\Doubles\Stubs\Collectors\Components\Schema;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
 #[Collection('test')]
 class ExplicitCollectionSchema extends SchemaFactory implements Reusable

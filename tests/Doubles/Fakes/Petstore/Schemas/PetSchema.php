@@ -4,8 +4,8 @@ namespace Tests\Doubles\Fakes\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 class PetSchema extends SchemaFactory implements Reusable
 {

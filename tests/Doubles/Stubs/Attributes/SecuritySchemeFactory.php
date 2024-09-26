@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory as AbstractFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 class SecuritySchemeFactory extends AbstractFactory
 {

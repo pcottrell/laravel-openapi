@@ -1,0 +1,28 @@
+<?php
+
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Link;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+
+describe('Link', function (): void {
+    it('can be created with no parameters', function (): void {
+        $link = Link::create();
+
+        expect($link->serialize())->toBeEmpty();
+    });
+
+    it('can be created with all parameters', function (): void {
+        $server = Server::create('testServer');
+        $link = Link::create('LinkName')
+            ->operationRef('testRef')
+            ->operationId('testId')
+            ->description('Some descriptions')
+            ->server($server);
+
+        expect($link->serialize())->toBe([
+            'operationRef' => 'testRef',
+            'operationId' => 'testId',
+            'description' => 'Some descriptions',
+            'server' => $server->serialize(),
+        ]);
+    });
+})->covers(Link::class);

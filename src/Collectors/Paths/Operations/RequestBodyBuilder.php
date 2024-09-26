@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
 class RequestBodyBuilder
 {

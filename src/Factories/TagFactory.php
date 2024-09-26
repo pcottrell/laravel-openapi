@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Factories;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 
 abstract class TagFactory
 {

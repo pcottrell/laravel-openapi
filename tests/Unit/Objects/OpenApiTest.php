@@ -18,7 +18,7 @@ describe('OpenApi', function (): void {
             ],
         ]);
 
-        expect($result->toArray())->toBe([
+        expect($result->serialize())->toBe([
             'security' => [
                 [
                     'ASecurityScheme' => [],
@@ -36,7 +36,7 @@ describe('OpenApi', function (): void {
 
         $result = $openApi->security(...$securityReqs);
 
-        expect($result->toArray())->toBe($expectation);
+        expect($result->serialize())->toBe($expectation);
     })->with([
         'empty array [] security' => [
             [],

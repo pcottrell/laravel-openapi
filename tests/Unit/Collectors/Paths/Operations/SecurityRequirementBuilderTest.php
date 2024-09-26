@@ -9,9 +9,9 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirement
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\ApiKeySecuritySchemeFactory;
@@ -733,7 +733,7 @@ class SecurityRequirementBuilderTest extends TestCase
             'paths' => [
                 $route => $actionData,
             ], ...$collectionData,
-        ], $openApi->toArray());
+        ], $openApi->serialize());
     }
 
     #[DataProvider('globalSecuritySchemesDataProvider')]
@@ -771,8 +771,7 @@ class SecurityRequirementBuilderTest extends TestCase
             'components' => $expectedJson['components'],
             'security' => $expectedJson['security'],
         ];
-        $this->assertSame($expected, $openApi->toArray());
-        $this->assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
+        $this->assertSame($expected, $openApi->serialize());
     }
 
     /**
@@ -815,8 +814,7 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->toArray());
-        $this->assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
+        $this->assertSame($expected, $openApi->serialize());
     }
 
     /**
@@ -872,7 +870,6 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->toArray());
-        $this->assertSame(json_encode($expected, JSON_THROW_ON_ERROR), $openApi->toJson());
+        $this->assertSame($expected, $openApi->serialize());
     }
 }

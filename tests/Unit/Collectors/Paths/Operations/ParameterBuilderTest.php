@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter as ParameterAttribute;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ParameterBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestController;
 

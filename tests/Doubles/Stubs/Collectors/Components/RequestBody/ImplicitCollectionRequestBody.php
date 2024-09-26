@@ -4,7 +4,7 @@ namespace Tests\Doubles\Stubs\Collectors\Components\RequestBody;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
 class ImplicitCollectionRequestBody extends RequestBodyFactory implements Reusable
 {

@@ -4,7 +4,7 @@ namespace Tests\Doubles\Stubs\Collectors\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 class PathMiddlewareStub implements PathMiddleware
 {

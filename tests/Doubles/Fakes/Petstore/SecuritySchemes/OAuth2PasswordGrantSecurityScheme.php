@@ -3,9 +3,9 @@
 namespace Tests\Doubles\Fakes\Petstore\SecuritySchemes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
-use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class OAuth2PasswordGrantSecurityScheme extends SecuritySchemeFactory
 {

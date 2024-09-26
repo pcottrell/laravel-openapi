@@ -1,8 +1,8 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use Pest\Expectation;
 
 describe('ComponentCollector', function (): void {
@@ -49,8 +49,8 @@ describe('ComponentCollector', function (): void {
 
         expect($result)->unless(
             is_null($result),
-            fn (Expectation $result) => $result->toBeInstanceOf(Components::class)
-                ->and($result->value->toArray())->toEqual($expectation),
+            fn (Expectation $xp) => $xp->toBeInstanceOf(Components::class)
+                ->and($xp->value->serialize())->toEqual($expectation),
         );
     })->with(
         [

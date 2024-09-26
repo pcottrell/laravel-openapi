@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Contracts;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 
 interface ComponentMiddleware
 {

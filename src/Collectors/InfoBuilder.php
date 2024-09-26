@@ -3,9 +3,9 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use Illuminate\Support\Arr;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Info;
-use MohammadAlavi\ObjectOrientedOAS\Objects\License;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\License;
 
 class InfoBuilder
 {
@@ -34,7 +34,7 @@ class InfoBuilder
         $extensions = $config['extensions'] ?? [];
 
         foreach ($extensions as $key => $value) {
-            $info->x($key, $value);
+            $info->addExtension($key, $value);
         }
 
         return $info;

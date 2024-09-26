@@ -168,7 +168,7 @@ class InfoBuilderTest extends TestCase
     {
         $infoBuilder = new InfoBuilder();
         $info = $infoBuilder->build($config);
-        $this->assertSameAssociativeArray($expected, $info->toArray());
+        $this->assertSameAssociativeArray($expected, $info->serialize());
     }
 
     /**

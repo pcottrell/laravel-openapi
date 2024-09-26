@@ -4,9 +4,9 @@ namespace Tests\Doubles\Fakes\Petstore\Responses;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
 class ErrorValidationResponse extends ResponseFactory implements Reusable
 {

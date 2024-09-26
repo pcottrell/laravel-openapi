@@ -3,7 +3,7 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Doubles\Stubs\Servers\ServerWithEnum;
@@ -147,7 +147,7 @@ class ServerBuilderTest extends TestCase
     {
         $builder = new ServerBuilder();
         $servers = $builder->build($factories);
-        $this->assertSameAssociativeArray($expected[0], $servers[0]->toArray());
+        $this->assertSameAssociativeArray($expected[0], $servers[0]->serialize());
     }
 
     /**
@@ -175,7 +175,7 @@ class ServerBuilderTest extends TestCase
         $builder = app(ServerBuilder::class);
         $servers = $builder->build($factories);
 
-        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->toArray())->toArray());
+        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->serialize())->toArray());
     }
 
     #[DataProvider('invalidServerProvider')]

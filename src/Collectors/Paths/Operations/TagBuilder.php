@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 
 readonly class TagBuilder
 {

@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 class CallbackBuilder
 {

@@ -4,7 +4,7 @@ namespace Tests\Doubles\Stubs\Concerns;
 
 use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 
 class NotReusableResponseFactory extends ResponseFactory
 {

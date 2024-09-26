@@ -3,7 +3,7 @@
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\RequestBodyCollector;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
 describe('RequestBodyCollector', function (): void {
     beforeEach(function () {

@@ -9,8 +9,8 @@ use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
 
 // TODO: cleanup this.
 // Is it even used? How?

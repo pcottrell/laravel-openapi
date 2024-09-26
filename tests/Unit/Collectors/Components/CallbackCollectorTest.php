@@ -3,7 +3,7 @@
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\CallbackCollector;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 describe('CallbackCollector', function (): void {
     beforeEach(function () {

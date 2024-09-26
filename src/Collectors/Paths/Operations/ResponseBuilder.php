@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 
 class ResponseBuilder
 {

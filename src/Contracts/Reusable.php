@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Contracts;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+
 /**
  * Implementing this interface will indicate that object should be included in 'components' object.
  *
@@ -11,4 +13,5 @@ namespace MohammadAlavi\LaravelOpenApi\Contracts;
 //  https://swagger.io/specification/#components-object
 interface Reusable
 {
+    public static function ref(string|null $objectId = null): Schema;
 }

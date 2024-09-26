@@ -7,10 +7,10 @@ use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 use Tests\Doubles\Stubs\Concerns\NotReusableResponseFactory;
 use Tests\Doubles\Stubs\Concerns\ReusableParameterFactory;
 
@@ -27,11 +27,11 @@ describe('Referensable', function (): void {
     })->note('This might be a bug as I think this should also work wit Parameters as per OAS v3.1.
      It doesnt work because its build() method returns an array.');
 
-    it('can be created for all factories', function ($factory, string $expected): void {
+    it('can be created for all factories', function (Reusable $factory, string $expected): void {
         $schema = $factory::ref();
 
-        expect($schema)->toBeInstanceOf(MohammadAlavi\ObjectOrientedOAS\Objects\Schema::class)
-            ->and($schema->toArray())->toBe([
+        expect($schema)->toBeInstanceOf(\MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::class)
+            ->and($schema->serialize())->toBe([
                 '$ref' => $expected,
             ]);
     })->with([
@@ -100,9 +100,9 @@ describe('Referensable', function (): void {
             new class () extends ResponseFactory implements Reusable {
                 use Referencable;
 
-                public function build(): MohammadAlavi\ObjectOrientedOAS\Objects\Response
+                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
                 {
-                    return MohammadAlavi\ObjectOrientedOAS\Objects\Response::create('ResponseItemObjectId');
+                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create('ResponseItemObjectId');
                 }
             }, '#/components/responses/ResponseItemObjectId',
         ],
@@ -110,9 +110,9 @@ describe('Referensable', function (): void {
             new class () extends ResponseFactory implements Reusable {
                 use Referencable;
 
-                public function build(): MohammadAlavi\ObjectOrientedOAS\Objects\Response
+                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response
                 {
-                    return MohammadAlavi\ObjectOrientedOAS\Objects\Response::create();
+                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response::create();
                 }
             }, '#/components/responses/',
         ],
@@ -120,9 +120,9 @@ describe('Referensable', function (): void {
             new class () extends SchemaFactory implements Reusable {
                 use Referencable;
 
-                public function build(): MohammadAlavi\ObjectOrientedOAS\Objects\Schema
+                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
                 {
-                    return MohammadAlavi\ObjectOrientedOAS\Objects\Schema::create('SchemaItemObjectId');
+                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create('SchemaItemObjectId');
                 }
             }, '#/components/schemas/SchemaItemObjectId',
         ],
@@ -130,9 +130,9 @@ describe('Referensable', function (): void {
             new class () extends SchemaFactory implements Reusable {
                 use Referencable;
 
-                public function build(): MohammadAlavi\ObjectOrientedOAS\Objects\Schema
+                public function build(): \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema
                 {
-                    return MohammadAlavi\ObjectOrientedOAS\Objects\Schema::create();
+                    return \MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::create();
                 }
             }, '#/components/schemas/',
         ],

@@ -2,20 +2,20 @@
 
 namespace Tests\oooas\Integration;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Info;
-use MohammadAlavi\ObjectOrientedOAS\Objects\License;
-use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\License;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Tests\IntegrationTestCase;
 
@@ -178,7 +178,7 @@ class PetStoreTest extends IntegrationTestCase
 
         $this->assertEquals(
             json_decode($exampleResponse, true),
-            $openApi->toArray(),
+            $openApi->serialize(),
         );
     }
 }

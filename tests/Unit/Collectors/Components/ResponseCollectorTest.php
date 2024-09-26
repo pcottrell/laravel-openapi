@@ -3,7 +3,7 @@
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\ResponseCollector;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 
 describe('ResponseCollector', function (): void {
     beforeEach(function () {

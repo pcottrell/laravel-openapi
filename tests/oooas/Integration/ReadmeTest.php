@@ -2,15 +2,15 @@
 
 namespace Tests\oooas\Integration;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Info;
-use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Tests\IntegrationTestCase;
 
@@ -70,7 +70,7 @@ class ReadmeTest extends IntegrationTestCase
 
         $this->assertEquals(
             json_decode($readmeExample, true),
-            $openApi->toArray(),
+            $openApi->serialize(),
         );
     }
 
@@ -86,11 +86,11 @@ class ReadmeTest extends IntegrationTestCase
             'info' => [
                 'title' => 'Example API',
             ],
-        ], $openApi->toArray());
+        ], $openApi->serialize());
 
         $openApi = $openApi->info(null);
 
-        $this->assertSame([], $openApi->toArray());
+        $this->assertSame([], $openApi->serialize());
     }
 
     public function testUnsettingVariadicMethods(): void
@@ -105,11 +105,11 @@ class ReadmeTest extends IntegrationTestCase
             'paths' => [
                 '/users' => [],
             ],
-        ], $openApi->toArray());
+        ], $openApi->serialize());
 
         $openApi = $openApi->paths();
 
-        $this->assertSame([], $openApi->toArray());
+        $this->assertSame([], $openApi->serialize());
     }
 
     public function testRetrievingProperties(): void
@@ -138,7 +138,7 @@ class ReadmeTest extends IntegrationTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $schema->toArray());
+        ], $schema->serialize());
     }
 
     public function testSimplerObjectId(): void
@@ -159,7 +159,7 @@ class ReadmeTest extends IntegrationTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $schema->toArray());
+        ], $schema->serialize());
     }
 
     public function testDollarRef(): void
@@ -173,6 +173,6 @@ class ReadmeTest extends IntegrationTestCase
             'allOf' => [
                 ['$ref' => '#/components/schemas/ExampleSchema'],
             ],
-        ], $allOf->toArray());
+        ], $allOf->serialize());
     }
 }

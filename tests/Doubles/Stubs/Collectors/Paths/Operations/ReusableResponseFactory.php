@@ -4,7 +4,7 @@ namespace Tests\Doubles\Stubs\Collectors\Paths\Operations;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory as AbstractFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 
 class ReusableResponseFactory extends AbstractFactory implements Reusable
 {

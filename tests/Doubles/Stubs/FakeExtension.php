@@ -3,16 +3,16 @@
 namespace Tests\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
 class FakeExtension extends ExtensionFactory
 {
     public function key(): string
     {
-        return 'uuid';
+        return 'x-uuid';
     }
 
-    public function value(): array|string|Schema|null
+    public function value(): Schema
     {
         return Schema::string()->format(Schema::FORMAT_UUID);
     }

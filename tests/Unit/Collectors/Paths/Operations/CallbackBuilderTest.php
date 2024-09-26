@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableCallbackFactory;
 

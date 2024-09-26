@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory as AbstractFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
 
 class ParameterFactory extends AbstractFactory
 {

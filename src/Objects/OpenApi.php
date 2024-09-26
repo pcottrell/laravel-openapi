@@ -5,9 +5,9 @@ namespace MohammadAlavi\LaravelOpenApi\Objects;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi as ParentOpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi as ParentOpenApi;
 
 class OpenApi extends ParentOpenApi
 {

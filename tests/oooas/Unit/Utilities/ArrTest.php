@@ -2,10 +2,10 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-describe('ArrTest', function (): void {
+describe('Arr', function (): void {
     it('removes null values', function (): void {
         $array = ['test' => null];
 

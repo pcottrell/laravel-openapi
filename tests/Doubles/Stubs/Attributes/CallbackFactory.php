@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory as AbstractFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 class CallbackFactory extends AbstractFactory
 {

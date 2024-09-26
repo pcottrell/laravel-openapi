@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Factories\Component;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 abstract class SecuritySchemeFactory
 {

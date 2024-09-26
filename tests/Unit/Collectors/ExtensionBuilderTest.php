@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Doubles\Stubs\FakeExtension;
 use Tests\TestCase;
@@ -39,7 +39,7 @@ class ExtensionBuilderTest extends TestCase
                     ],
                 ],
             ],
-        ], $openApi->toArray());
+        ], $openApi->serialize());
     }
 
     public function testBuildUsingKeyValue(): void
@@ -56,7 +56,7 @@ class ExtensionBuilderTest extends TestCase
         /** @var ExtensionBuilder $extensionBuilder */
         $extensionBuilder = app(ExtensionBuilder::class);
         $extensionBuilder->build($operation, collect([
-            new Extension(key: 'foo', value: 'bar'),
+            new Extension(key: 'x-foo', value: 'bar'),
             new Extension(key: 'x-key', value: '1'),
         ]));
 
@@ -69,6 +69,6 @@ class ExtensionBuilderTest extends TestCase
                     ],
                 ],
             ],
-        ], $openApi->toArray());
+        ], $openApi->serialize());
     }
 }

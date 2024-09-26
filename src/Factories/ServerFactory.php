@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Factories;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 
 abstract class ServerFactory
 {

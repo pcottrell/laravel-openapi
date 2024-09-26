@@ -4,9 +4,9 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
 
 class SecurityRequirementBuilder
 {

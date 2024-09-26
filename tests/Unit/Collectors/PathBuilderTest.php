@@ -8,7 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;
 
 describe('PathBuilder', function (): void {

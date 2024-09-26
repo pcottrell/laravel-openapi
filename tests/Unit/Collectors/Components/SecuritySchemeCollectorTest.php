@@ -3,7 +3,7 @@
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\SecuritySchemeCollector;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 describe('SecuritySchemeCollector', function (): void {
     beforeEach(function () {

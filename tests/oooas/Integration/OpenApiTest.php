@@ -1,24 +1,24 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 use MohammadAlavi\LaravelOpenApi\oooas\Services\JsonSchemaValidator;
-use MohammadAlavi\ObjectOrientedOAS\Objects\AllOf;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Contact;
-use MohammadAlavi\ObjectOrientedOAS\Objects\ExternalDocs;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Info;
-use MohammadAlavi\ObjectOrientedOAS\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
-use MohammadAlavi\ObjectOrientedOAS\OpenApi;
 
 describe('OpenApi', function (): void {
     it('can generate valid OpenAPI v3.0.x docs', function (string $version, string $method, SecurityScheme $securityScheme): void {
@@ -122,7 +122,7 @@ describe('OpenApi', function (): void {
             ->externalDocs($externalDocs);
 
 
-        $data = $openApi->toArray();
+        $data = $openApi->serialize();
         // $expectedResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/v3.0.x_expected_response.json'));
         // expect($data)->toBe(json_decode($expectedResponse, true, 512, JSON_THROW_ON_ERROR));
         /** @var JsonSchemaValidator $result */

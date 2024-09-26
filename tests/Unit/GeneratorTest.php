@@ -2,10 +2,10 @@
 
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
-use MohammadAlavi\ObjectOrientedOAS\Objects\OAuthFlow;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 
 beforeEach(function (): void {
     Illuminate\Support\Facades\Config::set('openapi', [
@@ -164,7 +164,7 @@ describe('Generator', function (): void {
         $openApi = $generator->generate($collection);
 
         expect($openApi)->toBeInstanceOf(OpenApi::class)
-            ->and($openApi->toArray())->toEqual($expectation);
+            ->and($openApi->serialize())->toEqual($expectation);
     })->with([
         'test collection' => [
             'collection' => 'test',

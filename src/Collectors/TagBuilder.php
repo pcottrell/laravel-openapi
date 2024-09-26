@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 use Webmozart\Assert\Assert;
 
 class TagBuilder

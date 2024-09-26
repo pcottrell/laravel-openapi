@@ -2,7 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedOAS\Utilities;
 
-use MohammadAlavi\ObjectOrientedOAS\Objects\BaseObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 
 /** @internal */
 class Arr
@@ -11,8 +12,8 @@ class Arr
     {
         foreach ($array as $index => &$value) {
             // If the value is an object, then parse to array.
-            if ($value instanceof BaseObject) {
-                $value = $value->toArray();
+            if ($value instanceof ExtensibleObject) {
+                $value = $value->serialize();
             }
 
             // If the value is a filled array, then recursively filter it.
@@ -23,7 +24,7 @@ class Arr
 
             // If the value is a specification extension, then skip the null
             // check below.
-            if (is_string($index) && Extensions::isExtension($index)) {
+            if (is_string($index) && Extension::isExtension($index)) {
                 continue;
             }
 

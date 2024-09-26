@@ -9,7 +9,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\PathItem;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 readonly class PathBuilder
 {

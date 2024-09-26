@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ResponseBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Response;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 use Tests\Doubles\Stubs\Attributes\ResponseFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableResponseFactory;
 

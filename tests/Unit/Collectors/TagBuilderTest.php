@@ -4,7 +4,7 @@ namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Tag;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
@@ -109,7 +109,7 @@ class TagBuilderTest extends TestCase
         $builder = app(TagBuilder::class);
         $tags = $builder->build($factories);
 
-        $this->assertSameAssociativeArray($expected[0], $tags[0]->toArray());
+        $this->assertSameAssociativeArray($expected[0], $tags[0]->serialize());
     }
 
     /**
@@ -137,7 +137,7 @@ class TagBuilderTest extends TestCase
         $builder = app(TagBuilder::class);
         $tags = $builder->build($factories);
 
-        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->toArray())->toArray());
+        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->serialize())->toArray());
     }
 
     #[DataProvider('invalidTagProvider')]

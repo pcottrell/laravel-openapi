@@ -12,7 +12,7 @@ describe('SecurityRequirementBuilder', function (): void {
 
         $result = $builder->build($factories);
 
-        expect($result->toArray())->toBe($expectation);
+        expect($result->serialize())->toBe($expectation);
     })->with([
         'null' => [
             null,

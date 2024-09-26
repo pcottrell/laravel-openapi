@@ -3,7 +3,7 @@
 namespace DummyNamespace;
 
 use MohammadAlavi\ObjectOrientedOAS\Objects\Schema;
-use Vyuldashev\LaravelOpenApi\Factories\ExtensionFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
 
 class DummyClass extends ExtensionFactory
 {
@@ -12,7 +12,7 @@ class DummyClass extends ExtensionFactory
         return 'DummyExtension';
     }
 
-    public function value(): array|string|Schema|null
+    public function value(): null
     {
         return null;
     }

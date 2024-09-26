@@ -11,6 +11,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
 
 class Generator
 {
@@ -52,7 +53,7 @@ class Generator
             ->tags(...$tags);
 
         foreach ($extensions as $key => $value) {
-            $openApi = $openApi->x($key, $value);
+            $openApi = $openApi->addExtension(Extension::create($key, $value));
         }
 
         return $openApi;

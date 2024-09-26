@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Factories\Component;
 
 use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Parameter;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
 
 abstract class ParameterFactory
 {

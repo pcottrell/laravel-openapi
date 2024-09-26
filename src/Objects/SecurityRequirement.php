@@ -3,8 +3,8 @@
 namespace MohammadAlavi\LaravelOpenApi\Objects;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\oooas\Objects\SecurityRequirement as ParentSecurityRequirement;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement as ParentSecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 class SecurityRequirement extends ParentSecurityRequirement
 {
@@ -21,13 +21,13 @@ class SecurityRequirement extends ParentSecurityRequirement
         return $instance;
     }
 
-    public function generate(): array
+    protected function toArray(): array
     {
         if ([] !== $this->nestedSecurityScheme) {
             return $this->generateMultiAuth();
         }
 
-        return [parent::generate()];
+        return [parent::toArray()];
     }
 
     private function generateMultiAuth(): array
@@ -36,13 +36,13 @@ class SecurityRequirement extends ParentSecurityRequirement
         $spec = collect($this->nestedSecurityScheme)->map(
             static function (SecurityScheme|array $securityScheme) {
                 if ($securityScheme instanceof SecurityScheme) {
-                    return self::create()->securityScheme($securityScheme)->generate();
+                    return self::create()->securityScheme($securityScheme)->toArray();
                 }
 
                 return collect($securityScheme)->map(
                     static fn (SecurityScheme $securityScheme): array => self::create()
                         ->securityScheme($securityScheme)
-                        ->generate(),
+                        ->toArray(),
                 )->collapse();
             },
         );

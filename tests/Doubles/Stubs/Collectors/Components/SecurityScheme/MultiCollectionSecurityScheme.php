@@ -5,7 +5,7 @@ namespace Tests\Doubles\Stubs\Collectors\Components\SecurityScheme;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 #[Collection(['test', Generator::COLLECTION_DEFAULT])]
 class MultiCollectionSecurityScheme extends SecuritySchemeFactory

@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Servers;
 
 use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 
 class ServerWithoutVariables extends ServerFactory
 {

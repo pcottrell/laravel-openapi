@@ -8,7 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Components\ResponseCollector;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\SchemaCollector;
 use MohammadAlavi\LaravelOpenApi\Collectors\Components\SecuritySchemeCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\ObjectOrientedOAS\Objects\Components;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 
 final readonly class ComponentCollector
 {

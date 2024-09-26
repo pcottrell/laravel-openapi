@@ -217,7 +217,7 @@ class PetstoreTest extends IntegrationTestCase
     public function testGenerate(array $servers, string $path, string $method, array $expectation): void
     {
         Config::set('openapi.collections.default.servers', $servers['classes']);
-        $spec = $this->generate()->toArray();
+        $spec = $this->generate()->serialize();
 
         $this->assertSame($servers['expectation'], $spec['servers']);
 

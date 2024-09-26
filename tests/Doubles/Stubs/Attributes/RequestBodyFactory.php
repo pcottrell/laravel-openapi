@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory as AbstractFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\RequestBody;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
 class RequestBodyFactory extends AbstractFactory
 {

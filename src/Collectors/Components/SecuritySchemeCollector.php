@@ -4,12 +4,15 @@ namespace MohammadAlavi\LaravelOpenApi\Collectors\Components;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
+use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
 use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
 final readonly class SecuritySchemeCollector implements Reusable
 {
+    use Referencable;
+
     public function __construct(
         private CollectionLocator $collectionLocator,
     ) {

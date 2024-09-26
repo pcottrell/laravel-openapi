@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Fakes\Petstore\SecuritySchemes;
 
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
-use MohammadAlavi\ObjectOrientedOAS\Objects\SecurityScheme;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 class BearerTokenSecurityScheme extends SecuritySchemeFactory
 {
