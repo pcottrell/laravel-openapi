@@ -20,3 +20,4 @@ Move away from using static methods. Use Dependency Injection instead
 Go through TODOs and FIXMEs and fix them
 Run Pest mutation, type coverage, test coverage, architectural tests, everything!
 Go over OOOAS and Laravel-OpenApi issues in their respective repos and solve all of them here!
+Make everything that can be readonly, readonly and everything that can be final, final
