@@ -33,7 +33,7 @@ final readonly class OperationBuilder
 
     public function build(array|Collection $routes): array
     {
-        return collect($routes)->map(fn (RouteInformation $routeInformation): \MohammadAlavi\LaravelOpenApi\Objects\Operation => $this->buildOperation($routeInformation))->all();
+        return collect($routes)->map(fn (RouteInformation $routeInformation): Operation => $this->buildOperation($routeInformation))->all();
     }
 
     private function buildOperation(RouteInformation $routeInformation): Operation
