@@ -21,3 +21,5 @@ Go through TODOs and FIXMEs and fix them
 Run Pest mutation, type coverage, test coverage, architectural tests, everything!
 Go over OOOAS and Laravel-OpenApi issues in their respective repos and solve all of them here!
 Make everything that can be readonly, readonly and everything that can be final, final
+Make it so easy that it just works! with 1 command or click! DHH/Laravel mantra.
+Make the doics easy and conversational with a point of view, like Ruby on Rails doc?
