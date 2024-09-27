@@ -79,5 +79,16 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "cs-fix": [
+            "php ./vendor/bin/php-cs-fixer fix"
+        ],
+        "cs": [
+            "php ./vendor/bin/phpcbf --standard=phpcs.xml"
+        ],
+        "rector": [
+            "php ./vendor/bin/rector"
+        ]
+    }
 }
