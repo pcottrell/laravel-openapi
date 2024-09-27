@@ -10,9 +10,9 @@ describe('SecurityRequirementBuilder', function (): void {
     it('can be created with multi security', function (string|array|null $factories, array $expectation): void {
         $builder = new SecurityRequirementBuilder();
 
-        $result = $builder->build($factories);
+        $securityRequirement = $builder->build($factories);
 
-        expect($result->jsonSerialize())->toBe($expectation);
+        expect($securityRequirement->jsonSerialize())->toBe($expectation);
     })->with([
         'null' => [
             null,

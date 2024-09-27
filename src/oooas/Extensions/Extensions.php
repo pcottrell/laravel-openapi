@@ -58,10 +58,8 @@ final class Extensions implements \JsonSerializable
         return $this->toArray();
     }
 
-    protected function toArray(): array
+    private function toArray(): array
     {
-        return array_reduce($this->extensions, static function (array $carry, Extension $extension) {
-            return array_merge($carry, $extension->jsonSerialize());
-        }, []);
+        return array_reduce($this->extensions, static fn (array $carry, Extension $extension): array => array_merge($carry, $extension->jsonSerialize()), []);
     }
 }

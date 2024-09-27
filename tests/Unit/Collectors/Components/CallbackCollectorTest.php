@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Components\CallbackCollector;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
 describe('CallbackCollector', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/Callback']);
         $this->collector = new CallbackCollector($locator);
     });

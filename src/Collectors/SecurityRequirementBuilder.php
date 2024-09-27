@@ -79,9 +79,7 @@ class SecurityRequirementBuilder
             && count($factories) > 1;
     }
 
-    /**
-     * @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories
-     */
+    /** @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories */
     private function buildNestedSecurityRequirement(array $factories): SecurityRequirement
     {
         return SecurityRequirement::create()
@@ -98,8 +96,8 @@ class SecurityRequirementBuilder
     private function buildNestedSecurityScheme(array $factories): array
     {
         return collect($factories)
-            ->map(function (array|string|null $factory) {
-                if (is_array($factory) && count($factory) > 0) {
+            ->map(function (array|string|null $factory): array|SecurityScheme {
+                if (is_array($factory) && [] !== $factory) {
                     return $this->buildNestedSecurityScheme($factory);
                 }
 

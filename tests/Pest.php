@@ -1,5 +1,8 @@
 <?php
 
+use Tests\IntegrationTestCase;
+use Tests\UnitTestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,8 +14,8 @@
 |
 */
 
-pest()->extends(Tests\IntegrationTestCase::class)->in('Integration', 'oooas/Integration');
-pest()->extends(Tests\UnitTestCase::class)->in('Unit', 'oooas/Unit');
+pest()->extends(IntegrationTestCase::class)->in('Integration', 'oooas/Integration');
+pest()->extends(UnitTestCase::class)->in('Unit', 'oooas/Unit');
 
 /*
 |--------------------------------------------------------------------------

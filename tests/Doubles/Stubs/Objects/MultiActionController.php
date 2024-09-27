@@ -24,6 +24,5 @@ class MultiActionController
     #[Collection('another-collection')]
     public function example()
     {
-
     }
 }

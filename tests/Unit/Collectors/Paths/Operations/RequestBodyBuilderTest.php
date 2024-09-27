@@ -10,7 +10,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableRequestBodyFactory;
 
 describe('RequestBodyBuilder', function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new RequestBodyAttribute(RequestBodyFactory::class),
         ]);
@@ -22,7 +22,7 @@ describe('RequestBodyBuilder', function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new RequestBodyAttribute(ReusableRequestBodyFactory::class),
         ]);

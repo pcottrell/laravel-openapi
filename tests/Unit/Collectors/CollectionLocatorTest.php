@@ -1,5 +1,6 @@
 <?php
 
+use Pest\Arch\Contracts\ArchExpectation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
 use Pest\Expectation;
@@ -14,7 +15,7 @@ describe('CollectionLocator', function (): void {
         $result = $locator->find('test');
 
         expect($result)->toHaveCount(10)
-            ->and($result)->each(fn (Expectation $item) => $item->toUse(Collection::class));
+            ->and($result)->each(fn (Expectation $expectation): ArchExpectation => $expectation->toUse(Collection::class));
     });
 
     it('collects default collection if no collection passed', function (): void {
@@ -27,11 +28,11 @@ describe('CollectionLocator', function (): void {
         expect($result)->toHaveCount(11)
             ->and($result)
             ->each(
-                fn (Expectation $item) => $item
+                fn (Expectation $expectation): Expectation => $expectation
                 ->unless(
-                    static fn () => str_contains($item->value, 'Implicit')
-                        || PathMiddlewareStub::class === $item->value,
-                    fn (Expectation $item) => $item->toUse(Collection::class),
+                    static fn (): bool => str_contains((string) $expectation->value, 'Implicit')
+                        || PathMiddlewareStub::class === $expectation->value,
+                    fn (Expectation $expectation): ArchExpectation => $expectation->toUse(Collection::class),
                 ),
             );
     });

@@ -10,7 +10,7 @@ use Tests\Doubles\Stubs\Objects\MultiActionController;
 describe('RouteInformation', function (): void {
     it('can be created with all parameters', function (): void {
         $routeInformation = RouteInformation::createFromRoute(
-            Route::get('/example', static fn () => 'example')
+            Route::get('/example', static fn (): string => 'example')
                 ->name('example')
                 ->domain('example.com'),
         );
@@ -35,7 +35,7 @@ describe('RouteInformation', function (): void {
     it('can handle unsupported http method', function (string $method): void {
         expect(
             function () use ($method): void {
-                RouteInformation::createFromRoute(Route::match([$method], '/example', static fn () => 'example'));
+                RouteInformation::createFromRoute(Route::match([$method], '/example', static fn (): string => 'example'));
             },
         )->toThrow(InvalidArgumentException::class, 'Unsupported HTTP method [' . $method . '] for route: example');
     })->with([
@@ -105,13 +105,13 @@ describe('RouteInformation', function (): void {
     ]);
 
     it('doesnt extract route parameters if there are none', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
 
         expect($routeInformation->parameters)->toHaveCount(0);
     });
 
     it('can extract route parameters', function (string $endpoint, int $count, Collection $expectation): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get($endpoint, static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get($endpoint, static fn (): string => 'example'));
 
         expect($routeInformation->parameters)->toHaveCount($count)
             ->and($routeInformation->parameters)->toEqual($expectation);

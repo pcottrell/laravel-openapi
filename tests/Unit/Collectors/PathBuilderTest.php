@@ -1,5 +1,6 @@
 <?php
 
+use Pest\Expectation;
 use Illuminate\Support\Facades\Route;
 use Mockery\MockInterface;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
@@ -14,47 +15,47 @@ use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;
 describe('PathBuilder', function (): void {
     beforeEach(function (): void {
         $this->anotherCustomCollectionViaController = RouteInformation::createFromRoute(
-            Route::get('/belongs-to-another-custom-collection-through-controller', static fn () => 'example'),
+            Route::get('/belongs-to-another-custom-collection-through-controller', static fn (): string => 'example'),
         );
         $this->anotherCustomCollectionViaController->controllerAttributes = collect([
             new Collection('another-collection'),
         ]);
         $this->anotherCustomCollectionViaControllerAction = RouteInformation::createFromRoute(
-            Route::get('/belongs-to-another-custom-collection-through-path-item', static fn () => 'example'),
+            Route::get('/belongs-to-another-custom-collection-through-path-item', static fn (): string => 'example'),
         );
         $this->anotherCustomCollectionViaControllerAction->actionAttributes = collect([
             new Collection('another-collection'),
         ]);
-        $this->routeCollector = Mockery::mock(RouteCollector::class, function (MockInterface $mock) {
-            $noCollection = RouteInformation::createFromRoute(
-                Route::get('/belongs-to-no-collection', static fn () => 'example'),
+        $this->routeCollector = Mockery::mock(RouteCollector::class, function (MockInterface $mock): void {
+            $routeInformation = RouteInformation::createFromRoute(
+                Route::get('/belongs-to-no-collection', static fn (): string => 'example'),
             );
             $defaultCollectionViaController = RouteInformation::createFromRoute(
-                Route::get('/belongs-to-default-collection-through-controller', static fn () => 'example'),
+                Route::get('/belongs-to-default-collection-through-controller', static fn (): string => 'example'),
             );
             $defaultCollectionViaController->controllerAttributes = collect([
                 new Collection(Generator::COLLECTION_DEFAULT),
             ]);
             $defaultCollectionViaControllerAction = RouteInformation::createFromRoute(
-                Route::get('/belongs-to-default-collection-through-path-item', static fn () => 'example'),
+                Route::get('/belongs-to-default-collection-through-path-item', static fn (): string => 'example'),
             );
             $defaultCollectionViaControllerAction->actionAttributes = collect([
                 new Collection(Generator::COLLECTION_DEFAULT),
             ]);
             $customCollectionViaController = RouteInformation::createFromRoute(
-                Route::get('/belongs-to-custom-collection-through-controller', static fn () => 'example'),
+                Route::get('/belongs-to-custom-collection-through-controller', static fn (): string => 'example'),
             );
             $customCollectionViaController->controllerAttributes = collect([
                 new Collection('custom'),
             ]);
             $customCollectionViaControllerAction = RouteInformation::createFromRoute(
-                Route::get('/belongs-to-custom-collection-through-path-item', static fn () => 'example'),
+                Route::get('/belongs-to-custom-collection-through-path-item', static fn (): string => 'example'),
             );
             $customCollectionViaControllerAction->actionAttributes = collect([
                 new Collection('custom'),
             ]);
             $mock->expects('getRoutes')->andReturn(collect([
-                $noCollection,
+                $routeInformation,
                 $defaultCollectionViaController,
                 $defaultCollectionViaControllerAction,
                 $customCollectionViaController,
@@ -73,8 +74,8 @@ describe('PathBuilder', function (): void {
 
         expect($result)->toBeArray()
             ->and($result)->toHaveCount(3)
-            ->and($result)->each(function (Pest\Expectation $pathItem) {
-                $pathItem->toBeInstanceOf(PathItem::class);
+            ->and($result)->each(function (Expectation $expectation): void {
+                $expectation->toBeInstanceOf(PathItem::class);
             });
     });
 
@@ -86,18 +87,18 @@ describe('PathBuilder', function (): void {
 
         expect($result)->toBeArray()
             ->and($result)->toHaveCount(2)
-            ->and($result)->each(function (Pest\Expectation $pathItem) {
-                $pathItem->toBeInstanceOf(PathItem::class);
+            ->and($result)->each(function (Expectation $expectation): void {
+                $expectation->toBeInstanceOf(PathItem::class);
             });
     });
 
     it('can be created with middleware', function (): void {
         $operationBuilder = app(OperationBuilder::class);
         $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
-        $middlewareSpyA = Mockery::spy(PathMiddlewareStub::class);
+        $mock = Mockery::spy(PathMiddlewareStub::class);
         $middlewareSpyB = Mockery::spy(PathMiddlewareStub::class);
         $middlewares = [
-            $middlewareSpyA,
+            $mock,
             $middlewareSpyB,
         ];
 
@@ -105,12 +106,12 @@ describe('PathBuilder', function (): void {
 
         expect($result)->toBeArray()
             ->and($result)->toHaveCount(2)
-            ->and($result)->each(function (Pest\Expectation $pathItem) {
-                $pathItem->toBeInstanceOf(PathItem::class);
+            ->and($result)->each(function (Expectation $expectation): void {
+                $expectation->toBeInstanceOf(PathItem::class);
             });
-        $middlewareSpyA->shouldHaveReceived()->before($this->anotherCustomCollectionViaController)->once();
-        $middlewareSpyA->shouldHaveReceived()->before($this->anotherCustomCollectionViaControllerAction)->once();
-        $middlewareSpyA->shouldHaveReceived()->after(Mockery::type(PathItem::class))->twice();
+        $mock->shouldHaveReceived()->before($this->anotherCustomCollectionViaController)->once();
+        $mock->shouldHaveReceived()->before($this->anotherCustomCollectionViaControllerAction)->once();
+        $mock->shouldHaveReceived()->after(Mockery::type(PathItem::class))->twice();
         $middlewareSpyB->shouldHaveReceived()->before($this->anotherCustomCollectionViaController)->once();
         $middlewareSpyB->shouldHaveReceived()->before($this->anotherCustomCollectionViaControllerAction)->once();
         $middlewareSpyB->shouldHaveReceived()->after(Mockery::type(PathItem::class))->twice();

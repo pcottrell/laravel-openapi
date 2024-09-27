@@ -23,9 +23,9 @@ use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
 
 describe('OperationBuilder', function (): void {
     it('can be created in many combinations', function (array $routes, array $expected): void {
-        $operation = app(OperationBuilder::class);
+        $operationBuilder = app(OperationBuilder::class);
 
-        $result = $operation->build($routes);
+        $result = $operationBuilder->build($routes);
 
         /** @var Operation $operationA */
         $operationA = $result[0];
@@ -48,9 +48,9 @@ describe('OperationBuilder', function (): void {
             ->and($operationA->callbacks)->toEqual($expected[0]['callbacks']);
     })->with(
         [
-            function () {
-                $route = RouteInformation::createFromRoute(Route::get('test', static fn () => 'test'));
-                $route->actionAttributes = collect([
+            function (): array {
+                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
                         tags: [],
@@ -64,7 +64,7 @@ describe('OperationBuilder', function (): void {
                 ]);
 
                 return [
-                    'routes' => [$route],
+                    'routes' => [$routeInformation],
                     'expected' => [
                         [
                             'ref' => null,
@@ -86,9 +86,9 @@ describe('OperationBuilder', function (): void {
                     ],
                 ];
             },
-            function () {
-                $route = RouteInformation::createFromRoute(Route::get('test', static fn () => 'test'));
-                $route->actionAttributes = collect([
+            function (): array {
+                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
                         tags: ['test'],
@@ -102,7 +102,7 @@ describe('OperationBuilder', function (): void {
                 ]);
 
                 return [
-                    'routes' => [$route],
+                    'routes' => [$routeInformation],
                     'expected' => [
                         [
                             'ref' => null,
@@ -124,9 +124,9 @@ describe('OperationBuilder', function (): void {
                     ],
                 ];
             },
-            function () {
-                $route = RouteInformation::createFromRoute(Route::get('test', static fn () => 'test'));
-                $route->actionAttributes = collect([
+            function (): array {
+                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation->actionAttributes = collect([
                     new Callback(CallbackFactory::class),
                     new Collection('test'),
                     new Extension(ExtensionFactory::class),
@@ -146,7 +146,7 @@ describe('OperationBuilder', function (): void {
                 ]);
 
                 return [
-                    'routes' => [$route],
+                    'routes' => [$routeInformation],
                     'expected' => [
                         [
                             'ref' => null,

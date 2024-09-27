@@ -101,7 +101,6 @@ describe('OpenApi', function (): void {
         //
         //        $securityScheme = SecurityScheme::oauth2('OAuth2')
         //            ->flows($oAuthFlow);
-        //
         $components = Components::create()->securitySchemes($securityScheme);
 
         $securityRequirement = SecurityRequirement::create()->securityScheme($securityScheme);
@@ -138,7 +137,7 @@ describe('OpenApi', function (): void {
         'v3.0.3' => [OpenApi::OPENAPI_3_0_3, 'againstOAS30x'],
         'v3.1.0' => [OpenApi::OPENAPI_3_1_0, 'againstOAS31x'],
     ])->with([
-        function () {
+        function (): SecurityScheme {
             $oAuthFlow = OAuthFlow::create()
                 ->flow(OAuthFlow::FLOW_IMPLICIT)
                 ->authorizationUrl('https://api.example.com/oauth/authorize')
@@ -151,7 +150,7 @@ describe('OpenApi', function (): void {
             return SecurityScheme::oauth2('OAuth2')
                 ->flows($oAuthFlow);
         },
-        function () {
+        function (): SecurityScheme {
             $oAuthFlow = OAuthFlow::create()
                 ->flow(OAuthFlow::FLOW_PASSWORD)
                 ->tokenUrl('https://api.example.com/oauth/authorize')
@@ -164,7 +163,7 @@ describe('OpenApi', function (): void {
             return SecurityScheme::oauth2('OAuth2')
                 ->flows($oAuthFlow);
         },
-        function () {
+        function (): SecurityScheme {
             $oAuthFlow = OAuthFlow::create()
                 ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS)
                 ->tokenUrl('https://api.example.com/oauth/authorize')
@@ -174,7 +173,7 @@ describe('OpenApi', function (): void {
             return SecurityScheme::oauth2('OAuth2')
                 ->flows($oAuthFlow);
         },
-        function () {
+        function (): SecurityScheme {
             $oAuthFlow = OAuthFlow::create()
                 ->flow(OAuthFlow::FLOW_AUTHORIZATION_CODE)
                 ->authorizationUrl('https://api.example.com/oauth/authorize')
@@ -184,22 +183,22 @@ describe('OpenApi', function (): void {
             return SecurityScheme::oauth2('OAuth2')
                 ->flows($oAuthFlow);
         },
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY),
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
             ->name('X-API-Key')
             ->in(SecurityScheme::IN_HEADER),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
             ->name('in-query')
             ->in(SecurityScheme::IN_QUERY),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
             ->name('in-cookie')
             ->in(SecurityScheme::IN_COOKIE),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
             ->scheme('Basic'),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
             ->scheme('Bearer')
             ->bearerFormat('JWT'),
-        fn () => SecurityScheme::create()->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
+        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
             ->openIdConnectUrl('https://api.example.com/.well-known/openid-configuration'),
     ]);
 })->coversNothing();

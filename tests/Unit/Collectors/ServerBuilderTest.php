@@ -15,9 +15,9 @@ use Tests\TestCase;
 #[CoversClass(ServerBuilder::class)]
 class ServerBuilderTest extends TestCase
 {
-    public static function serverFQCNProvider(): array
+    public static function serverFQCNProvider(): \Iterator
     {
-        return ['Can build server without variables' => [
+        yield 'Can build server without variables' => [
             [ServerWithoutVariables::class],
             [
                 [
@@ -25,58 +25,57 @@ class ServerBuilderTest extends TestCase
                     'description' => 'sample_description',
                 ],
             ],
-        ],
-            'Can build server with variables' => [
-                [ServerWithVariables::class],
+        ];
+        yield 'Can build server with variables' => [
+            [ServerWithVariables::class],
+            [
                 [
-                    [
-                        'url' => 'https://example.com',
-                        'description' => 'sample_description',
-                        'variables' => [
-                            'variable_name' => [
-                                'default' => 'variable_defalut',
-                                'description' => 'variable_description',
+                    'url' => 'https://example.com',
+                    'description' => 'sample_description',
+                    'variables' => [
+                        'variable_name' => [
+                            'default' => 'variable_defalut',
+                            'description' => 'variable_description',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+        yield 'Can build server containing enum' => [
+            [ServerWithEnum::class],
+            [
+                [
+                    'url' => 'https://example.com',
+                    'description' => 'sample_description',
+                    'variables' => [
+                        'variable_name' => [
+                            'default' => 'variable_defalut',
+                            'description' => 'variable_description',
+                            'enum' => [
+                                'A',
+                                'B',
+                                'C',
                             ],
                         ],
                     ],
                 ],
             ],
-            'Can build server containing enum' => [
-                [ServerWithEnum::class],
+        ];
+        yield 'Can build server containing variables fields in multiple formats' => [
+            [ServerWithMultipleVariableFormatting::class],
+            [
                 [
-                    [
-                        'url' => 'https://example.com',
-                        'description' => 'sample_description',
-                        'variables' => [
-                            'variable_name' => [
-                                'default' => 'variable_defalut',
-                                'description' => 'variable_description',
-                                'enum' => [
-                                    'A',
-                                    'B',
-                                    'C',
-                                ],
-                            ],
+                    'url' => 'https://example.com',
+                    'description' => 'sample_description',
+                    'variables' => [
+                        'variable_name' => [
+                            'default' => 'variable_defalut',
+                            'description' => 'variable_description',
+                            'enum' => ['A', 'B'],
                         ],
-                    ],
-                ],
-            ],
-            'Can build server containing variables fields in multiple formats' => [
-                [ServerWithMultipleVariableFormatting::class],
-                [
-                    [
-                        'url' => 'https://example.com',
-                        'description' => 'sample_description',
-                        'variables' => [
-                            'variable_name' => [
-                                'default' => 'variable_defalut',
-                                'description' => 'variable_description',
-                                'enum' => ['A', 'B'],
-                            ],
-                            'variable_name_B' => [
-                                'default' => 'sample',
-                                'description' => 'sample',
-                            ],
+                        'variable_name_B' => [
+                            'default' => 'sample',
+                            'description' => 'sample',
                         ],
                     ],
                 ],
@@ -84,35 +83,33 @@ class ServerBuilderTest extends TestCase
         ];
     }
 
-    public static function multiTagProvider(): array
+    public static function multiTagProvider(): \Iterator
     {
-        return [
-            'Can build multiple server from an array of FQCNs' => [
-                [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
+        yield 'Can build multiple server from an array of FQCNs' => [
+            [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
+            [
                 [
-                    [
-                        'url' => 'https://example.com',
-                        'description' => 'sample_description',
-                        'variables' => [
-                            'variable_name' => [
-                                'default' => 'variable_defalut',
-                                'description' => 'variable_description',
-                            ],
+                    'url' => 'https://example.com',
+                    'description' => 'sample_description',
+                    'variables' => [
+                        'variable_name' => [
+                            'default' => 'variable_defalut',
+                            'description' => 'variable_description',
                         ],
                     ],
-                    [
-                        'url' => 'https://example.com',
-                        'description' => 'sample_description',
-                        'variables' => [
-                            'variable_name' => [
-                                'enum' => ['A', 'B'],
-                                'default' => 'variable_defalut',
-                                'description' => 'variable_description',
-                            ],
-                            'variable_name_B' => [
-                                'default' => 'sample',
-                                'description' => 'sample',
-                            ],
+                ],
+                [
+                    'url' => 'https://example.com',
+                    'description' => 'sample_description',
+                    'variables' => [
+                        'variable_name' => [
+                            'enum' => ['A', 'B'],
+                            'default' => 'variable_defalut',
+                            'description' => 'variable_description',
+                        ],
+                        'variable_name_B' => [
+                            'default' => 'sample',
+                            'description' => 'sample',
                         ],
                     ],
                 ],
@@ -120,33 +117,31 @@ class ServerBuilderTest extends TestCase
         ];
     }
 
-    public static function invalidServerProvider(): array
+    public static function invalidServerProvider(): \Iterator
     {
-        return [
-            'server with empty string url' => [
-                fn () => new class () extends ServerWithVariables {
-                    public function build(): Server
-                    {
-                        return Server::create()->url('')->description('sample_description');
-                    }
-                },
-            ],
-            'server with null url' => [
-                fn () => new class () extends ServerWithVariables {
-                    public function build(): Server
-                    {
-                        return Server::create()->url(null)->description('sample_description');
-                    }
-                },
-            ],
+        yield 'server with empty string url' => [
+            fn (): ServerWithVariables => new class () extends ServerWithVariables {
+                public function build(): Server
+                {
+                    return Server::create()->url('')->description('sample_description');
+                }
+            },
+        ];
+        yield 'server with null url' => [
+            fn (): ServerWithVariables => new class () extends ServerWithVariables {
+                public function build(): Server
+                {
+                    return Server::create()->url(null)->description('sample_description');
+                }
+            },
         ];
     }
 
     #[DataProvider('serverFQCNProvider')]
     public function testCanBuildServerFromFQCN(array $factories, array $expected): void
     {
-        $builder = new ServerBuilder();
-        $servers = $builder->build($factories);
+        $serverBuilder = new ServerBuilder();
+        $servers = $serverBuilder->build($factories);
         $this->assertSameAssociativeArray($expected[0], $servers[0]->jsonSerialize());
     }
 
@@ -172,18 +167,18 @@ class ServerBuilderTest extends TestCase
     #[DataProvider('multiTagProvider')]
     public function testCanBuildFromServerArray(array $factories, array $expected): void
     {
-        $builder = app(ServerBuilder::class);
-        $servers = $builder->build($factories);
+        $serverBuilder = app(ServerBuilder::class);
+        $servers = $serverBuilder->build($factories);
 
         $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->jsonSerialize())->toArray());
     }
 
     #[DataProvider('invalidServerProvider')]
-    public function testGivenNameNotProvidedCanProduceCorrectException($factory): void
+    public function testGivenNameNotProvidedCanProduceCorrectException(\Closure $factory): void
     {
         $this->expectException(\InvalidArgumentException::class);
 
-        $builder = app(ServerBuilder::class);
-        $builder->build([$factory()::class]);
+        $serverBuilder = app(ServerBuilder::class);
+        $serverBuilder->build([$factory()::class]);
     }
 }

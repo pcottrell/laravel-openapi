@@ -10,6 +10,7 @@ describe('OpenApiServiceProvider', function (): void {
         app()->register(OpenApiServiceProvider::class);
         /** @var Application $app */
         $app = app();
+
         expect($app->get('config')->get('openapi'))->toBe(
             require __DIR__ . '/../../config/openapi.php',
         );
@@ -18,8 +19,8 @@ describe('OpenApiServiceProvider', function (): void {
             Generator::class,
             RouteCollector::class,
         ];
-        foreach ($expectedBindings as $binding) {
-            expect($app->bound($binding))->toBeTrue();
+        foreach ($expectedBindings as $expectedBinding) {
+            expect($app->bound($expectedBinding))->toBeTrue();
         }
     });
 })->covers(OpenApiServiceProvider::class);

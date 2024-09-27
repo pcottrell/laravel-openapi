@@ -26,7 +26,7 @@ describe('Extension', function (): void {
     });
 
     it('throws exception if extension name is invalid', function (string $name, string $message): void {
-        expect(fn () => Extension::create($name, 'value'))->toThrow(
+        expect(fn (): Extension => Extension::create($name, 'value'))->toThrow(
             InvalidArgumentException::class,
             $message,
         );

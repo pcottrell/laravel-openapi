@@ -9,7 +9,7 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 final readonly class Http extends SecurityScheme
 {
     private function __construct(
-        public HttpScheme $scheme,
+        public HttpScheme $httpScheme,
         string|null $description = null,
         public string|null $bearerFormat = null,
     ) {
@@ -81,7 +81,7 @@ final readonly class Http extends SecurityScheme
         return Arr::filter([
             'type' => $this->type,
             'description' => $this->description,
-            'scheme' => $this->scheme->value,
+            'scheme' => $this->httpScheme->value,
             'bearerFormat' => $this->bearerFormat,
         ]);
     }

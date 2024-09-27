@@ -2,10 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Collectors;
 
+use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\Attributes;
 use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector as RouteCollectorContract;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
@@ -24,10 +25,10 @@ readonly class RouteCollector implements RouteCollectorContract
             ->map(static fn (Route $route): RouteInformation => RouteInformation::createFromRoute($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
-                    ->first(static fn (object $attribute): bool => $attribute instanceof Attributes\PathItem);
+                    ->first(static fn (object $attribute): bool => $attribute instanceof PathItem);
 
                 $operation = $routeInformation->actionAttributes
-                    ->first(static fn (object $attribute): bool => $attribute instanceof Attributes\Operation);
+                    ->first(static fn (object $attribute): bool => $attribute instanceof Operation);
 
                 return $pathItem && $operation;
             });

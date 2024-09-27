@@ -2,6 +2,14 @@
 
 namespace MohammadAlavi\LaravelOpenApi;
 
+use MohammadAlavi\LaravelOpenApi\Console\GenerateCommand;
+use MohammadAlavi\LaravelOpenApi\Console\CallbackFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\ExtensionFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\ParametersFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\RequestBodyFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\ResponseFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\SchemaFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\SecuritySchemeFactoryMakeCommand;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
@@ -81,18 +89,18 @@ class OpenApiServiceProvider extends ServiceProvider
         $this->app->bind(RouteCollector::class, Collectors\RouteCollector::class);
 
         $this->commands([
-            Console\GenerateCommand::class,
+            GenerateCommand::class,
         ]);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
-                Console\CallbackFactoryMakeCommand::class,
-                Console\ExtensionFactoryMakeCommand::class,
-                Console\ParametersFactoryMakeCommand::class,
-                Console\RequestBodyFactoryMakeCommand::class,
-                Console\ResponseFactoryMakeCommand::class,
-                Console\SchemaFactoryMakeCommand::class,
-                Console\SecuritySchemeFactoryMakeCommand::class,
+                CallbackFactoryMakeCommand::class,
+                ExtensionFactoryMakeCommand::class,
+                ParametersFactoryMakeCommand::class,
+                RequestBodyFactoryMakeCommand::class,
+                ResponseFactoryMakeCommand::class,
+                SchemaFactoryMakeCommand::class,
+                SecuritySchemeFactoryMakeCommand::class,
             ]);
         }
     }

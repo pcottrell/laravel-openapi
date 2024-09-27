@@ -37,7 +37,7 @@ final class Extension implements \JsonSerializable
         return $this->toArray();
     }
 
-    protected function toArray(): array
+    private function toArray(): array
     {
         return [$this->name => $this->value];
     }

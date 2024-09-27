@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Support\Facades\Config;
+use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
@@ -8,7 +12,7 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 
 beforeEach(function (): void {
-    Illuminate\Support\Facades\Config::set('openapi', [
+    Config::set('openapi', [
         'collections' => [
             'default' => [
                 'info' => [
@@ -20,7 +24,7 @@ beforeEach(function (): void {
                     ],
                 ],
                 'servers' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\ServerFactory {
+                    (new class () extends ServerFactory {
                         public function build(): Server
                         {
                             return Server::create()
@@ -29,7 +33,7 @@ beforeEach(function (): void {
                     })::class,
                 ],
                 'tags' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\TagFactory {
+                    (new class () extends TagFactory {
                         public function build(): Tag
                         {
                             return Tag::create()
@@ -38,7 +42,7 @@ beforeEach(function (): void {
                     })::class,
                 ],
                 'security' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory {
+                    (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
                             return SecurityScheme::create('bearerAuth')
@@ -62,14 +66,14 @@ beforeEach(function (): void {
                     ],
                 ],
                 'servers' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\ServerFactory {
+                    (new class () extends ServerFactory {
                         public function build(): Server
                         {
                             return Server::create()
                                 ->url('https://test.com');
                         }
                     })::class,
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\ServerFactory {
+                    (new class () extends ServerFactory {
                         public function build(): Server
                         {
                             return Server::create()
@@ -78,7 +82,7 @@ beforeEach(function (): void {
                     })::class,
                 ],
                 'tags' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\TagFactory {
+                    (new class () extends TagFactory {
                         public function build(): Tag
                         {
                             return Tag::create()
@@ -87,7 +91,7 @@ beforeEach(function (): void {
                     })::class,
                 ],
                 'security' => [
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory {
+                    (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
                             return SecurityScheme::create('apiKey')
@@ -95,7 +99,7 @@ beforeEach(function (): void {
                                 ->in('header');
                         }
                     })::class,
-                    (new class () extends MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory {
+                    (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
                             return SecurityScheme::oauth2('oauth2')

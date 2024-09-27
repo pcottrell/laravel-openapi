@@ -11,17 +11,17 @@ final readonly class Password extends Flow
     private function __construct(
         public string $tokenUrl,
         string|null $refreshUrl = null,
-        Scope ...$scopes,
+        Scope ...$scope,
     ) {
-        parent::__construct($refreshUrl, $scopes);
+        parent::__construct($refreshUrl, $scope);
     }
 
     public static function create(
         string $tokenUrl,
         string|null $refreshUrl = null,
-        Scope ...$scopes,
+        Scope ...$scope,
     ): self {
-        return new self($tokenUrl, $refreshUrl, ...$scopes);
+        return new self($tokenUrl, $refreshUrl, ...$scope);
     }
 
     protected function toArray(): array

@@ -6,7 +6,7 @@ use Tests\IntegrationTestCase;
 use Tests\UnitTestCase;
 
 describe('ClassMapGenerator', function (): void {
-    dataset('expectations', function () {
+    dataset('expectations', function (): array {
         $div = DIRECTORY_SEPARATOR;
 
         return [

@@ -33,10 +33,10 @@ final readonly class OperationBuilder
 
     public function build(array|Collection $routes): array
     {
-        return collect($routes)->map(fn (RouteInformation $route) => $this->buildOperation($route))->all();
+        return collect($routes)->map(fn (RouteInformation $routeInformation): \MohammadAlavi\LaravelOpenApi\Objects\Operation => $this->buildOperation($routeInformation))->all();
     }
 
-    private function buildOperation(RouteInformation $route): Operation
+    private function buildOperation(RouteInformation $routeInformation): Operation
     {
         [
             $operationId,
@@ -47,12 +47,12 @@ final readonly class OperationBuilder
             $description,
             $deprecated,
             $servers
-        ] = $this->parseOperationAttribute($route);
+        ] = $this->parseOperationAttribute($routeInformation);
 
-        $parameters = $this->parameterBuilder->build($route);
-        $requestBody = $this->requestBodyBuilder->build($route);
-        $responses = $this->responseBuilder->build($route);
-        $callbacks = $this->callbackBuilder->build($route);
+        $parameters = $this->parameterBuilder->build($routeInformation);
+        $requestBody = $this->requestBodyBuilder->build($routeInformation);
+        $responses = $this->responseBuilder->build($routeInformation);
+        $callbacks = $this->callbackBuilder->build($routeInformation);
 
         $operation = Operation::create()
             ->action($method)
@@ -68,21 +68,21 @@ final readonly class OperationBuilder
             ->security($security)
             ->servers(...$servers);
 
-        $this->extensionBuilder->build($operation, $route->actionAttributes);
+        $this->extensionBuilder->build($operation, $routeInformation->actionAttributes);
 
         return $operation;
     }
 
-    private function parseOperationAttribute(RouteInformation $route): array
+    private function parseOperationAttribute(RouteInformation $routeInformation): array
     {
-        $operation = $route->actionAttributes
-            ->first(static fn (object $attribute) => $attribute instanceof OperationAttribute);
+        $operation = $routeInformation->actionAttributes
+            ->first(static fn (object $attribute): bool => $attribute instanceof OperationAttribute);
 
         return [
             $operation?->id,
             $this->tagBuilder->build(Arr::wrap($operation?->tags)),
             $this->securityRequirementBuilder->build($operation?->security),
-            $operation?->method ?? Str::lower($route->method),
+            $operation?->method ?? Str::lower($routeInformation->method),
             $operation?->summary,
             $operation?->description,
             $operation?->deprecated,

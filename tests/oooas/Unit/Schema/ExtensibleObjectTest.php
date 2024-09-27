@@ -8,10 +8,10 @@ use Tests\oooas\Doubles\Fakes\ExtensibleObjectFake;
 
 describe('ExtensibleObject', function (): void {
     it('can be statically created', function (): void {
-        $object = ExtensibleObjectFake::create();
+        $extensibleObjectFake = ExtensibleObjectFake::create();
 
-        expect($object)->toBeInstanceOf(BaseObject::class)
-            ->and($object)->toBeInstanceOf(ExtensibleObject::class);
+        expect($extensibleObjectFake)->toBeInstanceOf(BaseObject::class)
+            ->and($extensibleObjectFake)->toBeInstanceOf(ExtensibleObject::class);
     });
 
     it('can manipulate extensions', function (): void {
@@ -67,16 +67,16 @@ describe('ExtensibleObject', function (): void {
     });
 
     it('has a magic getter', function (): void {
-        $object = ExtensibleObjectFake::create('test');
+        $extensibleObjectFake = ExtensibleObjectFake::create('test');
 
-        $result = $object->objectId;
+        $result = $extensibleObjectFake->objectId;
 
         expect($result)->toBe('test');
     });
 
     it('should throw an exception if property does not exist', function (): void {
-        $object = ExtensibleObjectFake::create('test');
+        $extensibleObjectFake = ExtensibleObjectFake::create('test');
 
-        expect(static fn () => $object->nonExistingProperty)->toThrow(PropertyDoesNotExistException::class);
+        expect(static fn () => $extensibleObjectFake->nonExistingProperty)->toThrow(PropertyDoesNotExistException::class);
     });
 })->covers(ExtensibleObject::class);

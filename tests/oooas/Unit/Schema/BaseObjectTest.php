@@ -5,10 +5,10 @@ use Tests\oooas\Doubles\Fakes\BaseObjectFake;
 
 describe('BaseObject', function (): void {
     it('can be statically created', function (string|null $objectId, array $expectation): void {
-        $object = BaseObjectFake::create($objectId);
+        $baseObjectFake = BaseObjectFake::create($objectId);
 
-        expect($object)->toBeInstanceOf(BaseObject::class)
-            ->and($object->jsonSerialize())->toBe($expectation);
+        expect($baseObjectFake)->toBeInstanceOf(BaseObject::class)
+            ->and($baseObjectFake->jsonSerialize())->toBe($expectation);
     })->with([
         'null' => [null, []],
         'empty' => ['', ['objectId' => '']],
@@ -16,9 +16,9 @@ describe('BaseObject', function (): void {
     ]);
 
     it('can be statically created with ref method', function (): void {
-        $object = BaseObjectFake::ref('test');
+        $baseObjectFake = BaseObjectFake::ref('test');
 
-        $result = $object->ref;
+        $result = $baseObjectFake->ref;
 
         expect($result)->toBe('test');
     });

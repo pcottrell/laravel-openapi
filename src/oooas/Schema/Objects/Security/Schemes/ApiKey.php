@@ -10,15 +10,15 @@ final readonly class ApiKey extends SecurityScheme
 {
     private function __construct(
         public string $name,
-        public ApiKeyLocation $in,
+        public ApiKeyLocation $apiKeyLocation,
         string|null $description = null,
     ) {
         parent::__construct('apiKey', $description);
     }
 
-    public static function create(string $name, ApiKeyLocation $in, string|null $description = null): self
+    public static function create(string $name, ApiKeyLocation $apiKeyLocation, string|null $description = null): self
     {
-        return new self($name, $in, $description);
+        return new self($name, $apiKeyLocation, $description);
     }
 
     protected function toArray(): array
@@ -27,7 +27,7 @@ final readonly class ApiKey extends SecurityScheme
             'type' => $this->type,
             'description' => $this->description,
             'name' => $this->name,
-            'in' => $this->in->value,
+            'in' => $this->apiKeyLocation->value,
         ]);
     }
 }

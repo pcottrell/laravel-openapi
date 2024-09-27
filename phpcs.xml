@@ -7,8 +7,6 @@
     <description>PHP_CodeSniffer configuration</description>
     <arg name="extensions" value="php" />
     <file>./config</file>
-    <file>./examples</file>
-    <file>./routes</file>
     <file>./src</file>
     <file>./tests</file>
 

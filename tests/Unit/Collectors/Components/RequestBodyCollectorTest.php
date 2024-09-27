@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Components\RequestBodyCollector;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
 describe('RequestBodyCollector', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/RequestBody']);
         $this->collector = new RequestBodyCollector($locator);
     });

@@ -11,11 +11,10 @@ use Rector\Set\ValueObject\SetList;
 return RectorConfig::configure()
     ->withPaths([
         __DIR__ . '/config',
-        __DIR__ . '/examples',
-        __DIR__ . '/routes',
         __DIR__ . '/src',
         __DIR__ . '/tests',
     ])
+    ->withImportNames(importShortClasses: false)
      ->withPhpSets()
     ->withSets([
         SetList::CODE_QUALITY,

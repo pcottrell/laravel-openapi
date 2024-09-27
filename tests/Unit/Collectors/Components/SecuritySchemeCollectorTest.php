@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Components\SecuritySchemeCollector;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 describe('SecuritySchemeCollector', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/SecurityScheme']);
         $this->collector = new SecuritySchemeCollector($locator);
     });

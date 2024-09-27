@@ -13,11 +13,11 @@ use Webmozart\Assert\InvalidArgumentException;
 
 describe('Extensions', function (): void {
     dataset('extensibleObjectSet', [
-        fn () => Components::create(),
-        fn () => Operation::create(),
-        fn () => PathItem::create(),
-        fn () => Response::create(),
-        fn () => Schema::create(),
+        fn (): Components => Components::create(),
+        fn (): Operation => Operation::create(),
+        fn (): PathItem => PathItem::create(),
+        fn (): Response => Response::create(),
+        fn (): Schema => Schema::create(),
     ]);
 
     it('can create objects with extension', function (ExtensibleObject $extensibleObject): void {

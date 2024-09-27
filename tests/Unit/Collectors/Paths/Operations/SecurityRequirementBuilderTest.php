@@ -698,7 +698,7 @@ class SecurityRequirementBuilderTest extends TestCase
 
         $route = '/foo';
         $action = 'get';
-        $routeInformation = RouteInformation::createFromRoute(Route::$action($route, static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::$action($route, static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new AttributesOperation(security: $pathSecurity),
         ]);
@@ -779,8 +779,8 @@ class SecurityRequirementBuilderTest extends TestCase
      */
     public function testCanBuildUpTheSecurityScheme(): void
     {
-        $jwtSecurityScheme = app(JwtSecuritySchemeFactory::class);
-        $securityScheme = $jwtSecurityScheme->build();
+        $jwtSecuritySchemeFactory = app(JwtSecuritySchemeFactory::class);
+        $securityScheme = $jwtSecuritySchemeFactory->build();
 
         $components = Components::create()
             ->securitySchemes($securityScheme);
@@ -823,8 +823,8 @@ class SecurityRequirementBuilderTest extends TestCase
      */
     public function testWeCanAddOperationSecurityUsingBuilder(): void
     {
-        $jwtSecurityScheme = app(JwtSecuritySchemeFactory::class);
-        $securityScheme = $jwtSecurityScheme->build();
+        $jwtSecuritySchemeFactory = app(JwtSecuritySchemeFactory::class);
+        $securityScheme = $jwtSecuritySchemeFactory->build();
 
         $components = Components::create()
             ->securitySchemes($securityScheme);
@@ -837,7 +837,6 @@ class SecurityRequirementBuilderTest extends TestCase
         ]);
         $routeInformation->uri = '/example';
 
-        /** @var SecurityRequirementBuilder $builder */
         $securityRequirementBuilder = app(SecurityRequirementBuilder::class);
 
         $operation = Operation::create()

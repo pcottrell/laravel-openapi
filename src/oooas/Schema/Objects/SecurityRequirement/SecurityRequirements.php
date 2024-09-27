@@ -13,16 +13,16 @@ class SecurityRequirements
         return new self();
     }
 
-    public function requireAll(SecurityRequirement $requirement): self
+    public function requireAll(SecurityRequirement $securityRequirement): self
     {
-        $this->requirements[] = $requirement->jsonSerialize();
+        $this->requirements[] = $securityRequirement->jsonSerialize();
 
         return $this;
     }
 
-    public function requireAny(SecurityRequirement ...$requirements): self
+    public function requireAny(SecurityRequirement ...$securityRequirement): self
     {
-        foreach ($requirements as $requirement) {
+        foreach ($securityRequirement as $requirement) {
             $this->requirements[] = $requirement->jsonSerialize();
         }
 

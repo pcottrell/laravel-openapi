@@ -10,7 +10,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestController;
 
 describe('ParameterBuilder', function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new ParameterAttribute(ParameterFactory::class),
         ]);
@@ -25,7 +25,7 @@ describe('ParameterBuilder', function (): void {
     });
 
     it('can automatically create parameters from url params', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example/{id}', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example/{id}', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect();
 
         $builder = new ParameterBuilder();
@@ -53,6 +53,5 @@ describe('ParameterBuilder', function (): void {
             ->and($typeHintedParam->name)->toBe('id')
             ->and($typeHintedParam->required)->toBeTrue()
             ->and($typeHintedParam->schema->type)->toBe('integer');
-
     });
 })->covers(ParameterBuilder::class);

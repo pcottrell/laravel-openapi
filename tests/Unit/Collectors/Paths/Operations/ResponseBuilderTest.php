@@ -10,7 +10,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableResponseFactory;
 
 describe('ResponseBuilder', function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new ResponseAttribute(ResponseFactory::class),
         ]);
@@ -23,7 +23,7 @@ describe('ResponseBuilder', function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn () => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(Route::get('/example', static fn (): string => 'example'));
         $routeInformation->actionAttributes = collect([
             new ResponseAttribute(ResponseFactory::class),
             new ResponseAttribute(ReusableResponseFactory::class),

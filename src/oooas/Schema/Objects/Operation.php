@@ -99,7 +99,7 @@ class Operation extends ExtensibleObject
 
     public function tags(Tag|string ...$tags): static
     {
-        $allStringTags = array_map(static function (Tag|string $tag) {
+        $allStringTags = array_map(static function (Tag|string $tag): string {
             if ($tag instanceof Tag) {
                 return (string) $tag;
             }
@@ -245,7 +245,7 @@ class Operation extends ExtensibleObject
             'requestBody' => $this->requestBody,
             'responses' => [] !== $responses ? $responses : null,
             'deprecated' => $this->deprecated,
-            'security' => $this->noSecurity ? [] : $this->security,
+            'security' => true === $this->noSecurity ? [] : $this->security,
             'servers' => $this->servers,
             'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);

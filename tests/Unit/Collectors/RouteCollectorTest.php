@@ -1,5 +1,6 @@
 <?php
 
+use Pest\Mixins\Expectation;
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Collectors\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
@@ -16,11 +17,12 @@ describe('RouteCollector', function (): void {
         Route::patch('/has-both-pathItem-and-operation', ControllerWithPathItemAndOperationStub::class);
         Route::get('/has-no-operation', ControllerWithoutOperationStub::class);
         Route::delete('/has-both-pathItem-and-operation', ControllerWithPathItemAndOperationStub::class);
-        $collector = app(RouteCollector::class);
+        $routeCollector = app(RouteCollector::class);
 
-        $result = $collector->getRoutes();
+        $routes = $routeCollector->getRoutes();
 
-        expect($result)->toHaveCount(5)
-            and $result->each(fn ($route) => expect($route)->toBeInstanceOf(RouteInformation::class));
+        if (expect($routes)->toHaveCount(5) instanceof Expectation) {
+            $routes->each(fn ($route): Expectation => expect($route)->toBeInstanceOf(RouteInformation::class));
+        }
     });
 })->covers(RouteCollector::class);

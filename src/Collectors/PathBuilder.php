@@ -19,28 +19,28 @@ readonly class PathBuilder
     ) {
     }
 
-    public function build(string $collection, PathMiddleware ...$middlewares): array
+    public function build(string $collection, PathMiddleware ...$pathMiddleware): array
     {
         return $this->routeCollector->getRoutes()
-            ->filter(fn (RouteInformation $route) => $this->shouldIncludeRoute($route, $collection))
-            ->map(fn (RouteInformation $route) => $this->applyBeforeMiddleware($route, $middlewares))
-            ->groupBy(static fn (RouteInformation $route) => $route->uri)
-            ->map(fn (Collection $routes, string $uri) => $this->createPathItem($routes, $uri))
-            ->map(fn (PathItem $pathItem) => $this->applyAfterMiddleware($pathItem, $middlewares))
+            ->filter(fn (RouteInformation $routeInformation): bool => $this->shouldIncludeRoute($routeInformation, $collection))
+            ->map(fn (RouteInformation $routeInformation): RouteInformation => $this->applyBeforeMiddleware($routeInformation, $pathMiddleware))
+            ->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->uri)
+            ->map(fn (Collection $routes, string $uri): PathItem => $this->createPathItem($routes, $uri))
+            ->map(fn (PathItem $pathItem): PathItem => $this->applyAfterMiddleware($pathItem, $pathMiddleware))
             ->values()
             ->toArray();
     }
 
-    private function shouldIncludeRoute(RouteInformation $route, string $collection): bool
+    private function shouldIncludeRoute(RouteInformation $routeInformation, string $collection): bool
     {
         // TODO: use these docs to refactor and simplify this code
         // You can set the collection either on controller or per action (on each method)
         // the controller collection always overrides the action collection
         /** @var CollectionAttribute|null $collectionAttribute */
         $collectionAttribute = collect()
-            ->merge($route->controllerAttributes)
-            ->merge($route->actionAttributes)
-            ->first(static fn (object $item) => $item instanceof CollectionAttribute);
+            ->merge($routeInformation->controllerAttributes)
+            ->merge($routeInformation->actionAttributes)
+            ->first(static fn (object $item): bool => $item instanceof CollectionAttribute);
 
         // if there is no collection attribute on the controller or action, then $collectionAttribute will be null
         // if (!$collectionAttribute) {
@@ -59,13 +59,13 @@ readonly class PathBuilder
             || ($collectionAttribute && in_array($collection, $collectionAttribute->name, true));
     }
 
-    private function applyBeforeMiddleware(RouteInformation $route, array $middlewares): RouteInformation
+    private function applyBeforeMiddleware(RouteInformation $routeInformation, array $middlewares): RouteInformation
     {
         foreach ($middlewares as $middleware) {
-            $middleware->before($route);
+            $middleware->before($routeInformation);
         }
 
-        return $route;
+        return $routeInformation;
     }
 
     private function createPathItem(Collection $routes, string $uri): PathItem

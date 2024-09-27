@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Components\SchemaCollector;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
 describe('SchemaCollector', function (): void {
-    beforeEach(function () {
+    beforeEach(function (): void {
         $locator = new CollectionLocator([__DIR__ . '/../../../Doubles/Stubs/Collectors/Components/Schema']);
         $this->collector = new SchemaCollector($locator);
     });

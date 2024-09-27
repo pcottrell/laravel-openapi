@@ -22,11 +22,11 @@ abstract class BaseObject implements \JsonSerializable
     //  https://swagger.io/specification/#components-object
     final public static function ref(string $ref, string|null $objectId = null): static
     {
-        $instance = new static($objectId);
+        $static = new static($objectId);
 
-        $instance->ref = $ref;
+        $static->ref = $ref;
 
-        return $instance;
+        return $static;
     }
 
     abstract protected function toArray(): array;

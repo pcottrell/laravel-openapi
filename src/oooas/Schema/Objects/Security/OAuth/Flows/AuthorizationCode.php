@@ -12,18 +12,18 @@ final readonly class AuthorizationCode extends Flow
         public string $authorizationUrl,
         public string $tokenUrl,
         string|null $refreshUrl = null,
-        Scope ...$scopes,
+        Scope ...$scope,
     ) {
-        parent::__construct($refreshUrl, $scopes);
+        parent::__construct($refreshUrl, $scope);
     }
 
     public static function create(
         string $authorizationUrl,
         string $tokenUrl,
         string|null $refreshUrl = null,
-        Scope ...$scopes,
+        Scope ...$scope,
     ): self {
-        return new self($authorizationUrl, $tokenUrl, $refreshUrl, ...$scopes);
+        return new self($authorizationUrl, $tokenUrl, $refreshUrl, ...$scope);
     }
 
     protected function toArray(): array

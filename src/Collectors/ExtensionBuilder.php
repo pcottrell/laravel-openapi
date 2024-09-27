@@ -10,11 +10,11 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 
 class ExtensionBuilder
 {
-    public function build(ExtensibleObject $object, Collection $attributes): void
+    public function build(ExtensibleObject $extensibleObject, Collection $attributes): void
     {
         $attributes
             ->filter(static fn (object $attribute): bool => $attribute instanceof ExtensionAttribute)
-            ->each(static function (ExtensionAttribute $extensionAttribute) use ($object): void {
+            ->each(static function (ExtensionAttribute $extensionAttribute) use ($extensibleObject): void {
                 if (!is_null($extensionAttribute->factory) && '' !== $extensionAttribute->factory && '0' !== $extensionAttribute->factory) {
                     /** @var ExtensionFactory $factory */
                     $factory = app($extensionAttribute->factory);
@@ -25,7 +25,7 @@ class ExtensionBuilder
                     $value = $extensionAttribute->value;
                 }
 
-                $object->addExtension(Extension::create($key, $value));
+                $extensibleObject->addExtension(Extension::create($key, $value));
             });
     }
 }

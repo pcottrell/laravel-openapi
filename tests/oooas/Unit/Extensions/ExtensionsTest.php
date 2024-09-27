@@ -1,6 +1,6 @@
 <?php
 
-
+use Webmozart\Assert\InvalidArgumentException;
 use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
 use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extensions;
 
@@ -42,8 +42,8 @@ describe('Extensions', function (): void {
     it('throws exception if extension does not exist', function (): void {
         $extensions = Extensions::create();
 
-        expect(fn () => $extensions->get('x-test'))->toThrow(
-            Webmozart\Assert\InvalidArgumentException::class,
+        expect(fn (): Extension => $extensions->get('x-test'))->toThrow(
+            InvalidArgumentException::class,
             'Extension not found: x-test',
         );
     });
@@ -62,8 +62,8 @@ describe('Extensions', function (): void {
         $extensions = Extensions::create();
 
         expect($extensions->has('nonexistent'))->toBeFalse()
-            ->and(fn () => $extensions->remove('nonexistent'))->toThrow(
-                Webmozart\Assert\InvalidArgumentException::class,
+            ->and(fn (): Extensions => $extensions->remove('nonexistent'))->toThrow(
+                InvalidArgumentException::class,
                 'Extension not found: nonexistent',
             );
     });

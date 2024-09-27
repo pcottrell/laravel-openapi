@@ -21,7 +21,7 @@ describe('Operation', function (): void {
     it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
         $securityScheme = SecurityScheme::create('OAuth2')
             ->type(SecurityScheme::TYPE_OAUTH2);
-        $callback = PathItem::create('MyEvent')
+        $pathItem = PathItem::create('MyEvent')
             ->route('{$request.query.callbackUrl}')
             ->operations(
                 Operation::$actionMethod()->requestBody(
@@ -42,7 +42,7 @@ describe('Operation', function (): void {
             ->deprecated()
             ->security(SecurityRequirement::create()->securityScheme($securityScheme))
             ->servers(Server::create())
-            ->callbacks($callback);
+            ->callbacks($pathItem);
 
         expect($operation->jsonSerialize())->toBe([
             'tags' => ['Users'],
