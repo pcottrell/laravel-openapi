@@ -20,11 +20,11 @@ abstract class ExtensibleObject extends BaseObject
         $this->extensions = Extensions::create();
     }
 
-    public function addExtension(Extension $extension): static
+    public function addExtension(Extension ...$extension): static
     {
         $clone = clone $this;
 
-        $clone->extensions->add($extension);
+        $clone->extensions->add(...$extension);
 
         return $clone;
     }
@@ -59,16 +59,11 @@ abstract class ExtensibleObject extends BaseObject
         throw new PropertyDoesNotExistException(sprintf('[%s] is not a valid property.', $name));
     }
 
-    public function serialize(): array
+    public function jsonSerialize(): array
     {
-        // TODO: Refactor. This is duplicated in NonExtensibleObject
-        if (!is_null($this->ref)) {
-            return ['$ref' => $this->ref];
-        }
-
         return [
-            ...$this->toArray(),
-            ...$this->extensions->serialize(),
+            ...parent::jsonSerialize(),
+            ...$this->extensions->jsonSerialize(),
         ];
     }
 }

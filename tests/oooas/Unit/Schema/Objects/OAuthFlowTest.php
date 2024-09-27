@@ -7,7 +7,7 @@ describe('OAuthFlow', function (): void {
     it('can be created with no parameters', function (): void {
         $oauthFlow = OAuthFlow::create();
 
-        expect($oauthFlow->serialize())->toBeEmpty();
+        expect($oauthFlow->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (array $scopes): void {
@@ -18,7 +18,7 @@ describe('OAuthFlow', function (): void {
             ->refreshUrl('https://api.example.com/oauth/token')
             ->scopes($scopes);
 
-        expect($oauthFlow->serialize())->toBe([
+        expect($oauthFlow->jsonSerialize())->toBe([
             'authorizationUrl' => 'https://api.example.com/oauth/authorization',
             'tokenUrl' => 'https://api.example.com/oauth/token',
             'refreshUrl' => 'https://api.example.com/oauth/token',
@@ -32,7 +32,7 @@ describe('OAuthFlow', function (): void {
     it('can be created with no scope', function (): void {
         $oauthFlow = OAuthFlow::create()->scopes(null);
 
-        expect($oauthFlow->serialize())->toBeEmpty();
+        expect($oauthFlow->jsonSerialize())->toBeEmpty();
     });
 
     it('throws an exception when scopes is not an [string => string] array', function (array $scopes): void {

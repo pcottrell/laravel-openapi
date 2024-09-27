@@ -40,6 +40,6 @@ class PathItemTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 }

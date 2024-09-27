@@ -1,11 +1,11 @@
 <?php
 
-namespace Tests\oooas\Stubs;
+namespace Tests\oooas\Doubles\Fakes;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\BaseObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class ExtensibleObjectStub extends ExtensibleObject
+class BaseObjectFake extends BaseObject
 {
     protected function toArray(): array
     {

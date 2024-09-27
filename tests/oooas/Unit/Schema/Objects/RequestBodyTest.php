@@ -29,6 +29,6 @@ class RequestBodyTest extends UnitTestCase
                 ],
                 'required' => true,
             ],
-        ], $operation->serialize());
+        ], $operation->jsonSerialize());
     }
 }

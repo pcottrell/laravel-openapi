@@ -13,7 +13,7 @@ class Arr
         foreach ($array as $index => &$value) {
             // If the value is an object, then parse to array.
             if ($value instanceof ExtensibleObject) {
-                $value = $value->serialize();
+                $value = $value->jsonSerialize();
             }
 
             // If the value is a filled array, then recursively filter it.

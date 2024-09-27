@@ -24,6 +24,6 @@ class ExternalDocsTest extends UnitTestCase
                 'description' => 'GitHub Repo',
                 'url' => 'https://example.com',
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 }

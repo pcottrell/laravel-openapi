@@ -28,7 +28,7 @@ class OneOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $oneOf->serialize());
+        ], $oneOf->jsonSerialize());
     }
 
     public function testTwoSchemasAsResponseWork(): void
@@ -53,6 +53,6 @@ class OneOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $mediaType->serialize());
+        ], $mediaType->jsonSerialize());
     }
 }

@@ -109,7 +109,7 @@ class TagBuilderTest extends TestCase
         $builder = app(TagBuilder::class);
         $tags = $builder->build($factories);
 
-        $this->assertSameAssociativeArray($expected[0], $tags[0]->serialize());
+        $this->assertSameAssociativeArray($expected[0], $tags[0]->jsonSerialize());
     }
 
     /**
@@ -137,7 +137,7 @@ class TagBuilderTest extends TestCase
         $builder = app(TagBuilder::class);
         $tags = $builder->build($factories);
 
-        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->serialize())->toArray());
+        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->jsonSerialize())->toArray());
     }
 
     #[DataProvider('invalidTagProvider')]

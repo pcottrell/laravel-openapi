@@ -164,7 +164,7 @@ describe('Generator', function (): void {
         $openApi = $generator->generate($collection);
 
         expect($openApi)->toBeInstanceOf(OpenApi::class)
-            ->and($openApi->serialize())->toEqual($expectation);
+            ->and($openApi->jsonSerialize())->toEqual($expectation);
     })->with([
         'test collection' => [
             'collection' => 'test',

@@ -34,6 +34,6 @@ class InfoTest extends UnitTestCase
                 'license' => [],
                 'version' => 'v1',
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 }

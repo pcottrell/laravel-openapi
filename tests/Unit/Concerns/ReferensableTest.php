@@ -31,7 +31,7 @@ describe('Referensable', function (): void {
         $schema = $factory::ref();
 
         expect($schema)->toBeInstanceOf(MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema::class)
-            ->and($schema->serialize())->toBe([
+            ->and($schema->jsonSerialize())->toBe([
                 '$ref' => $expected,
             ]);
     })->with([

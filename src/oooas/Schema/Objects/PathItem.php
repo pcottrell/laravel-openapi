@@ -78,7 +78,7 @@ class PathItem extends ExtensibleObject
     {
         $operations = [];
         foreach ($this->operations ?? [] as $operation) {
-            $operations[$operation->action] = $operation->serialize();
+            $operations[$operation->action] = $operation->jsonSerialize();
         }
 
         return Arr::filter(

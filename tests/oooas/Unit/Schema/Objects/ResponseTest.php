@@ -34,7 +34,7 @@ describe('Response', function (): void {
             ->content(MediaType::json())
             ->links($link);
 
-        expect($response->serialize())->toBe([
+        expect($response->jsonSerialize())->toBe([
             'description' => 'OK',
             'headers' => [
                 'HeaderName' => [

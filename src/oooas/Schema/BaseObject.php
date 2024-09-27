@@ -2,9 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema;
 
-use MohammadAlavi\LaravelOpenApi\Serializable;
-
-abstract class BaseObject extends Serializable
+abstract class BaseObject implements \JsonSerializable
 {
     public string|null $ref = null;
 
@@ -13,7 +11,7 @@ abstract class BaseObject extends Serializable
     ) {
     }
 
-    public static function create(string|null $objectId = null): static
+    final public static function create(string|null $objectId = null): static
     {
         return new static($objectId);
     }
@@ -22,7 +20,7 @@ abstract class BaseObject extends Serializable
     //  Only objects that can be Components and reusable needs this method.
     //  Maybe this can be moved to a trait + interface.
     //  https://swagger.io/specification/#components-object
-    public static function ref(string $ref, string|null $objectId = null): static
+    final public static function ref(string $ref, string|null $objectId = null): static
     {
         $instance = new static($objectId);
 
@@ -31,8 +29,19 @@ abstract class BaseObject extends Serializable
         return $instance;
     }
 
+    abstract protected function toArray(): array;
+
     public function jsonSerialize(): array
     {
-        return $this->serialize();
+        if ($this->hasReference()) {
+            return ['$ref' => $this->ref];
+        }
+
+        return $this->toArray();
+    }
+
+    private function hasReference(): bool
+    {
+        return !is_null($this->ref);
     }
 }

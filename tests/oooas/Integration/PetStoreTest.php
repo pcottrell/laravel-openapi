@@ -174,11 +174,11 @@ class PetStoreTest extends IntegrationTestCase
             ->paths($pathItem, $petNested)
             ->components($components);
 
-        $exampleResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/petstore_expanded.json'));
+        $exampleResponse = file_get_contents(realpath(__DIR__ . '/../Doubles/Stubs/petstore_expanded.json'));
 
         $this->assertEquals(
             json_decode($exampleResponse, true),
-            $openApi->serialize(),
+            $openApi->jsonSerialize(),
         );
     }
 }

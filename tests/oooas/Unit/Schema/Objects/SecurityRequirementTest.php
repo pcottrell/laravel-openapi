@@ -9,7 +9,7 @@ describe('SecurityRequirement', function (): void {
     it('can be created with no parameters', function (): void {
         $securityRequirement = SecurityRequirement::create();
 
-        expect($securityRequirement->serialize())->toBe(['' => []]);
+        expect($securityRequirement->jsonSerialize())->toBe(['' => []]);
     });
 
     it('can be created with all parameters', function (SecurityScheme|string $securityScheme, $expectation): void {
@@ -17,7 +17,7 @@ describe('SecurityRequirement', function (): void {
             ->securityScheme($securityScheme)
             ->scopes('read:user');
 
-        expect($securityRequirement->serialize())->toBe($expectation);
+        expect($securityRequirement->jsonSerialize())->toBe($expectation);
     })->with([
         'security object' => [
             SecurityScheme::create('SecObj'),
@@ -37,7 +37,7 @@ describe('SecurityRequirement', function (): void {
         $securityRequirement = SecurityRequirement::create()
         ->securityScheme($securityScheme);
 
-        expect($securityRequirement->serialize())->toBe($expectation);
+        expect($securityRequirement->jsonSerialize())->toBe($expectation);
     })->with([
         'security scheme object' => [SecurityScheme::create('OAuth2'), ['OAuth2' => []]],
         'security scheme name' => ['OAuth2', ['OAuth2' => []]],
@@ -50,7 +50,7 @@ describe('SecurityRequirement', function (): void {
         $securityRequirement = SecurityRequirement::create('OAuth2')
             ->scopes(...$scopes);
 
-        expect($securityRequirement->serialize())->toBe(['' => $scopes]);
+        expect($securityRequirement->jsonSerialize())->toBe(['' => $scopes]);
     })->with([
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],

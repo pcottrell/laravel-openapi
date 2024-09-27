@@ -381,7 +381,7 @@ class Schema extends ExtensibleObject implements SchemaContract
     {
         $properties = [];
         foreach ($this->properties ?? [] as $property) {
-            $properties[$property->objectId] = $property->serialize();
+            $properties[$property->objectId] = $property->jsonSerialize();
         }
 
         return Arr::filter([

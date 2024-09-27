@@ -147,7 +147,7 @@ class ServerBuilderTest extends TestCase
     {
         $builder = new ServerBuilder();
         $servers = $builder->build($factories);
-        $this->assertSameAssociativeArray($expected[0], $servers[0]->serialize());
+        $this->assertSameAssociativeArray($expected[0], $servers[0]->jsonSerialize());
     }
 
     /**
@@ -175,7 +175,7 @@ class ServerBuilderTest extends TestCase
         $builder = app(ServerBuilder::class);
         $servers = $builder->build($factories);
 
-        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->serialize())->toArray());
+        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->jsonSerialize())->toArray());
     }
 
     #[DataProvider('invalidServerProvider')]

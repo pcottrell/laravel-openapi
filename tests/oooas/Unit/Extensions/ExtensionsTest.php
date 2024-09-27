@@ -74,7 +74,7 @@ describe('Extensions', function (): void {
         $extensions = $extensions->add($extension);
 
 
-        expect($extensions->serialize())->toBe(['x-test' => 'test'])
+        expect($extensions->jsonSerialize())->toBe(['x-test' => 'test'])
             ->and($extensions->jsonSerialize())->toBe(['x-test' => 'test']);
     });
 

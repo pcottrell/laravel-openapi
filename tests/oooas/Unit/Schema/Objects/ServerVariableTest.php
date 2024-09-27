@@ -28,6 +28,6 @@ class ServerVariableTest extends UnitTestCase
                     'description' => 'The planet the server is running on',
                 ],
             ],
-        ], $server->serialize());
+        ], $server->jsonSerialize());
     }
 }

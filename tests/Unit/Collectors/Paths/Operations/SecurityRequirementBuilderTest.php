@@ -733,7 +733,7 @@ class SecurityRequirementBuilderTest extends TestCase
             'paths' => [
                 $route => $actionData,
             ], ...$collectionData,
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 
     #[DataProvider('globalSecuritySchemesDataProvider')]
@@ -771,7 +771,7 @@ class SecurityRequirementBuilderTest extends TestCase
             'components' => $expectedJson['components'],
             'security' => $expectedJson['security'],
         ];
-        $this->assertSame($expected, $openApi->serialize());
+        $this->assertSame($expected, $openApi->jsonSerialize());
     }
 
     /**
@@ -814,7 +814,7 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->serialize());
+        $this->assertSame($expected, $openApi->jsonSerialize());
     }
 
     /**
@@ -870,6 +870,6 @@ class SecurityRequirementBuilderTest extends TestCase
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->serialize());
+        $this->assertSame($expected, $openApi->jsonSerialize());
     }
 }

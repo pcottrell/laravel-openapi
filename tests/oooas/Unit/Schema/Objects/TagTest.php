@@ -7,7 +7,7 @@ describe('Tag', function (): void {
     it('can be created with no parameters', function (): void {
         $tag = Tag::create();
 
-        expect($tag->serialize())->toBeEmpty();
+        expect($tag->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
@@ -16,7 +16,7 @@ describe('Tag', function (): void {
             ->description('All user endpoints')
             ->externalDocs(ExternalDocs::create());
 
-        expect($tag->serialize())->toBe([
+        expect($tag->jsonSerialize())->toBe([
             'name' => 'Users',
             'description' => 'All user endpoints',
             'externalDocs' => [],

@@ -9,7 +9,7 @@ describe('MediaType', function (): void {
     it('can be created with no parameters', function (): void {
         $mediaType = MediaType::create();
 
-        expect($mediaType->serialize())->toBeEmpty();
+        expect($mediaType->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
@@ -20,7 +20,7 @@ describe('MediaType', function (): void {
             ->example(Example::create())
             ->encoding(Encoding::create('EncodingName'));
 
-        expect($mediaType->serialize())->toBe([
+        expect($mediaType->jsonSerialize())->toBe([
             'schema' => [
                 'type' => 'object',
             ],

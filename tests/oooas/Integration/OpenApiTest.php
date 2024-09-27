@@ -122,7 +122,7 @@ describe('OpenApi', function (): void {
             ->externalDocs($externalDocs);
 
 
-        $data = $openApi->serialize();
+        $data = $openApi->jsonSerialize();
         // $expectedResponse = file_get_contents(realpath(__DIR__ . '/../Stubs/v3.0.x_expected_response.json'));
         // expect($data)->toBe(json_decode($expectedResponse, true, 512, JSON_THROW_ON_ERROR));
         /** @var JsonSchemaValidator $result */

@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Extensions;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Serializable;
 use Webmozart\Assert\Assert;
 
-final class Extensions implements Serializable
+final class Extensions implements \JsonSerializable
 {
     private function __construct(
         /** @var Extension[] */
@@ -18,9 +17,11 @@ final class Extensions implements Serializable
         return new self([]);
     }
 
-    public function add(Extension $extension): self
+    public function add(Extension ...$extension): self
     {
-        $this->extensions[$extension->name] = $extension;
+        foreach ($extension as $ext) {
+            $this->extensions[$ext->name] = $ext;
+        }
 
         return $this;
     }
@@ -54,18 +55,13 @@ final class Extensions implements Serializable
 
     public function jsonSerialize(): array
     {
-        return $this->serialize();
-    }
-
-    public function serialize(): array
-    {
         return $this->toArray();
     }
 
     protected function toArray(): array
     {
         return array_reduce($this->extensions, static function (array $carry, Extension $extension) {
-            return array_merge($carry, $extension->serialize());
+            return array_merge($carry, $extension->jsonSerialize());
         }, []);
     }
 }

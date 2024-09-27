@@ -132,7 +132,7 @@ describe('OpenApi', function (): void {
             ->tags($tag)
             ->externalDocs($externalDocs);
 
-        expect($openApi->serialize())->toBe([
+        expect($openApi->jsonSerialize())->toBe([
             'openapi' => '3.0.1',
             'info' => [
                 'title' => 'API Specification',

@@ -13,7 +13,7 @@ describe('Operation', function (): void {
 
         $result = $operation->security(...$securityReqs);
 
-        expect($result->serialize())->toBe($expectation);
+        expect($result->jsonSerialize())->toBe($expectation);
     })->with([
         'empty array [] security' => [
             [],

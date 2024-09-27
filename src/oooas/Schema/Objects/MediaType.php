@@ -124,12 +124,12 @@ class MediaType extends ExtensibleObject
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example->serialize();
+            $examples[$example->objectId] = $example->jsonSerialize();
         }
 
         $encodings = [];
         foreach ($this->encoding ?? [] as $encoding) {
-            $encodings[$encoding->objectId] = $encoding->serialize();
+            $encodings[$encoding->objectId] = $encoding->jsonSerialize();
         }
 
         return Arr::filter([

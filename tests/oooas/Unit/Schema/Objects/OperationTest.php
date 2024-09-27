@@ -15,7 +15,7 @@ describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {
         $operation = Operation::create();
 
-        expect($operation->serialize())->toBeEmpty();
+        expect($operation->jsonSerialize())->toBeEmpty();
     });
 
     it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
@@ -44,7 +44,7 @@ describe('Operation', function (): void {
             ->servers(Server::create())
             ->callbacks($callback);
 
-        expect($operation->serialize())->toBe([
+        expect($operation->jsonSerialize())->toBe([
             'tags' => ['Users'],
             'summary' => 'Lorem ipsum',
             'description' => 'Dolar sit amet',
@@ -87,7 +87,7 @@ describe('Operation', function (): void {
         $operation = Operation::get()
             ->noSecurity();
 
-        expect($operation->serialize())->toBe([
+        expect($operation->jsonSerialize())->toBe([
             'security' => [],
         ]);
     });
@@ -96,7 +96,7 @@ describe('Operation', function (): void {
         $operation = Operation::get()
             ->tags(...$tag);
 
-        expect($operation->serialize())->toBe([
+        expect($operation->jsonSerialize())->toBe([
             'tags' => $expectation,
         ]);
     })->with([

@@ -32,7 +32,7 @@ describe('Extensions', function (): void {
             ->addExtension($extension3)
             ->addExtension($extension4);
 
-        expect($object->serialize())->toBe([
+        expect($object->jsonSerialize())->toBe([
             'x-key' => 'value',
             'x-foo' => 'bar',
             'x-baz' => null,
@@ -48,7 +48,7 @@ describe('Extensions', function (): void {
 
         $object = $object->removeExtension('x-key');
 
-        expect($object->serialize())->toBe([
+        expect($object->jsonSerialize())->toBe([
             'x-foo' => 'bar',
             'x-baz' => null,
         ]);

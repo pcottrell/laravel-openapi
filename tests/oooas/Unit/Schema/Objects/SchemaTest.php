@@ -27,7 +27,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'enum' => [
@@ -67,7 +67,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -104,7 +104,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -146,7 +146,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -189,7 +189,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -236,7 +236,7 @@ describe('Schema', function (): void {
             ->example(['Venus'])
             ->deprecated();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'title' => 'Schema title',
             'description' => 'Schema description',
             'default' => false,
@@ -259,7 +259,7 @@ describe('Schema', function (): void {
     it('can create array schema with ref', function (): void {
         $schema = Schema::array()->items(Schema::ref('#/components/schemas/pet'));
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'type' => 'array',
             'items' => [
                 '$ref' => '#/components/schemas/pet',
@@ -277,7 +277,7 @@ describe('Schema', function (): void {
                 OneOf::create('poly_type')->schemas($string, $number),
             );
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'type' => 'object',
             'properties' => [
                 'poly_type' => [
@@ -294,7 +294,7 @@ describe('Schema', function (): void {
         /** @var Schema $schema */
         $schema = Schema::$method();
 
-        expect($schema->serialize())->toBe([
+        expect($schema->jsonSerialize())->toBe([
             'type' => $expectation,
         ]);
     })->with([

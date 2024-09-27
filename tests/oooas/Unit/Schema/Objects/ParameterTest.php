@@ -9,7 +9,7 @@ describe('Parameter', function (): void {
     it('can be created with no parameters', function (): void {
         $parameter = Parameter::create();
 
-        expect($parameter->serialize())->toBeEmpty();
+        expect($parameter->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
@@ -28,7 +28,7 @@ describe('Parameter', function (): void {
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
 
-        expect($parameter->serialize())->toBe([
+        expect($parameter->jsonSerialize())->toBe([
             'name' => 'user',
             'in' => 'path',
             'description' => 'User ID',

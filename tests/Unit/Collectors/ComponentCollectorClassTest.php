@@ -50,7 +50,7 @@ describe('ComponentCollector', function (): void {
         expect($result)->unless(
             is_null($result),
             fn (Expectation $xp) => $xp->toBeInstanceOf(Components::class)
-                ->and($xp->value->serialize())->toEqual($expectation),
+                ->and($xp->value->jsonSerialize())->toEqual($expectation),
         );
     })->with(
         [

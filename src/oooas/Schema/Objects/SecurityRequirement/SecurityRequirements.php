@@ -15,7 +15,7 @@ class SecurityRequirements
 
     public function requireAll(SecurityRequirement $requirement): self
     {
-        $this->requirements[] = $requirement->serialize();
+        $this->requirements[] = $requirement->jsonSerialize();
 
         return $this;
     }
@@ -23,7 +23,7 @@ class SecurityRequirements
     public function requireAny(SecurityRequirement ...$requirements): self
     {
         foreach ($requirements as $requirement) {
-            $this->requirements[] = $requirement->serialize();
+            $this->requirements[] = $requirement->jsonSerialize();
         }
 
         return $this;

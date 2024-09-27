@@ -53,6 +53,6 @@ class HeaderTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $response->serialize());
+        ], $response->jsonSerialize());
     }
 }

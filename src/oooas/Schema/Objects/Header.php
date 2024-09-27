@@ -135,7 +135,7 @@ class Header extends ExtensibleObject
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example->serialize();
+            $examples[$example->objectId] = $example->jsonSerialize();
         }
 
         $content = [];

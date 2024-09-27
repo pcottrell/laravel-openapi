@@ -73,6 +73,6 @@ class EncodingTest extends UnitTestCase
                     'allowReserved' => true,
                 ],
             ],
-        ], $mediaType->serialize());
+        ], $mediaType->jsonSerialize());
     }
 }

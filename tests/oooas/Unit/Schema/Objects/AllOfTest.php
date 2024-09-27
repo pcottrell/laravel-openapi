@@ -28,7 +28,7 @@ class AllOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $allOf->serialize());
+        ], $allOf->jsonSerialize());
     }
 
     public function testTwoSchemasAsResponseWork(): void
@@ -53,6 +53,6 @@ class AllOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $mediaType->serialize());
+        ], $mediaType->jsonSerialize());
     }
 }

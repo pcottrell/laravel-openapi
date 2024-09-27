@@ -44,7 +44,7 @@ class Server extends ExtensibleObject
     {
         $variables = [];
         foreach ($this->variables ?? [] as $variable) {
-            $variables[$variable->objectId] = $variable->serialize();
+            $variables[$variable->objectId] = $variable->jsonSerialize();
         }
 
         return Arr::filter([

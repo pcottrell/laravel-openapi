@@ -66,11 +66,11 @@ class ReadmeTest extends IntegrationTestCase
             ->paths($pathItem)
             ->tags($usersTag);
 
-        $readmeExample = file_get_contents(realpath(__DIR__ . '/../Stubs/readme_example.json'));
+        $readmeExample = file_get_contents(realpath(__DIR__ . '/../Doubles/Stubs/readme_example.json'));
 
         $this->assertEquals(
             json_decode($readmeExample, true),
-            $openApi->serialize(),
+            $openApi->jsonSerialize(),
         );
     }
 
@@ -86,11 +86,11 @@ class ReadmeTest extends IntegrationTestCase
             'info' => [
                 'title' => 'Example API',
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
 
         $openApi = $openApi->info(null);
 
-        $this->assertSame([], $openApi->serialize());
+        $this->assertSame([], $openApi->jsonSerialize());
     }
 
     public function testUnsettingVariadicMethods(): void
@@ -105,11 +105,11 @@ class ReadmeTest extends IntegrationTestCase
             'paths' => [
                 '/users' => [],
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
 
         $openApi = $openApi->paths();
 
-        $this->assertSame([], $openApi->serialize());
+        $this->assertSame([], $openApi->jsonSerialize());
     }
 
     public function testRetrievingProperties(): void
@@ -138,7 +138,7 @@ class ReadmeTest extends IntegrationTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $schema->serialize());
+        ], $schema->jsonSerialize());
     }
 
     public function testSimplerObjectId(): void
@@ -159,7 +159,7 @@ class ReadmeTest extends IntegrationTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $schema->serialize());
+        ], $schema->jsonSerialize());
     }
 
     public function testDollarRef(): void
@@ -173,6 +173,6 @@ class ReadmeTest extends IntegrationTestCase
             'allOf' => [
                 ['$ref' => '#/components/schemas/ExampleSchema'],
             ],
-        ], $allOf->serialize());
+        ], $allOf->jsonSerialize());
     }
 }

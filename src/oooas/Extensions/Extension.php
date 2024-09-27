@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Extensions;
 
-use MohammadAlavi\LaravelOpenApi\Serializable;
 use Webmozart\Assert\Assert;
 
-final class Extension extends Serializable
+final class Extension implements \JsonSerializable
 {
     private const EXTENSION_PREFIX = 'x-';
 
@@ -34,11 +33,6 @@ final class Extension extends Serializable
     }
 
     public function jsonSerialize(): array
-    {
-        return $this->serialize();
-    }
-
-    public function serialize(): array
     {
         return $this->toArray();
     }

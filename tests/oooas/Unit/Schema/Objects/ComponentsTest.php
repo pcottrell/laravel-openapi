@@ -118,6 +118,6 @@ class ComponentsTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $components->serialize());
+        ], $components->jsonSerialize());
     }
 }

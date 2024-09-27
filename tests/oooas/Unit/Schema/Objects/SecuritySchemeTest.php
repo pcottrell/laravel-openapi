@@ -7,7 +7,7 @@ describe('SecurityScheme', function (): void {
     it('can be created with no parameters', function (): void {
         $securityScheme = SecurityScheme::create();
 
-        expect($securityScheme->serialize())->toBeEmpty();
+        expect($securityScheme->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
@@ -24,7 +24,7 @@ describe('SecurityScheme', function (): void {
             ->flows($oauthFlow)
             ->openIdConnectUrl('https://example.com');
 
-        expect($securityScheme->serialize())->toBe([
+        expect($securityScheme->jsonSerialize())->toBe([
             'type' => 'oauth2',
             'description' => 'Standard auth',
             'name' => 'OAuth2',

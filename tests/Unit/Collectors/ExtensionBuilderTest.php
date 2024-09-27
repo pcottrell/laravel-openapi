@@ -39,7 +39,7 @@ class ExtensionBuilderTest extends TestCase
                     ],
                 ],
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 
     public function testBuildUsingKeyValue(): void
@@ -69,6 +69,6 @@ class ExtensionBuilderTest extends TestCase
                     ],
                 ],
             ],
-        ], $openApi->serialize());
+        ], $openApi->jsonSerialize());
     }
 }
