@@ -20,7 +20,7 @@ describe('Referensable', function (): void {
         $schema = NotReusableResponseFactory::ref();
 
         $schema::ref('#/components/schemas/SchemaObjectId');
-    })->throws(\Webmozart\Assert\InvalidArgumentException::class);
+    })->throws(Webmozart\Assert\InvalidArgumentException::class);
 
     it('doesnt work with parameter factory', function (): void {
         expect(fn (): Schema => ReusableParameterFactory::ref())
