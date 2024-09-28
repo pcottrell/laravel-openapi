@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Security\OAuth\Flows\Clien
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Security\OAuth\Flows\Implicit;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Security\OAuth\Flows\Password;
 
-final readonly class OAuthFlows
+final readonly class Flows
 {
     public function __construct(
         public Implicit|null $implicit = null,
