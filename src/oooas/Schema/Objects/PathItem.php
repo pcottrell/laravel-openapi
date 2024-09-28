@@ -22,56 +22,56 @@ class PathItem extends ExtensibleObject
 
     public function route(string|null $route): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->route = $route;
+        $clone->route = $route;
 
-        return $instance;
+        return $clone;
     }
 
     public function summary(string|null $summary): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->summary = $summary;
+        $clone->summary = $summary;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function operations(Operation ...$operation): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->operations = [] !== $operation ? $operation : null;
+        $clone->operations = [] !== $operation ? $operation : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function servers(Server ...$server): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->servers = [] !== $server ? $server : null;
+        $clone->servers = [] !== $server ? $server : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function parameters(Parameter ...$parameter): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->parameters = [] !== $parameter ? $parameter : null;
+        $clone->parameters = [] !== $parameter ? $parameter : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

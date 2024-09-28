@@ -35,11 +35,11 @@ class MediaType extends ExtensibleObject
 
     public function mediaType(string|null $mediaType): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->mediaType = $mediaType;
+        $clone->mediaType = $mediaType;
 
-        return $instance;
+        return $clone;
     }
 
     public static function pdf(string|null $objectId = null): static
@@ -86,38 +86,38 @@ class MediaType extends ExtensibleObject
 
     public function schema(SchemaContract|null $schema): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->schema = $schema;
+        $clone->schema = $schema;
 
-        return $instance;
+        return $clone;
     }
 
     public function example(Example|null $example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->example = $example;
+        $clone->example = $example;
 
-        return $instance;
+        return $clone;
     }
 
     public function examples(Example ...$example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->examples = [] !== $example ? $example : null;
+        $clone->examples = [] !== $example ? $example : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function encoding(Encoding ...$encoding): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->encoding = [] !== $encoding ? $encoding : null;
+        $clone->encoding = [] !== $encoding ? $encoding : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

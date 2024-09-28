@@ -4,8 +4,8 @@ namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\Objects\Operation;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Doubles\Stubs\FakeExtension;

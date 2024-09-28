@@ -23,10 +23,10 @@ final readonly class CallbackCollector
         return $this->collectionLocator->find($collection)
             ->filter(static fn (string $class): bool => is_a($class, CallbackFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function (string $class) {
-                /** @var CallbackFactory $instance */
-                $instance = app($class);
+                /** @var CallbackFactory $clone */
+                $clone = app($class);
 
-                return $instance->build();
+                return $clone->build();
             })
             ->values();
     }

@@ -37,83 +37,83 @@ class Components extends ExtensibleObject
 
     public function schemas(SchemaContract ...$schemaContract): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->schemas = [] !== $schemaContract ? $schemaContract : null;
+        $clone->schemas = [] !== $schemaContract ? $schemaContract : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function responses(Response ...$response): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->responses = [] !== $response ? $response : null;
+        $clone->responses = [] !== $response ? $response : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function parameters(Parameter ...$parameter): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->parameters = [] !== $parameter ? $parameter : null;
+        $clone->parameters = [] !== $parameter ? $parameter : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function examples(Example ...$example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->examples = [] !== $example ? $example : null;
+        $clone->examples = [] !== $example ? $example : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function requestBodies(RequestBody ...$requestBody): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->requestBodies = [] !== $requestBody ? $requestBody : null;
+        $clone->requestBodies = [] !== $requestBody ? $requestBody : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function headers(Header ...$header): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->headers = [] !== $header ? $header : null;
+        $clone->headers = [] !== $header ? $header : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function securitySchemes(SecurityScheme ...$securityScheme): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->securitySchemes = [] !== $securityScheme ? $securityScheme : null;
+        $clone->securitySchemes = [] !== $securityScheme ? $securityScheme : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function links(Link ...$link): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->links = [] !== $link ? $link : null;
+        $clone->links = [] !== $link ? $link : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function callbacks(PathItem ...$pathItem): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->callbacks = [] !== $pathItem ? $pathItem : null;
+        $clone->callbacks = [] !== $pathItem ? $pathItem : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

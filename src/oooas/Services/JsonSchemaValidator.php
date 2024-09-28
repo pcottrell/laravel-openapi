@@ -22,9 +22,9 @@ final class JsonSchemaValidator
 
     public static function new(array $value, \stdClass $jsonSchema): self
     {
-        $instance = new self(new Validator(), BaseConstraint::arrayToObjectRecursive($value));
+        $clone = new self(new Validator(), BaseConstraint::arrayToObjectRecursive($value));
 
-        return $instance->against($jsonSchema);
+        return $clone->against($jsonSchema);
     }
 
     public function against(\stdClass $jsonSchema): self

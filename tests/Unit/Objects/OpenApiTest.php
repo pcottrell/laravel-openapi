@@ -1,7 +1,7 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
 use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;

@@ -15,47 +15,47 @@ class Xml extends ExtensibleObject
 
     public function name(string|null $name): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->name = $name;
+        $clone->name = $name;
 
-        return $instance;
+        return $clone;
     }
 
     public function namespace(string|null $namespace): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->namespace = $namespace;
+        $clone->namespace = $namespace;
 
-        return $instance;
+        return $clone;
     }
 
     public function prefix(string|null $prefix): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->prefix = $prefix;
+        $clone->prefix = $prefix;
 
-        return $instance;
+        return $clone;
     }
 
     public function attribute(bool|null $attribute = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->attribute = $attribute;
+        $clone->attribute = $attribute;
 
-        return $instance;
+        return $clone;
     }
 
     public function wrapped(bool|null $wrapped = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->wrapped = $wrapped;
+        $clone->wrapped = $wrapped;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

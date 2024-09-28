@@ -12,20 +12,20 @@ class ExternalDocs extends ExtensibleObject
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function url(string|null $url): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->url = $url;
+        $clone->url = $url;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

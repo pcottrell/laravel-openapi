@@ -13,11 +13,11 @@ class Discriminator extends ExtensibleObject
 
     public function propertyName(string|null $propertyName): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->propertyName = $propertyName;
+        $clone->propertyName = $propertyName;
 
-        return $instance;
+        return $clone;
     }
 
     /**
@@ -33,11 +33,11 @@ class Discriminator extends ExtensibleObject
             }
         }
 
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->mapping = [] !== $mapping ? $mapping : null;
+        $clone->mapping = [] !== $mapping ? $mapping : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

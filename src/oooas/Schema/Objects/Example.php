@@ -14,38 +14,38 @@ class Example extends ExtensibleObject
 
     public function summary(string|null $summary): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->summary = $summary;
+        $clone->summary = $summary;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function value(mixed $value): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->value = $value;
+        $clone->value = $value;
 
-        return $instance;
+        return $clone;
     }
 
     public function externalValue(string|null $externalValue): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->externalValue = $externalValue;
+        $clone->externalValue = $externalValue;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

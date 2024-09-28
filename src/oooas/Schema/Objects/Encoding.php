@@ -18,47 +18,47 @@ class Encoding extends ExtensibleObject
 
     public function contentType(string|null $contentType): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->contentType = $contentType;
+        $clone->contentType = $contentType;
 
-        return $instance;
+        return $clone;
     }
 
     public function headers(Header ...$header): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->headers = [] !== $header ? $header : null;
+        $clone->headers = [] !== $header ? $header : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function style(string|null $style): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->style = $style;
+        $clone->style = $style;
 
-        return $instance;
+        return $clone;
     }
 
     public function explode(bool|null $explode = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->explode = $explode;
+        $clone->explode = $explode;
 
-        return $instance;
+        return $clone;
     }
 
     public function allowReserved(bool|null $allowReserved = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->allowReserved = $allowReserved;
+        $clone->allowReserved = $allowReserved;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

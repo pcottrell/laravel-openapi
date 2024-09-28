@@ -14,38 +14,38 @@ class Link extends ExtensibleObject
 
     public function operationRef(string|null $operationRef): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->operationRef = $operationRef;
+        $clone->operationRef = $operationRef;
 
-        return $instance;
+        return $clone;
     }
 
     public function operationId(string|null $operationId): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->operationId = $operationId;
+        $clone->operationId = $operationId;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function server(Server|null $server): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->server = $server;
+        $clone->server = $server;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

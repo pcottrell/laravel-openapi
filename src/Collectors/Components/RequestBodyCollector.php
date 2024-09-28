@@ -20,10 +20,10 @@ final readonly class RequestBodyCollector
         return $this->collectionLocator->find($collection)
             ->filter(static fn (string $class): bool => is_a($class, RequestBodyFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function (string $class) {
-                /** @var RequestBodyFactory $instance */
-                $instance = app($class);
+                /** @var RequestBodyFactory $clone */
+                $clone = app($class);
 
-                return $instance->build();
+                return $clone->build();
             })
             ->values();
     }

@@ -2,11 +2,16 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\CircularDependencyException;
+use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class OpenApi extends ExtensibleObject
 {
+    // TODO: only support the latest version
     public const OPENAPI_3_0_0 = '3.0.0';
     public const OPENAPI_3_0_1 = '3.0.1';
     public const OPENAPI_3_0_2 = '3.0.2';
@@ -34,74 +39,115 @@ class OpenApi extends ExtensibleObject
 
     public function openapi(string|null $openapi): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->openapi = $openapi;
+        $clone->openapi = $openapi;
 
-        return $instance;
+        return $clone;
     }
 
     public function info(Info|null $info): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->info = $info;
+        $clone->info = $info;
 
-        return $instance;
+        return $clone;
     }
 
     public function servers(Server ...$server): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->servers = [] !== $server ? $server : null;
+        $clone->servers = [] !== $server ? $server : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function paths(PathItem ...$pathItem): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->paths = [] !== $pathItem ? $pathItem : null;
+        $clone->paths = [] !== $pathItem ? $pathItem : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function components(Components|null $components): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->components = $components;
+        $clone->components = $components;
 
-        return $instance;
+        return $clone;
     }
 
+    /**
+     * @throws CircularDependencyException
+     * @throws BindingResolutionException
+     */
+    public function nestedSecurity(array $security): static
+    {
+        $securityRequirements = app(SecurityRequirementBuilder::class)->build($security);
+
+        return $this->security($securityRequirements);
+    }
+
+    // This is just a wrapper around parent class security()
+    // to allow for multiple security requirements
+
+    /**
+     * You should only send one security requirement per operation.
+     * If you send more than one, the first one will be used.
+     */
     public function security(SecurityRequirement ...$securityRequirement): static
     {
-        $instance = clone $this;
+        //        $clone = clone $this;
+        //
+        //        $clone->security = [] !== $securityRequirement ? $securityRequirement : null;
+        //
+        //        return $clone;
 
-        $instance->security = [] !== $securityRequirement ? $securityRequirement : null;
+        $clone = clone $this;
 
-        return $instance;
+        if ([] === $securityRequirement) {
+            $clone->security = null;
+
+            return $clone;
+        }
+
+        if ($this->hasNoGlobalSecurity($securityRequirement[0])) {
+            $clone->security = null;
+
+            return $clone;
+        }
+
+        $clone->security = $securityRequirement[0];
+
+        return $clone;
+    }
+
+    private function hasNoGlobalSecurity(SecurityRequirement $securityRequirement): bool
+    {
+        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 
     public function tags(Tag ...$tag): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->tags = [] !== $tag ? $tag : null;
+        $clone->tags = [] !== $tag ? $tag : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function externalDocs(ExternalDocs|null $externalDocs): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->externalDocs = $externalDocs;
+        $clone->externalDocs = $externalDocs;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

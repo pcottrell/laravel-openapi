@@ -20,10 +20,10 @@ final readonly class SchemaCollector
         return $this->collectionLocator->find($collection)
             ->filter(static fn (string $class): bool => is_a($class, SchemaFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function (string $class) {
-                /** @var SchemaFactory $instance */
-                $instance = app($class);
+                /** @var SchemaFactory $clone */
+                $clone = app($class);
 
-                return $instance->build();
+                return $clone->build();
             })
             ->values();
     }

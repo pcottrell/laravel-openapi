@@ -22,28 +22,28 @@ trait Referencable
 {
     public static function ref(string|null $objectId = null): Schema
     {
-        $instance = app(static::class);
+        $clone = app(static::class);
 
-        if (!$instance instanceof Reusable) {
+        if (!$clone instanceof Reusable) {
             throw new InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
         }
 
         $baseRef = null;
 
-        if ($instance instanceof CallbackFactory) {
+        if ($clone instanceof CallbackFactory) {
             $baseRef = '#/components/callbacks/';
-        } elseif ($instance instanceof ParameterFactory) {
+        } elseif ($clone instanceof ParameterFactory) {
             $baseRef = '#/components/parameters/';
-        } elseif ($instance instanceof RequestBodyFactory) {
+        } elseif ($clone instanceof RequestBodyFactory) {
             $baseRef = '#/components/requestBodies/';
-        } elseif ($instance instanceof ResponseFactory) {
+        } elseif ($clone instanceof ResponseFactory) {
             $baseRef = '#/components/responses/';
-        } elseif ($instance instanceof SchemaFactory) {
+        } elseif ($clone instanceof SchemaFactory) {
             $baseRef = '#/components/schemas/';
-        } elseif ($instance instanceof SecuritySchemeFactory) {
+        } elseif ($clone instanceof SecuritySchemeFactory) {
             $baseRef = '#/components/securitySchemes/';
         }
 
-        return Schema::ref($baseRef . $instance->build()->objectId, $objectId);
+        return Schema::ref($baseRef . $clone->build()->objectId, $objectId);
     }
 }

@@ -23,38 +23,38 @@ class OAuthFlow extends ExtensibleObject
 
     public function flow(string|null $flow): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->flow = $flow;
+        $clone->flow = $flow;
 
-        return $instance;
+        return $clone;
     }
 
     public function authorizationUrl(string|null $authorizationUrl): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->authorizationUrl = $authorizationUrl;
+        $clone->authorizationUrl = $authorizationUrl;
 
-        return $instance;
+        return $clone;
     }
 
     public function tokenUrl(string|null $tokenUrl): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->tokenUrl = $tokenUrl;
+        $clone->tokenUrl = $tokenUrl;
 
-        return $instance;
+        return $clone;
     }
 
     public function refreshUrl(string|null $refreshUrl): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->refreshUrl = $refreshUrl;
+        $clone->refreshUrl = $refreshUrl;
 
-        return $instance;
+        return $clone;
     }
 
     /**
@@ -72,11 +72,11 @@ class OAuthFlow extends ExtensibleObject
             }
         }
 
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->scopes = $scopes;
+        $clone->scopes = $scopes;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

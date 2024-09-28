@@ -4,7 +4,7 @@ namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
 
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
 
-class SecurityRequirements
+final class SecurityRequirements
 {
     private array $requirements = [];
 

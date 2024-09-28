@@ -3,7 +3,7 @@
 namespace Tests;
 
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 
 abstract class IntegrationTestCase extends TestCase
 {

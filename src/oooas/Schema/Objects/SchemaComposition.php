@@ -14,11 +14,11 @@ abstract class SchemaComposition extends ExtensibleObject implements SchemaContr
     /** @param Schema[] $schema */
     public function schemas(Schema ...$schema): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->schemas = [] !== $schema ? $schema : null;
+        $clone->schemas = [] !== $schema ? $schema : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

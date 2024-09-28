@@ -36,7 +36,7 @@ class RouteInformation
 
     public static function createFromRoute(Route $route): static
     {
-        return tap(new static(), static function (self $instance) use ($route): void {
+        return tap(new static(), static function (self $clone) use ($route): void {
             $method = collect($route->methods())
                 ->map(static fn (string $value) => Str::lower($value))
                 ->filter(static fn (string $value): bool => !in_array($value, ['head', 'options'], true))
@@ -58,40 +58,40 @@ class RouteInformation
 
             if (static::isControllerAction($route)) {
                 [$controller, $action] = Str::parseCallback($route->getAction('uses'));
-                $instance->action = $action;
-                $instance->controller = $controller;
+                $clone->action = $action;
+                $clone->controller = $controller;
             } elseif (!$route->getAction('uses') instanceof \Closure) {
-                $instance->controller = $route->getAction()[0];
-                $instance->action = '__invoke';
+                $clone->controller = $route->getAction()[0];
+                $clone->action = '__invoke';
             } else {
-                $instance->controller = 'Closure';
-                $instance->action = 'Closure';
+                $clone->controller = 'Closure';
+                $clone->action = 'Closure';
             }
 
-            $instance->parameters = collect();
-            $instance->actionAttributes = collect();
-            if ('Closure' !== $instance->controller) {
-                $reflectionClass = new \ReflectionClass($instance->controller);
-                $reflectionMethod = $reflectionClass->getMethod($instance->action);
-                $instance->actionParameters = $reflectionMethod->getParameters();
+            $clone->parameters = collect();
+            $clone->actionAttributes = collect();
+            if ('Closure' !== $clone->controller) {
+                $reflectionClass = new \ReflectionClass($clone->controller);
+                $reflectionMethod = $reflectionClass->getMethod($clone->action);
+                $clone->actionParameters = $reflectionMethod->getParameters();
 
                 $controllerAttributes = collect($reflectionClass->getAttributes())->map(
                     static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
                 );
 
-                $instance->actionAttributes = collect($reflectionMethod->getAttributes())->map(
+                $clone->actionAttributes = collect($reflectionMethod->getAttributes())->map(
                     static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
                 );
             }
 
-            $containsControllerLevelParameter = $instance->actionAttributes->contains(static fn (object $value): bool => $value instanceof Parameter);
+            $containsControllerLevelParameter = $clone->actionAttributes->contains(static fn (object $value): bool => $value instanceof Parameter);
 
-            $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
-            $instance->domain = $route->domain();
-            $instance->method = $method;
-            $instance->uri = Str::start($route->uri(), '/');
-            $instance->name = $route->getName();
-            $instance->controllerAttributes = $controllerAttributes ?? collect();
+            $clone->parameters = $containsControllerLevelParameter ? collect() : $parameters;
+            $clone->domain = $route->domain();
+            $clone->method = $method;
+            $clone->uri = Str::start($route->uri(), '/');
+            $clone->name = $route->getName();
+            $clone->controllerAttributes = $controllerAttributes ?? collect();
         });
     }
 

@@ -20,10 +20,10 @@ final readonly class ResponseCollector
         return $this->collectionLocator->find($collection)
             ->filter(static fn (string $class): bool => is_a($class, ResponseFactory::class, true) && is_a($class, Reusable::class, true))
             ->map(static function (string $class) {
-                /** @var ResponseFactory $instance */
-                $instance = app($class);
+                /** @var ResponseFactory $clone */
+                $clone = app($class);
 
-                return $instance->build();
+                return $clone->build();
             })
             ->values();
     }

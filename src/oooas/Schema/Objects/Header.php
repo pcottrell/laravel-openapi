@@ -34,101 +34,101 @@ class Header extends ExtensibleObject
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function required(bool|null $required = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->required = $required;
+        $clone->required = $required;
 
-        return $instance;
+        return $clone;
     }
 
     public function deprecated(bool|null $deprecated = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->deprecated = $deprecated;
+        $clone->deprecated = $deprecated;
 
-        return $instance;
+        return $clone;
     }
 
     public function allowEmptyValue(bool|null $allowEmptyValue = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->allowEmptyValue = $allowEmptyValue;
+        $clone->allowEmptyValue = $allowEmptyValue;
 
-        return $instance;
+        return $clone;
     }
 
     public function style(string|null $style): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->style = $style;
+        $clone->style = $style;
 
-        return $instance;
+        return $clone;
     }
 
     public function explode(bool|null $explode = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->explode = $explode;
+        $clone->explode = $explode;
 
-        return $instance;
+        return $clone;
     }
 
     public function allowReserved(bool|null $allowReserved = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->allowReserved = $allowReserved;
+        $clone->allowReserved = $allowReserved;
 
-        return $instance;
+        return $clone;
     }
 
     public function schema(SchemaContract|null $schema): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->schema = $schema;
+        $clone->schema = $schema;
 
-        return $instance;
+        return $clone;
     }
 
     public function example(mixed $example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->example = $example;
+        $clone->example = $example;
 
-        return $instance;
+        return $clone;
     }
 
     public function examples(Example ...$example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->examples = [] !== $example ? $example : null;
+        $clone->examples = [] !== $example ? $example : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function content(MediaType ...$mediaType): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->content = [] !== $mediaType ? $mediaType : null;
+        $clone->content = [] !== $mediaType ? $mediaType : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

@@ -15,29 +15,29 @@ class ServerVariable extends ExtensibleObject
 
     public function enum(string ...$enum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->enum = [] !== $enum ? $enum : null;
+        $clone->enum = [] !== $enum ? $enum : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function default(string|null $default): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->default = $default;
+        $clone->default = $default;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

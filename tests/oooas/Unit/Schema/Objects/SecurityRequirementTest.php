@@ -9,7 +9,7 @@ describe('SecurityRequirement', function (): void {
     it('can be created with no parameters', function (): void {
         $securityRequirement = SecurityRequirement::create();
 
-        expect($securityRequirement->jsonSerialize())->toBe(['' => []]);
+        expect($securityRequirement->jsonSerialize())->toBe([]);
     });
 
     it('can be created with all parameters', function (SecurityScheme|string $securityScheme, $expectation): void {
@@ -22,13 +22,13 @@ describe('SecurityRequirement', function (): void {
         'security object' => [
             SecurityScheme::create('SecObj'),
             [
-                'SecObj' => ['read:user'],
+                'SecObj' => ['scopes' => ['read:user']],
             ],
         ],
         'string security' => [
             'SecStr',
             [
-                'SecStr' => ['read:user'],
+                'SecStr' => ['scopes' => ['read:user']],
             ],
         ],
     ]);
@@ -39,18 +39,19 @@ describe('SecurityRequirement', function (): void {
 
         expect($securityRequirement->jsonSerialize())->toBe($expectation);
     })->with([
-        'security scheme object' => [SecurityScheme::create('OAuth2'), ['OAuth2' => []]],
-        'security scheme name' => ['OAuth2', ['OAuth2' => []]],
+        'security scheme object' => [SecurityScheme::create('OAuth2'), [['OAuth2' => []]]],
+        'security scheme name' => ['OAuth2', [['OAuth2' => []]]],
         // TODO: Are these two even valid OpenAPI 3.1 objects? I mean, with empty '' security name!
-        'null security scheme name' => [null, ['' => []]],
-        'empty security scheme name' => ['', ['' => []]],
+        'null security scheme name' => [null, []],
+        'empty security scheme name' => ['', [['' => []]]],
     ]);
 
     it('can be created with scopes', function (...$scopes): void {
         $securityRequirement = SecurityRequirement::create('OAuth2')
+            ->securityScheme('OAuth2')
             ->scopes(...$scopes);
 
-        expect($securityRequirement->jsonSerialize())->toBe(['' => $scopes]);
+        expect($securityRequirement->jsonSerialize())->toBe(['OAuth2' => compact('scopes')]);
     })->with([
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],

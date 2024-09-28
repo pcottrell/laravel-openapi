@@ -12,11 +12,11 @@ class Not extends ExtensibleObject implements SchemaContract
 
     public function schema(Schema|null $schema): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->schema = $schema;
+        $clone->schema = $schema;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

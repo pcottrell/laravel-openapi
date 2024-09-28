@@ -28,20 +28,20 @@ class Response extends ExtensibleObject
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function statusCode(int|null $statusCode): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->statusCode = $statusCode;
+        $clone->statusCode = $statusCode;
 
-        return $instance;
+        return $clone;
     }
 
     public static function created(string|null $objectId = null): static
@@ -116,29 +116,29 @@ class Response extends ExtensibleObject
 
     public function headers(Header ...$header): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->headers = [] !== $header ? $header : null;
+        $clone->headers = [] !== $header ? $header : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function content(MediaType ...$mediaType): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->content = [] !== $mediaType ? $mediaType : null;
+        $clone->content = [] !== $mediaType ? $mediaType : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function links(Link ...$link): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->links = [] !== $link ? $link : null;
+        $clone->links = [] !== $link ? $link : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

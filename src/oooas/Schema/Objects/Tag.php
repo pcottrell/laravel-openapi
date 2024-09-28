@@ -13,29 +13,29 @@ class Tag extends ExtensibleObject implements \Stringable
 
     public function name(string|null $name): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->name = $name;
+        $clone->name = $name;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function externalDocs(ExternalDocs|null $externalDocs): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->externalDocs = $externalDocs;
+        $clone->externalDocs = $externalDocs;
 
-        return $instance;
+        return $clone;
     }
 
     public function __toString(): string

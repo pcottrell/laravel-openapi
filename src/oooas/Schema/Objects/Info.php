@@ -16,56 +16,56 @@ class Info extends ExtensibleObject
 
     public function title(string|null $title): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->title = $title;
+        $clone->title = $title;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function termsOfService(string|null $termsOfService): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->termsOfService = $termsOfService;
+        $clone->termsOfService = $termsOfService;
 
-        return $instance;
+        return $clone;
     }
 
     public function contact(Contact|null $contact): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->contact = $contact;
+        $clone->contact = $contact;
 
-        return $instance;
+        return $clone;
     }
 
     public function license(License|null $license): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->license = $license;
+        $clone->license = $license;
 
-        return $instance;
+        return $clone;
     }
 
     public function version(string|null $version): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->version = $version;
+        $clone->version = $version;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

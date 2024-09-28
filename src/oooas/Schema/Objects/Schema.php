@@ -69,11 +69,11 @@ class Schema extends ExtensibleObject implements SchemaContract
 
     public function type(string|null $type): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->type = $type;
+        $clone->type = $type;
 
-        return $instance;
+        return $clone;
     }
 
     public static function boolean(string|null $objectId = null): static
@@ -103,155 +103,155 @@ class Schema extends ExtensibleObject implements SchemaContract
 
     public function title(string|null $title): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->title = $title;
+        $clone->title = $title;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function enum(...$enum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->enum = [] !== $enum ? $enum : null;
+        $clone->enum = [] !== $enum ? $enum : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function default(mixed $default): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->default = $default;
+        $clone->default = $default;
 
-        return $instance;
+        return $clone;
     }
 
     public function format(string|null $format): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->format = $format;
+        $clone->format = $format;
 
-        return $instance;
+        return $clone;
     }
 
     public function items(SchemaContract $schemaContract): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->items = $schemaContract;
+        $clone->items = $schemaContract;
 
-        return $instance;
+        return $clone;
     }
 
     public function maxItems(int|null $maxItems): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->maxItems = $maxItems;
+        $clone->maxItems = $maxItems;
 
-        return $instance;
+        return $clone;
     }
 
     public function minItems(int|null $minItems): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->minItems = $minItems;
+        $clone->minItems = $minItems;
 
-        return $instance;
+        return $clone;
     }
 
     public function uniqueItems(bool|null $uniqueItems = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->uniqueItems = $uniqueItems;
+        $clone->uniqueItems = $uniqueItems;
 
-        return $instance;
+        return $clone;
     }
 
     public function pattern(string|null $pattern): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->pattern = $pattern;
+        $clone->pattern = $pattern;
 
-        return $instance;
+        return $clone;
     }
 
     public function maxLength(int|null $maxLength): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->maxLength = $maxLength;
+        $clone->maxLength = $maxLength;
 
-        return $instance;
+        return $clone;
     }
 
     public function minLength(int|null $minLength): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->minLength = $minLength;
+        $clone->minLength = $minLength;
 
-        return $instance;
+        return $clone;
     }
 
     public function maximum(float|int|null $maximum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->maximum = $maximum;
+        $clone->maximum = $maximum;
 
-        return $instance;
+        return $clone;
     }
 
     public function exclusiveMaximum(float|int|null $exclusiveMaximum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->exclusiveMaximum = $exclusiveMaximum;
+        $clone->exclusiveMaximum = $exclusiveMaximum;
 
-        return $instance;
+        return $clone;
     }
 
     public function minimum(float|int|null $minimum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->minimum = $minimum;
+        $clone->minimum = $minimum;
 
-        return $instance;
+        return $clone;
     }
 
     public function exclusiveMinimum(float|int|null $exclusiveMinimum): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->exclusiveMinimum = $exclusiveMinimum;
+        $clone->exclusiveMinimum = $exclusiveMinimum;
 
-        return $instance;
+        return $clone;
     }
 
     public function multipleOf(float|int|null $multipleOf): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->multipleOf = $multipleOf;
+        $clone->multipleOf = $multipleOf;
 
-        return $instance;
+        return $clone;
     }
 
     public function required(self|string ...$required): static
@@ -262,119 +262,119 @@ class Schema extends ExtensibleObject implements SchemaContract
             }
         }
 
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->required = [] !== $required ? $required : null;
+        $clone->required = [] !== $required ? $required : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function properties(SchemaContract ...$schemaContract): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->properties = [] !== $schemaContract ? $schemaContract : null;
+        $clone->properties = [] !== $schemaContract ? $schemaContract : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function additionalProperties(self|null $additionalProperties): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->additionalProperties = $additionalProperties;
+        $clone->additionalProperties = $additionalProperties;
 
-        return $instance;
+        return $clone;
     }
 
     public function maxProperties(int|null $maxProperties): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->maxProperties = $maxProperties;
+        $clone->maxProperties = $maxProperties;
 
-        return $instance;
+        return $clone;
     }
 
     public function minProperties(int|null $minProperties): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->minProperties = $minProperties;
+        $clone->minProperties = $minProperties;
 
-        return $instance;
+        return $clone;
     }
 
     public function nullable(bool|null $nullable = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->nullable = $nullable;
+        $clone->nullable = $nullable;
 
-        return $instance;
+        return $clone;
     }
 
     public function discriminator(Discriminator|null $discriminator): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->discriminator = $discriminator;
+        $clone->discriminator = $discriminator;
 
-        return $instance;
+        return $clone;
     }
 
     public function readOnly(bool|null $readOnly = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->readOnly = $readOnly;
+        $clone->readOnly = $readOnly;
 
-        return $instance;
+        return $clone;
     }
 
     public function writeOnly(bool|null $writeOnly = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->writeOnly = $writeOnly;
+        $clone->writeOnly = $writeOnly;
 
-        return $instance;
+        return $clone;
     }
 
     public function xml(Xml|null $xml): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->xml = $xml;
+        $clone->xml = $xml;
 
-        return $instance;
+        return $clone;
     }
 
     public function externalDocs(ExternalDocs|null $externalDocs): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->externalDocs = $externalDocs;
+        $clone->externalDocs = $externalDocs;
 
-        return $instance;
+        return $clone;
     }
 
     public function example(mixed $example): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->example = $example;
+        $clone->example = $example;
 
-        return $instance;
+        return $clone;
     }
 
     public function deprecated(bool|null $deprecated = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->deprecated = $deprecated;
+        $clone->deprecated = $deprecated;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

@@ -3,6 +3,8 @@
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Operation extends ExtensibleObject
@@ -55,11 +57,11 @@ class Operation extends ExtensibleObject
 
     public function action(string|null $action): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->action = $action;
+        $clone->action = $action;
 
-        return $instance;
+        return $clone;
     }
 
     public static function put(string|null $objectId = null): static
@@ -107,120 +109,161 @@ class Operation extends ExtensibleObject
             return $tag;
         }, $tags);
 
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->tags = [] !== $allStringTags ? $allStringTags : null;
+        $clone->tags = [] !== $allStringTags ? $allStringTags : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function summary(string|null $summary): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->summary = $summary;
+        $clone->summary = $summary;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     public function externalDocs(ExternalDocs|null $externalDocs): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->externalDocs = $externalDocs;
+        $clone->externalDocs = $externalDocs;
 
-        return $instance;
+        return $clone;
     }
 
     public function operationId(string|null $operationId): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->operationId = $operationId;
+        $clone->operationId = $operationId;
 
-        return $instance;
+        return $clone;
     }
 
     public function parameters(Parameter ...$parameter): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->parameters = [] !== $parameter ? $parameter : null;
+        $clone->parameters = [] !== $parameter ? $parameter : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function requestBody(RequestBody|null $requestBody): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->requestBody = $requestBody;
+        $clone->requestBody = $requestBody;
 
-        return $instance;
+        return $clone;
     }
 
     public function responses(Response ...$response): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->responses = $response;
+        $clone->responses = $response;
 
-        return $instance;
+        return $clone;
     }
 
     public function deprecated(bool|null $deprecated = true): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->deprecated = $deprecated;
+        $clone->deprecated = $deprecated;
 
-        return $instance;
+        return $clone;
     }
 
+    /**
+     * You should only send one security requirement per operation.
+     * If you send more than one, the first one will be used.
+     */
     public function security(SecurityRequirement ...$securityRequirement): static
     {
-        $instance = clone $this;
+        //        $clone = clone $this;
+        //
+        //        $clone->security = [] !== $securityRequirement ? $securityRequirement : null;
+        //        $clone->noSecurity = null;
+        //
+        //        return $clone;
 
-        $instance->security = [] !== $securityRequirement ? $securityRequirement : null;
-        $instance->noSecurity = null;
+        if ([] === $securityRequirement) {
+            return $this;
+        }
 
-        return $instance;
+        $clone = clone $this;
+
+        // true overrides "global security" = [] in the generated OpenAPI spec
+        // false/null uses $security
+        // we disable it and use $security to configure the security.
+        $clone->noSecurity = false;
+
+        if ($this->shouldUseGlobalSecurity($securityRequirement[0])) {
+            $clone->security = null;
+
+            return $clone;
+        }
+
+        if ($this->isPublic($securityRequirement[0])) {
+            $clone->security = [];
+
+            return $clone;
+        }
+
+        $clone->security = $securityRequirement[0];
+
+        return $clone;
     }
 
-    public function noSecurity(bool|null $noSecurity = true): static
+    private function shouldUseGlobalSecurity(SecurityRequirement $securityRequirement): bool
     {
-        $instance = clone $this;
+        return DefaultSecurityScheme::NAME === $securityRequirement->securityScheme;
+    }
 
-        $instance->noSecurity = $noSecurity;
+    private function isPublic(SecurityRequirement $securityRequirement): bool
+    {
+        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
+    }
 
-        return $instance;
+    public function noSecurity(): static
+    {
+        $clone = clone $this;
+
+        $clone->noSecurity = true;
+
+        return $clone;
     }
 
     public function servers(Server ...$server): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->servers = [] !== $server ? $server : null;
+        $clone->servers = [] !== $server ? $server : null;
 
-        return $instance;
+        return $clone;
     }
 
     public function callbacks(PathItem ...$pathItem): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->callbacks = [] !== $pathItem ? $pathItem : null;
+        $clone->callbacks = [] !== $pathItem ? $pathItem : null;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

@@ -37,79 +37,79 @@ class SecurityScheme extends ExtensibleObject
 
     public function type(string|null $type): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->type = $type;
+        $clone->type = $type;
 
-        return $instance;
+        return $clone;
     }
 
     public function description(string|null $description): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->description = $description;
+        $clone->description = $description;
 
-        return $instance;
+        return $clone;
     }
 
     // TODO: is only required when type is apiKey
     public function name(string|null $name): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->name = $name;
+        $clone->name = $name;
 
-        return $instance;
+        return $clone;
     }
 
     // TODO: is only required when type is apiKey
     public function in(string|null $in): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->in = $in;
+        $clone->in = $in;
 
-        return $instance;
+        return $clone;
     }
 
     // TODO: only required for http type and should be limited to some standard values
     // https://www.iana.org/assignments/http-authschemes/http-authschemes.xhtml
     public function scheme(string|null $scheme): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->scheme = $scheme;
+        $clone->scheme = $scheme;
 
-        return $instance;
+        return $clone;
     }
 
     // TODO: is only required when type is http with 'bearer' scheme
     public function bearerFormat(string|null $bearerFormat): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->bearerFormat = $bearerFormat;
+        $clone->bearerFormat = $bearerFormat;
 
-        return $instance;
+        return $clone;
     }
 
     public function flows(OAuthFlow ...$oAuthFlow): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->flows = $oAuthFlow;
+        $clone->flows = $oAuthFlow;
 
-        return $instance;
+        return $clone;
     }
 
     public function openIdConnectUrl(string|null $openIdConnectUrl): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->openIdConnectUrl = $openIdConnectUrl;
+        $clone->openIdConnectUrl = $openIdConnectUrl;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

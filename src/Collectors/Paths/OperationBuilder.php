@@ -14,8 +14,8 @@ use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ResponseBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 
 final readonly class OperationBuilder
 {
@@ -33,7 +33,10 @@ final readonly class OperationBuilder
 
     public function build(array|Collection $routes): array
     {
-        return collect($routes)->map(fn (RouteInformation $routeInformation): Operation => $this->buildOperation($routeInformation))->all();
+        return collect($routes)
+            ->map(
+                fn (RouteInformation $routeInformation): Operation => $this->buildOperation($routeInformation),
+            )->all();
     }
 
     private function buildOperation(RouteInformation $routeInformation): Operation
@@ -59,8 +62,8 @@ final readonly class OperationBuilder
             ->tags(...$tags)
             ->summary($summary)
             ->description($description)
-            ->deprecated($deprecated)
             ->operationId($operationId)
+            ->deprecated($deprecated)
             ->parameters(...$parameters)
             ->requestBody($requestBody)
             ->responses(...$responses)

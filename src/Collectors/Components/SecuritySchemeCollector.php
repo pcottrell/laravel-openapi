@@ -23,10 +23,10 @@ final readonly class SecuritySchemeCollector implements Reusable
         return $this->collectionLocator->find($collection)
             ->filter(static fn (string $class): bool => is_a($class, SecuritySchemeFactory::class, true))
             ->map(static function (string $class) {
-                /** @var SecuritySchemeFactory $instance */
-                $instance = app($class);
+                /** @var SecuritySchemeFactory $clone */
+                $clone = app($class);
 
-                return $instance->build();
+                return $clone->build();
             })
             ->values();
     }

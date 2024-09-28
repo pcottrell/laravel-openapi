@@ -13,29 +13,29 @@ class Contact extends ExtensibleObject
 
     public function name(string|null $name): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->name = $name;
+        $clone->name = $name;
 
-        return $instance;
+        return $clone;
     }
 
     public function url(string|null $url): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->url = $url;
+        $clone->url = $url;
 
-        return $instance;
+        return $clone;
     }
 
     public function email(string|null $email): static
     {
-        $instance = clone $this;
+        $clone = clone $this;
 
-        $instance->email = $email;
+        $clone->email = $email;
 
-        return $instance;
+        return $clone;
     }
 
     protected function toArray(): array

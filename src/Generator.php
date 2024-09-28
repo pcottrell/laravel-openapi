@@ -10,8 +10,8 @@ use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
-use MohammadAlavi\LaravelOpenApi\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 
 class Generator
 {
