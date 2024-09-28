@@ -29,7 +29,11 @@ abstract class BaseObject implements \JsonSerializable
         return $static;
     }
 
-    abstract protected function toArray(): array;
+    public function toJson(
+        $options = JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT,
+    ): string {
+        return json_encode($this->jsonSerialize(), $options);
+    }
 
     public function jsonSerialize(): array
     {
@@ -44,4 +48,6 @@ abstract class BaseObject implements \JsonSerializable
     {
         return !is_null($this->ref);
     }
+
+    abstract protected function toArray(): array;
 }
