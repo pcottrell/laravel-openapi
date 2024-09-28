@@ -25,11 +25,11 @@ class SecurityRequirement extends ExtensibleObject
         return $clone;
     }
 
-    public function scopes(string ...$scopes): static
+    public function scopes(string ...$scope): static
     {
         $clone = clone $this;
 
-        $clone->scopes = [] !== $scopes ? $scopes : null;
+        $clone->scopes = [] !== $scope ? $scope : null;
 
         return $clone;
     }
