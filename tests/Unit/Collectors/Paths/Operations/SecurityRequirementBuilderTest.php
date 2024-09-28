@@ -7,6 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
@@ -730,6 +731,7 @@ class SecurityRequirementBuilderTest extends TestCase
         }
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 $route => $actionData,
             ], ...$collectionData,
@@ -762,6 +764,7 @@ class SecurityRequirementBuilderTest extends TestCase
 
         // Assert that the generated JSON matches the expected JSON for this scenario
         $expected = [
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
                     'get' => [
@@ -798,6 +801,7 @@ class SecurityRequirementBuilderTest extends TestCase
             );
 
         $expected = [
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
                     'get' => [],
@@ -852,6 +856,7 @@ class SecurityRequirementBuilderTest extends TestCase
             );
 
         $expected = [
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
                     'get' => [

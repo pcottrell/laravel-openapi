@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Integration;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
@@ -61,7 +62,7 @@ class ReadmeTest extends IntegrationTestCase
 
         // Create the main OpenAPI object composed off everything created above.
         $openApi = OpenApi::create()
-            ->openapi(OpenApi::OPENAPI_3_0_1)
+            ->openapi(OASVersion::V_3_1_0)
             ->info($info)
             ->paths($pathItem)
             ->tags($usersTag);
@@ -83,6 +84,7 @@ class ReadmeTest extends IntegrationTestCase
             ->info($info);
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'info' => [
                 'title' => 'Example API',
             ],
@@ -90,7 +92,9 @@ class ReadmeTest extends IntegrationTestCase
 
         $openApi = $openApi->info(null);
 
-        $this->assertSame([], $openApi->jsonSerialize());
+        $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
+        ], $openApi->jsonSerialize());
     }
 
     public function testUnsettingVariadicMethods(): void
@@ -102,6 +106,7 @@ class ReadmeTest extends IntegrationTestCase
             ->paths($pathItem);
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/users' => [],
             ],
@@ -109,7 +114,9 @@ class ReadmeTest extends IntegrationTestCase
 
         $openApi = $openApi->paths();
 
-        $this->assertSame([], $openApi->jsonSerialize());
+        $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
+        ], $openApi->jsonSerialize());
     }
 
     public function testRetrievingProperties(): void

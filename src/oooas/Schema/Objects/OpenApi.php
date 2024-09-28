@@ -5,20 +5,14 @@ namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class OpenApi extends ExtensibleObject
 {
-    // TODO: only support the latest version
-    public const OPENAPI_3_0_0 = '3.0.0';
-    public const OPENAPI_3_0_1 = '3.0.1';
-    public const OPENAPI_3_0_2 = '3.0.2';
-    public const OPENAPI_3_0_3 = '3.0.3';
-    public const OPENAPI_3_1_0 = '3.1.0';
-
-    protected string|null $openapi = null;
+    private readonly OASVersion $openapi;
     protected Info|null $info = null;
 
     /** @var Server[]|null */
@@ -37,7 +31,7 @@ class OpenApi extends ExtensibleObject
 
     protected ExternalDocs|null $externalDocs = null;
 
-    public function openapi(string|null $openapi): static
+    public function openapi(OASVersion $openapi): static
     {
         $clone = clone $this;
 
@@ -158,7 +152,7 @@ class OpenApi extends ExtensibleObject
         }
 
         return Arr::filter([
-            'openapi' => $this->openapi,
+            'openapi' => $this->openapi->value ?? OASVersion::V_3_1_0->value,
             'info' => $this->info,
             'servers' => $this->servers,
             'paths' => [] !== $paths ? $paths : null,

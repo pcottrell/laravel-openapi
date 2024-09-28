@@ -1,5 +1,6 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
@@ -123,7 +124,7 @@ describe('OpenApi', function (): void {
             ->description('Example');
 
         $openApi = OpenApi::create()
-            ->openapi(OpenApi::OPENAPI_3_0_1)
+            ->openapi(OASVersion::V_3_1_0)
             ->info($info)
             ->paths(...$paths)
             ->servers(...$servers)
@@ -133,7 +134,7 @@ describe('OpenApi', function (): void {
             ->externalDocs($externalDocs);
 
         expect($openApi->jsonSerialize())->toBe([
-            'openapi' => '3.0.1',
+            'openapi' => OASVersion::V_3_1_0->value,
             'info' => [
                 'title' => 'API Specification',
                 'description' => 'For using the Example App API',

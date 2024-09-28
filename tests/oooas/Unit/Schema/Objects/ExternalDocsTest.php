@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -20,6 +21,7 @@ class ExternalDocsTest extends UnitTestCase
             ->externalDocs($externalDocs);
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'externalDocs' => [
                 'description' => 'GitHub Repo',
                 'url' => 'https://example.com',

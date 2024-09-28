@@ -12,7 +12,6 @@ use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use Tests\Doubles\Stubs\Concerns\NotReusableResponseFactory;
 use Tests\Doubles\Stubs\Concerns\ReusableParameterFactory;
 
@@ -21,7 +20,7 @@ describe('Referensable', function (): void {
         $schema = NotReusableResponseFactory::ref();
 
         $schema::ref('#/components/schemas/SchemaObjectId');
-    })->throws(InvalidArgumentException::class);
+    })->throws(\Webmozart\Assert\InvalidArgumentException::class);
 
     it('doesnt work with parameter factory', function (): void {
         expect(fn (): Schema => ReusableParameterFactory::ref())

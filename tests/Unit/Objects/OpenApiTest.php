@@ -1,6 +1,7 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
@@ -19,6 +20,7 @@ describe('OpenApi', function (): void {
         ]);
 
         expect($result->jsonSerialize())->toBe([
+            'openapi' => OASVersion::V_3_1_0->value,
             'security' => [
                 [
                     'ASecurityScheme' => [],
@@ -40,15 +42,16 @@ describe('OpenApi', function (): void {
     })->with([
         'empty array [] security' => [
             [],
-            [],
+            ['openapi' => OASVersion::V_3_1_0->value],
         ],
         'no security' => [
             [(new SecurityRequirementBuilder())->build(NoSecurityScheme::class)],
-            [],
+            ['openapi' => OASVersion::V_3_1_0->value],
         ],
         'one element array security' => [
             [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
             [
+                'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
                         'ASecurityScheme' => [],
@@ -64,6 +67,7 @@ describe('OpenApi', function (): void {
                 ]),
             ],
             [
+                'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
                         'ASecurityScheme' => [],
@@ -85,6 +89,7 @@ describe('OpenApi', function (): void {
                 ]),
             ],
             [
+                'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
                         'BSecurityScheme' => [],

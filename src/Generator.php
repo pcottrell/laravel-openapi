@@ -9,7 +9,6 @@ use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
-use MohammadAlavi\LaravelOpenApi\Enums\OpenAPIVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 
@@ -17,9 +16,6 @@ class Generator
 {
     // TODO: Is this the right place for this constant?
     public const COLLECTION_DEFAULT = 'default';
-
-    // TODO: Document the OpenAPIVersion enum
-    public OpenAPIVersion $version = OpenAPIVersion::OPENAPI_3_1_0;
 
     public function __construct(
         private readonly array $config,
@@ -44,7 +40,6 @@ class Generator
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
         $openApi = OpenApi::create()
-            ->openapi($this->version->value) // TODO: Update method to accept OpenAPIVersion enum instead of string
             ->info($info)
             ->servers(...$servers)
             ->paths(...$paths)

@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
@@ -28,7 +29,9 @@ describe('Arr', function (): void {
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => [],
+            'object' => [
+                'openapi' => OASVersion::V_3_1_0->value,
+            ],
         ]);
     });
 

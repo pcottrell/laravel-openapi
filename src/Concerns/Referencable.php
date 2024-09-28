@@ -10,7 +10,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
+use Webmozart\Assert\Assert;
 
 // TODO: cleanup this.
 // Is it even used? How?
@@ -22,28 +22,28 @@ trait Referencable
 {
     public static function ref(string|null $objectId = null): Schema
     {
-        $clone = app(static::class);
+        $factory = app(static::class);
 
-        if (!$clone instanceof Reusable) {
-            throw new InvalidArgumentException('"' . static::class . '" must implement "' . Reusable::class . '" in order to be referencable.');
+        if (!$factory instanceof Reusable) {
+            Assert::isInstanceOf($factory, Reusable::class);
         }
 
         $baseRef = null;
 
-        if ($clone instanceof CallbackFactory) {
+        if ($factory instanceof CallbackFactory) {
             $baseRef = '#/components/callbacks/';
-        } elseif ($clone instanceof ParameterFactory) {
+        } elseif ($factory instanceof ParameterFactory) {
             $baseRef = '#/components/parameters/';
-        } elseif ($clone instanceof RequestBodyFactory) {
+        } elseif ($factory instanceof RequestBodyFactory) {
             $baseRef = '#/components/requestBodies/';
-        } elseif ($clone instanceof ResponseFactory) {
+        } elseif ($factory instanceof ResponseFactory) {
             $baseRef = '#/components/responses/';
-        } elseif ($clone instanceof SchemaFactory) {
+        } elseif ($factory instanceof SchemaFactory) {
             $baseRef = '#/components/schemas/';
-        } elseif ($clone instanceof SecuritySchemeFactory) {
+        } elseif ($factory instanceof SecuritySchemeFactory) {
             $baseRef = '#/components/securitySchemes/';
         }
 
-        return Schema::ref($baseRef . $clone->build()->objectId, $objectId);
+        return Schema::ref($baseRef . $factory->build()->objectId, $objectId);
     }
 }

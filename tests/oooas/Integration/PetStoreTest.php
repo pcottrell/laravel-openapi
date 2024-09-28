@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Integration;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
@@ -168,7 +169,7 @@ class PetStoreTest extends IntegrationTestCase
             ->operations($findPetById, $deletePetById);
 
         $openApi = OpenApi::create()
-            ->openapi(OpenApi::OPENAPI_3_0_0)
+            ->openapi(OASVersion::V_3_1_0)
             ->info($info)
             ->servers($server)
             ->paths($pathItem, $petNested)

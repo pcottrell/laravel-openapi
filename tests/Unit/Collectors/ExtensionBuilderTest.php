@@ -4,6 +4,7 @@ namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
@@ -32,6 +33,7 @@ class ExtensionBuilderTest extends TestCase
         ]));
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
                     'get' => [
@@ -61,6 +63,7 @@ class ExtensionBuilderTest extends TestCase
         ]));
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
                     'get' => [

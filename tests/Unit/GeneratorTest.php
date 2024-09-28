@@ -5,6 +5,7 @@ use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
@@ -173,7 +174,7 @@ describe('Generator', function (): void {
         'test collection' => [
             'collection' => 'test',
             'expectation' => [
-                'openapi' => '3.1.0',
+                'openapi' => OASVersion::V_3_1_0->value,
                 'info' => [
                     'title' => 'Test API',
                     'description' => 'Test API description',
@@ -239,7 +240,7 @@ describe('Generator', function (): void {
         'default collection' => [
             'collection' => Generator::COLLECTION_DEFAULT,
             'expectation' => [
-                'openapi' => '3.1.0',
+                'openapi' => OASVersion::V_3_1_0->value,
                 'info' => [
                     'title' => 'Test Default API',
                     'description' => 'Test Default API description',

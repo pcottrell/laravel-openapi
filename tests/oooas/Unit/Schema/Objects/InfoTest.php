@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\License;
@@ -26,6 +27,7 @@ class InfoTest extends UnitTestCase
             ->info($info);
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'info' => [
                 'title' => 'Pretend API',
                 'description' => 'A pretend API',

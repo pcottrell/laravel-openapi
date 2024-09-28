@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
@@ -27,6 +28,7 @@ class PathItemTest extends UnitTestCase
             ->paths($pathItem);
 
         $this->assertSame([
+            'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/users' => [
                     'get' => [],

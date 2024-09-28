@@ -139,8 +139,8 @@ class Components extends ExtensibleObject
         }
 
         $requestBodies = [];
-        foreach ($this->requestBodies ?? [] as $requestBodie) {
-            $requestBodies[$requestBodie->objectId] = $requestBodie;
+        foreach ($this->requestBodies ?? [] as $requestBody) {
+            $requestBodies[$requestBody->objectId] = $requestBody;
         }
 
         $headers = [];
