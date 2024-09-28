@@ -10,7 +10,7 @@ final readonly class Scope
     ) {
     }
 
-    public static function create(string $name, string $description): static
+    public static function create(string $name, string $description): self
     {
         return new self($name, $description);
     }
