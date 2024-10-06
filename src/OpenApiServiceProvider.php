@@ -2,32 +2,25 @@
 
 namespace MohammadAlavi\LaravelOpenApi;
 
-use MohammadAlavi\LaravelOpenApi\Console\GenerateCommand;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\ServiceProvider;
+use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Console\CallbackFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\ExtensionFactoryMakeCommand;
+use MohammadAlavi\LaravelOpenApi\Console\GenerateCommand;
 use MohammadAlavi\LaravelOpenApi\Console\ParametersFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\RequestBodyFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\ResponseFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SchemaFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SecuritySchemeFactoryMakeCommand;
-use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
-use MohammadAlavi\LaravelOpenApi\Collectors\CollectionLocator;
-use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\Components\CallbackCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\Components\RequestBodyCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\Components\ResponseCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\Components\SchemaCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\Components\SecuritySchemeCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Http\OpenApiController;
+use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
 
 class OpenApiServiceProvider extends ServiceProvider
 {
@@ -36,36 +29,6 @@ class OpenApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../config/openapi.php',
             'openapi',
-        );
-
-        $this->app->when(CallbackCollector::class)->needs(CollectionLocator::class)->give(
-            fn (): CollectionLocator => new CollectionLocator(
-                $this->getPathsFromConfig('callbacks'),
-            ),
-        );
-
-        $this->app->when(RequestBodyCollector::class)->needs(CollectionLocator::class)->give(
-            fn (): CollectionLocator => new CollectionLocator(
-                $this->getPathsFromConfig('request_bodies'),
-            ),
-        );
-
-        $this->app->when(ResponseCollector::class)->needs(CollectionLocator::class)->give(
-            fn (): CollectionLocator => new CollectionLocator(
-                $this->getPathsFromConfig('responses'),
-            ),
-        );
-
-        $this->app->when(SchemaCollector::class)->needs(CollectionLocator::class)->give(
-            fn (): CollectionLocator => new CollectionLocator(
-                $this->getPathsFromConfig('schemas'),
-            ),
-        );
-
-        $this->app->when(SecuritySchemeCollector::class)->needs(CollectionLocator::class)->give(
-            fn (): CollectionLocator => new CollectionLocator(
-                $this->getPathsFromConfig('security_schemes'),
-            ),
         );
 
         $this->app->singleton(
@@ -80,13 +43,13 @@ class OpenApiServiceProvider extends ServiceProvider
                     $application->make(InfoBuilder::class),
                     $application->make(ServerBuilder::class),
                     $application->make(TagBuilder::class),
-                    $application->make(PathBuilder::class),
-                    $application->make(ComponentCollector::class),
+                    $application->make(PathsBuilder::class),
+                    $application->make(ComponentsBuilder::class),
                 );
             },
         );
 
-        $this->app->bind(RouteCollector::class, Collectors\RouteCollector::class);
+        $this->app->bind(RouteCollector::class, Services\RouteCollector::class);
 
         $this->commands([
             GenerateCommand::class,
@@ -103,20 +66,6 @@ class OpenApiServiceProvider extends ServiceProvider
                 SecuritySchemeFactoryMakeCommand::class,
             ]);
         }
-    }
-
-    private function getPathsFromConfig(string $type): array
-    {
-        $directories = config('openapi.locations.' . $type, []);
-
-        foreach ($directories as &$directory) {
-            $directory = glob($directory, GLOB_ONLYDIR);
-        }
-
-        return Collection::make($directories)
-            ->flatten()
-            ->unique()
-            ->toArray();
     }
 
     public function boot(): void

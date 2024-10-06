@@ -2,12 +2,16 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Header extends ExtensibleObject
+class Header extends ExtensibleObject implements SimpleKeyCreator
 {
+    use SimpleKeyCreatorTrait;
+
     public const STYLE_MATRIX = 'matrix';
     public const STYLE_LABEL = 'label';
     public const STYLE_FORM = 'form';
@@ -135,12 +139,12 @@ class Header extends ExtensibleObject
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example->jsonSerialize();
+            $examples[$example->key()] = $example->jsonSerialize();
         }
 
         $content = [];
         foreach ($this->content ?? [] as $contentItem) {
-            $content[$contentItem->mediaType] = $contentItem;
+            $content[$contentItem->key()] = $contentItem;
         }
 
         return Arr::filter([

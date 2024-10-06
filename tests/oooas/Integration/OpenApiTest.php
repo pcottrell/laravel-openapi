@@ -34,7 +34,7 @@ describe('OpenApi', function (): void {
             ->version('v1')
             ->description('For using the Example App API')
             ->contact($contact);
-        $schema = Schema::object()
+        $schema = Schema::object('Audits Response')
             ->properties(
                 Schema::string('id')->format(Schema::FORMAT_UUID),
                 Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
@@ -45,9 +45,7 @@ describe('OpenApi', function (): void {
                     ),
                 ),
             )->required('id', 'created_at');
-        $expectedResponse = Response::create()
-            ->statusCode(200)
-            ->description('OK')
+        $expectedResponse = Response::ok()
             ->content(MediaType::json()->schema($schema));
         $operationIndex = Operation::get()
             ->responses($expectedResponse)
@@ -81,10 +79,10 @@ describe('OpenApi', function (): void {
             );
         $paths = [
             PathItem::create()
-                ->route('/audits')
+                ->path('/audits')
                 ->operations($operationIndex, $operationCreate),
             PathItem::create()
-                ->route('/audits/{audit}')
+                ->path('/audits/{audit}')
                 ->operations($operationGet),
         ];
         $servers = [
@@ -156,22 +154,22 @@ describe('OpenApi', function (): void {
             return SecurityScheme::oauth2('OAuth2')
                 ->flows($oAuthFlow);
         },
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY),
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
             ->name('X-API-Key')
             ->in(SecurityScheme::IN_HEADER),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
             ->name('in-query')
             ->in(SecurityScheme::IN_QUERY),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_API_KEY)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
             ->name('in-cookie')
             ->in(SecurityScheme::IN_COOKIE),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_HTTP)
             ->scheme('Basic'),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_HTTP)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_HTTP)
             ->scheme('Bearer')
             ->bearerFormat('JWT'),
-        fn (): SecurityScheme => SecurityScheme::create()->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
+        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
             ->openIdConnectUrl('https://api.example.com/.well-known/openid-configuration'),
     ]);
 })->coversNothing()->skip();

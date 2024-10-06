@@ -2,8 +2,8 @@
 
 namespace Tests\Unit\Collectors;
 
-use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -123,7 +123,11 @@ class TagBuilderTest extends TestCase
             unset($actual[$key]);
         }
 
-        $this->assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
+        $this->assertCount(
+            0,
+            $actual,
+            sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))),
+        );
     }
 
     #[DataProvider('multiTagProvider')]
@@ -132,7 +136,12 @@ class TagBuilderTest extends TestCase
         $tagBuilder = app(TagBuilder::class);
         $tags = $tagBuilder->build($factories);
 
-        $this->assertSame($expected, collect($tags)->map(static fn (Tag $tag): array => $tag->jsonSerialize())->toArray());
+        $this->assertSame(
+            $expected,
+            collect($tags)
+                ->map(static fn (Tag $tag): array => $tag->jsonSerialize())
+                ->toArray(),
+        );
     }
 
     #[DataProvider('invalidTagProvider')]

@@ -61,8 +61,6 @@ describe('Parameter', function (): void {
         'path' => ['path', Parameter::IN_PATH],
         'cookie' => ['cookie', Parameter::IN_COOKIE],
     ])->with([
-        'objectId' => ['objectId'],
-    ])->with([
         'style matrix' => ['style', Parameter::STYLE_MATRIX],
         'style label' => ['label', Parameter::STYLE_LABEL],
         'style form' => ['form', Parameter::STYLE_FORM],

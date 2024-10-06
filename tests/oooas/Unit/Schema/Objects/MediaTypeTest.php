@@ -48,7 +48,5 @@ describe('MediaType', function (): void {
         'plainText' => ['plainText', MediaType::MEDIA_TYPE_TEXT_PLAIN],
         'xml' => ['xml', MediaType::MEDIA_TYPE_TEXT_XML],
         'formUrlEncoded' => ['formUrlEncoded', MediaType::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED],
-    ])->with([
-        'objectId' => ['objectId'],
     ]);
 })->covers(MediaType::class);

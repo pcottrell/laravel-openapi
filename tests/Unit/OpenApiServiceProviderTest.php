@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Contracts\Foundation\Application;
-use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\OpenApiServiceProvider;
 

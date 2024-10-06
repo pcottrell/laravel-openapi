@@ -2,8 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Parameter extends ExtensibleObject
@@ -38,9 +38,9 @@ class Parameter extends ExtensibleObject
     /** @var MediaType[]|null */
     protected array|null $content = null;
 
-    public static function query(string|null $objectId = null): static
+    public static function query(): static
     {
-        return static::create($objectId)->in(static::IN_QUERY);
+        return static::create()->in(static::IN_QUERY);
     }
 
     public function in(string|null $in): static
@@ -52,19 +52,19 @@ class Parameter extends ExtensibleObject
         return $clone;
     }
 
-    public static function header(string|null $objectId = null): static
+    public static function header(): static
     {
-        return static::create($objectId)->in(static::IN_HEADER);
+        return static::create()->in(static::IN_HEADER);
     }
 
-    public static function path(string|null $objectId = null): static
+    public static function path(): static
     {
-        return static::create($objectId)->in(static::IN_PATH);
+        return static::create()->in(static::IN_PATH);
     }
 
-    public static function cookie(string|null $objectId = null): static
+    public static function cookie(): static
     {
-        return static::create($objectId)->in(static::IN_COOKIE);
+        return static::create()->in(static::IN_COOKIE);
     }
 
     public function name(string|null $name): static
@@ -179,12 +179,12 @@ class Parameter extends ExtensibleObject
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example->jsonSerialize();
+            $examples[$example->key()] = $example->jsonSerialize();
         }
 
         $content = [];
         foreach ($this->content ?? [] as $contentItem) {
-            $content[$contentItem->mediaType] = $contentItem;
+            $content[$contentItem->key()] = $contentItem;
         }
 
         return Arr::filter([

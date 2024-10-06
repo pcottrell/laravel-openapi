@@ -3,7 +3,7 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
-use MohammadAlavi\LaravelOpenApi\Collectors\ExtensionBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
@@ -22,7 +22,7 @@ class ExtensionBuilderTest extends TestCase
         $openApi = OpenApi::create()
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->path('/foo')
                     ->operations($operation),
             );
 
@@ -51,7 +51,7 @@ class ExtensionBuilderTest extends TestCase
         $openApi = OpenApi::create()
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->path('/foo')
                     ->operations($operation),
             );
 

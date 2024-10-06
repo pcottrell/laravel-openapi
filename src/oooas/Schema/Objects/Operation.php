@@ -50,9 +50,9 @@ class Operation extends ExtensibleObject
     /** @var PathItem[]|null */
     protected array|null $callbacks = null;
 
-    public static function get(string|null $objectId = null): static
+    public static function get(): static
     {
-        return static::create($objectId)->action(static::ACTION_GET);
+        return static::create()->action(static::ACTION_GET);
     }
 
     public function action(string|null $action): static
@@ -64,39 +64,39 @@ class Operation extends ExtensibleObject
         return $clone;
     }
 
-    public static function put(string|null $objectId = null): static
+    public static function put(): static
     {
-        return static::create($objectId)->action(static::ACTION_PUT);
+        return static::create()->action(static::ACTION_PUT);
     }
 
-    public static function post(string|null $objectId = null): static
+    public static function post(): static
     {
-        return static::create($objectId)->action(static::ACTION_POST);
+        return static::create()->action(static::ACTION_POST);
     }
 
-    public static function delete(string|null $objectId = null): static
+    public static function delete(): static
     {
-        return static::create($objectId)->action(static::ACTION_DELETE);
+        return static::create()->action(static::ACTION_DELETE);
     }
 
-    public static function options(string|null $objectId = null): static
+    public static function options(): static
     {
-        return static::create($objectId)->action(static::ACTION_OPTIONS);
+        return static::create()->action(static::ACTION_OPTIONS);
     }
 
-    public static function head(string|null $objectId = null): static
+    public static function head(): static
     {
-        return static::create($objectId)->action(static::ACTION_HEAD);
+        return static::create()->action(static::ACTION_HEAD);
     }
 
-    public static function patch(string|null $objectId = null): static
+    public static function patch(): static
     {
-        return static::create($objectId)->action(static::ACTION_PATCH);
+        return static::create()->action(static::ACTION_PATCH);
     }
 
-    public static function trace(string|null $objectId = null): static
+    public static function trace(): static
     {
-        return static::create($objectId)->action(static::ACTION_TRACE);
+        return static::create()->action(static::ACTION_TRACE);
     }
 
     public function tags(Tag|string ...$tags): static
@@ -161,7 +161,7 @@ class Operation extends ExtensibleObject
         return $clone;
     }
 
-    public function requestBody(RequestBody|null $requestBody): static
+    public function requestBody(RequestBody|Reference|null $requestBody): static
     {
         $clone = clone $this;
 
@@ -170,7 +170,7 @@ class Operation extends ExtensibleObject
         return $clone;
     }
 
-    public function responses(Response ...$response): static
+    public function responses(Response|Reference ...$response): static
     {
         $clone = clone $this;
 
@@ -270,12 +270,14 @@ class Operation extends ExtensibleObject
     {
         $responses = [];
         foreach ($this->responses ?? [] as $response) {
+            // TODO: add option/config to allow user always include default or not
+            //  Or even exclude default per route
             $responses[$response->statusCode ?? 'default'] = $response;
         }
 
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
-            $callbacks[$callback->objectId][$callback->route] = $callback;
+            $callbacks[$callback->key()][$callback->path] = $callback;
         }
 
         return Arr::filter([

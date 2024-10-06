@@ -4,8 +4,8 @@ namespace Tests\Unit\Collectors\Paths\Operations;
 
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
-use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\Paths\Operations\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
@@ -699,7 +699,9 @@ class SecurityRequirementBuilderTest extends TestCase
 
         $route = '/foo';
         $action = 'get';
-        $routeInformation = RouteInformation::createFromRoute(Route::$action($route, static fn (): string => 'example'));
+        $routeInformation = RouteInformation::createFromRoute(
+            Route::$action($route, static fn (): string => 'example'),
+        );
         $routeInformation->actionAttributes = collect([
             new AttributesOperation(security: $pathSecurity),
         ]);
@@ -711,7 +713,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->nestedSecurity($globalSecurity)
             ->paths(
                 PathItem::create()
-                    ->route($route)
+                    ->path($route)
                     ->operations($operation),
             );
 
@@ -758,7 +760,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->components($components)
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->path('/foo')
                     ->operations($operation),
             );
 
@@ -796,7 +798,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->components($components)
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->path('/foo')
                     ->operations($operation),
             );
 
@@ -851,7 +853,7 @@ class SecurityRequirementBuilderTest extends TestCase
             ->components($components)
             ->paths(
                 PathItem::create()
-                    ->route('/foo')
+                    ->path('/foo')
                     ->operations($operation),
             );
 

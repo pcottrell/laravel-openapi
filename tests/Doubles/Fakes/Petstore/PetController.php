@@ -5,6 +5,7 @@ namespace Tests\Doubles\Fakes\Petstore;
 use MohammadAlavi\LaravelOpenApi\Attributes as OpenApi;
 use Tests\Doubles\Fakes\Petstore\Parameters\ListPetsParameter;
 use Tests\Doubles\Fakes\Petstore\Responses\ErrorValidationResponse;
+use Tests\Doubles\Fakes\Petstore\Responses\ReusableComponentErrorValidationResponse;
 use Tests\Doubles\Fakes\Petstore\SecuritySchemes\BearerTokenSecurityScheme;
 use Tests\Doubles\Fakes\Petstore\SecuritySchemes\OAuth2PasswordGrantSecurityScheme;
 use Tests\Doubles\Fakes\Petstore\Tags\AnotherPetTag;
@@ -21,7 +22,7 @@ class PetController
         deprecated: true,
     )]
     #[OpenApi\Parameter(ListPetsParameter::class)]
-    #[OpenApi\Response(ErrorValidationResponse::class, 422)]
+    #[OpenApi\Response(ReusableComponentErrorValidationResponse::class)]
     public function index(): void
     {
     }
@@ -35,7 +36,7 @@ class PetController
         deprecated: false,
     )]
     #[OpenApi\Parameter(ListPetsParameter::class)]
-    #[OpenApi\Response(ErrorValidationResponse::class, 422)]
+    #[OpenApi\Response(ErrorValidationResponse::class)]
     public function multiPetTag(): void
     {
     }
@@ -55,7 +56,13 @@ class PetController
     #[OpenApi\Operation(
         id: 'nestedSecuritySecondTest',
         tags: AnotherPetTag::class,
-        security: [BearerTokenSecurityScheme::class, [OAuth2PasswordGrantSecurityScheme::class, BearerTokenSecurityScheme::class]],
+        security: [
+            BearerTokenSecurityScheme::class,
+            [
+                OAuth2PasswordGrantSecurityScheme::class,
+                BearerTokenSecurityScheme::class,
+            ],
+        ],
         summary: 'List all pets.',
         description: 'List all pets from the database.',
         deprecated: null,

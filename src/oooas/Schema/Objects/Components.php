@@ -2,17 +2,21 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Components extends ExtensibleObject
+class Components extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     /** @var SchemaContract[]|null */
     protected array|null $schemas = null;
 
-    /** @var Response[]|null */
-    protected array|null $responses = null;
+    /** @var Response[] */
+    protected array $responses = [];
 
     /** @var Parameter[]|null */
     protected array|null $parameters = null;
@@ -48,7 +52,7 @@ class Components extends ExtensibleObject
     {
         $clone = clone $this;
 
-        $clone->responses = [] !== $response ? $response : null;
+        $clone->responses = $response;
 
         return $clone;
     }
@@ -120,47 +124,47 @@ class Components extends ExtensibleObject
     {
         $schemas = [];
         foreach ($this->schemas ?? [] as $schema) {
-            $schemas[$schema->objectId] = $schema;
+            $schemas[$schema->key()] = $schema;
         }
 
         $responses = [];
-        foreach ($this->responses ?? [] as $response) {
-            $responses[$response->objectId] = $response;
+        foreach ($this->responses as $response) {
+            $responses[$response->key()] = $response;
         }
 
         $parameters = [];
         foreach ($this->parameters ?? [] as $parameter) {
-            $parameters[$parameter->objectId] = $parameter;
+            $parameters[$parameter->key()] = $parameter;
         }
 
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example;
+            $examples[$example->key()] = $example;
         }
 
         $requestBodies = [];
         foreach ($this->requestBodies ?? [] as $requestBody) {
-            $requestBodies[$requestBody->objectId] = $requestBody;
+            $requestBodies[$requestBody->key()] = $requestBody;
         }
 
         $headers = [];
         foreach ($this->headers ?? [] as $header) {
-            $headers[$header->objectId] = $header;
+            $headers[$header->key()] = $header;
         }
 
         $securitySchemes = [];
         foreach ($this->securitySchemes ?? [] as $securityScheme) {
-            $securitySchemes[$securityScheme->objectId] = $securityScheme;
+            $securitySchemes[$securityScheme->key()] = $securityScheme;
         }
 
         $links = [];
         foreach ($this->links ?? [] as $link) {
-            $links[$link->objectId] = $link;
+            $links[$link->key()] = $link;
         }
 
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
-            $callbacks[$callback->objectId][$callback->route] = $callback;
+            $callbacks[$callback->key()][$callback->path] = $callback;
         }
 
         return Arr::filter([
@@ -173,6 +177,7 @@ class Components extends ExtensibleObject
             'securitySchemes' => [] !== $securitySchemes ? $securitySchemes : null,
             'links' => [] !== $links ? $links : null,
             'callbacks' => [] !== $callbacks ? $callbacks : null,
+            // TODO: add extensions
         ]);
     }
 }

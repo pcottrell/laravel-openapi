@@ -2,13 +2,12 @@
 
 namespace Tests\Doubles\Fakes\Petstore\Responses;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
-class ErrorValidationResponse extends ResponseFactory implements Reusable
+class ErrorValidationResponse implements ResponseFactory
 {
     public function build(): Response
     {
@@ -21,7 +20,7 @@ class ErrorValidationResponse extends ResponseFactory implements Reusable
                 ->example(['field' => ['Something is wrong with this field!']]),
         );
 
-        return Response::unprocessableEntity('ErrorValidation')
+        return Response::unprocessableEntity()
             ->content(
                 MediaType::json()->schema($schema),
             );

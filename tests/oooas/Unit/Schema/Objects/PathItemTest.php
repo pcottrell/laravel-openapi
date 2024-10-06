@@ -17,7 +17,7 @@ class PathItemTest extends UnitTestCase
     public function testCreateWithAllParametersWorks(): void
     {
         $pathItem = PathItem::create()
-            ->route('/users')
+            ->path('/users')
             ->summary('User endpoints')
             ->description('Get the users')
             ->operations(Operation::get())

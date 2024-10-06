@@ -15,6 +15,7 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
+use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableResponse;
 use Tests\UnitTestCase;
 
 #[CoversClass(Components::class)]
@@ -24,15 +25,15 @@ class ComponentsTest extends UnitTestCase
     {
         $schema = Schema::object('ExampleSchema');
 
-        $response = Response::created('ResourceCreated');
+        $response = new TestReusableResponse();
 
-        $parameter = Parameter::query('Page')
+        $parameter = Parameter::query()
             ->name('page');
 
-        $example = Example::create('PageExample')
+        $example = Example::create('Page')
             ->value(5);
 
-        $requestBody = RequestBody::create('CreateResource');
+        $requestBody = RequestBody::create();
 
         $header = Header::create('HeaderExample');
 
@@ -46,8 +47,8 @@ class ComponentsTest extends UnitTestCase
 
         $link = Link::create('LinkExample');
 
-        $pathItem = PathItem::create('MyEvent')
-            ->route('{$request.query.callbackUrl}')
+        $pathItem = PathItem::create()
+            ->path('{$request.query.callbackUrl}')
             ->operations(
                 Operation::post()->requestBody(
                     RequestBody::create()
@@ -73,7 +74,7 @@ class ComponentsTest extends UnitTestCase
                 ],
             ],
             'responses' => [
-                'ResourceCreated' => [
+                'ReusableResponse' => [
                     'description' => 'Created',
                 ],
             ],

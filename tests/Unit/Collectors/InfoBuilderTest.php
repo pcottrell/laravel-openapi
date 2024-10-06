@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Collectors;
 
-use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;

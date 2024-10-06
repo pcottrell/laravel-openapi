@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory;
 
 #[\Attribute(\Attribute::IS_REPEATABLE | \Attribute::TARGET_METHOD)]
 readonly class Extension

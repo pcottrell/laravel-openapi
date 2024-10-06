@@ -2,9 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 readonly class Operation
@@ -55,7 +55,14 @@ readonly class Operation
 
     private function isValidSingleSecurityScheme(string|null $securityScheme): bool
     {
-        return !is_null($securityScheme) && '' !== $securityScheme && class_exists($securityScheme) && is_a($securityScheme, SecuritySchemeFactory::class, true);
+        return !is_null($securityScheme)
+            && '' !== $securityScheme
+            && class_exists($securityScheme)
+            && is_a(
+                $securityScheme,
+                SecuritySchemeFactory::class,
+                true,
+            );
     }
 
     private function isValidMultiSecurityScheme(array $securities): bool

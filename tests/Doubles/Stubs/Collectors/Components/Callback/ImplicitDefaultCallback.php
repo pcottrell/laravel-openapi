@@ -2,14 +2,13 @@
 
 namespace Tests\Doubles\Stubs\Collectors\Components\Callback;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableCallbackFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
-class ImplicitDefaultCallback extends CallbackFactory implements Reusable
+class ImplicitDefaultCallback extends ReusableCallbackFactory
 {
     public function build(): PathItem
     {
-        return PathItem::create('default collection PathItem');
+        return PathItem::create();
     }
 }

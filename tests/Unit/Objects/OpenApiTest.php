@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
@@ -23,11 +23,11 @@ describe('OpenApi', function (): void {
             'openapi' => OASVersion::V_3_1_0->value,
             'security' => [
                 [
-                    'ASecurityScheme' => [],
+                    'ASecuritySchemeFactory' => [],
                 ],
                 [
-                    'BSecurityScheme' => [],
-                    'ASecurityScheme' => [],
+                    'BSecuritySchemeFactory' => [],
+                    'ASecuritySchemeFactory' => [],
                 ],
             ],
         ]);
@@ -54,7 +54,7 @@ describe('OpenApi', function (): void {
                 'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
-                        'ASecurityScheme' => [],
+                        'ASecuritySchemeFactory' => [],
                     ],
                 ],
             ],
@@ -70,10 +70,10 @@ describe('OpenApi', function (): void {
                 'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
-                        'ASecurityScheme' => [],
+                        'ASecuritySchemeFactory' => [],
                     ],
                     [
-                        'BSecurityScheme' => [],
+                        'BSecuritySchemeFactory' => [],
                     ],
                 ],
             ],
@@ -92,7 +92,7 @@ describe('OpenApi', function (): void {
                 'openapi' => OASVersion::V_3_1_0->value,
                 'security' => [
                     [
-                        'BSecurityScheme' => [],
+                        'BSecuritySchemeFactory' => [],
                     ],
                 ],
             ],

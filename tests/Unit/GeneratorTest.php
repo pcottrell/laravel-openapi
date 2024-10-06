@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Config;
-use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
@@ -46,7 +46,7 @@ beforeEach(function (): void {
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::create('bearerAuth')
+                            return SecurityScheme::create()
                                 ->type('http')
                                 ->scheme('bearer');
                         }
@@ -95,7 +95,7 @@ beforeEach(function (): void {
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::create('apiKey')
+                            return SecurityScheme::create()
                                 ->type('apiKey')
                                 ->in('header');
                         }
@@ -103,9 +103,9 @@ beforeEach(function (): void {
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::oauth2('oauth2')
+                            return SecurityScheme::oauth2()
                                 ->flows(
-                                    OAuthFlow::create('oauth2')
+                                    OAuthFlow::create()
                                     ->authorizationUrl('https://example.com/oauth/authorize')
                                     ->tokenUrl('https://example.com/oauth/token')
                                     ->scopes([

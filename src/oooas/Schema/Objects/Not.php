@@ -2,8 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 class Not extends ExtensibleObject implements SchemaContract

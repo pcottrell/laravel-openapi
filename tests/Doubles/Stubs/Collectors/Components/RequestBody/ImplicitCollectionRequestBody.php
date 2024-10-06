@@ -2,14 +2,13 @@
 
 namespace Tests\Doubles\Stubs\Collectors\Components\RequestBody;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableRequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
-class ImplicitCollectionRequestBody extends RequestBodyFactory implements Reusable
+class ImplicitCollectionRequestBody extends ReusableRequestBodyFactory
 {
     public function build(): RequestBody
     {
-        return RequestBody::create('default collection RequestBody');
+        return RequestBody::create();
     }
 }

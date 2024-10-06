@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Info extends ExtensibleObject
+class Info extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $title = null;
     protected string|null $description = null;
     protected string|null $termsOfService = null;

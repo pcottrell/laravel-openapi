@@ -2,14 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Concerns;
 
-use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
-use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableParameterFactory as AbstractReusableParameterFactory;
 
-class ReusableParameterFactory extends ParameterFactory implements Reusable
+class ReusableParameterFactory extends AbstractReusableParameterFactory
 {
-    use Referencable;
-
     public function build(): array
     {
         return [];

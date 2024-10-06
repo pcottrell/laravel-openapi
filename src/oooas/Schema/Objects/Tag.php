@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Tag extends ExtensibleObject implements \Stringable
+class Tag extends ExtensibleObject implements \Stringable, SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $name = null;
     protected string|null $description = null;
     protected ExternalDocs|null $externalDocs = null;

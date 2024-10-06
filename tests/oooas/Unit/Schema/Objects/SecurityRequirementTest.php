@@ -35,7 +35,7 @@ describe('SecurityRequirement', function (): void {
 
     it('can be created with no scopes', function (SecurityScheme|string|null $securityScheme, array $expectation): void {
         $securityRequirement = SecurityRequirement::create()
-        ->securityScheme($securityScheme);
+            ->securityScheme($securityScheme);
 
         expect($securityRequirement->jsonSerialize())->toBe($expectation);
     })->with([
@@ -47,7 +47,7 @@ describe('SecurityRequirement', function (): void {
     ]);
 
     it('can be created with scopes', function (...$scopes): void {
-        $securityRequirement = SecurityRequirement::create('OAuth2')
+        $securityRequirement = SecurityRequirement::create()
             ->securityScheme('OAuth2')
             ->scopes(...$scopes);
 

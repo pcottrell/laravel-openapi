@@ -15,7 +15,7 @@ class EncodingTest extends UnitTestCase
 {
     public function testCreateWithAllParametersWorks(): void
     {
-        $header = Header::create('HeaderName')
+        $header = Header::create()
             ->description('Lorem ipsum')
             ->required()
             ->deprecated()
@@ -26,12 +26,12 @@ class EncodingTest extends UnitTestCase
             ->schema(Schema::string())
             ->example('Example String')
             ->examples(
-                Example::create('ExampleName')
+                Example::create()
                     ->value('Example value'),
             )
             ->content(MediaType::json());
 
-        $encoding = Encoding::create('EncodingName')
+        $encoding = Encoding::create()
             ->contentType('application/json')
             ->headers($header)
             ->style('simple')

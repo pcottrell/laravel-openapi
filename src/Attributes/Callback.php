@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\CallbackFactory;
 
 #[\Attribute]
 readonly class Callback

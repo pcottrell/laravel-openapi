@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
@@ -34,7 +34,7 @@ describe('Operation', function (): void {
             [
                 'security' => [
                     [
-                        'ASecurityScheme' => [],
+                        'ASecuritySchemeFactory' => [],
                     ],
                 ],
             ],
@@ -49,10 +49,10 @@ describe('Operation', function (): void {
             [
                 'security' => [
                     [
-                        'ASecurityScheme' => [],
+                        'ASecuritySchemeFactory' => [],
                     ],
                     [
-                        'BSecurityScheme' => [],
+                        'BSecuritySchemeFactory' => [],
                     ],
                 ],
             ],
@@ -70,7 +70,7 @@ describe('Operation', function (): void {
             [
                 'security' => [
                     [
-                        'BSecurityScheme' => [],
+                        'BSecuritySchemeFactory' => [],
                     ],
                 ],
             ],

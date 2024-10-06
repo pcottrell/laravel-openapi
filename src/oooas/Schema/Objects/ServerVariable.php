@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class ServerVariable extends ExtensibleObject
+class ServerVariable extends ExtensibleObject implements SimpleKeyCreator
 {
+    use SimpleKeyCreatorTrait;
+
     /** @var string[]|null */
     protected array|null $enum = null;
 

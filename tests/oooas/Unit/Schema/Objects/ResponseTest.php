@@ -27,9 +27,7 @@ describe('Response', function (): void {
 
         $link = Link::create('MyLink');
 
-        $response = Response::create()
-            ->statusCode(200)
-            ->description('OK')
+        $response = Response::ok()
             ->headers($header)
             ->content(MediaType::json())
             ->links($link);

@@ -2,7 +2,7 @@
 
 namespace Tests\Doubles\Stubs\Servers;
 
-use MohammadAlavi\LaravelOpenApi\Factories\ServerFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ServerVariable;
 
@@ -14,11 +14,11 @@ class ServerWithMultipleVariableFormatting extends ServerFactory
             ->url('https://example.com')
             ->description('sample_description')
             ->variables(
-                ServerVariable::create('variable_name')
+                ServerVariable::create('ServerVariableA')
                     ->default('variable_defalut')
                     ->description('variable_description')
                     ->enum('A', 'B'),
-                ServerVariable::create('variable_name_B')
+                ServerVariable::create('ServerVariableB')
                     ->default('sample')
                     ->description('sample'),
             );

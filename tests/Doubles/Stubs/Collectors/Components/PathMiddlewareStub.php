@@ -2,7 +2,7 @@
 
 namespace Tests\Doubles\Stubs\Collectors\Components;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 

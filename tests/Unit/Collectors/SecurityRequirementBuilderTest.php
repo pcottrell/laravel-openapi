@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
@@ -17,68 +17,68 @@ describe('SecurityRequirementBuilder', function (): void {
         'null' => [
             null,
             [
-                [DefaultSecurityScheme::NAME => []],
+                ['DefaultSecurityScheme' => []],
             ],
         ],
         'empty string' => [
             '',
             [
-                [DefaultSecurityScheme::NAME => []],
+                ['DefaultSecurityScheme' => []],
             ],
         ],
         'empty array [] security' => [
             [],
             [
-                [NoSecurityScheme::NAME => []],
+                ['NoSecurityScheme' => []],
             ],
         ],
         'class string security' => [
             ASecuritySchemeFactory::class,
             [
-                ['ASecurityScheme' => []],
+                ['ASecuritySchemeFactory' => []],
             ],
         ],
         'nested single class string security' => [
             [[ASecuritySchemeFactory::class]],
             [
-                ['ASecurityScheme' => []],
+                ['ASecuritySchemeFactory' => []],
             ],
         ],
         'nested one multi class string security' => [
             [[ASecuritySchemeFactory::class, BSecuritySchemeFactory::class]],
             [
-                ['ASecurityScheme' => [], 'BSecurityScheme' => []],
+                ['ASecuritySchemeFactory' => [], 'BSecuritySchemeFactory' => []],
             ],
         ],
         'nested multiple multi class string security' => [
             [[ASecuritySchemeFactory::class, BSecuritySchemeFactory::class],
                 [BSecuritySchemeFactory::class, ASecuritySchemeFactory::class], ],
             [
-                ['ASecurityScheme' => [], 'BSecurityScheme' => []],
-                ['BSecurityScheme' => [], 'ASecurityScheme' => []],
+                ['ASecuritySchemeFactory' => [], 'BSecuritySchemeFactory' => []],
+                ['BSecuritySchemeFactory' => [], 'ASecuritySchemeFactory' => []],
             ],
         ],
         'nested mixed multi class string security' => [
             [BSecuritySchemeFactory::class, [BSecuritySchemeFactory::class, ASecuritySchemeFactory::class]],
             [
-                ['BSecurityScheme' => []],
-                ['BSecurityScheme' => [], 'ASecurityScheme' => []],
+                ['BSecuritySchemeFactory' => []],
+                ['BSecuritySchemeFactory' => [], 'ASecuritySchemeFactory' => []],
             ],
         ],
         'one element array security' => [
             [ASecuritySchemeFactory::class],
             [
-                ['ASecurityScheme' => []],
+                ['ASecuritySchemeFactory' => []],
             ],
         ],
         'multi element array security' => [
             [ASecuritySchemeFactory::class, BSecuritySchemeFactory::class],
             [
                 [
-                    'ASecurityScheme' => [],
+                    'ASecuritySchemeFactory' => [],
                 ],
                 [
-                    'BSecurityScheme' => [],
+                    'BSecuritySchemeFactory' => [],
                 ],
             ],
         ],
@@ -118,7 +118,7 @@ describe('SecurityRequirementBuilder', function (): void {
         'nested single class string security with empty array' => [
             [[ASecuritySchemeFactory::class, []]],
             [
-                ['ASecurityScheme' => []],
+                ['ASecuritySchemeFactory' => []],
             ],
         ],
     ]);

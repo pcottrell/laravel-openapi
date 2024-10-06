@@ -2,11 +2,12 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-abstract class SchemaComposition extends ExtensibleObject implements SchemaContract
+abstract class SchemaComposition extends ExtensibleObject implements SchemaContract, SimpleCreator
 {
     /** @var Schema[]|null */
     protected array|null $schemas = null;

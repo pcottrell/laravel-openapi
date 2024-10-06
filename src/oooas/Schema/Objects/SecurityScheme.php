@@ -2,12 +2,16 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 /** @see https://swagger.io/specification/#security-scheme-object */
-class SecurityScheme extends ExtensibleObject
+class SecurityScheme extends ExtensibleObject implements SimpleKeyCreator
 {
+    use SimpleKeyCreatorTrait;
+
     public const TYPE_API_KEY = 'apiKey';
     public const TYPE_HTTP = 'http';
     public const TYPE_OAUTH2 = 'oauth2';
@@ -30,9 +34,9 @@ class SecurityScheme extends ExtensibleObject
 
     protected string|null $openIdConnectUrl = null;
 
-    public static function oauth2(string|null $objectId = null): static
+    public static function oauth2(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_OAUTH2);
+        return static::create($key)->type(static::TYPE_OAUTH2);
     }
 
     public function type(string|null $type): static

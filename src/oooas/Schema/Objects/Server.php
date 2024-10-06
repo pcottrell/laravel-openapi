@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Server extends ExtensibleObject
+class Server extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $url = null;
     protected string|null $description = null;
 
@@ -44,7 +48,7 @@ class Server extends ExtensibleObject
     {
         $variables = [];
         foreach ($this->variables ?? [] as $variable) {
-            $variables[$variable->objectId] = $variable->jsonSerialize();
+            $variables[$variable->key()] = $variable->jsonSerialize();
         }
 
         return Arr::filter([

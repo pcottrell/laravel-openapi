@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class RequestBody extends ExtensibleObject
+class RequestBody extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $description = null;
 
     /** @var MediaType[]|null */
@@ -45,7 +49,7 @@ class RequestBody extends ExtensibleObject
     {
         $content = [];
         foreach ($this->content ?? [] as $contentItem) {
-            $content[$contentItem->mediaType] = $contentItem;
+            $content[$contentItem->key()] = $contentItem;
         }
 
         return Arr::filter([

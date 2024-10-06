@@ -2,13 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\HasKey;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
+use Webmozart\Assert\Assert;
 
-class Response extends ExtensibleObject
+class Response extends ExtensibleObject implements HasKey
 {
-    protected int|null $statusCode = null;
-    protected string|null $description = null;
+    protected readonly int|string $statusCode;
+    protected readonly string $description;
 
     /** @var Header[]|null */
     protected array|null $headers = null;
@@ -19,99 +21,86 @@ class Response extends ExtensibleObject
     /** @var Link[]|null */
     protected array|null $links = null;
 
-    public static function ok(string|null $objectId = null): static
+    public static function default(string $description = 'Default Response'): static
     {
-        return static::create($objectId)
-            ->statusCode(200)
-            ->description('OK');
+        return static::create('default', $description);
     }
 
-    public function description(string|null $description): static
+    final public static function create(int|string $statusCode, string $description): static
     {
-        $clone = clone $this;
+        Assert::regex((string) $statusCode, '/^[1-5]\d{2}$/');
 
-        $clone->description = $description;
+        $instance = new static();
 
-        return $clone;
+        $instance->statusCode = $statusCode;
+        $instance->description = $description;
+
+        return $instance;
     }
 
-    public function statusCode(int|null $statusCode): static
+    public static function ok(string $description = 'OK'): static
     {
-        $clone = clone $this;
-
-        $clone->statusCode = $statusCode;
-
-        return $clone;
+        return static::create(200, $description);
     }
 
-    public static function created(string|null $objectId = null): static
+    public static function created(string $description = 'Created'): static
     {
-        return static::create($objectId)
-            ->statusCode(201)
-            ->description('Created');
+        return static::create(201, $description);
     }
 
-    public static function movedPermanently(string|null $objectId = null): static
+    public static function accepted(string $description = 'Accepted'): static
     {
-        return static::create($objectId)
-            ->statusCode(301)
-            ->description('Moved Permanently');
+        return static::create(202, $description);
     }
 
-    public static function movedTemporarily(string|null $objectId = null): static
+    public static function deleted(string $description = 'Deleted'): static
     {
-        return static::create($objectId)
-            ->statusCode(302)
-            ->description('Moved Temporarily');
+        return static::create(204, $description);
     }
 
-    public static function badRequest(string|null $objectId = null): static
+    public static function movedPermanently(string $description = 'Moved Permanently'): static
     {
-        return static::create($objectId)
-            ->statusCode(400)
-            ->description('Bad Request');
+        return static::create(301, $description);
     }
 
-    public static function unauthorized(string|null $objectId = null): static
+    public static function movedTemporarily(string $description = 'Moved Temporarily'): static
     {
-        return static::create($objectId)
-            ->statusCode(401)
-            ->description('Unauthorized');
+        return static::create(302, $description);
     }
 
-    public static function forbidden(string|null $objectId = null): static
+    public static function badRequest(string $description = 'Bad Request'): static
     {
-        return static::create($objectId)
-            ->statusCode(403)
-            ->description('Forbidden');
+        return static::create(400, $description);
     }
 
-    public static function notFound(string|null $objectId = null): static
+    public static function unauthorized(string $description = 'Unauthorized'): static
     {
-        return static::create($objectId)
-            ->statusCode(404)
-            ->description('Not Found');
+        return static::create(401, $description);
     }
 
-    public static function unprocessableEntity(string|null $objectId = null): static
+    public static function forbidden(string $description = 'Forbidden'): static
     {
-        return static::create($objectId)
-            ->statusCode(422)
-            ->description('Unprocessable Entity');
+        return static::create(403, $description);
     }
 
-    public static function tooManyRequests(string|null $objectId = null): static
+    public static function notFound(string $description = 'Not Found'): static
     {
-        return static::create($objectId)
-            ->statusCode(429)
-            ->description('Too Many Requests');
+        return static::create(404, $description);
     }
 
-    public static function internalServerError(string|null $objectId = null): static
+    public static function unprocessableEntity(string $description = 'Unprocessable Entity'): static
     {
-        return static::create($objectId)
-            ->statusCode(500)
-            ->description('Internal Server Error');
+        return static::create(422, $description);
+    }
+
+    public static function tooManyRequests(string $description = 'Too Many Requests'): static
+    {
+        return static::create(429, $description);
+    }
+
+    public static function internalServerError(string $description = 'Internal Server Error'): static
+    {
+        return static::create(500, $description);
     }
 
     public function headers(Header ...$header): static
@@ -145,17 +134,17 @@ class Response extends ExtensibleObject
     {
         $headers = [];
         foreach ($this->headers ?? [] as $header) {
-            $headers[$header->objectId] = $header;
+            $headers[$header->key()] = $header;
         }
 
         $content = [];
         foreach ($this->content ?? [] as $contentItem) {
-            $content[$contentItem->mediaType] = $contentItem;
+            $content[$contentItem->key()] = $contentItem;
         }
 
         $links = [];
         foreach ($this->links ?? [] as $link) {
-            $links[$link->objectId] = $link;
+            $links[$link->key()] = $link;
         }
 
         return Arr::filter([
@@ -164,5 +153,10 @@ class Response extends ExtensibleObject
             'content' => [] !== $content ? $content : null,
             'links' => [] !== $links ? $links : null,
         ]);
+    }
+
+    final public function key(): string
+    {
+        return (string) $this->statusCode;
     }
 }

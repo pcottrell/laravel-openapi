@@ -65,7 +65,7 @@ class Encoding extends ExtensibleObject
     {
         $headers = [];
         foreach ($this->headers ?? [] as $header) {
-            $headers[$header->objectId] = $header;
+            $headers[$header->key()] = $header;
         }
 
         return Arr::filter([

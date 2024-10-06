@@ -8,7 +8,9 @@ use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
+use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
+use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
+use Webmozart\Assert\Assert;
 
 class RouteInformation
 {
@@ -36,15 +38,17 @@ class RouteInformation
 
     public static function createFromRoute(Route $route): static
     {
-        return tap(new static(), static function (self $clone) use ($route): void {
-            $method = collect($route->methods())
-                ->map(static fn (string $value) => Str::lower($value))
-                ->filter(static fn (string $value): bool => !in_array($value, ['head', 'options'], true))
-                ->first();
+        $method = collect($route->methods())
+            ->map(static fn (string $value) => Str::lower($value))
+            ->filter(static fn (string $value): bool => !in_array($value, ['head', 'options'], true))
+            ->first();
 
-            if (is_null($method)) {
-                throw new InvalidArgumentException('Unsupported HTTP method [' . implode(', ', $route->methods()) . '] for route: ' . $route->uri());
-            }
+        Assert::notNull(
+            $method,
+            'Unsupported HTTP method [' . implode(', ', $route->methods()) . '] for route: ' . $route->uri(),
+        );
+
+        return tap(new static(), static function (self $clone) use ($route, $method): void {
 
             preg_match_all('/{(.*?)}/', $route->uri, $parameters);
             $parameters = collect($parameters[1]);
@@ -75,16 +79,24 @@ class RouteInformation
                 $reflectionMethod = $reflectionClass->getMethod($clone->action);
                 $clone->actionParameters = $reflectionMethod->getParameters();
 
-                $controllerAttributes = collect($reflectionClass->getAttributes())->map(
-                    static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
-                );
+                $controllerAttributes = collect($reflectionClass->getAttributes())
+                    ->map(
+                        static fn (
+                            \ReflectionAttribute $reflectionAttribute,
+                        ): object => $reflectionAttribute->newInstance(),
+                    );
 
-                $clone->actionAttributes = collect($reflectionMethod->getAttributes())->map(
-                    static fn (\ReflectionAttribute $reflectionAttribute): object => $reflectionAttribute->newInstance(),
-                );
+                $clone->actionAttributes = collect($reflectionMethod->getAttributes())
+                    ->map(
+                        static fn (
+                            \ReflectionAttribute $reflectionAttribute,
+                        ): object => $reflectionAttribute->newInstance(),
+                    );
             }
 
-            $containsControllerLevelParameter = $clone->actionAttributes->contains(static fn (object $value): bool => $value instanceof Parameter);
+            $containsControllerLevelParameter = $clone->actionAttributes->contains(
+                static fn (object $value): bool => $value instanceof Parameter,
+            );
 
             $clone->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $clone->domain = $route->domain();
@@ -109,5 +121,18 @@ class RouteInformation
     private static function isSerializedClosure(Route $route): bool
     {
         return RouteAction::containsSerializedClosure($route->action);
+    }
+
+    /** @return Collection<int, ResponseAttribute> */
+    public function responseAttributes(): Collection
+    {
+        return $this->actionAttributes
+            ->filter(static fn (object $attribute): bool => $attribute instanceof ResponseAttribute);
+    }
+
+    public function requestBodyAttribute(): RequestBody|null
+    {
+        return $this->actionAttributes
+            ->first(static fn (object $attribute): bool => $attribute instanceof RequestBody);
     }
 }

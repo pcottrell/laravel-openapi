@@ -2,14 +2,11 @@
 
 namespace Tests\Doubles\Stubs\Concerns;
 
-use MohammadAlavi\LaravelOpenApi\Concerns\Referencable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
 
-class NotReusableResponseFactory extends ResponseFactory
+class NotReusableResponseFactory implements ResponseFactory
 {
-    use Referencable;
-
     public function build(): Response
     {
         return Response::create();

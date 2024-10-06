@@ -2,12 +2,16 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Discriminator extends ExtensibleObject
+class Discriminator extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $propertyName = null;
     protected array|null $mapping = null;
 

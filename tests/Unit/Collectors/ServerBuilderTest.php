@@ -2,8 +2,9 @@
 
 namespace Tests\Unit\Collectors;
 
-use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ServerVariable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Doubles\Stubs\Servers\ServerWithEnum;
@@ -92,7 +93,7 @@ class ServerBuilderTest extends TestCase
                     'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
-                        'variable_name' => [
+                        'ServerVariable' => [
                             'default' => 'variable_defalut',
                             'description' => 'variable_description',
                         ],
@@ -102,12 +103,12 @@ class ServerBuilderTest extends TestCase
                     'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
-                        'variable_name' => [
+                        'ServerVariableA' => [
                             'enum' => ['A', 'B'],
                             'default' => 'variable_defalut',
                             'description' => 'variable_description',
                         ],
-                        'variable_name_B' => [
+                        'ServerVariableB' => [
                             'default' => 'sample',
                             'description' => 'sample',
                         ],
@@ -161,7 +162,11 @@ class ServerBuilderTest extends TestCase
             unset($actual[$key]);
         }
 
-        $this->assertCount(0, $actual, sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))));
+        $this->assertCount(
+            0,
+            $actual,
+            sprintf('[%s] does not matched keys.', implode(', ', array_keys($actual))),
+        );
     }
 
     #[DataProvider('multiTagProvider')]
@@ -170,7 +175,13 @@ class ServerBuilderTest extends TestCase
         $serverBuilder = app(ServerBuilder::class);
         $servers = $serverBuilder->build($factories);
 
-        $this->assertSame($expected, collect($servers)->map(static fn (Server $server): array => $server->jsonSerialize())->toArray());
+        $this->assertSame(
+            $expected,
+            collect($servers)
+            ->map(
+                static fn (Server $server): array => $server->jsonSerialize(),
+            )->toArray(),
+        );
     }
 
     #[DataProvider('invalidServerProvider')]

@@ -23,3 +23,5 @@ Go over OOOAS and Laravel-OpenApi issues in their respective repos and solve all
 Make everything that can be readonly, readonly and everything that can be final, final
 Make it so easy that it just works! with 1 command or click! DHH/Laravel mantra.
 Make the doics easy and conversational with a point of view, like Ruby on Rails doc?
+Does it make sense to document each method/property with docblock using the info from OAS docs?
+Get rid of all Nulls! as much as you can!

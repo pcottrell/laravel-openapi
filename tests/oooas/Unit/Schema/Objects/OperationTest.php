@@ -19,10 +19,10 @@ describe('Operation', function (): void {
     });
 
     it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
-        $securityScheme = SecurityScheme::create('OAuth2')
+        $securityScheme = SecurityScheme::create()
             ->type(SecurityScheme::TYPE_OAUTH2);
         $pathItem = PathItem::create('MyEvent')
-            ->route('{$request.query.callbackUrl}')
+            ->path('{$request.query.callbackUrl}')
             ->operations(
                 Operation::$actionMethod()->requestBody(
                     RequestBody::create()

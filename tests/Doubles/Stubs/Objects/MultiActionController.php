@@ -10,11 +10,6 @@ use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
 #[Collection('example')]
 class MultiActionController
 {
-    public function actionWithTypeHintedParams(int $id, string $unHinted, $unknown): void
-    {
-    }
-
-
     #[Operation]
     public function anotherExample(): void
     {

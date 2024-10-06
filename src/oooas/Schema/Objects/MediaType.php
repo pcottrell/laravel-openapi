@@ -2,12 +2,17 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\HasKey;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class MediaType extends ExtensibleObject
+class MediaType extends ExtensibleObject implements HasKey, SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     public const MEDIA_TYPE_APPLICATION_JSON = 'application/json';
     public const MEDIA_TYPE_APPLICATION_PDF = 'application/pdf';
     public const MEDIA_TYPE_IMAGE_JPEG = 'image/jpeg';
@@ -27,9 +32,17 @@ class MediaType extends ExtensibleObject
     /** @var Encoding[]|null */
     protected array|null $encoding = null;
 
-    public static function json(string|null $objectId = null): static
+    // TODO: for MediaType the only valid object keys are mediaType
+    // We have to prevent the user from creating an object with an invalid key
+    // The best candidate for key is an enum
+    // Right now it can be created with any arbitrary string via create method of the parent
+    // Also creating a MediaType object with a key is not necessary but we can do it anyway using the create method!
+    //  This should be prevented!
+    // public static function create(ObjectKeyContract $key = null): static;
+
+    public static function json(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_APPLICATION_JSON);
     }
 
@@ -42,45 +55,45 @@ class MediaType extends ExtensibleObject
         return $clone;
     }
 
-    public static function pdf(string|null $objectId = null): static
+    public static function pdf(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_APPLICATION_PDF);
     }
 
-    public static function jpeg(string|null $objectId = null): static
+    public static function jpeg(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_IMAGE_JPEG);
     }
 
-    public static function png(string|null $objectId = null): static
+    public static function png(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_IMAGE_PNG);
     }
 
-    public static function calendar(string|null $objectId = null): static
+    public static function calendar(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_TEXT_CALENDAR);
     }
 
-    public static function plainText(string|null $objectId = null): static
+    public static function plainText(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_TEXT_PLAIN);
     }
 
-    public static function xml(string|null $objectId = null): static
+    public static function xml(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_TEXT_XML);
     }
 
-    public static function formUrlEncoded(string|null $objectId = null): static
+    public static function formUrlEncoded(): static
     {
-        return static::create($objectId)
+        return static::create()
             ->mediaType(static::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED);
     }
 
@@ -120,16 +133,21 @@ class MediaType extends ExtensibleObject
         return $clone;
     }
 
+    final public function key(): string
+    {
+        return $this->mediaType;
+    }
+
     protected function toArray(): array
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->objectId] = $example->jsonSerialize();
+            $examples[$example->key()] = $example->jsonSerialize();
         }
 
         $encodings = [];
         foreach ($this->encoding ?? [] as $encoding) {
-            $encodings[$encoding->objectId] = $encoding->jsonSerialize();
+            $encodings[$encoding->key()] = $encoding->jsonSerialize();
         }
 
         return Arr::filter([

@@ -2,12 +2,20 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Contracts\SchemaContract;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Schema extends ExtensibleObject implements SchemaContract
+// TODO: for schema the $key is required I think. It should bre required when creating it via ny construction method
+class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreator
 {
+    // TODO: Implement $id from OAS spec 3.1
+    // public string|null $id = null;
+    use SimpleKeyCreatorTrait;
+
     public const TYPE_ARRAY = 'array';
     public const TYPE_BOOLEAN = 'boolean';
     public const TYPE_INTEGER = 'integer';
@@ -25,13 +33,14 @@ class Schema extends ExtensibleObject implements SchemaContract
     public const FORMAT_PASSWORD = 'password';
     public const FORMAT_UUID = 'uuid';
 
+    protected string|null $ref = null;
     protected string|null $title = null;
     protected string|null $description = null;
     protected array|null $enum = null;
     protected mixed $default = null;
     protected string|null $format = null;
     protected string|null $type = null;
-    protected SchemaContract|null $items = null;
+    protected SchemaContract|ReusableSchemaFactory|null $items = null;
     protected int|null $maxItems = null;
     protected int|null $minItems = null;
     protected bool|null $uniqueItems = null;
@@ -62,9 +71,18 @@ class Schema extends ExtensibleObject implements SchemaContract
     protected mixed $example = null;
     protected bool|null $deprecated = null;
 
-    public static function array(string|null $objectId = null): static
+    final public static function ref(string $key, string $ref): static
     {
-        return static::create($objectId)->type(static::TYPE_ARRAY);
+        $instance = static::create($key);
+
+        $instance->ref = $ref;
+
+        return $instance;
+    }
+
+    public static function array(string $key): static
+    {
+        return static::create($key)->type(static::TYPE_ARRAY);
     }
 
     public function type(string|null $type): static
@@ -76,29 +94,29 @@ class Schema extends ExtensibleObject implements SchemaContract
         return $clone;
     }
 
-    public static function boolean(string|null $objectId = null): static
+    public static function boolean(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_BOOLEAN);
+        return static::create($key)->type(static::TYPE_BOOLEAN);
     }
 
-    public static function integer(string|null $objectId = null): static
+    public static function integer(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_INTEGER);
+        return static::create($key)->type(static::TYPE_INTEGER);
     }
 
-    public static function number(string|null $objectId = null): static
+    public static function number(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_NUMBER);
+        return static::create($key)->type(static::TYPE_NUMBER);
     }
 
-    public static function object(string|null $objectId = null): static
+    public static function object(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_OBJECT);
+        return static::create($key)->type(static::TYPE_OBJECT);
     }
 
-    public static function string(string|null $objectId = null): static
+    public static function string(string $key): static
     {
-        return static::create($objectId)->type(static::TYPE_STRING);
+        return static::create($key)->type(static::TYPE_STRING);
     }
 
     public function title(string|null $title): static
@@ -146,7 +164,7 @@ class Schema extends ExtensibleObject implements SchemaContract
         return $clone;
     }
 
-    public function items(SchemaContract $schemaContract): static
+    public function items(SchemaContract|ReusableSchemaFactory $schemaContract): static
     {
         $clone = clone $this;
 
@@ -258,7 +276,8 @@ class Schema extends ExtensibleObject implements SchemaContract
     {
         foreach ($required as &$require) {
             if ($require instanceof self) {
-                $require = $require->objectId;
+                // TODO: search for objectId keyword usage everywhere
+                $require = $require::class;
             }
         }
 
@@ -269,7 +288,7 @@ class Schema extends ExtensibleObject implements SchemaContract
         return $clone;
     }
 
-    public function properties(SchemaContract ...$schemaContract): static
+    public function properties(SchemaContract|ReusableSchemaFactory ...$schemaContract): static
     {
         $clone = clone $this;
 
@@ -379,9 +398,13 @@ class Schema extends ExtensibleObject implements SchemaContract
 
     protected function toArray(): array
     {
+        if ($this->hasReference()) {
+            return ['$ref' => $this->ref];
+        }
+
         $properties = [];
         foreach ($this->properties ?? [] as $property) {
-            $properties[$property->objectId] = $property->jsonSerialize();
+            $properties[$property->key()] = $property->jsonSerialize();
         }
 
         return Arr::filter([
@@ -417,5 +440,11 @@ class Schema extends ExtensibleObject implements SchemaContract
             'example' => $this->example,
             'deprecated' => $this->deprecated,
         ]);
+    }
+
+    // TODO: wtf is this? dont forget to remove it
+    private function hasReference(): bool
+    {
+        return !is_null($this->ref);
     }
 }

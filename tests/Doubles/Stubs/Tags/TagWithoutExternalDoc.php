@@ -2,7 +2,7 @@
 
 namespace Tests\Doubles\Stubs\Tags;
 
-use MohammadAlavi\LaravelOpenApi\Factories\TagFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
 
 class TagWithoutExternalDoc extends TagFactory

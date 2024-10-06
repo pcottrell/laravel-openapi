@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\RequestBodyFactory as AbstractFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\RequestBodyFactory as RequestBodyFactoryContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
 
-class RequestBodyFactory extends AbstractFactory
+class RequestBodyFactory implements RequestBodyFactoryContract
 {
     public function build(): RequestBody
     {

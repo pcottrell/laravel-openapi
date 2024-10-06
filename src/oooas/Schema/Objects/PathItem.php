@@ -2,12 +2,17 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
+use Webmozart\Assert\Assert;
 
-class PathItem extends ExtensibleObject
+class PathItem extends ExtensibleObject implements SimpleCreator
 {
-    protected string|null $route = null;
+    use SimpleCreatorTrait;
+
+    protected string|null $path = null;
     protected string|null $summary = null;
     protected string|null $description = null;
 
@@ -20,11 +25,15 @@ class PathItem extends ExtensibleObject
     /** @var Parameter[]|null */
     protected array|null $parameters = null;
 
-    public function route(string|null $route): static
+    // TODO: this should be moved to a dedicated Path object which has PathItem objects
+    // https://learn.openapis.org/specification/paths.html
+    public function path(string $path): static
     {
+        Assert::startsWith($path, '/');
+
         $clone = clone $this;
 
-        $clone->route = $route;
+        $clone->path = $path;
 
         return $clone;
     }

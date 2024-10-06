@@ -2,10 +2,10 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\CallbackFactory as AbstractFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\CallbackFactory as CallbackFactoryContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
 
-class CallbackFactory extends AbstractFactory
+class CallbackFactory implements CallbackFactoryContract
 {
     public function build(): PathItem
     {

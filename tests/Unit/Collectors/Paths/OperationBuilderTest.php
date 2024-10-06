@@ -8,7 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\Response;
-use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
@@ -31,8 +31,6 @@ describe('OperationBuilder', function (): void {
         $operationA = $result[0];
         expect($result)->toBeArray()
             ->and($result)->toHaveCount(1)
-            ->and($operationA->ref)->toBe($expected[0]['ref'])
-            ->and($operationA->objectId)->toBe($expected[0]['objectId'])
             ->and($operationA->action)->toBe($expected[0]['action'])
             ->and($operationA->tags)->toBe($expected[0]['tags'])
             ->and($operationA->summary)->toBe($expected[0]['summary'])
@@ -49,7 +47,9 @@ describe('OperationBuilder', function (): void {
     })->with(
         [
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation = RouteInformation::createFromRoute(
+                    Route::get('test', static fn (): string => 'test'),
+                );
                 $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
@@ -67,7 +67,6 @@ describe('OperationBuilder', function (): void {
                     'routes' => [$routeInformation],
                     'expected' => [
                         [
-                            'ref' => null,
                             'summary' => '',
                             'description' => '',
                             'operationId' => 'test',
@@ -76,7 +75,6 @@ describe('OperationBuilder', function (): void {
                             'action' => 'get',
                             'servers' => null,
                             'tags' => null,
-                            'objectId' => null,
                             'parameters' => null,
                             'requestBody' => null,
                             'responses' => [],
@@ -87,7 +85,9 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation = RouteInformation::createFromRoute(
+                    Route::get('test', static fn (): string => 'test'),
+                );
                 $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
@@ -105,7 +105,6 @@ describe('OperationBuilder', function (): void {
                     'routes' => [$routeInformation],
                     'expected' => [
                         [
-                            'ref' => null,
                             'summary' => 'summary',
                             'description' => 'description',
                             'operationId' => 'test',
@@ -114,7 +113,6 @@ describe('OperationBuilder', function (): void {
                             'action' => 'post',
                             'servers' => null,
                             'tags' => null,
-                            'objectId' => null,
                             'parameters' => null,
                             'requestBody' => null,
                             'responses' => [],
@@ -125,7 +123,9 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(Route::get('test', static fn (): string => 'test'));
+                $routeInformation = RouteInformation::createFromRoute(
+                    Route::get('test', static fn (): string => 'test'),
+                );
                 $routeInformation->actionAttributes = collect([
                     new Callback(CallbackFactory::class),
                     new Collection('test'),
@@ -149,18 +149,20 @@ describe('OperationBuilder', function (): void {
                     'routes' => [$routeInformation],
                     'expected' => [
                         [
-                            'ref' => null,
                             'summary' => 'summary',
                             'description' => 'description',
                             'operationId' => 'test',
                             'deprecated' => true,
                             // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
                             //  it will be null in the SecurityRequirement object $securityScheme field
-                            'security' => SecurityRequirement::create()->securityScheme((new SecuritySchemeFactory())->build()),
+                            //  Based on OAS spec security requirement cant no have a name
+                            'security' => SecurityRequirement::create()
+                                ->securityScheme(
+                                    (new SecuritySchemeFactory())->build(),
+                                ),
                             'action' => 'get',
                             'servers' => [(new ServerWithMultipleVariableFormatting())->build()],
                             'tags' => ['PostWithExternalObjectDoc'],
-                            'objectId' => null,
                             'parameters' => (new ParameterFactory())->build(),
                             'requestBody' => (new RequestBodyFactory())->build(),
                             'responses' => [(new ResponseFactory())->build()],

@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParameterFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 readonly class Parameter

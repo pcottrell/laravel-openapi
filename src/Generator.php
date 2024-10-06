@@ -3,14 +3,14 @@
 namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Support\Arr;
-use MohammadAlavi\LaravelOpenApi\Collectors\ComponentCollector;
-use MohammadAlavi\LaravelOpenApi\Collectors\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Contracts\PathMiddleware;
+use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
 
 class Generator
 {
@@ -18,12 +18,12 @@ class Generator
     public const COLLECTION_DEFAULT = 'default';
 
     public function __construct(
-        private readonly array $config,
-        private readonly InfoBuilder $infoBuilder,
-        private readonly ServerBuilder $serverBuilder,
-        private readonly TagBuilder $tagBuilder,
-        private readonly PathBuilder $pathBuilder,
-        private readonly ComponentCollector $componentCollector,
+        private readonly array             $config,
+        private readonly InfoBuilder       $infoBuilder,
+        private readonly ServerBuilder     $serverBuilder,
+        private readonly TagBuilder        $tagBuilder,
+        private readonly PathsBuilder      $pathsBuilder,
+        private readonly ComponentsBuilder $componentCollector,
     ) {
     }
 
@@ -35,7 +35,7 @@ class Generator
         $security = $this->getConfigFor('security', $collection);
 
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
-        $paths = $this->pathBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
+        $paths = $this->pathsBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
         $components = $this->componentCollector->collect($collection, Arr::get($middlewaresConfig, 'components', []));
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 

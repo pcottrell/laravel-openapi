@@ -2,6 +2,7 @@
 
 namespace Tests\oooas\Integration;
 
+use Illuminate\Support\Facades\File;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
@@ -61,13 +62,13 @@ class PetStoreTest extends IntegrationTestCase
             ->description('maximum number of results to return')
             ->required(false)
             ->schema(
-                Schema::integer()->format(Schema::FORMAT_INT32),
+                Schema::integer('value')->format(Schema::FORMAT_INT32),
             );
 
-        $allOf = AllOf::create('Pet')
+        $allOf = AllOf::create()
             ->schemas(
                 Schema::ref('#/components/schemas/NewPet'),
-                Schema::create()
+                Schema::create('Pet')
                     ->required('id')
                     ->properties(
                         Schema::integer('id')->format(Schema::FORMAT_INT64),
@@ -91,16 +92,14 @@ class PetStoreTest extends IntegrationTestCase
         $components = Components::create()
             ->schemas($allOf, $newPetSchema, $errorSchema);
 
-        $petResponse = Response::ok()
-            ->description('pet response')
+        $petResponse = Response::ok('pet response')
             ->content(
                 MediaType::json()->schema(
                     Schema::ref('#/components/schemas/Pet'),
                 ),
             );
 
-        $petListingResponse = Response::ok()
-            ->description('pet response')
+        $petListingResponse = Response::ok('pet response')
             ->content(
                 MediaType::json()->schema(
                     Schema::array()->items(
@@ -109,8 +108,7 @@ class PetStoreTest extends IntegrationTestCase
                 ),
             );
 
-        $defaultErrorResponse = Response::create('Error')
-            ->description('unexpected error')
+        $defaultErrorResponse = Response::internalServerError('unexpected error')
             ->content(MediaType::json()->schema(
                 Schema::ref('#/components/schemas/Error'),
             ));
@@ -137,7 +135,7 @@ class PetStoreTest extends IntegrationTestCase
             ->responses($petResponse, $defaultErrorResponse);
 
         $pathItem = PathItem::create()
-            ->route('/pets')
+            ->path('/pets')
             ->operations($operation, $addPet);
 
         $petIdParameter = Parameter::path()
@@ -154,9 +152,7 @@ class PetStoreTest extends IntegrationTestCase
             ->parameters($petIdParameter)
             ->responses($petResponse, $defaultErrorResponse);
 
-        $petDeletedResponse = Response::create()
-            ->statusCode(204)
-            ->description('pet deleted');
+        $petDeletedResponse = Response::deleted('pet deleted');
 
         $deletePetById = Operation::delete()
             ->description('deletes a single pet based on the ID supplied')
@@ -165,7 +161,7 @@ class PetStoreTest extends IntegrationTestCase
             ->responses($petDeletedResponse, $defaultErrorResponse);
 
         $petNested = PathItem::create()
-            ->route('/pets/{id}')
+            ->path('/pets/{id}')
             ->operations($findPetById, $deletePetById);
 
         $openApi = OpenApi::create()
@@ -178,7 +174,7 @@ class PetStoreTest extends IntegrationTestCase
         $exampleResponse = file_get_contents(realpath(__DIR__ . '/../Doubles/Stubs/petstore_expanded.json'));
 
         $this->assertEquals(
-            json_decode($exampleResponse, true),
+            File::json($exampleResponse),
             $openApi->jsonSerialize(),
         );
     }

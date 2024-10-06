@@ -4,15 +4,18 @@ namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
-use MohammadAlavi\LaravelOpenApi\Collectors\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class OpenApi extends ExtensibleObject
+class OpenApi extends ExtensibleObject implements SimpleCreator
 {
-    private readonly OASVersion $openapi;
+    use SimpleCreatorTrait;
+
     protected Info|null $info = null;
 
     /** @var Server[]|null */
@@ -30,6 +33,7 @@ class OpenApi extends ExtensibleObject
     protected array|null $tags = null;
 
     protected ExternalDocs|null $externalDocs = null;
+    private readonly OASVersion $openapi;
 
     public function openapi(OASVersion $openapi): static
     {
@@ -148,7 +152,7 @@ class OpenApi extends ExtensibleObject
     {
         $paths = [];
         foreach ($this->paths ?? [] as $path) {
-            $paths[$path->route] = $path;
+            $paths[$path->path] = $path;
         }
 
         return Arr::filter([

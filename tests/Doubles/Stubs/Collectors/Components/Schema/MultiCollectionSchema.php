@@ -3,17 +3,16 @@
 namespace Tests\Doubles\Stubs\Collectors\Components\Schema;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
-use MohammadAlavi\LaravelOpenApi\Contracts\Reusable;
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 
 #[Collection(['test', Generator::COLLECTION_DEFAULT])]
-class MultiCollectionSchema extends SchemaFactory implements Reusable
+class MultiCollectionSchema extends ReusableSchemaFactory
 {
     public function build(): Schema
     {
-        return Schema::object('test collection Schema')
-            ->properties(Schema::integer('id'));
+        return Schema::object()
+            ->properties(Schema::integer());
     }
 }

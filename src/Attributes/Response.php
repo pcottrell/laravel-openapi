@@ -2,19 +2,22 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
+use Webmozart\Assert\Assert;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
 readonly class Response
 {
-    public string $factory;
+    public function __construct(
+        public string $factory,
+        public int|null $statusCode = null,
+        public string|null $description = null,
+    ) {
+        Assert::classExists($factory);
+        Assert::isAnyOf($factory, [ResponseFactory::class, ReusableResponseFactory::class]);
 
-    public function __construct(string $factory, public int|null $statusCode = null, public string|null $description = null)
-    {
-        $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Responses\\' . $factory;
-
-        if (!is_a($this->factory, ResponseFactory::class, true)) {
-            throw new \InvalidArgumentException('Factory class must be an instance of ResponseFactory');
-        }
+        // TODO What does this do? Ill remove it for now to see the consequences.
+        // $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Responses\\' . $factory;
     }
 }

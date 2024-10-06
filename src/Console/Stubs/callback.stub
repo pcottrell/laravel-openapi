@@ -15,7 +15,7 @@ class DummyClass extends CallbackFactory
     public function build(): PathItem
     {
         return PathItem::create('MyEvent')
-            ->route('{$request.body#/callbackUrl}')
+            ->path('{$request.body#/callbackUrl}')
             ->operations(
                 Operation::post()
                     ->requestBody(

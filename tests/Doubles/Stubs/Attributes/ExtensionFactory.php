@@ -2,7 +2,7 @@
 
 namespace Tests\Doubles\Stubs\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\ExtensionFactory as AbstractFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory as AbstractFactory;
 
 class ExtensionFactory extends AbstractFactory
 {

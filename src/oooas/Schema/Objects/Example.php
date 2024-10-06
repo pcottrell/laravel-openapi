@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Example extends ExtensibleObject
+class Example extends ExtensibleObject implements SimpleKeyCreator
 {
+    use SimpleKeyCreatorTrait;
+
     protected string|null $summary = null;
     protected string|null $description = null;
     protected mixed $value = null;
@@ -56,5 +60,10 @@ class Example extends ExtensibleObject
             'value' => $this->value,
             'externalValue' => $this->externalValue,
         ]);
+    }
+
+    public function key(): string
+    {
+        // TODO: Implement key() method.
     }
 }

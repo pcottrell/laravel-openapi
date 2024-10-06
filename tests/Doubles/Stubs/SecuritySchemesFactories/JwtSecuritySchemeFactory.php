@@ -2,14 +2,14 @@
 
 namespace Tests\Doubles\Stubs\SecuritySchemesFactories;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 class JwtSecuritySchemeFactory extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create('JWT')
+        return SecurityScheme::create()
             ->name('JwtTestScheme')
             ->type(SecurityScheme::TYPE_HTTP)
             ->in(SecurityScheme::IN_HEADER)

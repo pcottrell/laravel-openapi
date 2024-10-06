@@ -39,20 +39,18 @@ describe('OpenApi', function (): void {
 
         $schema = Schema::object()
             ->properties(
-                Schema::string('id')->format(Schema::FORMAT_UUID),
-                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
-                Schema::integer('age')->example(60),
-                Schema::array('data')->items(
+                Schema::string()->format(Schema::FORMAT_UUID),
+                Schema::string()->format(Schema::FORMAT_DATE_TIME),
+                Schema::integer()->example(60),
+                Schema::array()->items(
                     AllOf::create()->schemas(
-                        Schema::string('id')->format(Schema::FORMAT_UUID),
+                        Schema::string()->format(Schema::FORMAT_UUID),
                     ),
                 ),
             )
             ->required('id', 'created_at');
 
-        $expectedResponse = Response::create()
-            ->statusCode(200)
-            ->description('OK')
+        $expectedResponse = Response::ok()
             ->content(
                 MediaType::json()->schema($schema),
             );
@@ -72,7 +70,7 @@ describe('OpenApi', function (): void {
                 MediaType::json()->schema($schema),
             ));
 
-        $auditId = Schema::string('audit')
+        $auditId = Schema::string()
             ->format(Schema::FORMAT_UUID);
         $format = Schema::string('format')
             ->enum('json', 'ics')
@@ -96,10 +94,10 @@ describe('OpenApi', function (): void {
 
         $paths = [
             PathItem::create()
-                ->route('/audits')
+                ->path('/audits')
                 ->operations($operation, $createAudit),
             PathItem::create()
-                ->route('/audits/{audit}')
+                ->path('/audits/{audit}')
                 ->operations($readAudit),
         ];
 
@@ -112,7 +110,7 @@ describe('OpenApi', function (): void {
             ->flow(OAuthFlow::FLOW_PASSWORD)
             ->tokenUrl('https://api.example.com/oauth/authorize');
 
-        $securityScheme = SecurityScheme::oauth2('OAuth2')
+        $securityScheme = SecurityScheme::oauth2()
             ->flows($oAuthFlow);
 
         $components = Components::create()->securitySchemes($securityScheme);

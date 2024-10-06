@@ -52,7 +52,7 @@ describe('ExtensibleObject', function (): void {
     });
 
     it('serializes its extensions', function (): void {
-        $object = ExtensibleObjectFake::create('test');
+        $object = ExtensibleObjectFake::create();
         $extension1 = Extension::create('x-test', 'value');
         $extension2 = Extension::create('x-foo', 'bar');
         $object = $object->addExtension($extension1, $extension2);
@@ -60,23 +60,15 @@ describe('ExtensibleObject', function (): void {
         $result = $object->jsonSerialize();
 
         expect($result)->toBe([
-            'objectId' => 'test',
             'x-test' => 'value',
             'x-foo' => 'bar',
         ]);
     });
 
-    it('has a magic getter', function (): void {
-        $extensibleObjectFake = ExtensibleObjectFake::create('test');
-
-        $result = $extensibleObjectFake->objectId;
-
-        expect($result)->toBe('test');
-    });
-
     it('should throw an exception if property does not exist', function (): void {
-        $extensibleObjectFake = ExtensibleObjectFake::create('test');
+        $extensibleObjectFake = ExtensibleObjectFake::create();
 
-        expect(static fn () => $extensibleObjectFake->nonExistingProperty)->toThrow(PropertyDoesNotExistException::class);
+        expect(static fn () => $extensibleObjectFake->nonExistingProperty)
+            ->toThrow(PropertyDoesNotExistException::class);
     });
 })->covers(ExtensibleObject::class);

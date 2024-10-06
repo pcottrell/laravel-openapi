@@ -3,11 +3,15 @@
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
 use Illuminate\Support\Collection;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class SecurityRequirement extends ExtensibleObject
+class SecurityRequirement extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     protected string|null $securityScheme = null;
 
     /** @var array<array-key, SecurityScheme|array<array-key, SecurityScheme>> */
@@ -38,8 +42,12 @@ class SecurityRequirement extends ExtensibleObject
     {
         // TODO: maybe skip generating if empty?
         $spec = collect($this->nestedSecurityScheme)->map(
-            static function (SecurityScheme|array $securityScheme) {
+            static function (SecurityScheme|string|array $securityScheme) {
                 if ($securityScheme instanceof SecurityScheme) {
+                    return self::create()->securityScheme($securityScheme)->toArray();
+                }
+
+                if (is_string($securityScheme)) {
                     return self::create()->securityScheme($securityScheme)->toArray();
                 }
 
@@ -73,8 +81,11 @@ class SecurityRequirement extends ExtensibleObject
         }
 
         if ([] !== $this->scopes && !is_null($this->scopes)) {
+            /** @var SecurityScheme $scheme */
+            $scheme = app($this->securityScheme);
+
             return Arr::filter([
-                $this->securityScheme => [
+                $scheme->key() => [
                     'scopes' => $this->scopes,
                 ],
             ]);
@@ -84,15 +95,18 @@ class SecurityRequirement extends ExtensibleObject
             return [];
         }
 
+        /** @var SecurityScheme $scheme */
+        $scheme = app($this->securityScheme);
+
         return [Arr::filter([
-            $this->securityScheme => [],
+            $scheme->key() => [],
         ])];
     }
 
     public function securityScheme(SecurityScheme|string|null $securityScheme): static
     {
         if ($securityScheme instanceof SecurityScheme) {
-            $securityScheme = $securityScheme->objectId;
+            $securityScheme = $securityScheme::class;
         }
 
         $clone = clone $this;

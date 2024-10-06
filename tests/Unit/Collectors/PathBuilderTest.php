@@ -1,15 +1,15 @@
 <?php
 
-use Pest\Expectation;
 use Illuminate\Support\Facades\Route;
 use Mockery\MockInterface;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
-use MohammadAlavi\LaravelOpenApi\Collectors\PathBuilder;
-use MohammadAlavi\LaravelOpenApi\Collectors\Paths\OperationBuilder;
-use MohammadAlavi\LaravelOpenApi\Contracts\RouteCollector;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use Pest\Expectation;
 use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;
 
 describe('PathBuilder', function (): void {
@@ -68,7 +68,7 @@ describe('PathBuilder', function (): void {
 
     it('can be created with default collection', function (): void {
         $operationBuilder = app(OperationBuilder::class);
-        $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
+        $pathBuilder = new PathsBuilder($operationBuilder, $this->routeCollector);
 
         $result = $pathBuilder->build(Generator::COLLECTION_DEFAULT);
 
@@ -81,7 +81,7 @@ describe('PathBuilder', function (): void {
 
     it('can be created with custom collection', function (): void {
         $operationBuilder = app(OperationBuilder::class);
-        $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
+        $pathBuilder = new PathsBuilder($operationBuilder, $this->routeCollector);
 
         $result = $pathBuilder->build('custom');
 
@@ -94,7 +94,7 @@ describe('PathBuilder', function (): void {
 
     it('can be created with middleware', function (): void {
         $operationBuilder = app(OperationBuilder::class);
-        $pathBuilder = new PathBuilder($operationBuilder, $this->routeCollector);
+        $pathBuilder = new PathsBuilder($operationBuilder, $this->routeCollector);
         $mock = Mockery::spy(PathMiddlewareStub::class);
         $middlewareSpyB = Mockery::spy(PathMiddlewareStub::class);
         $middlewares = [
@@ -116,4 +116,4 @@ describe('PathBuilder', function (): void {
         $middlewareSpyB->shouldHaveReceived()->before($this->anotherCustomCollectionViaControllerAction)->once();
         $middlewareSpyB->shouldHaveReceived()->after(Mockery::type(PathItem::class))->twice();
     });
-})->covers(PathBuilder::class);
+})->covers(PathsBuilder::class);

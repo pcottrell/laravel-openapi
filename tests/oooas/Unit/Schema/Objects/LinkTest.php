@@ -11,8 +11,8 @@ describe('Link', function (): void {
     });
 
     it('can be created with all parameters', function (): void {
-        $server = Server::create('testServer');
-        $link = Link::create('LinkName')
+        $server = Server::create();
+        $link = Link::create()
             ->operationRef('testRef')
             ->operationId('testId')
             ->description('Some descriptions')

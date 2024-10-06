@@ -2,14 +2,18 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 // TODO: there are 2 different objects OAuthFlow and OAuthFlows, but we only have one!
 //  https://swagger.io/specification/#oauth-flows-object
-class OAuthFlow extends ExtensibleObject
+class OAuthFlow extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     public const FLOW_IMPLICIT = 'implicit';
     public const FLOW_PASSWORD = 'password';
     public const FLOW_CLIENT_CREDENTIALS = 'clientCredentials';

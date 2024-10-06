@@ -2,7 +2,7 @@
 
 namespace Tests\Doubles\Fakes\Petstore\SecuritySchemes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
@@ -12,7 +12,7 @@ class OAuth2PasswordGrantSecurityScheme extends SecuritySchemeFactory
     /** @throws InvalidArgumentException */
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create('OAuth2PasswordGrant')
+        return SecurityScheme::create()
             ->type(SecurityScheme::TYPE_OAUTH2)
             ->flows(
                 OAuthFlow::create()

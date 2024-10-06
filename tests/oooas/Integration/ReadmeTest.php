@@ -34,16 +34,14 @@ class ReadmeTest extends IntegrationTestCase
         // Create the user schema.
         $userSchema = Schema::object()
             ->properties(
-                Schema::string('id')->format(Schema::FORMAT_UUID),
-                Schema::string('name'),
-                Schema::integer('age')->example(23),
-                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
+                Schema::string()->format(Schema::FORMAT_UUID),
+                Schema::string(),
+                Schema::integer()->example(23),
+                Schema::string()->format(Schema::FORMAT_DATE_TIME),
             );
 
         // Create the user response.
-        $userResponse = Response::create()
-            ->statusCode(200)
-            ->description('OK')
+        $userResponse = Response::ok()
             ->content(
                 MediaType::json()->schema($userSchema),
             );
@@ -57,7 +55,7 @@ class ReadmeTest extends IntegrationTestCase
 
         // Define the /users path along with the supported operations.
         $pathItem = PathItem::create()
-            ->route('/users')
+            ->path('/users')
             ->operations($operation);
 
         // Create the main OpenAPI object composed off everything created above.
@@ -100,7 +98,7 @@ class ReadmeTest extends IntegrationTestCase
     public function testUnsettingVariadicMethods(): void
     {
         $pathItem = PathItem::create()
-            ->route('/users');
+            ->path('/users');
 
         $openApi = OpenApi::create()
             ->paths($pathItem);
@@ -152,8 +150,8 @@ class ReadmeTest extends IntegrationTestCase
     {
         $schema = Schema::object()
             ->properties(
-                Schema::string('username'),
-                Schema::integer('age'),
+                Schema::string(),
+                Schema::integer(),
             );
 
         $this->assertSame([

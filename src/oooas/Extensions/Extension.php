@@ -12,7 +12,11 @@ final class Extension implements \JsonSerializable
         public string $name,
         public mixed $value,
     ) {
-        Assert::startsWith($name, self::EXTENSION_PREFIX, 'Extension name must start with ' . self::EXTENSION_PREFIX);
+        Assert::startsWith(
+            $name,
+            self::EXTENSION_PREFIX,
+            'Extension name must start with ' . self::EXTENSION_PREFIX,
+        );
         Assert::notEq($name, 'x-oai-', 'Extension name cannot be x-oai-');
         Assert::notEq($name, 'x-oas-', 'Extension name cannot be x-oas-');
     }

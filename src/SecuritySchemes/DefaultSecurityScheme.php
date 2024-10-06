@@ -2,16 +2,17 @@
 
 namespace MohammadAlavi\LaravelOpenApi\SecuritySchemes;
 
-use MohammadAlavi\LaravelOpenApi\Factories\Component\SecuritySchemeFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 
 class DefaultSecurityScheme extends SecuritySchemeFactory
 {
+    // TODO: use the reusable name() method
     public const NAME = 'DefaultSecurityScheme';
 
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create('DefaultSecurityScheme')
+        return SecurityScheme::create()
             ->name('DefaultSecurityScheme');
     }
 }

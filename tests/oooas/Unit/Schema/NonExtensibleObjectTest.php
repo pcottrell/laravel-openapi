@@ -6,8 +6,7 @@ use Tests\oooas\Doubles\Fakes\NonExtensibleObjectFake;
 
 describe('NonExtensibleObject', function (): void {
     it('can be created', function (): void {
-        $nonExtensibleObjectFake = NonExtensibleObjectFake::create();
-
-        expect($nonExtensibleObjectFake)->toBeInstanceOf(BaseObject::class);
+        expect(NonExtensibleObjectFake::class)
+            ->toExtend(BaseObject::class);
     });
 })->covers(NonExtensibleObject::class);

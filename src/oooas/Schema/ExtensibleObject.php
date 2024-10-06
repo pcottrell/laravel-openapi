@@ -14,9 +14,8 @@ abstract class ExtensibleObject extends BaseObject
 {
     private readonly Extensions $extensions;
 
-    protected function __construct(string|null $objectId = null)
+    final protected function __construct()
     {
-        parent::__construct($objectId);
         $this->extensions = Extensions::create();
     }
 
