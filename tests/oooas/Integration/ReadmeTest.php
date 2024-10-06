@@ -148,10 +148,10 @@ class ReadmeTest extends IntegrationTestCase
 
     public function testSimplerObjectId(): void
     {
-        $schema = Schema::object()
+        $schema = Schema::object('test')
             ->properties(
-                Schema::string(),
-                Schema::integer(),
+                Schema::string('username'),
+                Schema::integer('age'),
             );
 
         $this->assertSame([

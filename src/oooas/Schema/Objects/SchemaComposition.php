@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
 use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
@@ -9,11 +10,10 @@ use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
 abstract class SchemaComposition extends ExtensibleObject implements SchemaContract, SimpleCreator
 {
-    /** @var Schema[]|null */
+    /** @var SchemaContract|ReusableSchemaFactory[]|null */
     protected array|null $schemas = null;
 
-    /** @param Schema[] $schema */
-    public function schemas(Schema ...$schema): static
+    public function schemas(SchemaContract|ReusableSchemaFactory ...$schema): static
     {
         $clone = clone $this;
 

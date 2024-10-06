@@ -16,12 +16,13 @@ describe('RouteCollector', function (): void {
         Route::patch('/has-both-pathItem-and-operation', ControllerWithPathItemAndOperationStub::class);
         Route::get('/has-no-operation', ControllerWithoutOperationStub::class);
         Route::delete('/has-both-pathItem-and-operation', ControllerWithPathItemAndOperationStub::class);
+        /** @var RouteCollector $routeCollector */
         $routeCollector = app(RouteCollector::class);
 
         $routes = $routeCollector->all();
 
-        if (expect($routes)->toHaveCount(5)) {
-            $routes->each(fn ($route) => expect($route)->toBeInstanceOf(RouteInformation::class));
+        if (expect($routes)->toHaveCount(8)) {
+            collect($routes)->each(fn ($route) => expect($route)->toBeInstanceOf(RouteInformation::class));
         }
     });
 })->covers(RouteCollector::class);

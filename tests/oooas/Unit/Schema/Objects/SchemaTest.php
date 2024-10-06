@@ -1,5 +1,7 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Discriminator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OneOf;
@@ -8,13 +10,13 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Xml;
 
 describe('Schema', function (): void {
     it('can create array schema with all parameters', function (): void {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->enum(['Earth'], ['Venus'], ['Mars'])
             ->default(['Earth'])
             ->type(Schema::TYPE_ARRAY)
-            ->items(Schema::string())
+            ->items(Schema::string('test'))
             ->maxItems(10)
             ->minItems(1)
             ->uniqueItems()
@@ -53,7 +55,7 @@ describe('Schema', function (): void {
     });
 
     it('can create boolean schema with all parameters', function (): void {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->default(false)
@@ -84,7 +86,7 @@ describe('Schema', function (): void {
     });
 
     it('can create integer schema with all parameters', function (): void {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->default(false)
@@ -127,7 +129,7 @@ describe('Schema', function (): void {
     });
 
     it('can create number schema with all parameters', function (): void {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->default(false)
@@ -170,7 +172,7 @@ describe('Schema', function (): void {
     it('can create object schema with all parameters', function (): void {
         $property = Schema::string('id')->format(Schema::FORMAT_UUID);
 
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->default(false)
@@ -218,7 +220,7 @@ describe('Schema', function (): void {
     });
 
     it('can create string schema with all parameters', function (): void {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->title('Schema title')
             ->description('Schema description')
             ->default(false)
@@ -257,24 +259,41 @@ describe('Schema', function (): void {
     });
 
     it('can create array schema with ref', function (): void {
-        $schema = Schema::array()->items(Schema::ref('#/components/schemas/pet'));
+        $reusableSchema = new class () extends ReusableSchemaFactory {
+            public function build(): SchemaContract
+            {
+                return Schema::object('pet')
+                    ->properties(
+                        Schema::string('name'),
+                        Schema::string('tag'),
+                    )
+                    ->required('name');
+            }
+
+            public static function key(): string
+            {
+                return 'test';
+            }
+        };
+        $schema = Schema::array('array')
+            ->items($reusableSchema);
 
         expect($schema->jsonSerialize())->toBe([
             'type' => 'array',
             'items' => [
-                '$ref' => '#/components/schemas/pet',
+                '$ref' => '#/components/schemas/test',
             ],
         ]);
     });
 
     it('can create object schema with oneOf', function (): void {
-        $string = Schema::string();
-        $number = Schema::number();
+        $string = Schema::string('string');
+        $number = Schema::number('number');
 
-        $schema = Schema::create()
+        $schema = Schema::create('poly_type')
             ->type(Schema::TYPE_OBJECT)
             ->properties(
-                OneOf::create('poly_type')->schemas($string, $number),
+                OneOf::create()->schemas($string, $number),
             );
 
         expect($schema->jsonSerialize())->toBe([

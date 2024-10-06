@@ -29,7 +29,13 @@ class PathItem extends ExtensibleObject implements SimpleCreator
     // https://learn.openapis.org/specification/paths.html
     public function path(string $path): static
     {
-        Assert::startsWith($path, '/');
+        // TODO: enable this later
+        // Right now it cause problem with callback
+        // because the path requirement is different for callback and path item.
+        // But right now the path is defined in PathItem.
+        // It should be moved to Path object.
+        // After that this validation should be enabled.
+        // Assert::startsWith($path, '/');
 
         $clone = clone $this;
 

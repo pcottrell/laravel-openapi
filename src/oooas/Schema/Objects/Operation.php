@@ -2,13 +2,17 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Operation extends ExtensibleObject
+class Operation extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     // TODO: refactor all const everywhere to enum
     public const ACTION_GET = 'get';
     public const ACTION_PUT = 'put';

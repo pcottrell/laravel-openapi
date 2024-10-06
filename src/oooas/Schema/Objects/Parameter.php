@@ -3,11 +3,15 @@
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
 use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Parameter extends ExtensibleObject
+class Parameter extends ExtensibleObject implements SimpleCreator
 {
+    use SimpleCreatorTrait;
+
     public const IN_QUERY = 'query';
     public const IN_HEADER = 'header';
     public const IN_PATH = 'path';

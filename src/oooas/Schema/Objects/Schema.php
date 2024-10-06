@@ -277,7 +277,7 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
         foreach ($required as &$require) {
             if ($require instanceof self) {
                 // TODO: search for objectId keyword usage everywhere
-                $require = $require::class;
+                $require = $require->key();
             }
         }
 
@@ -414,7 +414,7 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
             'default' => $this->default,
             'format' => $this->format,
             'type' => $this->type,
-            'items' => $this->items,
+            'items' => $this->items instanceof ReusableSchemaFactory ? ['$ref' => $this->items::ref()] : $this->items,
             'maxItems' => $this->maxItems,
             'minItems' => $this->minItems,
             'uniqueItems' => $this->uniqueItems,

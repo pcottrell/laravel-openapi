@@ -12,6 +12,6 @@ class MultiCollectionResponse extends ReusableResponseFactory
 {
     public function build(): Response
     {
-        return Response::create();
+        return Response::ok();
     }
 }

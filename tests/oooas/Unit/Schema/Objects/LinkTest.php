@@ -5,14 +5,14 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 
 describe('Link', function (): void {
     it('can be created with no parameters', function (): void {
-        $link = Link::create();
+        $link = Link::create('test');
 
         expect($link->jsonSerialize())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
         $server = Server::create();
-        $link = Link::create()
+        $link = Link::create('test')
             ->operationRef('testRef')
             ->operationId('testId')
             ->description('Some descriptions')

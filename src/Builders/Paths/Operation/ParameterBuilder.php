@@ -38,7 +38,7 @@ class ParameterBuilder
                         return null;
                     }
 
-                    $schema = $this->guessFromReflectionType($reflectionParameter->getType());
+                    $schema = $this->guessFromReflectionType($reflectionParameter->getType(), $reflectionParameter->getName());
                 }
 
                 return Parameter::path()->name($parameter['name'])
@@ -48,12 +48,12 @@ class ParameterBuilder
             ->filter();
     }
 
-    private function guessFromReflectionType(\ReflectionType $reflectionType): Schema
+    private function guessFromReflectionType(\ReflectionType $reflectionType, string $name): Schema
     {
         return match ($reflectionType->getName()) {
-            'int' => Schema::integer(),
-            'bool' => Schema::boolean(),
-            default => Schema::string(),
+            'int' => Schema::integer($name),
+            'bool' => Schema::boolean($name),
+            default => Schema::string($name),
         };
     }
 

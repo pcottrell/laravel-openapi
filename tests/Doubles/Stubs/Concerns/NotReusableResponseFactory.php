@@ -9,6 +9,6 @@ class NotReusableResponseFactory implements ResponseFactory
 {
     public function build(): Response
     {
-        return Response::create();
+        return Response::ok();
     }
 }

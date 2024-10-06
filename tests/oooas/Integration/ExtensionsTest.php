@@ -16,12 +16,12 @@ describe('Extensions', function (): void {
         fn (): Components => Components::create(),
         fn (): Operation => Operation::create(),
         fn (): PathItem => PathItem::create(),
-        fn (): Response => Response::create(),
-        fn (): Schema => Schema::create(),
+        fn (): Response => Response::ok(),
+        fn (): Schema => Schema::create('test'),
     ]);
 
     it('can create objects with extension', function (ExtensibleObject $extensibleObject): void {
-        $arraySchema = Schema::array()->items(Schema::string());
+        $arraySchema = Schema::array('test')->items(Schema::string('test'));
         $extension1 = Extension::create('x-key', 'value');
         $extension2 = Extension::create('x-foo', 'bar');
         $extension3 = Extension::create('x-baz', null);

@@ -2,11 +2,15 @@
 
 namespace MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SimpleKeyCreator;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\LaravelOpenApi\oooas\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
 
-class Encoding extends ExtensibleObject
+class Encoding extends ExtensibleObject implements SimpleKeyCreator
 {
+    use SimpleKeyCreatorTrait;
+
     protected string|null $contentType = null;
 
     /** @var Header[]|null */

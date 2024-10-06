@@ -20,6 +20,7 @@ use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
 use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
 use PHPUnit\Framework\Attributes\CoversNothing;
 use Tests\IntegrationTestCase;
+use Tests\oooas\Doubles\Stubs\ReusableSchemaStub;
 
 #[CoversNothing]
 class PetStoreTest extends IntegrationTestCase
@@ -52,8 +53,8 @@ class PetStoreTest extends IntegrationTestCase
             ->required(false)
             ->style(Parameter::STYLE_FORM)
             ->schema(
-                Schema::array()->items(
-                    Schema::string(),
+                Schema::array('test')->items(
+                    Schema::string('value'),
                 ),
             );
 
@@ -67,7 +68,7 @@ class PetStoreTest extends IntegrationTestCase
 
         $allOf = AllOf::create()
             ->schemas(
-                Schema::ref('#/components/schemas/NewPet'),
+                ReusableSchemaStub::create(),
                 Schema::create('Pet')
                     ->required('id')
                     ->properties(

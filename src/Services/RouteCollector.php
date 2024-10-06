@@ -18,11 +18,7 @@ final class RouteCollector extends Collection implements RouteCollectorContract
         private readonly Router $router,
     ) {
         parent::__construct($this->router->getRoutes());
-    }
-
-    public function whereInCollection(string $collection): self
-    {
-        return $this->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
+        $this->items = $this->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route): RouteInformation => RouteInformation::createFromRoute($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
@@ -32,7 +28,12 @@ final class RouteCollector extends Collection implements RouteCollectorContract
                     ->first(static fn (object $attribute): bool => $attribute instanceof Operation);
 
                 return $pathItem && $operation;
-            })->filter(
+            });
+    }
+
+    public function whereInCollection(string $collection): self
+    {
+        return $this->filter(
                 fn (RouteInformation $routeInformation): bool => $this
                 ->isInCollection($routeInformation, $collection),
             );
