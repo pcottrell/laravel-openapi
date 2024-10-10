@@ -13,6 +13,6 @@ class MultiCollectionSchema extends ReusableSchemaFactory
     public function build(): Schema
     {
         return Schema::object('object_test')
-            ->properties(Schema::integer('integer_test'));
+            ->properties(Schema::integer('id'));
     }
 }

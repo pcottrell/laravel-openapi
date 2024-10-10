@@ -12,6 +12,6 @@ class MultiCollectionCallback extends ReusableCallbackFactory
 {
     public function build(): PathItem
     {
-        return PathItem::create();
+        return PathItem::create()->path('/multi-collection-callback');
     }
 }
