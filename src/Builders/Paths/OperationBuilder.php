@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParametersBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
@@ -22,7 +22,7 @@ final readonly class OperationBuilder
     public function __construct(
         private TagBuilder $tagBuilder,
         private ServerBuilder $serverBuilder,
-        private ParameterBuilder $parameterBuilder,
+        private ParametersBuilder $parametersBuilder,
         private RequestBodyBuilder $requestBodyBuilder,
         private ResponseBuilder $responseBuilder,
         private SecurityRequirementBuilder $securityRequirementBuilder,
@@ -53,7 +53,7 @@ final readonly class OperationBuilder
             $servers
         ] = $this->parseOperationAttribute($routeInformation);
 
-        $parameters = $this->parameterBuilder->build($routeInformation);
+        $parameters = $this->parametersBuilder->build($routeInformation);
         $requestBody = $routeInformation->requestBodyAttribute()
             ? $this->requestBodyBuilder->build($routeInformation->requestBodyAttribute())
             : null;
@@ -67,7 +67,7 @@ final readonly class OperationBuilder
             ->description($description)
             ->operationId($operationId)
             ->deprecated($deprecated)
-            ->parameters(...$parameters)
+            ->parameters($parameters)
             ->requestBody($requestBody)
             ->responses(...$responses)
             ->callbacks(...$callbacks)

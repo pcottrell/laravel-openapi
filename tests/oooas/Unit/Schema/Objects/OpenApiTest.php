@@ -1,5 +1,6 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -97,14 +98,16 @@ describe('OpenApi', function (): void {
             ->summary('View an audit')
             ->operationId('audits.show')
             ->parameters(
-                Parameter::path()
-                    ->name('audit')
-                    ->schema($auditId)
-                    ->required(),
-                Parameter::query()
-                    ->name('format')
-                    ->schema($format)
-                    ->description('The format of the appointments'),
+                Parameters::create(
+                    Parameter::path()
+                        ->name('audit')
+                        ->schema($auditId)
+                        ->required(),
+                    Parameter::query()
+                        ->name('format')
+                        ->schema($format)
+                        ->description('The format of the appointments'),
+                ),
             );
 
         $paths = [

@@ -4,11 +4,12 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableCallbackFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableParameterFilter;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableRequestBodyFilter;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableResponseFilter;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableSchemaFilter;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableSecuritySchemeFilter;
-use MohammadAlavi\LaravelOpenApi\Services\CollectionLocator;
+use MohammadAlavi\LaravelOpenApi\Services\ComponentCollector;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 
 // TODO: add protection against invalid or duplicate component names
@@ -16,32 +17,36 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 final readonly class ComponentsBuilder
 {
     public function __construct(
-        private CollectionLocator $collectionLocator,
+        private ComponentCollector $collector,
     ) {
     }
 
     public function build(string $collection, array $middlewares = []): Components|null
     {
-        $callbacks = $this->collectionLocator
-            ->locateIn($this->getPathsFromConfig('callbacks'))
+        $callbacks = $this->collector
+            ->in($this->getPathsFromConfig('callbacks'))
             ->use(new ReusableCallbackFilter())
-            ->find($collection);
-        $requestBodies = $this->collectionLocator
-            ->locateIn($this->getPathsFromConfig('request_bodies'))
+            ->collect($collection);
+        $parameters = $this->collector
+            ->in($this->getPathsFromConfig('parameters'))
+            ->use(new ReusableParameterFilter())
+            ->collect($collection);
+        $requestBodies = $this->collector
+            ->in($this->getPathsFromConfig('request_bodies'))
             ->use(new ReusableRequestBodyFilter())
-            ->find($collection);
-        $responses = $this->collectionLocator
-            ->locateIn($this->getPathsFromConfig('responses'))
+            ->collect($collection);
+        $responses = $this->collector
+            ->in($this->getPathsFromConfig('responses'))
             ->use(new ReusableResponseFilter())
-            ->find($collection);
-        $schemas = $this->collectionLocator
-            ->locateIn($this->getPathsFromConfig('schemas'))
+            ->collect($collection);
+        $schemas = $this->collector
+            ->in($this->getPathsFromConfig('schemas'))
             ->use(new ReusableSchemaFilter())
-            ->find($collection);
-        $securitySchemes = $this->collectionLocator
-            ->locateIn($this->getPathsFromConfig('security_schemes'))
+            ->collect($collection);
+        $securitySchemes = $this->collector
+            ->in($this->getPathsFromConfig('security_schemes'))
             ->use(new ReusableSecuritySchemeFilter())
-            ->find($collection);
+            ->collect($collection);
 
         $components = Components::create();
 
@@ -51,6 +56,12 @@ final readonly class ComponentsBuilder
             $hasAnyObjects = true;
 
             $components = $components->callbacks(...$callbacks);
+        }
+
+        if (count($parameters) > 0) {
+            $hasAnyObjects = true;
+
+            $components = $components->parameters(...$parameters);
         }
 
         if (count($requestBodies) > 0) {

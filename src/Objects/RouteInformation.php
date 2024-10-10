@@ -7,7 +7,7 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use Webmozart\Assert\Assert;
@@ -22,7 +22,7 @@ class RouteInformation
     /** @var string|class-string<Controller> */
     public string $controller = 'Closure';
 
-    /** @var Collection<int, Parameter> */
+    /** @var Collection<int, Parameters> */
     public Collection $parameters;
 
     /** @var Collection<int, \Attribute> */
@@ -48,7 +48,7 @@ class RouteInformation
             'Unsupported HTTP method [' . implode(', ', $route->methods()) . '] for route: ' . $route->uri(),
         );
 
-        return tap(new static(), static function (self $clone) use ($route, $method): void {
+        return tap(new static(), static function (self $instance) use ($route, $method): void {
 
             preg_match_all('/{(.*?)}/', $route->uri, $parameters);
             $parameters = collect($parameters[1]);
@@ -62,22 +62,22 @@ class RouteInformation
 
             if (static::isControllerAction($route)) {
                 [$controller, $action] = Str::parseCallback($route->getAction('uses'));
-                $clone->action = $action;
-                $clone->controller = $controller;
+                $instance->action = $action;
+                $instance->controller = $controller;
             } elseif (!$route->getAction('uses') instanceof \Closure) {
-                $clone->controller = $route->getAction()[0];
-                $clone->action = '__invoke';
+                $instance->controller = $route->getAction()[0];
+                $instance->action = '__invoke';
             } else {
-                $clone->controller = 'Closure';
-                $clone->action = 'Closure';
+                $instance->controller = 'Closure';
+                $instance->action = 'Closure';
             }
 
-            $clone->parameters = collect();
-            $clone->actionAttributes = collect();
-            if ('Closure' !== $clone->controller) {
-                $reflectionClass = new \ReflectionClass($clone->controller);
-                $reflectionMethod = $reflectionClass->getMethod($clone->action);
-                $clone->actionParameters = $reflectionMethod->getParameters();
+            $instance->parameters = collect();
+            $instance->actionAttributes = collect();
+            if ('Closure' !== $instance->controller) {
+                $reflectionClass = new \ReflectionClass($instance->controller);
+                $reflectionMethod = $reflectionClass->getMethod($instance->action);
+                $instance->actionParameters = $reflectionMethod->getParameters();
 
                 $controllerAttributes = collect($reflectionClass->getAttributes())
                     ->map(
@@ -86,7 +86,7 @@ class RouteInformation
                         ): object => $reflectionAttribute->newInstance(),
                     );
 
-                $clone->actionAttributes = collect($reflectionMethod->getAttributes())
+                $instance->actionAttributes = collect($reflectionMethod->getAttributes())
                     ->map(
                         static fn (
                             \ReflectionAttribute $reflectionAttribute,
@@ -94,16 +94,16 @@ class RouteInformation
                     );
             }
 
-            $containsControllerLevelParameter = $clone->actionAttributes->contains(
-                static fn (object $value): bool => $value instanceof Parameter,
+            $containsControllerLevelParameter = $instance->actionAttributes->contains(
+                static fn (object $value): bool => $value instanceof Parameters,
             );
 
-            $clone->parameters = $containsControllerLevelParameter ? collect() : $parameters;
-            $clone->domain = $route->domain();
-            $clone->method = $method;
-            $clone->uri = Str::start($route->uri(), '/');
-            $clone->name = $route->getName();
-            $clone->controllerAttributes = $controllerAttributes ?? collect();
+            $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
+            $instance->domain = $route->domain();
+            $instance->method = $method;
+            $instance->uri = Str::start($route->uri(), '/');
+            $instance->name = $route->getName();
+            $instance->controllerAttributes = $controllerAttributes ?? collect();
         });
     }
 

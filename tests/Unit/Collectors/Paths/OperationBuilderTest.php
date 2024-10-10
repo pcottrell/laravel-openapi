@@ -5,7 +5,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameter;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\Response;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
@@ -140,7 +140,7 @@ describe('OperationBuilder', function (): void {
                         description: 'description',
                         deprecated: true,
                     ),
-                    new Parameter(ParameterFactory::class),
+                    new Parameters(ParameterFactory::class),
                     new RequestBody(RequestBodyFactory::class),
                     new Response(ResponseFactory::class),
                 ]);

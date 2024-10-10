@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Fakes\Petstore;
 
 use MohammadAlavi\LaravelOpenApi\Attributes as OpenApi;
-use Tests\Doubles\Fakes\Petstore\Parameters\ListPetsParameter;
+use Tests\Doubles\Fakes\Petstore\Parameters\ListPetsParameters;
 use Tests\Doubles\Fakes\Petstore\Responses\ErrorValidationResponse;
 use Tests\Doubles\Fakes\Petstore\Responses\ReusableComponentErrorValidationResponse;
 use Tests\Doubles\Fakes\Petstore\SecuritySchemes\BearerTokenSecurityScheme;
@@ -21,7 +21,7 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: true,
     )]
-    #[OpenApi\Parameter(ListPetsParameter::class)]
+    #[OpenApi\Parameters(ListPetsParameters::class)]
     #[OpenApi\Response(ReusableComponentErrorValidationResponse::class)]
     public function index(): void
     {
@@ -35,7 +35,7 @@ class PetController
         description: 'List all pets from the database.',
         deprecated: false,
     )]
-    #[OpenApi\Parameter(ListPetsParameter::class)]
+    #[OpenApi\Parameters(ListPetsParameters::class)]
     #[OpenApi\Response(ErrorValidationResponse::class)]
     public function multiPetTag(): void
     {
@@ -48,7 +48,7 @@ class PetController
         summary: 'List all pets.',
         description: 'List all pets from the database.',
     )]
-    #[OpenApi\Parameter(ListPetsParameter::class)]
+    #[OpenApi\Parameters(ListPetsParameters::class)]
     public function nestedSecurityFirst(): void
     {
     }

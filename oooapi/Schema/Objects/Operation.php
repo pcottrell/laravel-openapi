@@ -2,11 +2,12 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 class Operation extends ExtensibleObject implements SimpleCreator
@@ -32,10 +33,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     protected string|null $description = null;
     protected ExternalDocs|null $externalDocs = null;
     protected string|null $operationId = null;
-
-    /** @var Parameter[]|null */
-    protected array|null $parameters = null;
-
+    protected Parameters|null $parameters = null;
     protected RequestBody|null $requestBody = null;
 
     /** @var Response[]|null */
@@ -156,11 +154,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function parameters(Parameter ...$parameter): static
+    public function parameters(Parameters|null $parameters): static
     {
         $clone = clone $this;
 
-        $clone->parameters = [] !== $parameter ? $parameter : null;
+        $clone->parameters = $parameters;
 
         return $clone;
     }

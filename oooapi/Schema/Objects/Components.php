@@ -2,8 +2,13 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableCallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableRequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -12,34 +17,34 @@ class Components extends ExtensibleObject implements SimpleCreator
 {
     use SimpleCreatorTrait;
 
-    /** @var SchemaContract[]|null */
+    /** @var ReusableSchemaFactory[]|null */
     protected array|null $schemas = null;
 
-    /** @var Response[] */
-    protected array $responses = [];
+    /** @var ReusableResponseFactory[]|null */
+    protected array|null $responses = null;
 
-    /** @var Parameter[]|null */
+    /** @var ReusableParameterFactory[]|null */
     protected array|null $parameters = null;
 
     /** @var Example[]|null */
     protected array|null $examples = null;
 
-    /** @var RequestBody[]|null */
+    /** @var ReusableRequestBodyFactory[]|null */
     protected array|null $requestBodies = null;
 
     /** @var Header[]|null */
     protected array|null $headers = null;
 
-    /** @var SecurityScheme[]|null */
+    /** @var SecuritySchemeFactory[]|null */
     protected array|null $securitySchemes = null;
 
     /** @var Link[]|null */
     protected array|null $links = null;
 
-    /** @var PathItem[]|null */
+    /** @var ReusableCallbackFactory[]|null */
     protected array|null $callbacks = null;
 
-    public function schemas(SchemaContract ...$schemaContract): static
+    public function schemas(ReusableSchemaFactory ...$schemaContract): static
     {
         $clone = clone $this;
 
@@ -48,7 +53,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function responses(Response ...$response): static
+    public function responses(ReusableResponseFactory ...$response): static
     {
         $clone = clone $this;
 
@@ -57,7 +62,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function parameters(Parameter ...$parameter): static
+    public function parameters(ReusableParameterFactory ...$parameter): static
     {
         $clone = clone $this;
 
@@ -75,7 +80,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function requestBodies(RequestBody ...$requestBody): static
+    public function requestBodies(ReusableRequestBodyFactory ...$requestBody): static
     {
         $clone = clone $this;
 
@@ -93,7 +98,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function securitySchemes(SecurityScheme ...$securityScheme): static
+    public function securitySchemes(SecuritySchemeFactory ...$securityScheme): static
     {
         $clone = clone $this;
 
@@ -111,7 +116,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function callbacks(PathItem ...$pathItem): static
+    public function callbacks(ReusableCallbackFactory ...$pathItem): static
     {
         $clone = clone $this;
 
@@ -124,17 +129,17 @@ class Components extends ExtensibleObject implements SimpleCreator
     {
         $schemas = [];
         foreach ($this->schemas ?? [] as $schema) {
-            $schemas[$schema->key()] = $schema;
+            $schemas[$schema::key()] = $schema->build();
         }
 
         $responses = [];
-        foreach ($this->responses as $response) {
-            $responses[$response->key()] = $response;
+        foreach ($this->responses ?? [] as $response) {
+            $responses[$response::key()] = $response->build();
         }
 
         $parameters = [];
         foreach ($this->parameters ?? [] as $parameter) {
-            $parameters[$parameter->key()] = $parameter;
+            $parameters[$parameter::key()] = $parameter->build();
         }
 
         $examples = [];
@@ -144,7 +149,7 @@ class Components extends ExtensibleObject implements SimpleCreator
 
         $requestBodies = [];
         foreach ($this->requestBodies ?? [] as $requestBody) {
-            $requestBodies[$requestBody->key()] = $requestBody;
+            $requestBodies[$requestBody::key()] = $requestBody->build();
         }
 
         $headers = [];
@@ -154,7 +159,7 @@ class Components extends ExtensibleObject implements SimpleCreator
 
         $securitySchemes = [];
         foreach ($this->securitySchemes ?? [] as $securityScheme) {
-            $securitySchemes[$securityScheme->key()] = $securityScheme;
+            $securitySchemes[$securityScheme::key()] = $securityScheme->build();
         }
 
         $links = [];
@@ -164,7 +169,8 @@ class Components extends ExtensibleObject implements SimpleCreator
 
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
-            $callbacks[$callback->key()][$callback->path] = $callback;
+            $pathItem = $callback->build();
+            $callbacks[$callback::key()][$pathItem->path] = $pathItem;
         }
 
         return Arr::filter([

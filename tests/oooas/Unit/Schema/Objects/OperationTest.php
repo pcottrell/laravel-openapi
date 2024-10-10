@@ -38,7 +38,7 @@ describe('Operation', function (): void {
             ->operationId('users.show')
             ->parameters(Parameter::create())
             ->requestBody(RequestBody::create())
-            ->responses(Response::create())
+            ->responses(Response::default())
             ->deprecated()
             ->security(SecurityRequirement::create()->securityScheme($securityScheme))
             ->servers(Server::create())

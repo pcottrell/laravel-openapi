@@ -14,7 +14,7 @@ class ServerWithVariables extends ServerFactory
             ->url('https://example.com')
             ->description('sample_description')
             ->variables(
-                ServerVariable::create()
+                ServerVariable::create('variable_name')
                     ->default('variable_defalut')
                     ->description('variable_description'),
             );

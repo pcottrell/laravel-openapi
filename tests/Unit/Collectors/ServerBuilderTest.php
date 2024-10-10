@@ -69,12 +69,12 @@ class ServerBuilderTest extends TestCase
                     'url' => 'https://example.com',
                     'description' => 'sample_description',
                     'variables' => [
-                        'variable_name' => [
+                        'ServerVariableA' => [
                             'default' => 'variable_defalut',
                             'description' => 'variable_description',
                             'enum' => ['A', 'B'],
                         ],
-                        'variable_name_B' => [
+                        'ServerVariableB' => [
                             'default' => 'sample',
                             'description' => 'sample',
                         ],

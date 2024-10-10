@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameter as ParameterAttribute;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters as ParameterAttribute;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParametersBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
@@ -16,7 +16,7 @@ describe('ParameterBuilder', function (): void {
         $routeInformation->actionAttributes = collect([
             new ParameterAttribute(ParameterFactory::class),
         ]);
-        $builder = new ParameterBuilder();
+        $builder = new ParametersBuilder();
 
         $result = $builder->build($routeInformation);
 
@@ -32,7 +32,7 @@ describe('ParameterBuilder', function (): void {
         );
         $routeInformation->actionAttributes = collect();
 
-        $builder = new ParameterBuilder();
+        $builder = new ParametersBuilder();
 
         $result = $builder->build($routeInformation);
 
@@ -48,7 +48,7 @@ describe('ParameterBuilder', function (): void {
         );
         $routeInformation->actionAttributes = collect();
 
-        $parameterBuilder = new ParameterBuilder();
+        $parameterBuilder = new ParametersBuilder();
 
         $result = $parameterBuilder->build($routeInformation);
 
@@ -60,4 +60,4 @@ describe('ParameterBuilder', function (): void {
             ->and($typeHintedParam->required)->toBeTrue()
             ->and($typeHintedParam->schema->type)->toBe('integer');
     });
-})->covers(ParameterBuilder::class);
+})->covers(ParametersBuilder::class);

@@ -2,6 +2,12 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableCallbackFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableParameterFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableRequestBodyFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
@@ -14,46 +20,66 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableResponse;
-use Tests\UnitTestCase;
 
-#[CoversClass(Components::class)]
-class ComponentsTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
-        $schema = Schema::object('ExampleSchema');
+describe(class_basename(Components::class), function (): void {
+    it('can be create with all parameters', function (): void {
+        $schema = \Mockery::spy(ReusableSchemaFactory::class);
+        $schema->allows('key')
+            ->andReturn('ExampleSchema');
+        $schema->expects('build')
+            ->andReturn(Schema::object('ExampleSchema'));
 
-        $response = new TestReusableResponse();
+        $response = \Mockery::spy(ReusableResponseFactory::class);
+        $response->allows('key')
+            ->andReturn('ReusableResponse');
+        $response->expects('build')
+            ->andReturn(Response::created());
 
-        $parameter = Parameter::query()
-            ->name('page');
+        $parameter = \Mockery::spy(ReusableParameterFactory::class);
+        $parameter->allows('key')
+            ->andReturn('Page');
+        $parameter->expects('build')
+            ->andReturn(Parameter::query()->name('page'));
 
         $example = Example::create('Page')
             ->value(5);
 
-        $requestBody = RequestBody::create();
+        $requestBody = \Mockery::spy(ReusableRequestBodyFactory::class);
+        $requestBody->allows('key')
+            ->andReturn('CreateResource');
+        $requestBody->expects('build')
+            ->andReturn(RequestBody::create());
 
         $header = Header::create('HeaderExample');
 
         $oauthFlow = OAuthFlow::create()
             ->flow(OAuthFlow::FLOW_IMPLICIT)
             ->authorizationUrl('https://example.org/api/oauth/dialog');
-
-        $securityScheme = SecurityScheme::create('OAuth2')
-            ->type(SecurityScheme::TYPE_OAUTH2)
-            ->flows($oauthFlow);
+        $securityScheme = \Mockery::spy(SecuritySchemeFactory::class);
+        $securityScheme->allows('key')
+            ->andReturn('OAuth2');
+        $securityScheme->expects('build')
+            ->andReturn(
+                SecurityScheme::create('OAuth2')
+                    ->type(SecurityScheme::TYPE_OAUTH2)
+                    ->flows($oauthFlow),
+            );
 
         $link = Link::create('LinkExample');
 
-        $pathItem = PathItem::create()
-            ->path('{$request.query.callbackUrl}')
-            ->operations(
-                Operation::post()->requestBody(
-                    RequestBody::create()
-                        ->description('something happened'),
-                ),
+        $pathItem = \Mockery::spy(ReusableCallbackFactory::class);
+        $pathItem->allows('key')
+            ->andReturn('MyEvent');
+        $pathItem->expects('build')
+            ->andReturn(
+                PathItem::create()
+                    ->path('{$request.query.callbackUrl}')
+                    ->operations(
+                        Operation::post()->requestBody(
+                            RequestBody::create()
+                                ->description('something happened'),
+                        ),
+                    ),
             );
 
         $components = Components::create()
@@ -67,7 +93,7 @@ class ComponentsTest extends UnitTestCase
             ->links($link)
             ->callbacks($pathItem);
 
-        $this->assertSame([
+        expect($components->jsonSerialize())->toBe([
             'schemas' => [
                 'ExampleSchema' => [
                     'type' => 'object',
@@ -85,7 +111,7 @@ class ComponentsTest extends UnitTestCase
                 ],
             ],
             'examples' => [
-                'PageExample' => [
+                'Page' => [
                     'value' => 5,
                 ],
             ],
@@ -119,6 +145,6 @@ class ComponentsTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $components->jsonSerialize());
-    }
-}
+        ]);
+    });
+})->covers(Components::class);

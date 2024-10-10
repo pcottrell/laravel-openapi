@@ -26,7 +26,7 @@ class Header extends ExtensibleObject implements SimpleKeyCreator
     protected bool|null $allowEmptyValue = null;
     protected string|null $style = null;
     protected bool|null $explode = null;
-    protected string|null $allowReserved = null;
+    protected bool|null $allowReserved = null;
     protected SchemaContract|null $schema = null;
     protected mixed $example = null;
 

@@ -9,6 +9,8 @@ use Webmozart\Assert\Assert;
 
 class Response extends ExtensibleObject implements HasKey
 {
+    private const Default = 'default';
+
     protected readonly int|string $statusCode;
     protected readonly string $description;
 
@@ -23,12 +25,14 @@ class Response extends ExtensibleObject implements HasKey
 
     public static function default(string $description = 'Default Response'): static
     {
-        return static::create('default', $description);
+        return static::create(self::Default, $description);
     }
 
     final public static function create(int|string $statusCode, string $description): static
     {
-        Assert::regex((string) $statusCode, '/^[1-5]\d{2}$/');
+        if (self::Default !== $statusCode) {
+            Assert::regex((string) $statusCode, '/^[1-5]\d{2}$/');
+        }
 
         $instance = new static();
 

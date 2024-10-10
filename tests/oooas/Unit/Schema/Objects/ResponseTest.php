@@ -42,7 +42,7 @@ describe('Response', function (): void {
                     'allowEmptyValue' => true,
                     'style' => 'simple',
                     'explode' => true,
-                    'allowReserved' => '1',
+                    'allowReserved' => true,
                     'schema' => [
                         'type' => 'string',
                     ],

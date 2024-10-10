@@ -5,16 +5,10 @@ namespace Tests\oooas\Unit\Schema\Objects;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Header::class)]
-class HeaderTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe(class_basename(Header::class), function (): void {
+    it('can be created with all parameters', function (): void {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
             ->required()
@@ -25,34 +19,29 @@ class HeaderTest extends UnitTestCase
             ->allowReserved()
             ->schema(Schema::object('object_test'))
             ->example('Example value')
-            ->examples(Example::create('example_test'))
+            ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
 
-        $response = Response::create()
-            ->headers($header);
+        $response = $header->jsonSerialize();
 
-        $this->assertEquals([
-            'headers' => [
-                'HeaderName' => [
-                    'description' => 'Lorem ipsum',
-                    'required' => true,
-                    'deprecated' => true,
-                    'allowEmptyValue' => true,
-                    'style' => 'simple',
-                    'explode' => true,
-                    'allowReserved' => true,
-                    'schema' => [
-                        'type' => 'object',
-                    ],
-                    'example' => 'Example value',
-                    'examples' => [
-                        'ExampleName' => [],
-                    ],
-                    'content' => [
-                        'application/json' => [],
-                    ],
-                ],
+        expect($response)->toBe([
+            'description' => 'Lorem ipsum',
+            'required' => true,
+            'deprecated' => true,
+            'allowEmptyValue' => true,
+            'style' => 'simple',
+            'explode' => true,
+            'allowReserved' => true,
+            'schema' => [
+                'type' => 'object',
             ],
-        ], $response->jsonSerialize());
-    }
-}
+            'example' => 'Example value',
+            'examples' => [
+                'ExampleName' => [],
+            ],
+            'content' => [
+                'application/json' => [],
+            ],
+        ]);
+    });
+})->covers(Header::class);
