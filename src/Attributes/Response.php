@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\Respon
 use Webmozart\Assert\Assert;
 
 #[\Attribute(\Attribute::TARGET_METHOD | \Attribute::IS_REPEATABLE)]
-readonly class Response
+final readonly class Response
 {
     public function __construct(
         public string $factory,

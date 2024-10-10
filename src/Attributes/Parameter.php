@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\Attributes;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParameterFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
-readonly class Parameter
+final readonly class Parameter
 {
     public string $factory;
 

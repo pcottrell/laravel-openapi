@@ -3,6 +3,6 @@
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
-readonly class PathItem
+final readonly class PathItem
 {
 }

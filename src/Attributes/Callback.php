@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\Attributes;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\CallbackFactory;
 
 #[\Attribute]
-readonly class Callback
+final readonly class Callback
 {
     public string $factory;
 
