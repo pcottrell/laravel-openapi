@@ -14,6 +14,6 @@ class FakeExtension extends ExtensionFactory
 
     public function value(): Schema
     {
-        return Schema::string()->format(Schema::FORMAT_UUID);
+        return Schema::string('string_test')->format(Schema::FORMAT_UUID);
     }
 }

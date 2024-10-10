@@ -12,7 +12,7 @@ class ExampleTest extends UnitTestCase
 {
     public function testCreateWithAllParametersWorks(): void
     {
-        $example = Example::create()
+        $example = Example::create('example_test')
             ->summary('Summary ipsum')
             ->description('Description ipsum')
             ->value('Value')

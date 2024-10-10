@@ -41,7 +41,7 @@ describe('Extensions', function (): void {
     })->with('extensibleObjectSet');
 
     it('can unset extensions', function (): void {
-        $object = Schema::create()
+        $object = Schema::create('test')
             ->addExtension(Extension::create('x-key', 'value'))
             ->addExtension(Extension::create('x-foo', 'bar'))
             ->addExtension(Extension::create('x-baz', null));

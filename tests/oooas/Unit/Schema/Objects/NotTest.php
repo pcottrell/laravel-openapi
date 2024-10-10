@@ -14,7 +14,7 @@ class NotTest extends UnitTestCase
     public function testAsResponseWork(): void
     {
         $not = Not::create()
-            ->schema(Schema::string());
+            ->schema(Schema::string('test'));
 
         $mediaType = MediaType::json()
             ->schema($not);

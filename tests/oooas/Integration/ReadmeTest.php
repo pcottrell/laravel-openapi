@@ -32,12 +32,12 @@ class ReadmeTest extends IntegrationTestCase
             ->description('For using the Example App API');
 
         // Create the user schema.
-        $userSchema = Schema::object()
+        $userSchema = Schema::object('user')
             ->properties(
-                Schema::string()->format(Schema::FORMAT_UUID),
-                Schema::string(),
-                Schema::integer()->example(23),
-                Schema::string()->format(Schema::FORMAT_DATE_TIME),
+                Schema::string('id')->format(Schema::FORMAT_UUID),
+                Schema::string('name'),
+                Schema::integer('age')->example(23),
+                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
             );
 
         // Create the user response.
@@ -126,7 +126,7 @@ class ReadmeTest extends IntegrationTestCase
 
     public function testObjectId(): void
     {
-        $schema = Schema::create()
+        $schema = Schema::create('test')
             ->type(Schema::TYPE_OBJECT)
             ->properties(
                 Schema::create('username')->type(Schema::TYPE_STRING),

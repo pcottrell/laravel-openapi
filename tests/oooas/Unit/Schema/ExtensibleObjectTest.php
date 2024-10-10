@@ -7,13 +7,6 @@ use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
 use Tests\oooas\Doubles\Fakes\ExtensibleObjectFake;
 
 describe('ExtensibleObject', function (): void {
-    it('can be statically created', function (): void {
-        $extensibleObjectFake = ExtensibleObjectFake::create();
-
-        expect($extensibleObjectFake)->toBeInstanceOf(BaseObject::class)
-            ->and($extensibleObjectFake)->toBeInstanceOf(ExtensibleObject::class);
-    });
-
     it('can manipulate extensions', function (): void {
         $object = ExtensibleObjectFake::create();
         $extension1 = Extension::create('x-test', 'value');

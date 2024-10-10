@@ -19,7 +19,7 @@ class XmlTest extends UnitTestCase
             ->attribute()
             ->wrapped();
 
-        $schema = Schema::object()
+        $schema = Schema::object('test')
             ->xml($xml);
 
         $this->assertEquals([

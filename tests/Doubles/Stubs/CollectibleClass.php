@@ -3,12 +3,16 @@
 namespace Tests\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
+use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
 
 #[Collection('TestCollection')]
+#[PathItem]
 class CollectibleClass
 {
-    // TODO: use this to test collectors
-    //  also add another collection without the attribute so we can test the "default" collection
-    //  also add method collection! cus controllers can in collection as well as specific actions (methods) on
-    //   controllers can be in different collections
+    #[Operation]
+    public function __invoke(): string
+    {
+        return 'example';
+    }
 }

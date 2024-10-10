@@ -23,7 +23,7 @@ class DummyClass extends CallbackFactory
                             ->description('something happened')
                             ->content(
                                 MediaType::json()->schema(
-                                    Schema::object()
+                                    Schema::object('object_test')
                                         ->properties(
                                             Schema::string('foo')
                                         )

@@ -12,13 +12,25 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector as RouteColl
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
-final class RouteCollector extends Collection implements RouteCollectorContract
+final readonly class RouteCollector implements RouteCollectorContract
 {
     public function __construct(
-        private readonly Router $router,
+        private Router $router,
     ) {
-        parent::__construct($this->router->getRoutes());
-        $this->items = $this->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
+    }
+
+    public function whereInCollection(string $collection): Collection
+    {
+        return $this->all()->filter(
+            fn (RouteInformation $routeInformation): bool => $this
+                ->isInCollection($routeInformation, $collection),
+        );
+    }
+
+    public function all(): Collection
+    {
+        return collect($this->router->getRoutes())
+            ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route): RouteInformation => RouteInformation::createFromRoute($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
@@ -29,14 +41,6 @@ final class RouteCollector extends Collection implements RouteCollectorContract
 
                 return $pathItem && $operation;
             });
-    }
-
-    public function whereInCollection(string $collection): self
-    {
-        return $this->filter(
-                fn (RouteInformation $routeInformation): bool => $this
-                ->isInCollection($routeInformation, $collection),
-            );
     }
 
     private function isInCollection(RouteInformation $routeInformation, string $collection): bool

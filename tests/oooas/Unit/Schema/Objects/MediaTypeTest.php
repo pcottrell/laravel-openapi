@@ -15,9 +15,12 @@ describe('MediaType', function (): void {
     it('can be created with all parameters', function (): void {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
-            ->schema(Schema::object())
+            ->schema(Schema::object('object'))
             ->examples(Example::create('ExampleName'), Example::create('ExampleName2'))
-            ->example(Example::create())
+            // TODO: Allow creating a Example without a key.
+            // Sometimes examples are not named.
+            // For example, when there is only one example.
+            ->example(Example::create('ExampleName'))
             ->encoding(Encoding::create('EncodingName'));
 
         expect($mediaType->jsonSerialize())->toBe([

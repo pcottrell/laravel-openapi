@@ -13,8 +13,8 @@ class AllOfTest extends UnitTestCase
 {
     public function testTwoSchemasWork(): void
     {
-        $schema1 = Schema::string();
-        $schema2 = Schema::integer();
+        $schema1 = Schema::string('string_test');
+        $schema2 = Schema::integer('integer_test');
 
         $allOf = AllOf::create()
             ->schemas($schema1, $schema2);
@@ -33,8 +33,8 @@ class AllOfTest extends UnitTestCase
 
     public function testTwoSchemasAsResponseWork(): void
     {
-        $schema1 = Schema::string();
-        $schema2 = Schema::integer();
+        $schema1 = Schema::string('string_test');
+        $schema2 = Schema::integer('integer_test');
 
         $allOf = AllOf::create()
             ->schemas($schema1, $schema2);

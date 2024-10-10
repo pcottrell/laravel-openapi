@@ -19,7 +19,7 @@ class DummyClass extends ParametersFactory
                 ->name('parameter-name')
                 ->description('Parameter description')
                 ->required(false)
-                ->schema(Schema::string()),
+                ->schema(Schema::string('string_test')),
 
         ];
     }

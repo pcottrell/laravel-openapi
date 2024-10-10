@@ -23,9 +23,9 @@ class HeaderTest extends UnitTestCase
             ->style(Header::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::object())
+            ->schema(Schema::object('object_test'))
             ->example('Example value')
-            ->examples(Example::create())
+            ->examples(Example::create('example_test'))
             ->content(MediaType::json());
 
         $response = Response::create()

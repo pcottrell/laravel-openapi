@@ -11,11 +11,11 @@ class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 {
     public function build(): Response
     {
-        $schema = Schema::object()->properties(
-            Schema::string()->example('The given data was invalid.'),
-            Schema::object()
+        $schema = Schema::object('object_test')->properties(
+            Schema::string('string_test')->example('The given data was invalid.'),
+            Schema::object('object_test')
                 ->additionalProperties(
-                    Schema::array()->items(Schema::string()),
+                    Schema::array('array_test')->items(Schema::string('string_test')),
                 )
                 ->example(['field' => ['Something is wrong with this field!']]),
         );

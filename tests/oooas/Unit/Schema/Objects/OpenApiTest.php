@@ -37,14 +37,29 @@ describe('OpenApi', function (): void {
             ->description('For using the Example App API')
             ->contact($contact);
 
-        $schema = Schema::object()
+        // TODO: Allow creating a Schema without a key.
+        // Some schemas can be created without a key.
+        //  We can call them anonymous Schemas.
+        //  For example a Schema for a Response doesnt need a key.
+        //  This is not possible right now.
+        //  åBecause creating an Schema in anyway requires a "key".
+        //  I think we should proved this functionality but I don't know how yet!
+        //  Maybe we can create an AnonymousSchema class that extends Schema and doesn't require a key?
+        //  Find a better name for it!
+        //  Maybe Schema::anonymous()?
+        // Another idea would be to create a BaseSchema class without the create method.
+        //  Then create 2 Contracts, one for UnnamedSchema and another for NamedSchema.
+        //  These contracts define the create method and either accept the key or not.
+        // Then we accept the proper Contract when needed!
+        // For example here for response we can accept the UnnamedSchema contract!
+        $schema = Schema::object('response')
             ->properties(
-                Schema::string()->format(Schema::FORMAT_UUID),
-                Schema::string()->format(Schema::FORMAT_DATE_TIME),
-                Schema::integer()->example(60),
-                Schema::array()->items(
+                Schema::string('id')->format(Schema::FORMAT_UUID),
+                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
+                Schema::integer('age')->example(60),
+                Schema::array('date')->items(
                     AllOf::create()->schemas(
-                        Schema::string()->format(Schema::FORMAT_UUID),
+                        Schema::string('id')->format(Schema::FORMAT_UUID),
                     ),
                 ),
             )
@@ -70,7 +85,7 @@ describe('OpenApi', function (): void {
                 MediaType::json()->schema($schema),
             ));
 
-        $auditId = Schema::string()
+        $auditId = Schema::string('id')
             ->format(Schema::FORMAT_UUID);
         $format = Schema::string('format')
             ->enum('json', 'ics')
@@ -110,7 +125,7 @@ describe('OpenApi', function (): void {
             ->flow(OAuthFlow::FLOW_PASSWORD)
             ->tokenUrl('https://api.example.com/oauth/authorize');
 
-        $securityScheme = SecurityScheme::oauth2()
+        $securityScheme = SecurityScheme::oauth2('OAuth2')
             ->flows($oAuthFlow);
 
         $components = Components::create()->securitySchemes($securityScheme);

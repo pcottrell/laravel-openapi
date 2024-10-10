@@ -9,4 +9,7 @@ interface RouteCollector
 {
     /** @return Collection<int, RouteInformation> */
     public function whereInCollection(string $collection): Collection;
+
+    /** @return Collection<int, RouteInformation> */
+    public function all(): Collection;
 }

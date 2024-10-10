@@ -61,9 +61,4 @@ class Example extends ExtensibleObject implements SimpleKeyCreator
             'externalValue' => $this->externalValue,
         ]);
     }
-
-    public function key(): string
-    {
-        // TODO: Implement key() method.
-    }
 }

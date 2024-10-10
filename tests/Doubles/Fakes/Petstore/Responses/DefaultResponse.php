@@ -13,7 +13,7 @@ class DefaultResponse implements ResponseFactory
     {
         return Response::internalServerError('Default response')
             ->content(
-                MediaType::json()->schema(Schema::create()),
+                MediaType::json()->schema(Schema::create('default_response_schema')),
             );
     }
 }

@@ -23,7 +23,7 @@ class ParameterBuilder
     {
         return $routeInformation->parameters
             ->map(function (array $parameter) use ($routeInformation): Parameter|null {
-                $schema = Schema::string();
+                $schema = Schema::string('string_test');
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
                 $reflectionParameter = collect($routeInformation->actionParameters)

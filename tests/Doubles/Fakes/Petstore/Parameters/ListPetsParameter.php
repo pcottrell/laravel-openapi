@@ -17,7 +17,7 @@ class ListPetsParameter implements ParameterFactory
                 ->description('How many items to return at one time (max 100)')
                 ->required(false)
                 ->schema(
-                    Schema::integer()->format(Schema::FORMAT_INT32),
+                    Schema::integer('integer_test')->format(Schema::FORMAT_INT32),
                 ),
         ];
     }

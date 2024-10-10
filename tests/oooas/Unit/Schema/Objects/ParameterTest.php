@@ -23,8 +23,8 @@ describe('Parameter', function (): void {
             ->style(Parameter::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::string())
-            ->example(Example::create())
+            ->schema(Schema::string('string_test'))
+            ->example(Example::create('example_test'))
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
 

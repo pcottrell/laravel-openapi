@@ -311,7 +311,7 @@ describe('Schema', function (): void {
 
     it('can create schemas using methods', function ($method, $expectation): void {
         /** @var Schema $schema */
-        $schema = Schema::$method();
+        $schema = Schema::$method($method);
 
         expect($schema->jsonSerialize())->toBe([
             'type' => $expectation,

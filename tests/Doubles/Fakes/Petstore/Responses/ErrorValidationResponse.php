@@ -11,11 +11,11 @@ class ErrorValidationResponse implements ResponseFactory
 {
     public function build(): Response
     {
-        $schema = Schema::object()->properties(
+        $schema = Schema::object('object_test')->properties(
             Schema::string('message')->example('The given data was invalid.'),
             Schema::object('errors')
                 ->additionalProperties(
-                    Schema::array()->items(Schema::string()),
+                    Schema::array('array_test')->items(Schema::string('string_test')),
                 )
                 ->example(['field' => ['Something is wrong with this field!']]),
         );

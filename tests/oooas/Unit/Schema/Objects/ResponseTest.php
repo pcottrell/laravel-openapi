@@ -17,7 +17,7 @@ describe('Response', function (): void {
             ->style(Header::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::string())
+            ->schema(Schema::string('anonymous'))
             ->example('Example String')
             ->examples(
                 Example::create('ExampleName')

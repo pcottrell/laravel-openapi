@@ -103,7 +103,7 @@ class PetStoreTest extends IntegrationTestCase
         $petListingResponse = Response::ok('pet response')
             ->content(
                 MediaType::json()->schema(
-                    Schema::array()->items(
+                    Schema::array('array_test')->items(
                         Schema::ref('#/components/schemas/Pet'),
                     ),
                 ),
@@ -144,7 +144,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description('ID of pet to fetch')
             ->required()
             ->schema(
-                Schema::integer()->format(Schema::FORMAT_INT64),
+                Schema::integer('integer_test')->format(Schema::FORMAT_INT64),
             );
 
         $findPetById = Operation::get()
