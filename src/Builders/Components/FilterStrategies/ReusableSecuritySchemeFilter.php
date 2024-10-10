@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;

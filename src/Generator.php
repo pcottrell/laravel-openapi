@@ -3,13 +3,13 @@
 namespace MohammadAlavi\LaravelOpenApi;
 
 use Illuminate\Support\Arr;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
-use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 
 class Generator
@@ -18,12 +18,12 @@ class Generator
     public const COLLECTION_DEFAULT = 'default';
 
     public function __construct(
-        private readonly array             $config,
-        private readonly InfoBuilder       $infoBuilder,
-        private readonly ServerBuilder     $serverBuilder,
-        private readonly TagBuilder        $tagBuilder,
-        private readonly PathsBuilder      $pathsBuilder,
-        private readonly ComponentsBuilder $componentCollector,
+        private readonly array $config,
+        private readonly InfoBuilder $infoBuilder,
+        private readonly ServerBuilder $serverBuilder,
+        private readonly TagBuilder $tagBuilder,
+        private readonly PathsBuilder $pathsBuilder,
+        private readonly ComponentsBuilder $componentsBuilder,
     ) {
     }
 
@@ -36,7 +36,7 @@ class Generator
 
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
         $paths = $this->pathsBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
-        $components = $this->componentCollector->collect($collection, Arr::get($middlewaresConfig, 'components', []));
+        $components = $this->componentsBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
         $openApi = OpenApi::create()

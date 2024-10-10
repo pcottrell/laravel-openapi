@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Config;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use Pest\Expectation;
@@ -48,7 +48,7 @@ describe('ComponentsBuilder', function (): void {
     it('can collect components', function (string|null $collection, array|null $expectation): void {
         $builder = app(ComponentsBuilder::class);
 
-        $result = $builder->collect($collection);
+        $result = $builder->build($collection);
 
         expect($result)->unless(
             is_null($result),

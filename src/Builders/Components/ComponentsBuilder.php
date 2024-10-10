@@ -1,13 +1,13 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Reusable;
+namespace MohammadAlavi\LaravelOpenApi\Builders\Components;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableCallbackFilter;
-use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableRequestBodyFilter;
-use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableResponseFilter;
-use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableSchemaFilter;
-use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableSecuritySchemeFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableCallbackFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableRequestBodyFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableResponseFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableSchemaFilter;
+use MohammadAlavi\LaravelOpenApi\Builders\Components\FilterStrategies\ReusableSecuritySchemeFilter;
 use MohammadAlavi\LaravelOpenApi\Services\CollectionLocator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 
@@ -20,7 +20,7 @@ final readonly class ComponentsBuilder
     ) {
     }
 
-    public function collect(string $collection, array $middlewares = []): Components|null
+    public function build(string $collection, array $middlewares = []): Components|null
     {
         $callbacks = $this->collectionLocator
             ->locateIn($this->getPathsFromConfig('callbacks'))

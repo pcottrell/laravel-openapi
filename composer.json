@@ -71,7 +71,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "MohammadAlavi\\LaravelOpenApi\\OpenApiServiceProvider"
+                "MohammadAlavi\\LaravelOpenApi\\Providers\\OpenApiServiceProvider"
             ]
         }
     },

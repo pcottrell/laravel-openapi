@@ -3,7 +3,7 @@
 use Illuminate\Contracts\Foundation\Application;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\OpenApiServiceProvider;
+use MohammadAlavi\LaravelOpenApi\Providers\OpenApiServiceProvider;
 
 describe('OpenApiServiceProvider', function (): void {
     it('correctly registers stuff', function (): void {
