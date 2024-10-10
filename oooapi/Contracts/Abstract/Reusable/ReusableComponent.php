@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema;
+namespace MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Abstract\Reusable;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\ReusableRefObj as ReusableRefObjContract;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
