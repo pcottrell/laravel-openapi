@@ -2,29 +2,27 @@
 
 use Illuminate\Support\Facades\Config;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
-use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use Pest\Expectation;
 
-describe('ComponentsBuilder', function (): void {
+describe(class_basename(ComponentsBuilder::class), function (): void {
     beforeEach(function (): void {
         Config::set('openapi', [
-            'collections' => [
-                'test' => [
-                    'security' => [
-                        (new class () extends SecuritySchemeFactory {
-                            public function build(): SecurityScheme
-                            {
-                                return SecurityScheme::create()
-                                    ->type('http')
-                                    ->scheme('bearer');
-                            }
-                        })::class,
-                    ],
-                ],
-            ],
+            //            'collections' => [
+            //                'test' => [
+            //                    'security' => [
+            //                        (new class () extends SecuritySchemeFactory {
+            //                            public function build(): SecurityScheme
+            //                            {
+            //                                return SecurityScheme::create('test')
+            //                                    ->type('http')
+            //                                    ->scheme('bearer');
+            //                            }
+            //                        })::class,
+            //                    ],
+            //                ],
+            //            ],
             'locations' => [
                 'callbacks' => [
                     __DIR__ . '/../../Doubles/Stubs/Collectors/Components/Callback',
@@ -65,7 +63,15 @@ describe('ComponentsBuilder', function (): void {
                 'collection' => 'test',
                 'expectation' => [
                     'schemas' => [
-                        'test collection Schema' => [
+                        'ExplicitCollectionSchema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'integer',
+                                ],
+                            ],
+                        ],
+                        'MultiCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -75,16 +81,24 @@ describe('ComponentsBuilder', function (): void {
                         ],
                     ],
                     'responses' => [
-                        'ExplicitCollectionResponse' => [],
-                        'MultiCollectionResponse' => [],
+                        'ExplicitCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
+                        'MultiCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
                     ],
                     'requestBodies' => [
                         'MultiCollectionRequestBody' => [],
                         'ExplicitCollectionRequestBody' => [],
                     ],
                     'callbacks' => [
-                        'ExplicitCollectionCallback' => [],
-                        'MultiCollectionCallback' => [],
+                        'ExplicitCollectionCallback' => [
+                            '/explicit-collection-callback' => [],
+                        ],
+                        'MultiCollectionCallback' => [
+                            '/multi-collection-callback' => [],
+                        ],
                     ],
                 ],
             ],
@@ -92,7 +106,7 @@ describe('ComponentsBuilder', function (): void {
                 'collection' => Generator::COLLECTION_DEFAULT,
                 'expectation' => [
                     'schemas' => [
-                        'default collection Schema' => [
+                        'ImplicitCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -100,7 +114,7 @@ describe('ComponentsBuilder', function (): void {
                                 ],
                             ],
                         ],
-                        'test collection Schema' => [
+                        'MultiCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -110,16 +124,24 @@ describe('ComponentsBuilder', function (): void {
                         ],
                     ],
                     'responses' => [
-                        'ImplicitCollectionResponse' => [],
-                        'MultiCollectionResponse' => [],
+                        'ImplicitCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
+                        'MultiCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
                     ],
                     'requestBodies' => [
                         'MultiCollectionRequestBody' => [],
                         'ImplicitCollectionRequestBody' => [],
                     ],
                     'callbacks' => [
-                        'ImplicitCollectionCallback' => [],
-                        'MultiCollectionCallback' => [],
+                        'MultiCollectionCallback' => [
+                            '/multi-collection-callback' => [],
+                        ],
+                        'ImplicitDefaultCallback' => [
+                            '/implicit-default-callback' => [],
+                        ],
                     ],
                 ],
             ],
