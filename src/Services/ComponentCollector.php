@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\FilterStrategy;
 use MohammadAlavi\LaravelOpenApi\Generator;
 
-final class CollectionLocator
+final class ComponentCollector
 {
     public function __construct(
         private array|null $directories = null,
@@ -15,7 +15,7 @@ final class CollectionLocator
     ) {
     }
 
-    public function find(string $collection): Collection
+    public function collect(string $collection): Collection
     {
         $result = collect($this->directories)
             ->map(static function (string $directory): array {
@@ -55,7 +55,7 @@ final class CollectionLocator
         // TODO: refactor: maybe we can decouple this responsibility?
         // you know, instantiating the factories
         return $result
-            ->map(static fn (string $factory) => app($factory)->build())
+            ->map(static fn (string $factory) => app($factory))
             ->values();
     }
 
@@ -68,7 +68,7 @@ final class CollectionLocator
         return $clone;
     }
 
-    public function locateIn(array $directories): self
+    public function in(array $directories): self
     {
         $clone = clone $this;
 
