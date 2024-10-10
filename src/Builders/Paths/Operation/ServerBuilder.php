@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 
 readonly class ServerBuilder
 {

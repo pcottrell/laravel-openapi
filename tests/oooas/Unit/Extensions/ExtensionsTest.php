@@ -1,8 +1,8 @@
 <?php
 
 use Webmozart\Assert\InvalidArgumentException;
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extensions;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extensions;
 
 describe('Extensions', function (): void {
     it('checks if extension exists', function (): void {

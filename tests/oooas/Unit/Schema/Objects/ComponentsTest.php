@@ -2,18 +2,18 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Example;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Header;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Link;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Link;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableResponse;
 use Tests\UnitTestCase;

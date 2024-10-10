@@ -2,9 +2,9 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Not;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Not;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\UnitTestCase;
 

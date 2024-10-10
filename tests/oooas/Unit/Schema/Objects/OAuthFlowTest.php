@@ -1,7 +1,7 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\InvalidArgumentException;
+use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\InvalidArgumentException;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
 
 describe('OAuthFlow', function (): void {
     it('can be created with no parameters', function (): void {

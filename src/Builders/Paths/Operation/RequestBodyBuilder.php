@@ -5,8 +5,8 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableRequestBodyFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\RequestBodyFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Reference;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 
 class RequestBodyBuilder
 {

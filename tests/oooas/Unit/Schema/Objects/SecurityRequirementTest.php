@@ -2,8 +2,8 @@
 
 namespace Tests\oooas\Unit\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe('SecurityRequirement', function (): void {
     it('can be created with no parameters', function (): void {

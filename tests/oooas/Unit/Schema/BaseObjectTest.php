@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\BaseObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
 use Tests\oooas\Doubles\Fakes\BaseObjectFake;
 
 describe('BaseObject', function (): void {

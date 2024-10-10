@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Doubles\Fakes;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\BaseObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
 
 class BaseObjectFake extends BaseObject
 {

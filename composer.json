@@ -48,7 +48,7 @@
     "autoload": {
         "psr-4": {
             "MohammadAlavi\\LaravelOpenApi\\": "src/",
-            "MohammadAlavi\\ObjectOrientedOAS\\": "src/oooas/"
+            "MohammadAlavi\\ObjectOrientedOpenAPI\\": "oooapi/"
         }
     },
     "autoload-dev": {

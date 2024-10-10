@@ -2,12 +2,12 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\UnitTestCase;
 

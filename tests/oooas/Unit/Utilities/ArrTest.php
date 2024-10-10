@@ -2,9 +2,9 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
-use MohammadAlavi\ObjectOrientedOAS\Utilities\Arr;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 describe('Arr', function (): void {
     it('removes null values', function (): void {

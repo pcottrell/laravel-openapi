@@ -5,8 +5,8 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Reference;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 
 class ResponseBuilder
 {

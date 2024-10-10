@@ -3,8 +3,8 @@
 namespace Tests\Doubles\Fakes\Petstore\Parameters;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParameterFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class ListPetsParameter implements ParameterFactory
 {

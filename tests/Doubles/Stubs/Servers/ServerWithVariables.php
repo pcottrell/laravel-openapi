@@ -3,8 +3,8 @@
 namespace Tests\Doubles\Stubs\Servers;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ServerVariable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ServerVariable;
 
 class ServerWithVariables extends ServerFactory
 {

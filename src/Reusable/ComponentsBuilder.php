@@ -3,13 +3,13 @@
 namespace MohammadAlavi\LaravelOpenApi\Reusable;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
 use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableCallbackFilter;
 use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableRequestBodyFilter;
 use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableResponseFilter;
 use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableSchemaFilter;
 use MohammadAlavi\LaravelOpenApi\Reusable\FilterStrategies\ReusableSecuritySchemeFilter;
 use MohammadAlavi\LaravelOpenApi\Services\CollectionLocator;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 
 // TODO: add protection against invalid or duplicate component names
 // For now they are overwritten silently

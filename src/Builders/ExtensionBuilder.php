@@ -5,8 +5,8 @@ namespace MohammadAlavi\LaravelOpenApi\Builders;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension as ExtensionAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 
 class ExtensionBuilder
 {

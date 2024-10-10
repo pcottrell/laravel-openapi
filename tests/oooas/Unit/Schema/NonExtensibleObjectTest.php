@@ -1,7 +1,7 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\BaseObject;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\NonExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\NonExtensibleObject;
 use Tests\oooas\Doubles\Fakes\NonExtensibleObjectFake;
 
 describe('NonExtensibleObject', function (): void {

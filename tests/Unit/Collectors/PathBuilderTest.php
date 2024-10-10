@@ -1,15 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Mockery\MockInterface;
-use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathItemBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
-use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use Pest\Expectation;
 use Tests\Doubles\Stubs\CollectibleClass;
 use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;

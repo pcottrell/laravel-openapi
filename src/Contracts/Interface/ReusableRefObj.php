@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Reference;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 
 interface ReusableRefObj extends Reusable
 {

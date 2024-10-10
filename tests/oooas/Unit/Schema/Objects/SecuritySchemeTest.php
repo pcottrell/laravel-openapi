@@ -1,7 +1,7 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe('SecurityScheme', function (): void {
     it('can be created with no parameters', function (): void {

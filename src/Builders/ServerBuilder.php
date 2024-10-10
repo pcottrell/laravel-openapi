@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use Webmozart\Assert\Assert;
 
 class ServerBuilder

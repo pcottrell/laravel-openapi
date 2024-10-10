@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Reference;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use Tests\Doubles\Stubs\Attributes\RequestBodyFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableRequestBodyFactory;
 

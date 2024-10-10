@@ -2,8 +2,8 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\License;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Info;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\License;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\UnitTestCase;
 

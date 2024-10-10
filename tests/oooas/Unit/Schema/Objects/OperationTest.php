@@ -1,15 +1,15 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 
 describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {

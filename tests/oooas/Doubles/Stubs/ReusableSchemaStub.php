@@ -3,7 +3,7 @@
 namespace Tests\oooas\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class ReusableSchemaStub extends ReusableSchemaFactory
 {

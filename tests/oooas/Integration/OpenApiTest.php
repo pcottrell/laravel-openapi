@@ -1,24 +1,24 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\AllOf;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Contact;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Info;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Contact;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Info;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 
 describe('OpenApi', function (): void {
     it('can generate valid OpenAPI v3.1.0 docs', function (SecurityScheme $securityScheme): void {

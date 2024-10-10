@@ -2,11 +2,11 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Encoding;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Example;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Header;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\MediaType;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Encoding;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\UnitTestCase;
 

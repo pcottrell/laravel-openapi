@@ -3,8 +3,8 @@
 namespace Tests\Doubles\Fakes\Petstore\Tags;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 
 class AnotherPetTag extends TagFactory
 {

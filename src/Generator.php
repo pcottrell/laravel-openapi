@@ -8,9 +8,9 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 
 class Generator
 {

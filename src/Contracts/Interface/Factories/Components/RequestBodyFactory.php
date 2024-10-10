@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\ComponentFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\RequestBody;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 
 interface RequestBodyFactory extends ComponentFactory
 {

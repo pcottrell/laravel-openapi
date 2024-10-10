@@ -4,10 +4,10 @@ namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\Doubles\Stubs\FakeExtension;
 use Tests\TestCase;

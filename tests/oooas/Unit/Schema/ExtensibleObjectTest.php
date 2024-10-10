@@ -1,9 +1,9 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\BaseObject;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\ExtensibleObject;
-use MohammadAlavi\ObjectOrientedOAS\Exceptions\PropertyDoesNotExistException;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\PropertyDoesNotExistException;
 use Tests\oooas\Doubles\Fakes\ExtensibleObjectFake;
 
 describe('ExtensibleObject', function (): void {

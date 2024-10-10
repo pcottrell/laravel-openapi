@@ -3,9 +3,9 @@
 use Illuminate\Support\Facades\Config;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Components;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
 use MohammadAlavi\LaravelOpenApi\Reusable\ComponentsBuilder;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use Pest\Expectation;
 
 describe('ComponentsBuilder', function (): void {

@@ -1,12 +1,12 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Contracts\Interface\SchemaContract;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Discriminator;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ExternalDocs;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OneOf;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Xml;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OneOf;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
 
 describe('Schema', function (): void {
     it('can create array schema with all parameters', function (): void {

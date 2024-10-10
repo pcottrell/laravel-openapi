@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\ComponentFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 interface CallbackFactory extends ComponentFactory
 {

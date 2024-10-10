@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class FakeExtension extends ExtensionFactory
 {

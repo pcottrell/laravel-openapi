@@ -5,12 +5,12 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\Securit
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OAuthFlow;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityScheme;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Tag;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 
 beforeEach(function (): void {
     Config::set('openapi', [

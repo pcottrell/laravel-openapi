@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Extensions\Extension;
+use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 
 describe('Extension', function (): void {
     it('can create extension with mixed value', function (mixed $value): void {

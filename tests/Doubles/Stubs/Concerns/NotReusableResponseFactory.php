@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Concerns;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 
 class NotReusableResponseFactory implements ResponseFactory
 {

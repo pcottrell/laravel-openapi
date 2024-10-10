@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\ApiKeySecuritySchemeFactory;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\BearerSecuritySchemeFactory;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\JwtSecuritySchemeFactory;

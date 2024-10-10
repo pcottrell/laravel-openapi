@@ -1,9 +1,9 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\oooas\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
 use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
 

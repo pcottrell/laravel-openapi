@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory as ResponseFactoryContract;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 
 class ResponseFactory implements ResponseFactoryContract
 {

@@ -15,7 +15,7 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBui
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Operation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 
 final readonly class OperationBuilder
 {

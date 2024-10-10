@@ -3,8 +3,8 @@
 namespace Tests\Unit\Collectors;
 
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\ServerVariable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ServerVariable;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\Doubles\Stubs\Servers\ServerWithEnum;

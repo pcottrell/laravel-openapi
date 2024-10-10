@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface;
 
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 interface PathMiddleware
 {

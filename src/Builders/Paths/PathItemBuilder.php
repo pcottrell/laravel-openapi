@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 final readonly class PathItemBuilder
 {

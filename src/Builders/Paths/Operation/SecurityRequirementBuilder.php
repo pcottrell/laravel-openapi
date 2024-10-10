@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
 
 readonly class SecurityRequirementBuilder
 {

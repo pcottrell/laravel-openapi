@@ -1,7 +1,7 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Link;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Server;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Link;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 
 describe('Link', function (): void {
     it('can be created with no parameters', function (): void {

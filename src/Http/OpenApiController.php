@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Http;
 
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\OpenApi;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 
 class OpenApiController
 {

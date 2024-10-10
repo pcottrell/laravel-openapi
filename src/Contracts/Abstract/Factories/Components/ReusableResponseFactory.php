@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\ReusableComponent;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ReusableComponent;
 
 abstract class ReusableResponseFactory extends ReusableComponent implements ResponseFactory
 {

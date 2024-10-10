@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParameterFactory as ParameterFactoryContract;
-use MohammadAlavi\LaravelOpenApi\oooas\Schema\Objects\Parameter;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 
 class ParameterFactory implements ParameterFactoryContract
 {
