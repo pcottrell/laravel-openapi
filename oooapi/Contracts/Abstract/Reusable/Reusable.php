@@ -11,6 +11,9 @@ abstract class Reusable implements ReusableContract
 {
     use SimpleCreatorTrait;
 
+    /**
+     * The reference to the reusable component.
+     */
     abstract public static function ref(): Reference|string;
 
     final protected static function path(): string
@@ -34,6 +37,9 @@ abstract class Reusable implements ReusableContract
         return $name;
     }
 
+    /**
+     * The key of the reusable component that is used to reference it in other places.
+     */
     public static function key(): string
     {
         return class_basename(static::class);
