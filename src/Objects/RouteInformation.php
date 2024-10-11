@@ -16,7 +16,7 @@ class RouteInformation
 {
     public string|null $domain = null;
     public string $method;
-    public string $uri;
+    public string $url;
     public string|null $name = null;
 
     /** @var string|class-string<Controller> */
@@ -101,7 +101,7 @@ class RouteInformation
             $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $instance->domain = $route->domain();
             $instance->method = $method;
-            $instance->uri = Str::start($route->uri(), '/');
+            $instance->url = Str::start($route->uri(), '/');
             $instance->name = $route->getName();
             $instance->controllerAttributes = $controllerAttributes ?? collect();
         });

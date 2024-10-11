@@ -2,11 +2,13 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths;
 
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 
 final readonly class PathsBuilder
 {
@@ -16,38 +18,46 @@ final readonly class PathsBuilder
     ) {
     }
 
-    public function build(string $collection, PathMiddleware ...$pathMiddleware): array
+    public function build(string $collection, PathMiddleware ...$pathMiddleware): Paths
     {
-        return $this->routeCollector->whereInCollection($collection)
+        $paths = $this->routeCollector->whereInCollection($collection)
             ->map(
                 fn (RouteInformation $routeInformation): RouteInformation => $this
-                    ->applyBeforeMiddleware($routeInformation, $pathMiddleware),
-            )->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->uri)
+                    ->applyBeforeMiddleware($routeInformation, ...$pathMiddleware),
+            )->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->url)
             ->map(
-                fn (Collection $routes, string $uri): PathItem => $this
-                    ->pathItemBuilder->build($routes, $uri),
+                fn (Collection $routeInformation, string $url): Path => Path::create(
+                    $url,
+                    $this->pathItemBuilder->build(...$routeInformation),
+                ),
             )->map(
-                fn (PathItem $pathItem): PathItem => $this
-                    ->applyAfterMiddleware($pathItem, $pathMiddleware),
+                fn (Path $path): Path => $this
+                    ->applyAfterMiddlewares($path, ...$pathMiddleware),
             )->values()
             ->toArray();
+
+        return Paths::create(...$paths);
     }
 
-    private function applyBeforeMiddleware(RouteInformation $routeInformation, array $middlewares): RouteInformation
-    {
-        foreach ($middlewares as $middleware) {
-            $middleware->before($routeInformation);
-        }
-
-        return $routeInformation;
+    private function applyBeforeMiddleware(
+        RouteInformation $routeInformation,
+        PathMiddleware ...$pathMiddleware,
+    ): RouteInformation {
+        return app(Pipeline::class)
+            ->send($routeInformation)
+            ->through($pathMiddleware)
+            ->via('before')
+            ->thenReturn();
     }
 
-    private function applyAfterMiddleware(PathItem $pathItem, array $middlewares): PathItem
-    {
-        foreach ($middlewares as $middleware) {
-            $pathItem = $middleware->after($pathItem);
-        }
-
-        return $pathItem;
+    private function applyAfterMiddlewares(
+        Path $path,
+        PathMiddleware ...$pathMiddleware,
+    ): Path {
+        return app(Pipeline::class)
+            ->send($path)
+            ->through($pathMiddleware)
+            ->via('after')
+            ->thenReturn();
     }
 }

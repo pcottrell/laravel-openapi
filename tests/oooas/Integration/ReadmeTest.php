@@ -2,6 +2,8 @@
 
 namespace Tests\oooas\Integration;
 
+use Illuminate\Support\Facades\File;
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Info;
@@ -9,6 +11,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
@@ -54,21 +57,23 @@ class ReadmeTest extends IntegrationTestCase
             ->operationId('users.show');
 
         // Define the /users path along with the supported operations.
-        $pathItem = PathItem::create()
-            ->path('/users')
-            ->operations($operation);
+        $path = Path::create(
+            '/users',
+            PathItem::create()
+                ->operations($operation),
+        );
 
         // Create the main OpenAPI object composed off everything created above.
         $openApi = OpenApi::create()
             ->openapi(OASVersion::V_3_1_0)
             ->info($info)
-            ->paths($pathItem)
+            ->paths(Paths::create($path))
             ->tags($usersTag);
 
-        $readmeExample = file_get_contents(realpath(__DIR__ . '/../Doubles/Stubs/readme_example.json'));
+        $readmeExample = File::json(realpath(__DIR__ . '/../Doubles/Stubs/readme_example.json'));
 
         $this->assertEquals(
-            json_decode($readmeExample, true),
+            $readmeExample,
             $openApi->jsonSerialize(),
         );
     }
@@ -97,11 +102,13 @@ class ReadmeTest extends IntegrationTestCase
 
     public function testUnsettingVariadicMethods(): void
     {
-        $pathItem = PathItem::create()
-            ->path('/users');
+        $path = Path::create(
+            '/users',
+            PathItem::create(),
+        );
 
         $openApi = OpenApi::create()
-            ->paths($pathItem);
+            ->paths(Paths::create($path));
 
         $this->assertSame([
             'openapi' => OASVersion::V_3_1_0->value,
@@ -110,7 +117,7 @@ class ReadmeTest extends IntegrationTestCase
             ],
         ], $openApi->jsonSerialize());
 
-        $openApi = $openApi->paths();
+        $openApi = $openApi->paths(null);
 
         $this->assertSame([
             'openapi' => OASVersion::V_3_1_0->value,

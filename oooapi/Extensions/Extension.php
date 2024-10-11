@@ -2,9 +2,10 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 use Webmozart\Assert\Assert;
 
-final class Extension implements \JsonSerializable
+final class Extension extends JsonSerializable
 {
     private const EXTENSION_PREFIX = 'x-';
 
@@ -36,12 +37,7 @@ final class Extension implements \JsonSerializable
         return $this->name === $extension->name && $this->value === $extension->value;
     }
 
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
-    }
-
-    private function toArray(): array
+    protected function toArray(): array
     {
         return [$this->name => $this->value];
     }

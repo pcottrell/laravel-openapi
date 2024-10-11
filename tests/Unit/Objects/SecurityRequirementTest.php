@@ -1,13 +1,13 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\ApiKeySecuritySchemeFactory;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\BearerSecuritySchemeFactory;
 use Tests\Doubles\Stubs\SecuritySchemesFactories\JwtSecuritySchemeFactory;
 
 describe('SecurityRequirement', function (): void {
     it('can set nested security schemes', function (): void {
-        $securityRequirement = SecurityRequirement::create()
+        $securityRequirement = SecurityRequirementOld::create()
             ->nestedSecurityScheme(
                 [
                     [
@@ -28,4 +28,4 @@ describe('SecurityRequirement', function (): void {
             ],
         ]);
     });
-})->covers(SecurityRequirement::class);
+})->covers(SecurityRequirementOld::class);

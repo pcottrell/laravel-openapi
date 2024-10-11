@@ -2,18 +2,19 @@
 
 namespace Tests\Doubles\Stubs\Collectors\Components;
 
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 class PathMiddlewareStub implements PathMiddleware
 {
-    public function before(RouteInformation $routeInformation): void
+    public function before(RouteInformation $routeInformation): RouteInformation
     {
+        return $routeInformation;
     }
 
-    public function after(PathItem $pathItem): PathItem
+    public function after(Path $path): Path
     {
-        return $pathItem;
+        return $path;
     }
 }

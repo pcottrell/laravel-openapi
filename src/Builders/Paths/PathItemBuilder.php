@@ -2,7 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths;
 
-use Illuminate\Support\Collection;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 final readonly class PathItemBuilder
@@ -12,10 +13,13 @@ final readonly class PathItemBuilder
     ) {
     }
 
-    public function build(Collection $routes, string $uri): PathItem
+    public function build(RouteInformation ...$routes): PathItem
     {
-        $pathItem = PathItem::create()->path($uri);
-        $operations = $this->operationBuilder->build($routes);
+        $pathItem = PathItem::create();
+        $operations = collect($routes)
+            ->map(
+                fn (RouteInformation $routeInformation): Operation => $this->operationBuilder->build($routeInformation),
+            )->all();
 
         return $pathItem->operations(...$operations);
     }

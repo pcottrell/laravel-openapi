@@ -2,12 +2,12 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface;
 
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 
 interface PathMiddleware
 {
-    public function before(RouteInformation $routeInformation): void;
+    public function before(RouteInformation $routeInformation): RouteInformation;
 
-    public function after(PathItem $pathItem): PathItem;
+    public function after(Path $path): Path;
 }

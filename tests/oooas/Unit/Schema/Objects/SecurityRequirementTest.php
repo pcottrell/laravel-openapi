@@ -2,18 +2,18 @@
 
 namespace Tests\oooas\Unit\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe('SecurityRequirement', function (): void {
     it('can be created with no parameters', function (): void {
-        $securityRequirement = SecurityRequirement::create();
+        $securityRequirement = SecurityRequirementOld::create();
 
         expect($securityRequirement->jsonSerialize())->toBe([]);
     });
 
     it('can be created with all parameters', function (SecurityScheme|string $securityScheme, $expectation): void {
-        $securityRequirement = SecurityRequirement::create()
+        $securityRequirement = SecurityRequirementOld::create()
             ->securityScheme($securityScheme)
             ->scopes('read:user');
 
@@ -34,7 +34,7 @@ describe('SecurityRequirement', function (): void {
     ]);
 
     it('can be created with no scopes', function (SecurityScheme|string|null $securityScheme, array $expectation): void {
-        $securityRequirement = SecurityRequirement::create()
+        $securityRequirement = SecurityRequirementOld::create()
             ->securityScheme($securityScheme);
 
         expect($securityRequirement->jsonSerialize())->toBe($expectation);
@@ -47,7 +47,7 @@ describe('SecurityRequirement', function (): void {
     ]);
 
     it('can be created with scopes', function (...$scopes): void {
-        $securityRequirement = SecurityRequirement::create()
+        $securityRequirement = SecurityRequirementOld::create()
             ->securityScheme('OAuth2')
             ->scopes(...$scopes);
 
@@ -56,4 +56,4 @@ describe('SecurityRequirement', function (): void {
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],
     ]);
-})->covers(SecurityRequirement::class);
+})->covers(SecurityRequirementOld::class);

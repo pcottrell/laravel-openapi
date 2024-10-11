@@ -1,16 +1,16 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
-use Tests\oooas\Doubles\Fakes\BaseObjectFake;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use Tests\oooas\Doubles\Fakes\JsonSerializableFake;
 
 describe('BaseObject', function (): void {
     it('can be json serializable', function (): void {
-        expect(BaseObject::class)->toImplement(JsonSerializable::class);
+        expect(JsonSerializable::class)->toImplement(JsonSerializable::class);
 
-        $object = new BaseObjectFake();
+        $object = new JsonSerializableFake();
 
         $result = $object->jsonSerialize();
 
         expect($result)->toBe([]);
     });
-})->covers(BaseObject::class);
+})->covers(JsonSerializable::class);

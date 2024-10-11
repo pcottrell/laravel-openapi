@@ -5,7 +5,7 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters as ParametersAttribute;
 use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParametersFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;

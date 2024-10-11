@@ -42,7 +42,7 @@ class Generator
         $openApi = OpenApi::create()
             ->info($info)
             ->servers(...$servers)
-            ->paths(...$paths)
+            ->paths($paths)
             ->components($components)
             ->nestedSecurity($security)
             ->tags(...$tags);

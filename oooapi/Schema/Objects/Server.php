@@ -48,7 +48,7 @@ class Server extends ExtensibleObject implements SimpleCreator
     {
         $variables = [];
         foreach ($this->variables ?? [] as $variable) {
-            $variables[$variable->key()] = $variable->jsonSerialize();
+            $variables[$variable->key()] = $variable;
         }
 
         return Arr::filter([

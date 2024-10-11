@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema;
 
-abstract class NonExtensibleObject extends BaseObject
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+
+abstract class NonExtensibleObject extends JsonSerializable
 {
 }

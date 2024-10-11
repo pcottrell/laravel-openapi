@@ -8,6 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\Reusabl
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Callback;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
@@ -67,19 +68,22 @@ describe(class_basename(Components::class), function (): void {
 
         $link = Link::create('LinkExample');
 
-        $pathItem = \Mockery::spy(ReusableCallbackFactory::class);
-        $pathItem->allows('key')
+        $callback = \Mockery::spy(ReusableCallbackFactory::class);
+        $callback->allows('key')
             ->andReturn('MyEvent');
-        $pathItem->expects('build')
+        $callback->expects('build')
             ->andReturn(
-                PathItem::create()
-                    ->path('{$request.query.callbackUrl}')
-                    ->operations(
-                        Operation::post()->requestBody(
-                            RequestBody::create()
-                                ->description('something happened'),
+                Callback::create(
+                    'test',
+                    '{$request.query.callbackUrl}',
+                    PathItem::create()
+                        ->operations(
+                            Operation::post()->requestBody(
+                                RequestBody::create()
+                                    ->description('something happened'),
+                            ),
                         ),
-                    ),
+                ),
             );
 
         $components = Components::create()
@@ -91,7 +95,7 @@ describe(class_basename(Components::class), function (): void {
             ->headers($header)
             ->securitySchemes($securityScheme)
             ->links($link)
-            ->callbacks($pathItem);
+            ->callbacks($callback);
 
         expect($components->jsonSerialize())->toBe([
             'schemas' => [

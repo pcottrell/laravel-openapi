@@ -1,5 +1,7 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -12,10 +14,11 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
@@ -68,36 +71,42 @@ describe('OpenApi', function (): void {
             ->summary('View an audit')
             ->operationId('audits.show')
             ->parameters(
-                Parameter::path()
-                    ->name('audit')
-                    ->schema($auditId)
-                    ->required(),
-                Parameter::query()
-                    ->name('format')
-                    ->schema($format)
-                    ->description('The format of the appointments'),
+                Parameters::create(
+                    Parameter::path()
+                        ->name('audit')
+                        ->schema($auditId)
+                        ->required(),
+                    Parameter::query()
+                        ->name('format')
+                        ->schema($format)
+                        ->description('The format of the appointments'),
+                ),
             );
-        $paths = [
-            PathItem::create()
-                ->path('/audits')
-                ->operations($operationIndex, $operationCreate),
-            PathItem::create()
-                ->path('/audits/{audit}')
-                ->operations($operationGet),
-        ];
+        $paths = Paths::create(
+            Path::create(
+                '/audits',
+                PathItem::create()
+                    ->operations($operationIndex, $operationCreate),
+            ),
+            Path::create(
+                '/audits/{audit}',
+                PathItem::create()
+                    ->operations($operationGet),
+            ),
+        );
         $servers = [
             Server::create()->url('https://api.example.com/v1'),
             Server::create()->url('https://api.example.com/v2'),
         ];
         $components = Components::create()->securitySchemes($securityScheme);
-        $securityRequirement = SecurityRequirement::create()->securityScheme($securityScheme);
+        $securityRequirement = SecurityRequirementOld::create()->securityScheme($securityScheme);
         $externalDocs = ExternalDocs::create()
             ->url('https://example.com')
             ->description('Example');
         $openApi = OpenApi::create()
             ->openapi(OASVersion::V_3_1_0)
             ->info($info)
-            ->paths(...$paths)
+            ->paths($paths)
             ->servers(...$servers)
             ->components($components)
             ->security($securityRequirement)

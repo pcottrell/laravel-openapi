@@ -3,10 +3,9 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
 use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
@@ -24,7 +23,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     public const ACTION_PATCH = 'patch';
     public const ACTION_TRACE = 'trace';
 
-    protected string|null $action = null;
+    protected string|null $method = null;
 
     /** @var string[]|null */
     protected array|null $tags = null;
@@ -34,22 +33,19 @@ class Operation extends ExtensibleObject implements SimpleCreator
     protected ExternalDocs|null $externalDocs = null;
     protected string|null $operationId = null;
     protected Parameters|null $parameters = null;
-    protected RequestBody|null $requestBody = null;
+    protected RequestBody|Reference|null $requestBody = null;
 
-    /** @var Response[]|null */
+    /** @var Response|Reference[]|null */
     protected array|null $responses = null;
 
     protected bool|null $deprecated = null;
-
-    /** @var SecurityRequirement|SecurityRequirement[]|null */
-    protected SecurityRequirement|array|null $security = null;
-
+    protected Security|null $security = null;
     protected bool|null $noSecurity = null;
 
     /** @var Server[]|null */
     protected array|null $servers = null;
 
-    /** @var PathItem[]|null */
+    /** @var Callback[]|null */
     protected array|null $callbacks = null;
 
     public static function get(): static
@@ -61,7 +57,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     {
         $clone = clone $this;
 
-        $clone->action = $action;
+        $clone->method = $action;
 
         return $clone;
     }
@@ -190,55 +186,13 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    /**
-     * You should only send one security requirement per operation.
-     * If you send more than one, the first one will be used.
-     */
-    public function security(SecurityRequirement ...$securityRequirement): static
+    public function security(Security $security): static
     {
-        //        $clone = clone $this;
-        //
-        //        $clone->security = [] !== $securityRequirement ? $securityRequirement : null;
-        //        $clone->noSecurity = null;
-        //
-        //        return $clone;
-
-        if ([] === $securityRequirement) {
-            return $this;
-        }
-
         $clone = clone $this;
 
-        // true overrides "global security" = [] in the generated OpenAPI spec
-        // false/null uses $security
-        // we disable it and use $security to configure the security.
-        $clone->noSecurity = false;
-
-        if ($this->shouldUseGlobalSecurity($securityRequirement[0])) {
-            $clone->security = null;
-
-            return $clone;
-        }
-
-        if ($this->isPublic($securityRequirement[0])) {
-            $clone->security = [];
-
-            return $clone;
-        }
-
-        $clone->security = $securityRequirement[0];
+        $clone->security = $security;
 
         return $clone;
-    }
-
-    private function shouldUseGlobalSecurity(SecurityRequirement $securityRequirement): bool
-    {
-        return DefaultSecurityScheme::NAME === $securityRequirement->securityScheme;
-    }
-
-    private function isPublic(SecurityRequirement $securityRequirement): bool
-    {
-        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 
     public function noSecurity(): static
@@ -259,11 +213,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function callbacks(PathItem ...$pathItem): static
+    public function callbacks(Callback ...$callback): static
     {
         $clone = clone $this;
 
-        $clone->callbacks = [] !== $pathItem ? $pathItem : null;
+        $clone->callbacks = [] !== $callback ? $callback : null;
 
         return $clone;
     }
@@ -279,7 +233,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
 
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
-            $callbacks[$callback->key()][$callback->path] = $callback;
+            $callbacks[$callback->key()][$callback->expression] = $callback->pathItem;
         }
 
         return Arr::filter([
@@ -292,7 +246,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'requestBody' => $this->requestBody,
             'responses' => [] !== $responses ? $responses : null,
             'deprecated' => $this->deprecated,
-            'security' => true === $this->noSecurity ? [] : $this->security,
+            'security' => $this->security,
             'servers' => $this->servers,
             'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);

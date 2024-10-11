@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Fakes\Petstore\Parameters;
 
 use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParametersFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 

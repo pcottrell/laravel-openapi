@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Objects\Security\OAuth\Flows;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 

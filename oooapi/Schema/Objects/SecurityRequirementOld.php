@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-class SecurityRequirement extends ExtensibleObject implements SimpleCreator
+class SecurityRequirementOld extends ExtensibleObject implements SimpleCreator
 {
     use SimpleCreatorTrait;
 

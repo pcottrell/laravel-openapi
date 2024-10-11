@@ -139,7 +139,7 @@ class Header extends ExtensibleObject implements SimpleKeyCreator
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->key()] = $example->jsonSerialize();
+            $examples[$example->key()] = $example;
         }
 
         $content = [];

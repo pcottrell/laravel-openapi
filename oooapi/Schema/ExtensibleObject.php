@@ -2,15 +2,16 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extensions;
-use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\PropertyDoesNotExistException;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 
 // TODO: refactor!
 //  I mean, I don't even know the the extension supposed to work!
 //  I have to read the docs! Also, check if the Extension can be created per object as the docs seems to suggest.
 //   Or it is just generated for all objects! Like a global thing!
-abstract class ExtensibleObject extends BaseObject
+abstract class ExtensibleObject extends JsonSerializable
 {
     private readonly Extensions $extensions;
 

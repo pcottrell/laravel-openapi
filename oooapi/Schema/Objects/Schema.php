@@ -404,7 +404,7 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
 
         $properties = [];
         foreach ($this->properties ?? [] as $property) {
-            $properties[$property->key()] = $property->jsonSerialize();
+            $properties[$property->key()] = $property;
         }
 
         return Arr::filter([

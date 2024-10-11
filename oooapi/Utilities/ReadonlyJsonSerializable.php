@@ -1,8 +1,9 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema;
+namespace MohammadAlavi\ObjectOrientedOpenAPI\Utilities;
 
-abstract class BaseObject implements \JsonSerializable
+// TODO: is it possible to make this class readonly?
+abstract readonly class ReadonlyJsonSerializable implements \JsonSerializable
 {
     public function toJson(
         $options = JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT,

@@ -2,9 +2,9 @@
 
 namespace Tests\oooas\Doubles\Fakes;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 
-class NonExtensibleObjectFake extends BaseObject
+class NonExtensibleObjectFake extends JsonSerializable
 {
     protected function toArray(): array
     {

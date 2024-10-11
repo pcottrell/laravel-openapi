@@ -8,6 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 /** @internal */
 class Arr
 {
+    // TODO: maybe make a macro for on Laravel Arr facade?
     public static function filter(array $array): array
     {
         foreach ($array as $index => &$value) {

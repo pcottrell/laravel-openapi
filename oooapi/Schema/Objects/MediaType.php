@@ -142,12 +142,12 @@ class MediaType extends ExtensibleObject implements HasKey, SimpleCreator
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->key()] = $example->jsonSerialize();
+            $examples[$example->key()] = $example;
         }
 
         $encodings = [];
         foreach ($this->encoding ?? [] as $encoding) {
-            $encodings[$encoding->key()] = $encoding->jsonSerialize();
+            $encodings[$encoding->key()] = $encoding;
         }
 
         return Arr::filter([

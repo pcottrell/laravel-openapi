@@ -6,12 +6,14 @@ use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityRequirementBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
+use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -712,9 +714,13 @@ class SecurityRequirementBuilderTest extends TestCase
             ->components($components)
             ->nestedSecurity($globalSecurity)
             ->paths(
-                PathItem::create()
-                    ->path($route)
-                    ->operations($operation),
+                Paths::create(
+                    Path::create(
+                        $route,
+                        PathItem::create()
+                            ->operations($operation),
+                    ),
+                ),
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
@@ -759,9 +765,13 @@ class SecurityRequirementBuilderTest extends TestCase
             ->nestedSecurity($globalSecurity)
             ->components($components)
             ->paths(
-                PathItem::create()
-                    ->path('/foo')
-                    ->operations($operation),
+                Paths::create(
+                    Path::create(
+                        '/foo',
+                        PathItem::create()
+                            ->operations($operation),
+                    ),
+                ),
             );
 
         // Assert that the generated JSON matches the expected JSON for this scenario
@@ -797,9 +807,13 @@ class SecurityRequirementBuilderTest extends TestCase
             ->nestedSecurity([JwtSecuritySchemeFactory::class])
             ->components($components)
             ->paths(
-                PathItem::create()
-                    ->path('/foo')
-                    ->operations($operation),
+                Paths::create(
+                    Path::create(
+                        '/foo',
+                        PathItem::create()
+                            ->operations($operation),
+                    ),
+                ),
             );
 
         $expected = [
@@ -841,7 +855,7 @@ class SecurityRequirementBuilderTest extends TestCase
         $routeInformation->actionAttributes = collect([
             new AttributesOperation(security: JwtSecuritySchemeFactory::class),
         ]);
-        $routeInformation->uri = '/example';
+        $routeInformation->url = '/example';
 
         $securityRequirementBuilder = app(SecurityRequirementBuilder::class);
 
@@ -852,9 +866,13 @@ class SecurityRequirementBuilderTest extends TestCase
         $openApi = OpenApi::create()
             ->components($components)
             ->paths(
-                PathItem::create()
-                    ->path('/foo')
-                    ->operations($operation),
+                Paths::create(
+                    Path::create(
+                        '/foo',
+                        PathItem::create()
+                            ->operations($operation),
+                    ),
+                ),
             );
 
         $expected = [

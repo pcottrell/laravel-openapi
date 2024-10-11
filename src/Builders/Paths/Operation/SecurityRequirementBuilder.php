@@ -2,7 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\SecurityFactory;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 
 readonly class SecurityRequirementBuilder
 {
@@ -11,8 +12,11 @@ readonly class SecurityRequirementBuilder
     ) {
     }
 
-    public function build(string|array|null $securitySchemeFactories): SecurityRequirement
+    /**
+     * @param class-string<SecurityFactory>|null $securityFactory
+     */
+    public function build(string|null $securityFactory): Security
     {
-        return $this->securityRequirementBuilder->build($securitySchemeFactories);
+        return $this->securityRequirementBuilder->build($securityFactory);
     }
 }

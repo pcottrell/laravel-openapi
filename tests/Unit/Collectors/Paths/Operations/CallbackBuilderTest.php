@@ -1,28 +1,28 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
+use MohammadAlavi\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Callback;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableComponentCallbackFactory;
 
-describe('CallbackBuilder', function (): void {
+describe(class_basename(CallbackBuilder::class), function (): void {
     it('can be created', function (): void {
         $routeInformation = RouteInformation::createFromRoute(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
-            new Callback(CallbackFactory::class),
+            new CallbackAttribute(CallbackFactory::class),
         ]);
         $builder = new CallbackBuilder();
 
         $result = $builder->build($routeInformation);
 
         expect($result)->toHaveCount(1)
-            ->and($result[0])->toBeInstanceOf(PathItem::class);
+            ->and($result[0])->toBeInstanceOf(Callback::class);
     });
 
     it('can handle reusable components', function (): void {
@@ -30,8 +30,8 @@ describe('CallbackBuilder', function (): void {
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
-            new Callback(CallbackFactory::class),
-            new Callback(ReusableComponentCallbackFactory::class),
+            new CallbackAttribute(CallbackFactory::class),
+            new CallbackAttribute(ReusableComponentCallbackFactory::class),
         ]);
         $builder = new CallbackBuilder();
 
@@ -41,7 +41,7 @@ describe('CallbackBuilder', function (): void {
         /** @var Reference $reusablePathItem */
         $reusablePathItem = $result[1];
         expect($result)->toHaveCount(2)
-            ->and($pathItem)->toBeInstanceOf(PathItem::class)
+            ->and($pathItem)->toBeInstanceOf(Callback::class)
             ->and($reusablePathItem)->toBeInstanceOf(Reference::class)
             ->and($reusablePathItem->ref)
             ->toBe(

@@ -11,7 +11,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Response;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Attributes\ExtensionFactory;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
@@ -31,7 +31,7 @@ describe('OperationBuilder', function (): void {
         $operationA = $result[0];
         expect($result)->toBeArray()
             ->and($result)->toHaveCount(1)
-            ->and($operationA->action)->toBe($expected[0]['action'])
+            ->and($operationA->method)->toBe($expected[0]['action'])
             ->and($operationA->tags)->toBe($expected[0]['tags'])
             ->and($operationA->summary)->toBe($expected[0]['summary'])
             ->and($operationA->description)->toBe($expected[0]['description'])
@@ -156,7 +156,7 @@ describe('OperationBuilder', function (): void {
                             // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
                             //  it will be null in the SecurityRequirement object $securityScheme field
                             //  Based on OAS spec security requirement cant no have a name
-                            'security' => SecurityRequirement::create()
+                            'security' => SecurityRequirementOld::create()
                                 ->securityScheme(
                                     (new SecuritySchemeFactory())->build(),
                                 ),

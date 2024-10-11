@@ -6,13 +6,11 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use Webmozart\Assert\Assert;
 
 class PathItem extends ExtensibleObject implements SimpleCreator
 {
     use SimpleCreatorTrait;
 
-    protected string|null $path = null;
     protected string|null $summary = null;
     protected string|null $description = null;
 
@@ -24,25 +22,6 @@ class PathItem extends ExtensibleObject implements SimpleCreator
 
     /** @var Parameter[]|null */
     protected array|null $parameters = null;
-
-    // TODO: this should be moved to a dedicated Path object which has PathItem objects
-    // https://learn.openapis.org/specification/paths.html
-    public function path(string $path): static
-    {
-        // TODO: enable this later
-        // Right now it cause problem with callback
-        // because the path requirement is different for callback and path item.
-        // But right now the path is defined in PathItem.
-        // It should be moved to Path object.
-        // After that this validation should be enabled.
-        // Assert::startsWith($path, '/');
-
-        $clone = clone $this;
-
-        $clone->path = $path;
-
-        return $clone;
-    }
 
     public function summary(string|null $summary): static
     {
@@ -80,6 +59,7 @@ class PathItem extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
+    // TODO: change this to use Parameters object instead of an array of Parameters
     public function parameters(Parameter ...$parameter): static
     {
         $clone = clone $this;
@@ -93,14 +73,14 @@ class PathItem extends ExtensibleObject implements SimpleCreator
     {
         $operations = [];
         foreach ($this->operations ?? [] as $operation) {
-            $operations[$operation->action] = $operation->jsonSerialize();
+            $operations[$operation->method] = $operation;
         }
 
         return Arr::filter(
             [
-                ...$operations,
                 'summary' => $this->summary,
                 'description' => $this->description,
+                ...$operations,
                 'servers' => $this->servers,
                 'parameters' => $this->parameters,
             ],

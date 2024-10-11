@@ -183,7 +183,7 @@ class Parameter extends ExtensibleObject implements SimpleCreator
     {
         $examples = [];
         foreach ($this->examples ?? [] as $example) {
-            $examples[$example->key()] = $example->jsonSerialize();
+            $examples[$example->key()] = $example;
         }
 
         $content = [];

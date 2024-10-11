@@ -8,6 +8,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 
+// TODO: refactor this class to use the ExtensionFactory interface
 class ExtensionBuilder
 {
     public function build(ExtensibleObject $extensibleObject, Collection $attributes): void
@@ -15,11 +16,7 @@ class ExtensionBuilder
         $attributes
             ->filter(static fn (object $attribute): bool => $attribute instanceof ExtensionAttribute)
             ->each(static function (ExtensionAttribute $extensionAttribute) use ($extensibleObject): void {
-                if (
-                    !is_null($extensionAttribute->factory)
-                    && '' !== $extensionAttribute->factory
-                    && '0' !== $extensionAttribute->factory
-                ) {
+                if (is_a($extensionAttribute->factory, ExtensionFactory::class, true)) {
                     /** @var ExtensionFactory $factory */
                     $factory = app($extensionAttribute->factory);
                     $key = $factory->key();

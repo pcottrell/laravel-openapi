@@ -1,7 +1,6 @@
 <?php
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\BaseObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\PropertyDoesNotExistException;
 use Tests\oooas\Doubles\Fakes\ExtensibleObjectFake;

@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Attributes;
 
 use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ParametersFactory as ParametersFactoryInterface;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParametersFactory as ParametersFactoryInterface;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use Tests\Doubles\Stubs\Concerns\TestReusableParameter;
 

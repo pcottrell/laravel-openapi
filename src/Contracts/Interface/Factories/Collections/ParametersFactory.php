@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components;
+namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections;
 
 use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\ComponentFactory;

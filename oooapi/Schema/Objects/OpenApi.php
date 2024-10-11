@@ -5,11 +5,12 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 class OpenApi extends ExtensibleObject implements SimpleCreator
@@ -21,13 +22,9 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
     /** @var Server[]|null */
     protected array|null $servers = null;
 
-    /** @var PathItem[]|null */
-    protected array|null $paths = null;
-
+    protected Paths|null $paths = null;
     protected Components|null $components = null;
-
-    /** @var SecurityRequirement|SecurityRequirement[]|null */
-    protected SecurityRequirement|array|null $security = null;
+    protected Security|null $security = null;
 
     /** @var Tag[]|null */
     protected array|null $tags = null;
@@ -62,11 +59,11 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function paths(PathItem ...$pathItem): static
+    public function paths(Paths|null $paths): static
     {
         $clone = clone $this;
 
-        $clone->paths = [] !== $pathItem ? $pathItem : null;
+        $clone->paths = $paths;
 
         return $clone;
     }
@@ -98,36 +95,13 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
      * You should only send one security requirement per operation.
      * If you send more than one, the first one will be used.
      */
-    public function security(SecurityRequirement ...$securityRequirement): static
+    public function security(SecurityRequirementOld ...$securityRequirement): static
     {
-        //        $clone = clone $this;
-        //
-        //        $clone->security = [] !== $securityRequirement ? $securityRequirement : null;
-        //
-        //        return $clone;
-
         $clone = clone $this;
 
-        if ([] === $securityRequirement) {
-            $clone->security = null;
-
-            return $clone;
-        }
-
-        if ($this->hasNoGlobalSecurity($securityRequirement[0])) {
-            $clone->security = null;
-
-            return $clone;
-        }
-
-        $clone->security = $securityRequirement[0];
+        $clone->security = Security::create(...$securityRequirement);
 
         return $clone;
-    }
-
-    private function hasNoGlobalSecurity(SecurityRequirement $securityRequirement): bool
-    {
-        return NoSecurityScheme::NAME === $securityRequirement->securityScheme;
     }
 
     public function tags(Tag ...$tag): static
@@ -150,16 +124,11 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
 
     protected function toArray(): array
     {
-        $paths = [];
-        foreach ($this->paths ?? [] as $path) {
-            $paths[$path->path] = $path;
-        }
-
         return Arr::filter([
             'openapi' => $this->openapi->value ?? OASVersion::V_3_1_0->value,
             'info' => $this->info,
             'servers' => $this->servers,
-            'paths' => [] !== $paths ? $paths : null,
+            'paths' => $this->paths,
             'components' => $this->components,
             'security' => $this->security,
             'tags' => $this->tags,

@@ -9,8 +9,8 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\Reusabl
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 class Components extends ExtensibleObject implements SimpleCreator
@@ -170,7 +170,7 @@ class Components extends ExtensibleObject implements SimpleCreator
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
             $pathItem = $callback->build();
-            $callbacks[$callback::key()][$pathItem->path] = $pathItem;
+            $callbacks[$callback::key()][$pathItem->expression] = $pathItem;
         }
 
         return Arr::filter([

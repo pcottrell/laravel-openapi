@@ -5,14 +5,21 @@ namespace MohammadAlavi\LaravelOpenApi\Builders;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
 use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirement;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 class SecurityRequirementBuilder
 {
+    private const REMOVE_TOP_LEVEL_SECURITY = [];
+    private const USE_TOP_LEVEL_SECURITY = null;
+
     /** @param class-string<SecuritySchemeFactory>|class-string<SecuritySchemeFactory>[]|null $factories */
-    public function build(array|string|null $factories): SecurityRequirement
+    public function build(array|string|null $factories): SecurityRequirementOld
     {
+        if (!$this->isValidSecurityScheme($factories)) {
+            throw new \InvalidArgumentException(sprintf('Security class is either not declared or is not an instance of %s.', SecuritySchemeFactory::class));
+        }
+
         if (is_null($factories) || '' === $factories) {
             return $this->buildSecurityRequirement(DefaultSecurityScheme::class);
         }
@@ -40,9 +47,52 @@ class SecurityRequirementBuilder
         throw new \RuntimeException('Invalid security configuration');
     }
 
-    private function buildSecurityRequirement(string $factory): SecurityRequirement
+    private function isValidSecurityScheme(string|array|null $security): bool
     {
-        return SecurityRequirement::create()
+        if (self::REMOVE_TOP_LEVEL_SECURITY === $security || self::USE_TOP_LEVEL_SECURITY === $security) {
+            return true;
+        }
+
+        if (is_string($security)) {
+            return $this->isValidSingleSecurityScheme($security);
+        }
+
+        return $this->isValidMultiSecurityScheme($security);
+    }
+
+    private function isValidSingleSecurityScheme(string|null $securityScheme): bool
+    {
+        return !is_null($securityScheme)
+            && '' !== $securityScheme
+            && class_exists($securityScheme)
+            && is_a(
+                $securityScheme,
+                SecuritySchemeFactory::class,
+                true,
+            );
+    }
+
+    private function isValidMultiSecurityScheme(array $securities): bool
+    {
+        $isValid = true;
+        foreach ($securities as $security) {
+            if (is_array($security)) {
+                if ([] === $security) {
+                    return false;
+                }
+
+                return $this->isValidMultiSecurityScheme($security);
+            }
+
+            $isValid = $isValid && $this->isValidSingleSecurityScheme($security);
+        }
+
+        return $isValid;
+    }
+
+    private function buildSecurityRequirement(string $factory): SecurityRequirementOld
+    {
+        return SecurityRequirementOld::create()
             ->securityScheme(
                 $this->buildSecurityScheme($factory),
             );
@@ -80,9 +130,9 @@ class SecurityRequirementBuilder
     }
 
     /** @param array<array-key, class-string<SecuritySchemeFactory>|array<array-key, class-string<SecuritySchemeFactory>>> $factories */
-    private function buildNestedSecurityRequirement(array $factories): SecurityRequirement
+    private function buildNestedSecurityRequirement(array $factories): SecurityRequirementOld
     {
-        return SecurityRequirement::create()
+        return SecurityRequirementOld::create()
             ->nestedSecurityScheme(
                 $this->buildNestedSecurityScheme($factories),
             );

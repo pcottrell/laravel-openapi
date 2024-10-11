@@ -2,19 +2,17 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 use Webmozart\Assert\Assert;
 
-final class Extensions implements \JsonSerializable
+final class Extensions extends JsonSerializable
 {
-    private function __construct(
-        /** @var Extension[] */
-        private array $extensions,
-    ) {
-    }
+    private array $extensions;
 
-    public static function create(): self
-    {
-        return new self([]);
+    private function __construct(
+        Extension ...$extensions,
+    ) {
+        $this->add(...$extensions);
     }
 
     public function add(Extension ...$extension): self
@@ -24,6 +22,11 @@ final class Extensions implements \JsonSerializable
         }
 
         return $this;
+    }
+
+    public static function create(Extension ...$extensions): self
+    {
+        return new self(...$extensions);
     }
 
     public function remove(string $name): self
@@ -53,12 +56,7 @@ final class Extensions implements \JsonSerializable
         return array_values($this->extensions);
     }
 
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
-    }
-
-    private function toArray(): array
+    protected function toArray(): array
     {
         return array_reduce(
             $this->extensions,
