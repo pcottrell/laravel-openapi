@@ -8,6 +8,9 @@ class ExampleSecurityRequirement implements SecurityRequirementFactory
 {
     public function build(): SecurityRequirement
     {
-        return SecurityRequirement::create(ExampleSecurityScheme::create());
+        return SecurityRequirement::create(
+            ExampleOAuth2SecurityScheme::create(),
+            ExampleHTTPSecurityScheme::create(),
+        );
     }
 }
