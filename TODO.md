@@ -25,3 +25,5 @@ Make it so easy that it just works! with 1 command or click! DHH/Laravel mantra.
 Make the doics easy and conversational with a point of view, like Ruby on Rails doc?
 Does it make sense to document each method/property with docblock using the info from OAS docs?
 Get rid of all Nulls! as much as you can!
+reduce property visibility to private or protected and expose them via methods
+    if you need to expose them

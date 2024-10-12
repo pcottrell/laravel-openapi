@@ -17,8 +17,11 @@ final readonly class ApiKey extends SecurityScheme
         parent::__construct(SecuritySchemeType::API_KEY, $description);
     }
 
-    public static function create(string $name, ApiKeyLocation $apiKeyLocation, string|null $description = null): self
-    {
+    public static function create(
+        string $name,
+        ApiKeyLocation $apiKeyLocation,
+        string|null $description = null,
+    ): self {
         return new self($name, $apiKeyLocation, $description);
     }
 

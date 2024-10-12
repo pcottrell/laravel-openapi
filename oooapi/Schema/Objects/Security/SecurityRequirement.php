@@ -2,33 +2,33 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
 
-final class SecurityRequirement extends JsonSerializable
+final readonly class SecurityRequirement extends ReadonlyJsonSerializable
 {
-    // TODO: validate that the security schemes names
-    // are defined in the components section
-    private array $securitySchemeFactory;
+    private array $requirements;
 
     private function __construct(
-        SecuritySchemeFactory ...$securitySchemeFactory,
+        Requirement ...$requirement,
     ) {
-        $this->securitySchemeFactory = $securitySchemeFactory;
+        $this->requirements = $requirement;
     }
 
-    public static function create(SecuritySchemeFactory ...$securitySchemeFactory): self
+    public static function create(Requirement ...$requirement): self
     {
-        return new self(...$securitySchemeFactory);
+        return new self(...$requirement);
     }
 
     protected function toArray(): array
     {
         $securityRequirements = [];
-
-        foreach ($this->securitySchemeFactory as $factory) {
-            $securityRequirements[$factory::key()] = $factory->build();
+        foreach ($this->requirements as $requirement) {
+            $securityRequirements[$requirement->securityScheme()] = array_map(
+                static fn (Scope $scope): string => $scope->name(),
+                $requirement->scopes(),
+            );
         }
 
         return Arr::filter($securityRequirements);

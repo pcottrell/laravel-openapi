@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
 abstract readonly class SecurityScheme extends ReadonlyJsonSerializable
 {
     protected function __construct(
-        public SecuritySchemeType $type,
+        protected SecuritySchemeType $type,
         public string|null $description,
     ) {
     }

@@ -9,14 +9,41 @@ final readonly class Scopes extends ReadonlyJsonSerializable
 {
     private array $scopes;
 
-    private function __construct(Scope ...$scopes)
+    private function __construct(Scope ...$scope)
     {
-        $this->scopes = $scopes;
+        $this->scopes = $scope;
     }
 
-    public static function create(Scope ...$scopes): self
+    public static function create(ScopeFactory ...$scopeFactory): self
     {
+        $scopes = array_map(static fn (ScopeFactory $factory) => $factory->build(), $scopeFactory);
+
         return new self(...$scopes);
+    }
+
+    public function containsAll(Scope ...$scope): bool
+    {
+        return collect($scope)
+            ->every(fn (Scope $scope) => $this->contains($scope));
+    }
+
+    public function contains(Scope $scope): bool
+    {
+        foreach ($this->scopes as $currentScope) {
+            if (true === $currentScope->equals($scope)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Get all scopes.
+     */
+    public function all(): array
+    {
+        return $this->scopes;
     }
 
     protected function toArray(): array
