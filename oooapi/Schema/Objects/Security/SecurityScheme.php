@@ -8,7 +8,7 @@ abstract readonly class SecurityScheme extends ReadonlyJsonSerializable
 {
     protected function __construct(
         public string $type,
-        public string|null $description = null,
+        public string|null $description,
     ) {
     }
 }

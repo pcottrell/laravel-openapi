@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final readonly class MutualTLS extends SecurityScheme
 {
     private function __construct(
-        string|null $description = null,
+        string|null $description,
     ) {
         parent::__construct('mutualTLS', $description);
     }

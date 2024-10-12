@@ -11,7 +11,7 @@ final readonly class ApiKey extends SecurityScheme
     private function __construct(
         public string $name,
         public ApiKeyLocation $apiKeyLocation,
-        string|null $description = null,
+        string|null $description,
     ) {
         parent::__construct('apiKey', $description);
     }

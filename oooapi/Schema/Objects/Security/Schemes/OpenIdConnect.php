@@ -9,7 +9,7 @@ final readonly class OpenIdConnect extends SecurityScheme
 {
     private function __construct(
         public string $openIdConnectUrl,
-        string|null $description = null,
+        string|null $description,
     ) {
         parent::__construct('openIdConnect', $description);
     }

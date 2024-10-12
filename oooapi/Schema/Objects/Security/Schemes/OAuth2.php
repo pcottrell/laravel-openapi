@@ -10,7 +10,7 @@ final readonly class OAuth2 extends SecurityScheme
 {
     private function __construct(
         public Flows $flows,
-        string|null $description = null,
+        string|null $description,
     ) {
         parent::__construct('oauth2', $description);
     }
@@ -19,6 +19,7 @@ final readonly class OAuth2 extends SecurityScheme
     {
         return new self($flows, $description);
     }
+
     protected function toArray(): array
     {
         return Arr::filter([

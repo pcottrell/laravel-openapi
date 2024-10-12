@@ -10,7 +10,7 @@ final readonly class Http extends SecurityScheme
 {
     private function __construct(
         public HttpScheme $httpScheme,
-        string|null $description = null,
+        string|null $description,
         public string|null $bearerFormat = null,
     ) {
         parent::__construct('http', $description);
