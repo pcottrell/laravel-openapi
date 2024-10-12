@@ -31,6 +31,6 @@ final class SecurityRequirement extends JsonSerializable
             $securityRequirements[$factory::key()] = $factory->build();
         }
 
-        return Arr::filter($this->securitySchemeFactory);
+        return Arr::filter($securityRequirements);
     }
 }
