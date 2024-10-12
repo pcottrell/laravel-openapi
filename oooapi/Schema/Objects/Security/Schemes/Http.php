@@ -3,6 +3,7 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\HttpScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\SecuritySchemeType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
@@ -13,7 +14,7 @@ final readonly class Http extends SecurityScheme
         string|null $description,
         public string|null $bearerFormat = null,
     ) {
-        parent::__construct('http', $description);
+        parent::__construct(SecuritySchemeType::HTTP, $description);
     }
 
     public static function basic(string|null $description = null): self
