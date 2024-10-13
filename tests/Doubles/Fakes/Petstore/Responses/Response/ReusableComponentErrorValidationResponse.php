@@ -1,19 +1,19 @@
 <?php
 
-namespace Tests\Doubles\Fakes\Petstore\Responses;
+namespace Tests\Doubles\Fakes\Petstore\Responses\Response;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\ResponseFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
-class ErrorValidationResponse implements ResponseFactory
+class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 {
     public function build(): Response
     {
         $schema = Schema::object('object_test')->properties(
-            Schema::string('message')->example('The given data was invalid.'),
-            Schema::object('errors')
+            Schema::string('string_test')->example('The given data was invalid.'),
+            Schema::object('object_test')
                 ->additionalProperties(
                     Schema::array('array_test')->items(Schema::string('string_test')),
                 )

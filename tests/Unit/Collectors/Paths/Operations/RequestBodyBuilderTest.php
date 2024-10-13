@@ -36,7 +36,7 @@ describe('RequestBodyBuilder', function (): void {
         $result = $builder->build($routeInformation->requestBodyAttribute());
 
         expect($result)->toBeInstanceOf(Reference::class)
-            ->and($result->ref)->toBe(
+            ->and($result->ref())->toBe(
                 '#/components/requestBodies/TestReusableRequestBodyFactory',
             );
     });

@@ -11,17 +11,17 @@ class Response extends ExtensibleObject implements HasKey
 {
     private const DEFAULT = 'default';
 
-    protected readonly int|string $statusCode;
-    protected readonly string $description;
-
     /** @var Header[]|null */
-    protected array|null $headers = null;
+    private array|null $headers = null;
 
     /** @var MediaType[]|null */
-    protected array|null $content = null;
+    private array|null $content = null;
 
     /** @var Link[]|null */
-    protected array|null $links = null;
+    private array|null $links = null;
+
+    private readonly int|string $statusCode;
+    private readonly string $description;
 
     public static function default(string $description = 'Default Response'): static
     {
@@ -105,6 +105,16 @@ class Response extends ExtensibleObject implements HasKey
     public static function internalServerError(string $description = 'Internal Server Error'): static
     {
         return static::create(500, $description);
+    }
+
+    public function statusCode(): int|string
+    {
+        return $this->statusCode;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
     }
 
     public function headers(Header ...$header): static

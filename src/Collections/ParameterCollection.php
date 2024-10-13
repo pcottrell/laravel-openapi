@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Collections;
 
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParameterBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableParameterFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
@@ -18,25 +17,25 @@ final class ParameterCollection extends JsonSerializable
         $this->parameters = $parameter;
     }
 
-    public function merge(self $parameterCollection): self
+    public static function create(Parameter|ReusableParameterFactory|self ...$parameter): self
     {
-        return self::create(
-            ...$this->parameters,
-            ...$parameterCollection->parameters,
-        );
+        $selfParams = collect($parameter)
+            ->filter(static fn ($param) => $param instanceof self)
+            ->map(static fn ($param) => $param->all())
+            ->flatten();
+
+        $parameters = collect($parameter)
+            ->reject(static fn ($param) => $param instanceof self)
+            ->merge($selfParams)
+            ->map(static fn ($param) => $param instanceof ReusableParameterFactory ? $param::ref() : $param)
+            ->toArray();
+
+        return new self(...$parameters);
     }
 
-    public static function create(Parameter|self|ReusableParameterFactory ...$parameter): self
+    public function all(): array
     {
-        $params = collect($parameter)
-            ->map(
-                static fn ($param) => $param instanceof self ? $param->parameters : $param,
-            )->flatten()
-            ->map(
-                static fn ($param) => app(ParameterBuilder::class)->build($param),
-            )->toArray();
-
-        return new self(...$params);
+        return $this->parameters;
     }
 
     protected function toArray(): array

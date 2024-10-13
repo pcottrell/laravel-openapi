@@ -34,9 +34,8 @@ class Generator
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));
         $servers = $this->serverBuilder->build($this->getConfigFor('servers', $collection));
         $extensions = $this->getConfigFor('extensions', $collection);
-        // TODO: dont miss this hard coded value! It is just for testing purposes.
-        $security = $this->securityBuilder->build(ExampleSingleSecurityRequirementSecurity::class);
-//        $security = $this->securityBuilder->build($this->getConfigFor('security', $collection));
+        $globalSecurity = Arr::get(config('openapi'), "collections.{$collection}.security");
+        $security = $globalSecurity ? $this->securityBuilder->build($globalSecurity) : null;
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
         $paths = $this->pathsBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
         $components = $this->componentsBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
@@ -47,9 +46,9 @@ class Generator
             ->servers(...$servers)
             ->paths($paths)
             ->components($components)
-            ->security($security)
             ->tags(...$tags);
 
+        $openApi = $security ? $openApi->security($security) : $openApi;
         foreach ($extensions as $key => $value) {
             $openApi = $openApi->addExtension(Extension::create($key, $value));
         }

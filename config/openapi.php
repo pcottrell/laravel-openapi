@@ -23,7 +23,8 @@ return [
                 // ExampleTag::class,
             ],
 
-            'security' => ExampleSingleSecurityRequirementSecurity::class,
+            // TODO: add an example for security.
+            'security' => null,
 
             // Non-standard attributes used by code/doc generation tools can be added here
             'extensions' => [

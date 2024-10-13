@@ -9,7 +9,7 @@ use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParametersBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponseBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponsesBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
@@ -23,7 +23,7 @@ final readonly class OperationBuilder
         private ServerBuilder $serverBuilder,
         private ParametersBuilder $parametersBuilder,
         private RequestBodyBuilder $requestBodyBuilder,
-        private ResponseBuilder $responseBuilder,
+        private ResponsesBuilder $responsesBuilder,
         private SecurityBuilder $securityBuilder,
         private CallbackBuilder $callbackBuilder,
         private ExtensionBuilder $extensionBuilder,
@@ -49,7 +49,9 @@ final readonly class OperationBuilder
         $requestBody = $routeInformation->requestBodyAttribute()
             ? $this->requestBodyBuilder->build($routeInformation->requestBodyAttribute())
             : null;
-        $responses = $this->responseBuilder->build(...$routeInformation->responseAttributes());
+        $responses = $routeInformation->responsesAttributes()
+            ? $this->responsesBuilder->build($routeInformation->responsesAttributes())
+            : null;
         $callbacks = $this->callbackBuilder->build($routeInformation);
 
         $operation = Operation::create()
@@ -61,7 +63,7 @@ final readonly class OperationBuilder
             ->deprecated($deprecated)
             ->parameters($parameters)
             ->requestBody($requestBody)
-            ->responses(...$responses)
+            ->responses($responses)
             ->callbacks(...$callbacks)
             ->servers(...$servers);
         if ($security) {

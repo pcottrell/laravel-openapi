@@ -35,8 +35,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     protected ParameterCollection|null $parameterCollection = null;
     protected RequestBody|Reference|null $requestBody = null;
 
-    /** @var Response|Reference[]|null */
-    protected array|null $responses = null;
+    protected Responses|null $responses;
 
     protected bool|null $deprecated = null;
     protected Security|null $security = null;
@@ -168,11 +167,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function responses(Response|Reference ...$response): static
+    public function responses(Responses|null $responses): static
     {
         $clone = clone $this;
 
-        $clone->responses = $response;
+        $clone->responses = $responses;
 
         return $clone;
     }
@@ -224,13 +223,6 @@ class Operation extends ExtensibleObject implements SimpleCreator
 
     protected function toArray(): array
     {
-        $responses = [];
-        foreach ($this->responses ?? [] as $response) {
-            // TODO: add option/config to allow user always include default or not
-            //  Or even exclude default per route
-            $responses[$response->statusCode ?? 'default'] = $response;
-        }
-
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
             $callbacks[$callback->key()][$callback->expression] = $callback->pathItem;
@@ -244,7 +236,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'operationId' => $this->operationId,
             'parameters' => $this->parameterCollection?->jsonSerialize(),
             'requestBody' => $this->requestBody,
-            'responses' => [] !== $responses ? $responses : null,
+            'responses' => $this->responses?->jsonSerialize() ?? Responses::create()->jsonSerialize(),
             'deprecated' => $this->deprecated,
             'security' => $this->security?->jsonSerialize(),
             'servers' => $this->servers,

@@ -62,9 +62,13 @@ abstract class ExtensibleObject extends JsonSerializable
 
     public function jsonSerialize(): array
     {
+        if ($this->extensions->isEmpty()) {
+            return parent::jsonSerialize();
+        }
+
         return Arr::filter([
-            ...parent::jsonSerialize(),
-            $this->extensions->isEmpty() ? null : $this->extensions->jsonSerialize(),
+            ...$this->toArray(),
+            ...$this->extensions->jsonSerialize(),
         ]);
     }
 }

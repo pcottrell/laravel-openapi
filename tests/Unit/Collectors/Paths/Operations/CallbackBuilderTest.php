@@ -43,7 +43,7 @@ describe(class_basename(CallbackBuilder::class), function (): void {
         expect($result)->toHaveCount(2)
             ->and($pathItem)->toBeInstanceOf(Callback::class)
             ->and($reusablePathItem)->toBeInstanceOf(Reference::class)
-            ->and($reusablePathItem->ref)
+            ->and($reusablePathItem->ref())
             ->toBe(
                 '#/components/callbacks/ReusableComponentCallbackFactory',
             );

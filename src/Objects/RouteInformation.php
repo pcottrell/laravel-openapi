@@ -9,7 +9,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
-use MohammadAlavi\LaravelOpenApi\Attributes\Response as ResponseAttribute;
+use MohammadAlavi\LaravelOpenApi\Attributes\Responses as ResponsesAttribute;
 use Webmozart\Assert\Assert;
 
 class RouteInformation
@@ -123,11 +123,10 @@ class RouteInformation
         return RouteAction::containsSerializedClosure($route->action);
     }
 
-    /** @return Collection<int, ResponseAttribute> */
-    public function responseAttributes(): Collection
+    public function responsesAttributes(): ResponsesAttribute|null
     {
         return $this->actionAttributes
-            ->filter(static fn (object $attribute): bool => $attribute instanceof ResponseAttribute);
+            ->first(static fn (object $attribute): bool => $attribute instanceof ResponsesAttribute);
     }
 
     public function requestBodyAttribute(): RequestBody|null

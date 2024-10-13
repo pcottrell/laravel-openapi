@@ -12,11 +12,13 @@ use Tests\Doubles\Stubs\Servers\ServerWithVariables;
 
 describe('PetStore', function (): void {
     it(' can be generated', function (array $servers, string $path, string $method, array $expectation): void {
-        Config::set('openapi.locations.schemas', [
-            __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
-        ]);
-        Config::set('openapi.locations.responses', [
-            __DIR__ . '/../Doubles/Fakes/Petstore/responses',
+        Config::set('openapi.locations', [
+            'schemas' => [
+                __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
+            ],
+            'responses' => [
+                __DIR__ . '/../Doubles/Fakes/Petstore/responses/response',
+            ],
         ]);
 
         putenv('APP_URL=https://petstore.swagger.io/v1');
@@ -134,34 +136,10 @@ describe('PetStore', function (): void {
                 ],
                 'responses' => [
                     422 => [
-                        'description' => 'Unprocessable Entity',
-                        'content' => [
-                            'application/json' => [
-                                'schema' => [
-                                    'type' => 'object',
-                                    'properties' => [
-                                        'message' => [
-                                            'type' => 'string',
-                                            'example' => 'The given data was invalid.',
-                                        ],
-                                        'errors' => [
-                                            'type' => 'object',
-                                            'additionalProperties' => [
-                                                'type' => 'array',
-                                                'items' => [
-                                                    'type' => 'string',
-                                                ],
-                                            ],
-                                            'example' => [
-                                                'field' => [
-                                                    'Something is wrong with this field!',
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ],
-                            ],
-                        ],
+                        '$ref' => '#/components/responses/ReusableComponentErrorValidationResponse',
+                    ],
+                    403 => [
+                        'description' => 'Forbidden',
                     ],
                 ],
                 'deprecated' => false,
@@ -211,6 +189,38 @@ describe('PetStore', function (): void {
                         'schema' => [
                             'format' => 'int32',
                             'type' => 'integer',
+                        ],
+                    ],
+                ],
+                'responses' => [
+                    422 => [
+                        'description' => 'Unprocessable Entity',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'message' => [
+                                            'type' => 'string',
+                                            'example' => 'The given data was invalid.',
+                                        ],
+                                        'errors' => [
+                                            'type' => 'object',
+                                            'additionalProperties' => [
+                                                'type' => 'array',
+                                                'items' => [
+                                                    'type' => 'string',
+                                                ],
+                                            ],
+                                            'example' => [
+                                                'field' => [
+                                                    'Something is wrong with this field!',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -264,6 +274,11 @@ describe('PetStore', function (): void {
                 'summary' => 'List all pets.',
                 'description' => 'List all pets from the database.',
                 'operationId' => 'nestedSecuritySecondTest',
+                'responses' => [
+                    'default' => [
+                        'description' => 'Default Response',
+                    ],
+                ],
                 'security' => [
                     [
                         'ExampleHTTPBearerSecurityScheme' => [],
