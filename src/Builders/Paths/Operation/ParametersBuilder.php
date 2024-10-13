@@ -4,15 +4,15 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters as ParametersAttribute;
-use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class ParametersBuilder
 {
-    public function build(RouteInformation $routeInformation): Parameters|null
+    public function build(RouteInformation $routeInformation): ParameterCollection|null
     {
         return $this->buildAttribute($routeInformation);
 
@@ -23,7 +23,7 @@ class ParametersBuilder
         // return $pathParameters->merge($attributedParameters)->toArray();
     }
 
-    protected function buildAttribute(RouteInformation $routeInformation): Parameters|null
+    protected function buildAttribute(RouteInformation $routeInformation): ParameterCollection|null
     {
         /** @var ParametersAttribute|null $parameters */
         $parameters = $routeInformation
@@ -32,7 +32,7 @@ class ParametersBuilder
             );
 
         if ($parameters) {
-            /** @var ParametersFactory $parametersFactory */
+            /** @var ParameterCollectionFactory $parametersFactory */
             $parametersFactory = app($parameters->factory);
 
             $parameters = $parametersFactory->build();

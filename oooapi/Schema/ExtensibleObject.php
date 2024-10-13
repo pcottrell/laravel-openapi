@@ -5,6 +5,7 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Exceptions\PropertyDoesNotExistException;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extensions;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 
 // TODO: refactor!
@@ -61,9 +62,9 @@ abstract class ExtensibleObject extends JsonSerializable
 
     public function jsonSerialize(): array
     {
-        return [
+        return Arr::filter([
             ...parent::jsonSerialize(),
-            ...$this->extensions->jsonSerialize(),
-        ];
+            $this->extensions->isEmpty() ? null : $this->extensions->jsonSerialize(),
+        ]);
     }
 }

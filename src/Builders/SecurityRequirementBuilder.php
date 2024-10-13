@@ -3,8 +3,6 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
@@ -20,13 +18,13 @@ class SecurityRequirementBuilder
             throw new \InvalidArgumentException(sprintf('Security class is either not declared or is not an instance of %s.', SecuritySchemeFactory::class));
         }
 
-        if (is_null($factories) || '' === $factories) {
-            return $this->buildSecurityRequirement(DefaultSecurityScheme::class);
-        }
+//        if (is_null($factories) || '' === $factories) {
+//            return $this->buildSecurityRequirement(DefaultSecurityScheme::class);
+//        }
 
-        if ([] === $factories) {
-            return $this->buildSecurityRequirement(NoSecurityScheme::class);
-        }
+//        if ([] === $factories) {
+//            return $this->buildSecurityRequirement(NoSecurityScheme::class);
+//        }
 
         if ($this->isValidSecurityFactory($factories)) {
             return $this->buildSecurityRequirement($factories);

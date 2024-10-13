@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 
-final class Parameters extends JsonSerializable
+final class ParameterCollection extends JsonSerializable
 {
     private readonly array $parameters;
 
@@ -18,11 +18,11 @@ final class Parameters extends JsonSerializable
         $this->parameters = $parameter;
     }
 
-    public function merge(self $parameters): self
+    public function merge(self $parameterCollection): self
     {
         return self::create(
             ...$this->parameters,
-            ...$parameters->parameters,
+            ...$parameterCollection->parameters,
         );
     }
 
@@ -39,7 +39,7 @@ final class Parameters extends JsonSerializable
         return new self(...$params);
     }
 
-    public function toArray(): array
+    protected function toArray(): array
     {
         return $this->parameters;
     }

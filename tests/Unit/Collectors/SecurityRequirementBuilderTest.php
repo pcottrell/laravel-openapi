@@ -1,8 +1,6 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
 use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
 

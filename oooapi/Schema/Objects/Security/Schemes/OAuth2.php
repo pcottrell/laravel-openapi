@@ -5,7 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\SecuritySchemeType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scopes;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
@@ -25,15 +24,12 @@ final readonly class OAuth2 extends SecurityScheme
 
     public function containsAllScopes(Scope ...$scope): bool
     {
-        return $this->scopes()->containsAll(...$scope);
+        return $this->flows->scopeCollection()->containsAll(...$scope);
     }
 
-    /**
-     * Get all scopes from all flows combined
-     */
-    public function scopes(): Scopes
+    public function availableScopes(): array
     {
-        return $this->flows->scopes();
+        return $this->flows->scopeCollection()->all();
     }
 
     protected function toArray(): array

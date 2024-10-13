@@ -2,7 +2,6 @@
 
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
 use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
@@ -44,10 +43,10 @@ describe('OpenApi', function (): void {
             [],
             ['openapi' => OASVersion::V_3_1_0->value],
         ],
-        'no security' => [
-            [(new SecurityRequirementBuilder())->build(NoSecurityScheme::class)],
-            ['openapi' => OASVersion::V_3_1_0->value],
-        ],
+//        'no security' => [
+//            [(new SecurityRequirementBuilder())->build(NoSecurityScheme::class)],
+//            ['openapi' => OASVersion::V_3_1_0->value],
+//        ],
         'one element array security' => [
             [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
             [

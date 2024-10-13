@@ -3,31 +3,44 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scopes;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
 
 final readonly class Requirement
 {
     private function __construct(
         private SecuritySchemeFactory $securitySchemeFactory,
-        private Scopes $scopes,
+        private ScopeCollection $scopeCollection,
     ) {
     }
 
-    public static function create(SecuritySchemeFactory $securitySchemeFactory, Scopes|null $scopes = null): self
-    {
-        if (is_null($scopes)) {
-            return new self($securitySchemeFactory, Scopes::create());
+    public static function create(
+        SecuritySchemeFactory $securitySchemeFactory,
+        ScopeCollection|null $scopeCollection = null,
+    ): self {
+        if (is_null($scopeCollection)) {
+            return new self($securitySchemeFactory, ScopeCollection::create());
         }
 
         $securityScheme = $securitySchemeFactory->build();
         if ($securityScheme instanceof OAuth2) {
-            if ($securityScheme->containsAllScopes(...$scopes->all())) {
-                return new self($securitySchemeFactory, $scopes);
-            }
-
-            throw new \InvalidArgumentException('Scopes are not valid for the given security scheme.');
+            return self::createOAuth2Requirement($securitySchemeFactory, $securityScheme, $scopeCollection);
         }
+
+        return new self($securitySchemeFactory, $scopeCollection);
+    }
+
+    private static function createOAuth2Requirement(
+        SecuritySchemeFactory $securitySchemeFactory,
+        OAuth2 $securityScheme,
+        ScopeCollection $scopeCollection,
+    ): self {
+        if ($securityScheme->containsAllScopes(...$scopeCollection->all())) {
+            return new self($securitySchemeFactory, $scopeCollection);
+        }
+
+        throw new \InvalidArgumentException("Invalid OAuth2 scopes for {$securitySchemeFactory::key()}.\nAvailable scopes: " . implode(', ', $securityScheme->availableScopes()) . "\nGiven scopes: " . array_reduce($scopeCollection->all(), static fn (string $carry, Scope $scope): string => $carry . $scope->name() . ', ', ''));
     }
 
     public function securityScheme(): string
@@ -37,6 +50,6 @@ final readonly class Requirement
 
     public function scopes(): array
     {
-        return $this->scopes->all();
+        return $this->scopeCollection->all();
     }
 }

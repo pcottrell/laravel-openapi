@@ -1,19 +1,19 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\SecurityRequirements;
+namespace Tests\Doubles\Fakes\Petstore\Security\SecurityRequirements;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\SecuritySchemes\ExampleHTTPSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\SecurityRequirementFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Requirement;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityRequirement;
+use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
 
-final readonly class ExampleSecurityRequirement extends SecurityRequirementFactory
+final readonly class ExampleSingleBearerSecurityRequirement extends SecurityRequirementFactory
 {
     public function build(): SecurityRequirement
     {
         return SecurityRequirement::create(
             Requirement::create(
-                ExampleHTTPSecurityScheme::create(),
+                ExampleHTTPBearerSecurityScheme::create(),
             ),
         );
     }

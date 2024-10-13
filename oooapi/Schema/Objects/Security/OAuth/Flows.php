@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth;
 
-use Illuminate\Support\Arr as ArrFacade;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\AuthorizationCode;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\ClientCredentials;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\Implicit;
@@ -21,18 +20,25 @@ final readonly class Flows extends ReadonlyJsonSerializable
     }
 
     /**
-     * Get all scopes of all flows combined.
+     * Get all scopes of all flows combined in a collection.
      */
-    public function scopes(): Scopes
+    public function scopeCollection(): ScopeCollection
     {
-        $scopes = ArrFacade::flatten([
-            $this->implicit?->scopes()->all(),
-            $this->password?->scopes()->all(),
-            $this->clientCredentials?->scopes()->all(),
-            $this->authorizationCode?->scopes()->all(),
+        /** @var Flow[] $flows */
+        $flows = Arr::filter([
+            $this->implicit,
+            $this->password,
+            $this->clientCredentials,
+            $this->authorizationCode,
         ]);
 
-        return Scopes::create(...$scopes);
+        $scopeCollection = ScopeCollection::create();
+
+        foreach ($flows as $flow) {
+            $scopeCollection = $scopeCollection->merge($flow->scopeCollection());
+        }
+
+        return $scopeCollection;
     }
 
     public static function create(

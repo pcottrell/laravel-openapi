@@ -6,17 +6,17 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
 
 abstract readonly class Flow extends ReadonlyJsonSerializable
 {
-    private Scopes $scopes;
+    protected ScopeCollection $scopeCollection;
 
     protected function __construct(
-        public string|null $refreshUrl,
-        Scopes|null $scopes,
+        protected string|null $refreshUrl,
+        ScopeCollection|null $scopeCollection,
     ) {
-        $this->scopes = $scopes ?? Scopes::create();
+        $this->scopeCollection = $scopeCollection ?? ScopeCollection::create();
     }
 
-    public function scopes(): Scopes
+    public function scopeCollection(): ScopeCollection
     {
-        return $this->scopes;
+        return $this->scopeCollection;
     }
 }

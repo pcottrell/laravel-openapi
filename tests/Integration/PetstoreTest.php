@@ -4,21 +4,58 @@ namespace Tests\Integration;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
+use MohammadAlavi\LaravelOpenApi\Generator;
 use Tests\Doubles\Fakes\Petstore\PetController;
 use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Servers\ServerWithoutVariables;
 use Tests\Doubles\Stubs\Servers\ServerWithVariables;
-use Tests\IntegrationTestCase;
 
-/** @see https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml */
-#[CoversClass(PetController::class)]
-class PetstoreTest extends IntegrationTestCase
-{
-    public static function expectationProvider(): \Iterator
-    {
-        yield [
+describe('PetStore', function (): void {
+    it(' can be generated', function (array $servers, string $path, string $method, array $expectation): void {
+        Config::set('openapi.locations.schemas', [
+            __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
+        ]);
+        Config::set('openapi.locations.responses', [
+            __DIR__ . '/../Doubles/Fakes/Petstore/responses',
+        ]);
+
+        putenv('APP_URL=https://petstore.swagger.io/v1');
+        Route::get('/pets', [PetController::class, 'index']);
+        Route::post('/multiPetTag', [PetController::class, 'multiPetTag']);
+        Route::delete('/nestedSecurityFirstTest', [PetController::class, 'nestedSecurityFirst']);
+        Route::put('/nestedSecuritySecondTest', [PetController::class, 'nestedSecuritySecond']);
+
+        Config::set('openapi.collections.default.servers', $servers['classes']);
+        $spec = app(Generator::class)->generate()->jsonSerialize();
+
+        expect($spec['servers'])->toBe($servers['expectation'])
+            ->and($spec['paths'])->toHaveKey($path)
+            ->and($spec['paths'][$path])->toHaveKey($method)
+            ->and($spec['paths'][$path][$method])->toBe($expectation)
+            ->and($spec)->toHaveKey('components')
+            ->and($spec['components'])->toHaveKey('schemas')
+            ->and($spec['components']['schemas'])->toHaveKey('Pet')
+            ->and($spec['components']['schemas']['Pet'])->toBe([
+                'type' => 'object',
+                'required' => [
+                    'id',
+                    'name',
+                ],
+                'properties' => [
+                    'id' => [
+                        'format' => 'int64',
+                        'type' => 'integer',
+                    ],
+                    'name' => [
+                        'type' => 'string',
+                    ],
+                    'tag' => [
+                        'type' => 'string',
+                    ],
+                ],
+            ]);
+    })->with([
+        [
             'servers' => [
                 'classes' => [ServerWithoutVariables::class],
                 'expectation' => [
@@ -51,13 +88,13 @@ class PetstoreTest extends IntegrationTestCase
                 ],
                 'responses' => [
                     422 => [
-                        '$ref' => '#/components/responses/ErrorValidation',
+                        '$ref' => '#/components/responses/ReusableComponentErrorValidationResponse',
                     ],
                 ],
                 'deprecated' => true,
             ],
-        ];
-        yield [
+        ],
+        [
             'servers' => [
                 'classes' => [ServerWithVariables::class],
                 'expectation' => [
@@ -97,18 +134,45 @@ class PetstoreTest extends IntegrationTestCase
                 ],
                 'responses' => [
                     422 => [
-                        '$ref' => '#/components/responses/ErrorValidation',
+                        'description' => 'Unprocessable Entity',
+                        'content' => [
+                            'application/json' => [
+                                'schema' => [
+                                    'type' => 'object',
+                                    'properties' => [
+                                        'message' => [
+                                            'type' => 'string',
+                                            'example' => 'The given data was invalid.',
+                                        ],
+                                        'errors' => [
+                                            'type' => 'object',
+                                            'additionalProperties' => [
+                                                'type' => 'array',
+                                                'items' => [
+                                                    'type' => 'string',
+                                                ],
+                                            ],
+                                            'example' => [
+                                                'field' => [
+                                                    'Something is wrong with this field!',
+                                                ],
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
                 'deprecated' => false,
                 'security' => [
                     [
-                        'BearerToken' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
                     ],
                 ],
             ],
-        ];
-        yield [
+        ],
+        [
             'servers' => [
                 'classes' => [ServerWithMultipleVariableFormatting::class],
                 'expectation' => [
@@ -116,12 +180,12 @@ class PetstoreTest extends IntegrationTestCase
                         'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
-                            'variable_name' => [
+                            'ServerVariableA' => [
                                 'enum' => ['A', 'B'],
                                 'default' => 'variable_defalut',
                                 'description' => 'variable_description',
                             ],
-                            'variable_name_B' => [
+                            'ServerVariableB' => [
                                 'default' => 'sample',
                                 'description' => 'sample',
                             ],
@@ -152,15 +216,15 @@ class PetstoreTest extends IntegrationTestCase
                 ],
                 'security' => [
                     [
-                        'OAuth2PasswordGrant' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
                     ],
                     [
-                        'BearerToken' => [],
+                        'ExampleApiKeySecurityScheme' => [],
                     ],
                 ],
             ],
-        ];
-        yield [
+        ],
+        [
             'servers' => [
                 'classes' => [ServerWithVariables::class, ServerWithMultipleVariableFormatting::class],
                 'expectation' => [
@@ -178,12 +242,12 @@ class PetstoreTest extends IntegrationTestCase
                         'url' => 'https://example.com',
                         'description' => 'sample_description',
                         'variables' => [
-                            'variable_name' => [
+                            'ServerVariableA' => [
                                 'enum' => ['A', 'B'],
                                 'default' => 'variable_defalut',
                                 'description' => 'variable_description',
                             ],
-                            'variable_name_B' => [
+                            'ServerVariableB' => [
                                 'default' => 'sample',
                                 'description' => 'sample',
                             ],
@@ -202,71 +266,17 @@ class PetstoreTest extends IntegrationTestCase
                 'operationId' => 'nestedSecuritySecondTest',
                 'security' => [
                     [
-                        'BearerToken' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
                     ],
                     [
-                        'OAuth2PasswordGrant' => [],
-                        'BearerToken' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                        'ExampleOAuth2PasswordSecurityScheme' => [
+                            'order:shipping:address',
+                            'order:shipping:status',
+                        ],
                     ],
                 ],
             ],
-        ];
-    }
-
-    #[DataProvider('expectationProvider')]
-    public function testGenerate(array $servers, string $path, string $method, array $expectation): void
-    {
-        Config::set('openapi.collections.default.servers', $servers['classes']);
-        $spec = $this->generate()->jsonSerialize();
-
-        $this->assertSame($servers['expectation'], $spec['servers']);
-
-        $this->assertArrayHasKey($path, $spec['paths']);
-        $this->assertArrayHasKey($method, $spec['paths'][$path]);
-
-        $this->assertSame($expectation, $spec['paths'][$path][$method]);
-
-        $this->assertArrayHasKey('components', $spec);
-        $this->assertArrayHasKey('schemas', $spec['components']);
-        $this->assertArrayHasKey('Pet', $spec['components']['schemas']);
-
-        $this->assertSame([
-            'type' => 'object',
-            'required' => [
-                'id',
-                'name',
-            ],
-            'properties' => [
-                'id' => [
-                    'format' => 'int64',
-                    'type' => 'integer',
-                ],
-                'name' => [
-                    'type' => 'string',
-                ],
-                'tag' => [
-                    'type' => 'string',
-                ],
-            ],
-        ], $spec['components']['schemas']['Pet']);
-    }
-
-    protected function setUp(): void
-    {
-        putenv('APP_URL=https://petstore.swagger.io/v1');
-
-        parent::setUp();
-
-        Route::get('/pets', [PetController::class, 'index']);
-        Route::post('/multiPetTag', [PetController::class, 'multiPetTag']);
-        Route::delete('/nestedSecurityFirstTest', [PetController::class, 'nestedSecurityFirst']);
-        Route::put('/nestedSecuritySecondTest', [PetController::class, 'nestedSecuritySecond']);
-    }
-
-    protected function getEnvironmentSetUp($app): void
-    {
-        $app['config']->set('openapi.locations.schemas', [
-            __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
-        ]);
-    }
-}
+        ],
+    ]);
+})->coversNothing();

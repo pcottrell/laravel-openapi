@@ -5,7 +5,6 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
@@ -88,18 +87,11 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
         return $this->security($securityRequirements);
     }
 
-    // This is just a wrapper around parent class security()
-    // to allow for multiple security requirements
-
-    /**
-     * You should only send one security requirement per operation.
-     * If you send more than one, the first one will be used.
-     */
-    public function security(SecurityRequirementOld ...$securityRequirement): static
+    public function security(Security $security): static
     {
         $clone = clone $this;
 
-        $clone->security = Security::create(...$securityRequirement);
+        $clone->security = $security;
 
         return $clone;
     }
@@ -130,7 +122,7 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
             'servers' => $this->servers,
             'paths' => $this->paths,
             'components' => $this->components,
-            'security' => $this->security,
+            'security' => $this->security?->jsonSerialize(),
             'tags' => $this->tags,
             'externalDocs' => $this->externalDocs,
         ]);

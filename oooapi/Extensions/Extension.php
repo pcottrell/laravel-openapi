@@ -2,16 +2,16 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
 use Webmozart\Assert\Assert;
 
-final class Extension extends JsonSerializable
+final readonly class Extension extends ReadonlyJsonSerializable
 {
     private const EXTENSION_PREFIX = 'x-';
 
     private function __construct(
-        public string $name,
-        public mixed $value,
+        private string $name,
+        private mixed $value,
     ) {
         Assert::startsWith(
             $name,
@@ -25,6 +25,16 @@ final class Extension extends JsonSerializable
     public static function create(string $name, mixed $value): self
     {
         return new self($name, $value);
+    }
+
+    public function name(): string
+    {
+        return $this->name;
+    }
+
+    public function value(): mixed
+    {
+        return $this->value;
     }
 
     public static function isExtension(string $value): bool

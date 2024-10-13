@@ -5,20 +5,18 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
 
-final readonly class Scopes extends ReadonlyJsonSerializable
+final readonly class ScopeCollection extends ReadonlyJsonSerializable
 {
-    private array $scopes;
+    private array $scopeFactories;
 
-    private function __construct(Scope ...$scope)
+    private function __construct(ScopeFactory ...$scopeFactory)
     {
-        $this->scopes = $scope;
+        $this->scopeFactories = $scopeFactory;
     }
 
     public static function create(ScopeFactory ...$scopeFactory): self
     {
-        $scopes = array_map(static fn (ScopeFactory $factory) => $factory->build(), $scopeFactory);
-
-        return new self(...$scopes);
+        return new self(...$scopeFactory);
     }
 
     public function containsAll(Scope ...$scope): bool
@@ -29,7 +27,7 @@ final readonly class Scopes extends ReadonlyJsonSerializable
 
     public function contains(Scope $scope): bool
     {
-        foreach ($this->scopes as $currentScope) {
+        foreach ($this->all() as $currentScope) {
             if (true === $currentScope->equals($scope)) {
                 return true;
             }
@@ -38,17 +36,35 @@ final readonly class Scopes extends ReadonlyJsonSerializable
         return false;
     }
 
+    public function merge(self $scopeCollection): self
+    {
+        return new self(...$this->scopeFactories, ...$scopeCollection->scopeFactories());
+    }
+
+    public function scopeFactories(): array
+    {
+        return $this->scopeFactories;
+    }
+
     /**
      * Get all scopes.
+     *
+     * @return Scope[]
      */
     public function all(): array
     {
-        return $this->scopes;
+        return $this->buildScopes(...$this->scopeFactories);
+    }
+
+    // TODO: extract into a builder class
+    private function buildScopes(ScopeFactory ...$scopeFactory): array
+    {
+        return array_map(static fn (ScopeFactory $factory) => $factory->build(), $scopeFactory);
     }
 
     protected function toArray(): array
     {
-        $scopes = array_reduce($this->scopes, static function ($carry, $scope) {
+        $scopes = array_reduce($this->all(), static function ($carry, $scope) {
             $carry[$scope->name] = $scope->description;
 
             return $carry;

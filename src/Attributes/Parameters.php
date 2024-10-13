@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Attributes;
 
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParametersFactory;
+use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 final readonly class Parameters
@@ -13,7 +13,7 @@ final readonly class Parameters
     {
         $this->factory = class_exists($factory) ? $factory : app()->getNamespace() . 'OpenApi\\Parameters\\' . $factory;
 
-        if (!is_a($this->factory, ParametersFactory::class, true)) {
+        if (!is_a($this->factory, ParameterCollectionFactory::class, true)) {
             throw new \InvalidArgumentException('Factory class must be an instance of ParametersFactory');
         }
     }

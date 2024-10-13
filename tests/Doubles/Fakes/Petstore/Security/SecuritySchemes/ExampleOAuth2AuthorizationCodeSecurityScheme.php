@@ -1,18 +1,18 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\SecuritySchemes;
+namespace Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\Scopes\OrderItemScope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\Scopes\OrderPaymentScope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\Scopes\OrderScope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\Scopes\OrderShippingAddressScope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Examples\Scopes\OrderShippingStatusScope;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\AuthorizationCode;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scopes;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
+use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderItemScope;
+use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderPaymentScope;
+use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderScope;
+use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderShippingAddressScope;
+use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderShippingStatusScope;
 
 class ExampleOAuth2AuthorizationCodeSecurityScheme extends SecuritySchemeFactory
 {
@@ -24,7 +24,7 @@ class ExampleOAuth2AuthorizationCodeSecurityScheme extends SecuritySchemeFactory
                     'https://example.com/oauth/authorize',
                     'https://example.com/oauth/token',
                     null,
-                    Scopes::create(
+                    ScopeCollection::create(
                         OrderScope::create(),
                         OrderItemScope::create(),
                         OrderPaymentScope::create(),

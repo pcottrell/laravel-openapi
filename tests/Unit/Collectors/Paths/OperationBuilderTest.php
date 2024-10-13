@@ -37,7 +37,7 @@ describe('OperationBuilder', function (): void {
             ->and($operationA->description)->toBe($expected[0]['description'])
             ->and($operationA->externalDocs)->toBe($expected[0]['externalDocs'])
             ->and($operationA->operationId)->toBe($expected[0]['operationId'])
-            ->and($operationA->parameters)->toEqual($expected[0]['parameters'])
+            ->and($operationA->parameterCollection)->toEqual($expected[0]['parameters'])
             ->and($operationA->requestBody)->toEqual($expected[0]['requestBody'])
             ->and($operationA->responses)->toEqual($expected[0]['responses'])
             ->and($operationA->deprecated)->toBe($expected[0]['deprecated'])

@@ -3,16 +3,14 @@
 namespace Tests\Doubles\Stubs\SecuritySchemesFactories;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\ApiKeyLocation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\ApiKey;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 
 class ApiKeySecuritySchemeFactory extends SecuritySchemeFactory
 {
     public function build(): SecurityScheme
     {
-        return SecurityScheme::create()
-            ->name('X-API-KEY')
-            ->type(SecurityScheme::TYPE_API_KEY)
-            ->in(SecurityScheme::IN_HEADER)
-            ->scheme('apiKey');
+        return ApiKey::create('header', ApiKeyLocation::QUERY, 'Api Key Security');
     }
 }

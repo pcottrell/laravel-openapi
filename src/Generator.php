@@ -5,12 +5,14 @@ namespace MohammadAlavi\LaravelOpenApi;
 use Illuminate\Support\Arr;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
+use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 
 class Generator
 {
@@ -18,10 +20,10 @@ class Generator
     public const COLLECTION_DEFAULT = 'default';
 
     public function __construct(
-        private readonly array $config,
         private readonly InfoBuilder $infoBuilder,
         private readonly ServerBuilder $serverBuilder,
         private readonly TagBuilder $tagBuilder,
+        private readonly SecurityBuilder $securityBuilder,
         private readonly PathsBuilder $pathsBuilder,
         private readonly ComponentsBuilder $componentsBuilder,
     ) {
@@ -32,8 +34,9 @@ class Generator
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));
         $servers = $this->serverBuilder->build($this->getConfigFor('servers', $collection));
         $extensions = $this->getConfigFor('extensions', $collection);
-        $security = $this->getConfigFor('security', $collection);
-
+        // TODO: dont miss this hard coded value! It is just for testing purposes.
+        $security = $this->securityBuilder->build(ExampleSingleSecurityRequirementSecurity::class);
+//        $security = $this->securityBuilder->build($this->getConfigFor('security', $collection));
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
         $paths = $this->pathsBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
         $components = $this->componentsBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
@@ -44,7 +47,7 @@ class Generator
             ->servers(...$servers)
             ->paths($paths)
             ->components($components)
-            ->nestedSecurity($security)
+            ->security($security)
             ->tags(...$tags);
 
         foreach ($extensions as $key => $value) {
@@ -56,7 +59,7 @@ class Generator
 
     private function getConfigFor(string $configKey, string $collection): array
     {
-        return Arr::get($this->config, 'collections.' . $collection . '.' . $configKey, []);
+        return Arr::get(config('openapi'), 'collections.' . $collection . '.' . $configKey, []);
     }
 
     /** @return PathMiddleware[] */

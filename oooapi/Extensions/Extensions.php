@@ -5,9 +5,11 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 use Webmozart\Assert\Assert;
 
+// TODO: make readonly if possible
+// There was a problem with cloning that prevented me from making it readonly
 final class Extensions extends JsonSerializable
 {
-    private array $extensions;
+    private array $extensions = [];
 
     private function __construct(
         Extension ...$extensions,
@@ -18,7 +20,7 @@ final class Extensions extends JsonSerializable
     public function add(Extension ...$extension): self
     {
         foreach ($extension as $ext) {
-            $this->extensions[$ext->name] = $ext;
+            $this->extensions[$ext->name()] = $ext;
         }
 
         return $this;
@@ -54,6 +56,11 @@ final class Extensions extends JsonSerializable
     public function all(): array
     {
         return array_values($this->extensions);
+    }
+
+    public function isEmpty(): bool
+    {
+        return empty($this->extensions);
     }
 
     protected function toArray(): array

@@ -1,8 +1,11 @@
 <?php
 
+use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
+
 return [
     'collections' => [
         'default' => [
+            // TODO: change this to use an InfoFactory class.
             'info' => [
                 'title' => config('app.name'),
                 'description' => null,
@@ -20,10 +23,7 @@ return [
                 // ExampleTag::class,
             ],
 
-            'security' => [
-                // Security schemes should extend `MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Component\SecuritySchemeFactory` class.
-                // BearerTokenSecurityScheme::class,
-            ],
+            'security' => ExampleSingleSecurityRequirementSecurity::class,
 
             // Non-standard attributes used by code/doc generation tools can be added here
             'extensions' => [

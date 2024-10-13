@@ -3,27 +3,27 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flow;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scopes;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class AuthorizationCode extends Flow
 {
     private function __construct(
-        public string $authorizationUrl,
-        public string $tokenUrl,
+        private string $authorizationUrl,
+        private string $tokenUrl,
         string|null $refreshUrl,
-        Scopes|null $scopes,
+        ScopeCollection|null $scopeCollection,
     ) {
-        parent::__construct($refreshUrl, $scopes);
+        parent::__construct($refreshUrl, $scopeCollection);
     }
 
     public static function create(
         string $authorizationUrl,
         string $tokenUrl,
         string|null $refreshUrl = null,
-        Scopes|null $scopes = null,
+        ScopeCollection|null $scopeCollection = null,
     ): self {
-        return new self($authorizationUrl, $tokenUrl, $refreshUrl, $scopes);
+        return new self($authorizationUrl, $tokenUrl, $refreshUrl, $scopeCollection);
     }
 
     protected function toArray(): array
@@ -32,7 +32,7 @@ final readonly class AuthorizationCode extends Flow
             'authorizationUrl' => $this->authorizationUrl,
             'tokenUrl' => $this->tokenUrl,
             'refreshUrl' => $this->refreshUrl,
-            'scopes' => $this->scopes,
+            'scopes' => $this->scopeCollection,
         ]);
     }
 }

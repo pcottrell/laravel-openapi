@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\SecurityRequirementFactory;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
 
 final class Security extends JsonSerializable
@@ -22,31 +24,28 @@ final class Security extends JsonSerializable
         );
     }
 
-    public static function create(SecurityRequirement ...$securityRequirement): self
+    public static function create(SecurityRequirementFactory ...$securityRequirementFactory): self
     {
-        return new self(...$securityRequirement);
+        // TODO: extract into a builder class
+        $securityRequirements = array_map(
+            static fn (
+                SecurityRequirementFactory $securityRequirementFactory,
+            ): SecurityRequirement => $securityRequirementFactory->build(),
+            $securityRequirementFactory,
+        );
+
+        return new self(...$securityRequirements);
     }
 
-    public function requireAll(SecurityRequirement ...$securityRequirement): self
+    protected function toArray(): array
     {
-        $clone = clone $this;
-
-        $clone->securityRequirements = $securityRequirement;
-
-        return $clone;
-    }
-
-    public function requireAny(SecurityRequirement ...$securityRequirement): self
-    {
-        foreach ($securityRequirement as $requirement) {
-            $this->securityRequirements[] = $requirement;
-        }
-
-        return $this;
-    }
-
-    public function toArray(): array
-    {
-        return $this->securityRequirements;
+        return Arr::filter(
+            array_map(
+                static fn (
+                    SecurityRequirement $securityRequirement,
+                ) => $securityRequirement->jsonSerialize(),
+                $this->securityRequirements,
+            ),
+        );
     }
 }

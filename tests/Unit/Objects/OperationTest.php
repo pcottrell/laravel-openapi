@@ -1,8 +1,6 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\DefaultSecurityScheme;
-use MohammadAlavi\LaravelOpenApi\SecuritySchemes\NoSecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
 use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
@@ -19,16 +17,16 @@ describe('Operation', function (): void {
             [],
             [],
         ],
-        'no security' => [
-            [(new SecurityRequirementBuilder())->build(NoSecurityScheme::class)],
-            [
-                'security' => [],
-            ],
-        ],
-        'default security' => [
-            [(new SecurityRequirementBuilder())->build(DefaultSecurityScheme::class)],
-            [],
-        ],
+//        'no security' => [
+//            [(new SecurityRequirementBuilder())->build(NoSecurityScheme::class)],
+//            [
+//                'security' => [],
+//            ],
+//        ],
+//        'default security' => [
+//            [(new SecurityRequirementBuilder())->build(DefaultSecurityScheme::class)],
+//            [],
+//        ],
         'one element array security' => [
             [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
             [

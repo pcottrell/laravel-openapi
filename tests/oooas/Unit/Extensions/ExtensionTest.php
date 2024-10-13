@@ -6,8 +6,8 @@ describe('Extension', function (): void {
     it('can create extension with mixed value', function (mixed $value): void {
         $extension = Extension::create('x-test', $value);
 
-        expect($extension->name)->toBe('x-test')
-            ->and($extension->value)->toBe($value);
+        expect($extension->name())->toBe('x-test')
+            ->and($extension->value())->toBe($value);
     })->with([
         'null' => [null],
         'string' => ['test'],

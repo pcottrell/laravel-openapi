@@ -3,25 +3,25 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flow;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scopes;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class ClientCredentials extends Flow
 {
     private function __construct(
-        public string $tokenUrl,
+        private string $tokenUrl,
         string|null $refreshUrl,
-        Scopes|null $scopes,
+        ScopeCollection|null $scopeCollection,
     ) {
-        parent::__construct($refreshUrl, $scopes);
+        parent::__construct($refreshUrl, $scopeCollection);
     }
 
     public static function create(
         string $tokenUrl,
         string|null $refreshUrl = null,
-        Scopes|null $scopes = null,
+        ScopeCollection|null $scopeCollection = null,
     ): self {
-        return new self($tokenUrl, $refreshUrl, $scopes);
+        return new self($tokenUrl, $refreshUrl, $scopeCollection);
     }
 
     protected function toArray(): array
@@ -29,7 +29,7 @@ final readonly class ClientCredentials extends Flow
         return Arr::filter([
             'tokenUrl' => $this->tokenUrl,
             'refreshUrl' => $this->refreshUrl,
-            'scopes' => $this->scopes,
+            'scopes' => $this->scopeCollection,
         ]);
     }
 }

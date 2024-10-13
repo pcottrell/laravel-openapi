@@ -2,15 +2,9 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Providers;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
-use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Console\CallbackFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\ExtensionFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\GenerateCommand;
@@ -20,7 +14,6 @@ use MohammadAlavi\LaravelOpenApi\Console\ResponseFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SchemaFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SecuritySchemeFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
-use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Http\OpenApiController;
 
 class OpenApiServiceProvider extends ServiceProvider
@@ -30,24 +23,6 @@ class OpenApiServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/openapi.php',
             'openapi',
-        );
-
-        $this->app->singleton(
-            Generator::class,
-            static function (Application $application): Generator {
-                $config = config(
-                    'openapi',
-                );
-
-                return new Generator(
-                    $config,
-                    $application->make(InfoBuilder::class),
-                    $application->make(ServerBuilder::class),
-                    $application->make(TagBuilder::class),
-                    $application->make(PathsBuilder::class),
-                    $application->make(ComponentsBuilder::class),
-                );
-            },
         );
 
         $this->app->bind(RouteCollector::class, \MohammadAlavi\LaravelOpenApi\Services\RouteCollector::class);

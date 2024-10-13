@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
+use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
@@ -32,7 +32,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     protected string|null $description = null;
     protected ExternalDocs|null $externalDocs = null;
     protected string|null $operationId = null;
-    protected Parameters|null $parameters = null;
+    protected ParameterCollection|null $parameterCollection = null;
     protected RequestBody|Reference|null $requestBody = null;
 
     /** @var Response|Reference[]|null */
@@ -150,11 +150,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function parameters(Parameters|null $parameters): static
+    public function parameters(ParameterCollection|null $parameters): static
     {
         $clone = clone $this;
 
-        $clone->parameters = $parameters;
+        $clone->parameterCollection = $parameters;
 
         return $clone;
     }
@@ -242,11 +242,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'description' => $this->description,
             'externalDocs' => $this->externalDocs,
             'operationId' => $this->operationId,
-            'parameters' => $this->parameters,
+            'parameters' => $this->parameterCollection?->jsonSerialize(),
             'requestBody' => $this->requestBody,
             'responses' => [] !== $responses ? $responses : null,
             'deprecated' => $this->deprecated,
-            'security' => $this->security,
+            'security' => $this->security?->jsonSerialize(),
             'servers' => $this->servers,
             'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);

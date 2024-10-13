@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\LaravelOpenApi\Collections\Parameters;
+use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
@@ -100,7 +100,7 @@ describe('OpenApi', function (): void {
             ->summary('View an audit')
             ->operationId('audits.show')
             ->parameters(
-                Parameters::create(
+                ParameterCollection::create(
                     Parameter::path()
                         ->name('audit')
                         ->schema($auditId)

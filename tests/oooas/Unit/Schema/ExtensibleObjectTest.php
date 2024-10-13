@@ -17,11 +17,11 @@ describe('ExtensibleObject', function (): void {
         expect($object->extensions())->toHaveCount(1)
             ->and($object->extensions()[0])->equals($extension1)->toBeTrue();
 
-        $result = $object->getExtension($extension1->name);
+        $result = $object->getExtension($extension1->name());
 
         expect($result)->equals($extension1)->toBeTrue();
 
-        $object = $object->removeExtension($extension1->name);
+        $object = $object->removeExtension($extension1->name());
 
         expect($object->extensions())->toBeEmpty();
 
@@ -29,16 +29,16 @@ describe('ExtensibleObject', function (): void {
 
         $object = $object->addExtension($extension1, $extension2);
 
-        $result = $object->getExtension($extension2->name);
+        $result = $object->getExtension($extension2->name());
 
         expect($result)->equals($extension2)->toBeTrue();
 
-        $object = $object->removeExtension($extension2->name);
+        $object = $object->removeExtension($extension2->name());
 
         expect($object->extensions())->toHaveCount(1)
             ->and($object->extensions()[0])->equals($extension1)->toBeTrue();
 
-        $object = $object->removeExtension($extension1->name);
+        $object = $object->removeExtension($extension1->name());
 
         expect($object->extensions())->toBeEmpty();
     });
