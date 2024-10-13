@@ -34,8 +34,8 @@ describe('PetStore', function (): void {
             ->and($spec['paths'][$path][$method])->toBe($expectation)
             ->and($spec)->toHaveKey('components')
             ->and($spec['components'])->toHaveKey('schemas')
-            ->and($spec['components']['schemas'])->toHaveKey('Pet')
-            ->and($spec['components']['schemas']['Pet'])->toBe([
+            ->and($spec['components']['schemas'])->toHaveKey('PetSchema')
+            ->and($spec['components']['schemas']['PetSchema'])->toBe([
                 'type' => 'object',
                 'required' => [
                     'id',
