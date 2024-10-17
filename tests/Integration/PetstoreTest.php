@@ -14,10 +14,10 @@ describe('PetStore', function (): void {
     it(' can be generated', function (array $servers, string $path, string $method, array $expectation): void {
         Config::set('openapi.locations', [
             'schemas' => [
-                __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
+                __DIR__ . '/../Doubles/Stubs/Petstore/Schemas',
             ],
             'responses' => [
-                __DIR__ . '/../Doubles/Fakes/Petstore/Responses/Response',
+                __DIR__ . '/../Doubles/Stubs/Petstore/Responses/Response',
             ],
         ]);
 
