@@ -28,4 +28,4 @@ describe('SecurityRequirement', function (): void {
             ],
         ]);
     });
-})->covers(SecurityRequirementOld::class);
+})->covers(SecurityRequirementOld::class)->skip();

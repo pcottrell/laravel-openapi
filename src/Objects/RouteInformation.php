@@ -36,7 +36,7 @@ class RouteInformation
     /** @var Collection<int, \Attribute> */
     public Collection $actionAttributes;
 
-    public static function createFromRoute(Route $route): static
+    public static function create(Route $route): static
     {
         $method = collect($route->methods())
             ->map(static fn (string $value) => Str::lower($value))

@@ -18,11 +18,9 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 use Tests\Doubles\Fakes\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
-use Tests\Doubles\Fakes\Petstore\Security\ExampleNoSecurityRequirementSecurity;
 use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
 use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleOAuth2PasswordSecurityScheme;
 
@@ -397,75 +395,4 @@ describe(class_basename(OpenApi::class), function (): void {
             ],
         ]);
     });
-
-    it('can be created using security method', function (Security $security, array $expectation): void {
-        $openApi = OpenApi::create()->security($security);
-
-        $result = $openApi->asArray();
-
-        expect($result)->toBe($expectation);
-    })->with([
-        'empty array [] security' => [
-            [],
-            ['openapi' => OASVersion::V_3_1_0->value],
-        ],
-        'no security' => [
-            (new ExampleNoSecurityRequirementSecurity())->build(),
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [],
-                ],
-            ],
-        ],
-        'one element array security' => [
-            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'ASecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-        'nested security' => [
-            [
-                (new SecurityRequirementBuilder())->build([
-                    ASecuritySchemeFactory::class,
-                    BSecuritySchemeFactory::class,
-                ]),
-            ],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'ASecuritySchemeFactory' => [],
-                    ],
-                    [
-                        'BSecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-        'multiple nested security' => [
-            [
-                (new SecurityRequirementBuilder())->build([
-                    BSecuritySchemeFactory::class,
-                ]),
-                (new SecurityRequirementBuilder())->build([
-                    ASecuritySchemeFactory::class,
-                    BSecuritySchemeFactory::class,
-                ]),
-            ],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'BSecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-    ])->skip('These test should be tested in Petstore functional test');
 })->covers(OpenApi::class);

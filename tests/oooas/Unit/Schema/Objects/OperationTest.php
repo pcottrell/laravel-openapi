@@ -9,7 +9,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
@@ -22,8 +21,6 @@ describe('Operation', function (): void {
     });
 
     it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
-        $securityScheme = SecurityScheme::create('OAuth2')
-            ->type(SecurityScheme::TYPE_OAUTH2);
         $callback =
             Callback::create(
                 'MyEvent',

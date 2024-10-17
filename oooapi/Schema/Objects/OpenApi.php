@@ -4,7 +4,6 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\CircularDependencyException;
-use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
@@ -77,15 +76,9 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    /**
-     * @throws CircularDependencyException
-     * @throws BindingResolutionException
-     */
     public function nestedSecurity(array $security): static
     {
-        $securityRequirements = app(SecurityRequirementBuilder::class)->build($security);
-
-        return $this->security($securityRequirements);
+        return $this;
     }
 
     public function security(Security $security): static

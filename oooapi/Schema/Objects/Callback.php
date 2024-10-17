@@ -8,9 +8,9 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final class Callback extends ExtensibleObject implements HasKey
 {
-    public readonly string $key;
-    public readonly string $expression;
-    public readonly PathItem $pathItem;
+    private readonly string $key;
+    private readonly string $expression;
+    private readonly PathItem $pathItem;
 
     // TODO: I don't believe callback key is mandatory if callback is reusable/reference
     public static function create(string $key, string $expression, PathItem $pathItem): self

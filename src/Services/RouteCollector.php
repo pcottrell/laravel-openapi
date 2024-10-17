@@ -31,7 +31,7 @@ final readonly class RouteCollector implements RouteCollectorContract
     {
         return collect($this->router->getRoutes())
             ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
-            ->map(static fn (Route $route): RouteInformation => RouteInformation::createFromRoute($route))
+            ->map(static fn (Route $route): RouteInformation => RouteInformation::create($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
                 $pathItem = $routeInformation->controllerAttributes
                     ->first(static fn (object $attribute): bool => $attribute instanceof PathItem);

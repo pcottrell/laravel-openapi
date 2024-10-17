@@ -223,7 +223,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     {
         $callbacks = [];
         foreach ($this->callbacks ?? [] as $callback) {
-            $callbacks[$callback->key()][$callback->expression] = $callback->pathItem;
+            $callbacks[$callback->key()] = $callback;
         }
 
         return Arr::filter([

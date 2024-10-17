@@ -10,7 +10,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestController;
 
 describe('ParameterBuilder', function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
@@ -27,7 +27,7 @@ describe('ParameterBuilder', function (): void {
     });
 
     it('can automatically create parameters from url params', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example/{id}', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect();
@@ -43,7 +43,7 @@ describe('ParameterBuilder', function (): void {
     });
 
     it('can guess parameter name if it is type hinted in controller method', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example/{id}/{unHinted}/{unknown}', [TestController::class, 'actionWithTypeHintedParams']),
         );
         $routeInformation->actionAttributes = collect();

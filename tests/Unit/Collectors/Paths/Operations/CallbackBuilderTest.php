@@ -11,7 +11,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableComponentCallbackFac
 
 describe(class_basename(CallbackBuilder::class), function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
@@ -26,7 +26,7 @@ describe(class_basename(CallbackBuilder::class), function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([

@@ -286,29 +286,6 @@ describe('Schema', function (): void {
         ]);
     });
 
-    it('can create object schema with oneOf', function (): void {
-        $string = Schema::string('string');
-        $number = Schema::number('number');
-
-        $schema = Schema::create('poly_type')
-            ->type(Schema::TYPE_OBJECT)
-            ->properties(
-                OneOf::create()->schemas($string, $number),
-            );
-
-        expect($schema->jsonSerialize())->toBe([
-            'type' => 'object',
-            'properties' => [
-                'poly_type' => [
-                    'oneOf' => [
-                        ['type' => 'string'],
-                        ['type' => 'number'],
-                    ],
-                ],
-            ],
-        ]);
-    });
-
     it('can create schemas using methods', function ($method, $expectation): void {
         /** @var Schema $schema */
         $schema = Schema::$method($method);

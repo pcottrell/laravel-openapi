@@ -704,7 +704,7 @@ class SecurityBuilderTest extends TestCase
 
         $route = '/foo';
         $action = 'get';
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::$action($route, static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([

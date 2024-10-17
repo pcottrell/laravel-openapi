@@ -42,7 +42,7 @@ class Components extends ExtensibleObject implements SimpleCreator
     protected array|null $links = null;
 
     /** @var ReusableCallbackFactory[]|null */
-    protected array|null $callbacks = null;
+    protected array|null $callbackFactories = null;
 
     public function schemas(ReusableSchemaFactory ...$schemaContract): static
     {
@@ -120,7 +120,7 @@ class Components extends ExtensibleObject implements SimpleCreator
     {
         $clone = clone $this;
 
-        $clone->callbacks = [] !== $pathItem ? $pathItem : null;
+        $clone->callbackFactories = [] !== $pathItem ? $pathItem : null;
 
         return $clone;
     }
@@ -168,9 +168,9 @@ class Components extends ExtensibleObject implements SimpleCreator
         }
 
         $callbacks = [];
-        foreach ($this->callbacks ?? [] as $callback) {
-            $pathItem = $callback->build();
-            $callbacks[$callback::key()][$pathItem->expression] = $pathItem;
+        foreach ($this->callbackFactories ?? [] as $factory) {
+            $callback = $factory->build();
+            $callbacks[$factory::key()] = $callback;
         }
 
         return Arr::filter([

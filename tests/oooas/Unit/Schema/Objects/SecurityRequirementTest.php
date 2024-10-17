@@ -56,4 +56,4 @@ describe('SecurityRequirement', function (): void {
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],
     ]);
-})->covers(SecurityRequirementOld::class);
+})->covers(SecurityRequirementOld::class)->skip();

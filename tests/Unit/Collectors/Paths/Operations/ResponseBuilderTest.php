@@ -6,16 +6,16 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponsesBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
-use Tests\Doubles\Stubs\Attributes\ResponseFactory;
+use Tests\Doubles\Stubs\Attributes\ResponsesFactory;
 use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableResponse;
 
 describe(class_basename(ResponsesBuilder::class), function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
-            new ResponseAttribute(ResponseFactory::class),
+            new ResponseAttribute(ResponsesFactory::class),
         ]);
         $builder = new ResponsesBuilder();
 
@@ -26,11 +26,11 @@ describe(class_basename(ResponsesBuilder::class), function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
-            new ResponseAttribute(ResponseFactory::class),
+            new ResponseAttribute(ResponsesFactory::class),
             new ResponseAttribute(TestReusableResponse::class),
         ]);
         $builder = new ResponsesBuilder();

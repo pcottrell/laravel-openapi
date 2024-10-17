@@ -19,17 +19,13 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
-use PHPUnit\Framework\Attributes\CoversNothing;
-use Tests\IntegrationTestCase;
 use Tests\oooas\Doubles\Stubs\ReusableSchemaStub;
 
-#[CoversNothing]
-class PetStoreTest extends IntegrationTestCase
-{
-    public function testPetStoreExample(): void
-    {
+describe('PetStoreTest', function (): void {
+    test('PetStore Example', function (): void {
         $contact = Contact::create()
             ->name('Swagger API Team')
             ->email('apiteam@swagger.io')
@@ -121,7 +117,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description("Returns all pets from the system that the user has access to\nNam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.\n\nSed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.\n")
             ->operationId('findPets')
             ->parameters(ParameterCollection::create($tagsParameter, $limitParameter))
-            ->responses($petListingResponse, $defaultErrorResponse);
+            ->responses(Responses::create($petListingResponse, $defaultErrorResponse));
 
         $addPet = Operation::post()
             ->description('Creates a new pet in the store.  Duplicates are allowed')
@@ -136,7 +132,7 @@ class PetStoreTest extends IntegrationTestCase
                         ),
                     ),
             )
-            ->responses($petResponse, $defaultErrorResponse);
+            ->responses(Responses::create($petResponse, $defaultErrorResponse));
 
         $path = Path::create(
             '/pets',
@@ -156,7 +152,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description('Returns a user based on a single ID, if the user does not have access to the pet')
             ->operationId('find pet by id')
             ->parameters(ParameterCollection::create($petIdParameter))
-            ->responses($petResponse, $defaultErrorResponse);
+            ->responses(Responses::create($petResponse, $defaultErrorResponse));
 
         $petDeletedResponse = Response::deleted('pet deleted');
 
@@ -164,7 +160,7 @@ class PetStoreTest extends IntegrationTestCase
             ->description('deletes a single pet based on the ID supplied')
             ->operationId('deletePet')
             ->parameters(ParameterCollection::create($petIdParameter->description('ID of pet to delete')))
-            ->responses($petDeletedResponse, $defaultErrorResponse);
+            ->responses(Responses::create($petDeletedResponse, $defaultErrorResponse));
 
         $petNested = Path::create(
             '/pets/{id}',
@@ -185,5 +181,5 @@ class PetStoreTest extends IntegrationTestCase
             File::json($exampleResponse),
             $openApi->jsonSerialize(),
         );
-    }
-}
+    });
+})->coversNothing();

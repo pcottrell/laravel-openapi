@@ -7,54 +7,48 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
 use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
-use MohammadAlavi\LaravelOpenApi\Attributes\Response;
+use MohammadAlavi\LaravelOpenApi\Attributes\Responses;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Attributes\ExtensionFactory;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
 use Tests\Doubles\Stubs\Attributes\RequestBodyFactory;
-use Tests\Doubles\Stubs\Attributes\ResponseFactory;
-use Tests\Doubles\Stubs\Attributes\SecuritySchemeFactory;
+use Tests\Doubles\Stubs\Attributes\ResponsesFactory;
 use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
 
 describe('OperationBuilder', function (): void {
-    it('can be created in many combinations', function (array $routes, array $expected): void {
+    it('can be created in many combinations', function (RouteInformation $route, array $expected): void {
         $operationBuilder = app(OperationBuilder::class);
 
-        $result = $operationBuilder->build($routes);
+        $result = $operationBuilder->build($route);
 
-        /** @var Operation $operationA */
-        $operationA = $result[0];
-        expect($result)->toBeArray()
-            ->and($result)->toHaveCount(1)
-            ->and($operationA->method)->toBe($expected[0]['action'])
-            ->and($operationA->tags)->toBe($expected[0]['tags'])
-            ->and($operationA->summary)->toBe($expected[0]['summary'])
-            ->and($operationA->description)->toBe($expected[0]['description'])
-            ->and($operationA->externalDocs)->toBe($expected[0]['externalDocs'])
-            ->and($operationA->operationId)->toBe($expected[0]['operationId'])
-            ->and($operationA->parameterCollection)->toEqual($expected[0]['parameters'])
-            ->and($operationA->requestBody)->toEqual($expected[0]['requestBody'])
-            ->and($operationA->responses)->toEqual($expected[0]['responses'])
-            ->and($operationA->deprecated)->toBe($expected[0]['deprecated'])
-            ->and($operationA->security)->toEqual($expected[0]['security'])
-            ->and($operationA->servers)->toEqual($expected[0]['servers'])
-            ->and($operationA->callbacks)->toEqual($expected[0]['callbacks']);
+        expect($result->method)->toBe($expected[0]['action'])
+            ->and($result->tags)->toBe($expected[0]['tags'])
+            ->and($result->summary)->toBe($expected[0]['summary'])
+            ->and($result->description)->toBe($expected[0]['description'])
+            ->and($result->externalDocs)->toBe($expected[0]['externalDocs'])
+            ->and($result->operationId)->toBe($expected[0]['operationId'])
+            ->and($result->parameterCollection)->toEqual($expected[0]['parameters'])
+            ->and($result->requestBody)->toEqual($expected[0]['requestBody'])
+            ->and($result->responses)->toEqual($expected[0]['responses'])
+            ->and($result->deprecated)->toBe($expected[0]['deprecated'])
+            ->and($result->security)->toEqual($expected[0]['security'])
+            ->and($result->servers)->toEqual($expected[0]['servers'])
+            ->and($result->callbacks)->toEqual($expected[0]['callbacks']);
     })->with(
         [
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(
+                $routeInformation = RouteInformation::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
                         tags: [],
-                        security: [],
+                        security: null,
                         method: 'get',
                         servers: [],
                         summary: '',
@@ -64,20 +58,20 @@ describe('OperationBuilder', function (): void {
                 ]);
 
                 return [
-                    'routes' => [$routeInformation],
+                    'routes' => $routeInformation,
                     'expected' => [
                         [
                             'summary' => '',
                             'description' => '',
                             'operationId' => 'test',
                             'deprecated' => false,
-                            'security' => [],
+                            'security' => null,
                             'action' => 'get',
                             'servers' => null,
                             'tags' => null,
                             'parameters' => null,
                             'requestBody' => null,
-                            'responses' => [],
+                            'responses' => null,
                             'callbacks' => null,
                             'externalDocs' => null,
                         ],
@@ -85,14 +79,14 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(
+                $routeInformation = RouteInformation::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([
                     new OperationAttribute(
                         id: 'test',
                         tags: ['test'],
-                        security: [],
+                        security: null,
                         method: 'post',
                         servers: [],
                         summary: 'summary',
@@ -102,20 +96,20 @@ describe('OperationBuilder', function (): void {
                 ]);
 
                 return [
-                    'routes' => [$routeInformation],
+                    'routes' => $routeInformation,
                     'expected' => [
                         [
                             'summary' => 'summary',
                             'description' => 'description',
                             'operationId' => 'test',
                             'deprecated' => true,
-                            'security' => [],
+                            'security' => null,
                             'action' => 'post',
                             'servers' => null,
                             'tags' => null,
                             'parameters' => null,
                             'requestBody' => null,
-                            'responses' => [],
+                            'responses' => null,
                             'callbacks' => null,
                             'externalDocs' => null,
                         ],
@@ -123,7 +117,7 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::createFromRoute(
+                $routeInformation = RouteInformation::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([
@@ -133,7 +127,7 @@ describe('OperationBuilder', function (): void {
                     new OperationAttribute(
                         id: 'test',
                         tags: [TagWithExternalObjectDoc::class],
-                        security: [SecuritySchemeFactory::class],
+                        security: ExampleSingleSecurityRequirementSecurity::class,
                         method: 'get',
                         servers: [ServerWithMultipleVariableFormatting::class],
                         summary: 'summary',
@@ -142,11 +136,11 @@ describe('OperationBuilder', function (): void {
                     ),
                     new Parameters(ParameterFactory::class),
                     new RequestBody(RequestBodyFactory::class),
-                    new Response(ResponseFactory::class),
+                    new Responses(ResponsesFactory::class),
                 ]);
 
                 return [
-                    'routes' => [$routeInformation],
+                    'routes' => $routeInformation,
                     'expected' => [
                         [
                             'summary' => 'summary',
@@ -155,17 +149,14 @@ describe('OperationBuilder', function (): void {
                             'deprecated' => true,
                             // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
                             //  it will be null in the SecurityRequirement object $securityScheme field
-                            //  Based on OAS spec security requirement cant no have a name
-                            'security' => SecurityRequirementOld::create()
-                                ->securityScheme(
-                                    (new SecuritySchemeFactory())->build(),
-                                ),
+                            //  Based on OAS spec security requirement cant not have a name
+                            'security' => (new ExampleSingleSecurityRequirementSecurity())->build(),
                             'action' => 'get',
                             'servers' => [(new ServerWithMultipleVariableFormatting())->build()],
                             'tags' => ['PostWithExternalObjectDoc'],
                             'parameters' => (new ParameterFactory())->build(),
                             'requestBody' => (new RequestBodyFactory())->build(),
-                            'responses' => [(new ResponseFactory())->build()],
+                            'responses' => (new ResponsesFactory())->build(),
                             'callbacks' => [(new CallbackFactory())->build()],
                             'externalDocs' => null,
                         ],

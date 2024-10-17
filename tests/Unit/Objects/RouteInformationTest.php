@@ -8,7 +8,7 @@ use Tests\Doubles\Stubs\Objects\MultiActionController;
 
 describe('RouteInformation', function (): void {
     it('can be created with all parameters', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get('/example', static fn (): string => 'example')
                 ->name('example')
                 ->domain('example.com'),
@@ -34,7 +34,7 @@ describe('RouteInformation', function (): void {
     it('can handle unsupported http method', function (string $method): void {
         expect(
             function () use ($method): void {
-                RouteInformation::createFromRoute(
+                RouteInformation::create(
                     Route::match(
                         [$method],
                         '/example',
@@ -75,7 +75,7 @@ describe('RouteInformation', function (): void {
     ];
     it('can be created with all valid combinations', function (array $method, array $actions): void {
         foreach ($actions as $action) {
-            $routeInformation = RouteInformation::createFromRoute(
+            $routeInformation = RouteInformation::create(
                 Route::match($method, '/example', $action['action']),
             );
 
@@ -115,7 +115,7 @@ describe('RouteInformation', function (): void {
     ]);
 
     it('doesnt extract route parameters if there are none', function (): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get(
                 '/example',
                 static fn (): string => 'example',
@@ -126,7 +126,7 @@ describe('RouteInformation', function (): void {
     });
 
     it('can extract route parameters', function (string $endpoint, int $count, Collection $expectation): void {
-        $routeInformation = RouteInformation::createFromRoute(
+        $routeInformation = RouteInformation::create(
             Route::get(
                 $endpoint,
                 static fn (): string => 'example',
@@ -203,7 +203,7 @@ describe('RouteInformation', function (): void {
     it(
         'can collect and instantiate controller attributes',
         function (array $action, int $controllerAttrCount, int $methodAttrCount): void {
-            $routeInformation = RouteInformation::createFromRoute(Route::get('/example', $action));
+            $routeInformation = RouteInformation::create(Route::get('/example', $action));
 
             expect($routeInformation->controllerAttributes)->toHaveCount($controllerAttrCount)
                 ->and($routeInformation->actionAttributes)->toHaveCount($methodAttrCount);

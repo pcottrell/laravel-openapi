@@ -6,9 +6,15 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\ApiKeyLocation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\ApiKey;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 
@@ -46,9 +52,7 @@ beforeEach(function (): void {
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::create()
-                                ->type('http')
-                                ->scheme('bearer');
+                            return Http::bearer();
                         }
                     })::class,
                 ],
@@ -95,24 +99,27 @@ beforeEach(function (): void {
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::create()
-                                ->type('apiKey')
-                                ->in('header');
+                            return ApiKey::create('testApiKey', ApiKeyLocation::HEADER);
                         }
                     })::class,
                     (new class () extends SecuritySchemeFactory {
                         public function build(): SecurityScheme
                         {
-                            return SecurityScheme::oauth2()
-                                ->flows(
-                                    OAuthFlow::create()
-                                    ->authorizationUrl('https://example.com/oauth/authorize')
-                                    ->tokenUrl('https://example.com/oauth/token')
-                                    ->scopes([
-                                        'read' => 'Grants read access',
-                                        'write' => 'Grants write access',
-                                    ]),
-                                );
+                            return OAuth2::create(
+                                Flows::create(
+                                    Flows\Implicit::create(
+                                        'https://example.com/oauth/authorize',
+                                        'https://example.com/oauth/token',
+                                        ScopeCollection::create(
+                                            Scope::create('read', 'Grants read access'),
+                                            Scope::create(
+                                                'write',
+                                                'Grants write access',
+                                            ),
+                                        ),
+                                    ),
+                                ),
+                            );
                         }
                     })::class,
                 ],

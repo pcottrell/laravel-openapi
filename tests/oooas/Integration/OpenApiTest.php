@@ -9,7 +9,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Contact;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Info;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
@@ -17,11 +16,21 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\ApiKeyLocation;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\ApiKey;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OpenIdConnect;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleNoSecurityRequirementSecurity;
 
 describe('OpenApi', function (): void {
     it('can generate valid OpenAPI v3.1.0 docs', function (SecurityScheme $securityScheme): void {
@@ -51,12 +60,12 @@ describe('OpenApi', function (): void {
         $expectedResponse = Response::ok()
             ->content(MediaType::json()->schema($schema));
         $operationIndex = Operation::get()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('List all audits')
             ->operationId('audits.index');
         $operationCreate = Operation::post()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('Create an audit')
             ->operationId('audits.store')
@@ -66,7 +75,7 @@ describe('OpenApi', function (): void {
             ->enum('json', 'ics')
             ->default('json');
         $operationGet = Operation::get()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('View an audit')
             ->operationId('audits.show')
@@ -99,7 +108,7 @@ describe('OpenApi', function (): void {
             Server::create()->url('https://api.example.com/v2'),
         ];
         $components = Components::create()->securitySchemes($securityScheme);
-        $securityRequirement = SecurityRequirementOld::create()->securityScheme($securityScheme);
+        $security = Security::create($securityScheme);
         $externalDocs = ExternalDocs::create()
             ->url('https://example.com')
             ->description('Example');
@@ -109,76 +118,151 @@ describe('OpenApi', function (): void {
             ->paths($paths)
             ->servers(...$servers)
             ->components($components)
-            ->security($securityRequirement)
+            ->security($security)
             ->tags($tag)
             ->externalDocs($externalDocs);
 
-        $data = $openApi->jsonSerialize();
+        $data = $openApi->asArray();
         $result = file_put_contents('openapi.json', $openApi->toJson());
         // docker run --rm -v $PWD:/spec redocly/cli lint --extends recommend openapi.json
     })->with([
         function (): SecurityScheme {
-            $oAuthFlow = OAuthFlow::create()
-                ->flow(OAuthFlow::FLOW_IMPLICIT)
-                ->authorizationUrl('https://api.example.com/oauth/authorize')
-                ->refreshUrl('https://api.example.com/oauth/refresh')
-                ->scopes([
-                    'read:audits' => 'Read audits',
-                    'write:audits' => 'Write audits',
-                ]);
-
-            return SecurityScheme::oauth2('OAuth2')
-                ->flows($oAuthFlow);
+            return OAuth2::create(
+                Flows::create()
+                    ->implicit(
+                        Flows\Implicit::create(
+                            'https://api.example.com/oauth/authorize',
+                            'https://api.example.com/oauth/refresh',
+                            ScopeCollection::create(
+                                Scope::create('read:audits', 'Read audits'),
+                                Scope::create('write:audits', 'Write audits'),
+                            ),
+                        ),
+                    ),
+            );
         },
         function (): SecurityScheme {
-            $oAuthFlow = OAuthFlow::create()
-                ->flow(OAuthFlow::FLOW_PASSWORD)
-                ->tokenUrl('https://api.example.com/oauth/authorize')
-                ->refreshUrl('https://api.example.com/oauth/refresh')
-                ->scopes([
-                    'read:audits' => 'Read audits',
-                    'write:audits' => 'Write audits',
-                ]);
-
-            return SecurityScheme::oauth2('OAuth2')
-                ->flows($oAuthFlow);
+            return OAuth2::create(
+                Flows::create()
+                    ->password(
+                        Flows\Password::create(
+                            'https://api.example.com/oauth/authorize',
+                            'https://api.example.com/oauth/refresh',
+                            ScopeCollection::create(
+                                Scope::create('read:audits', 'Read audits'),
+                                Scope::create('write:audits', 'Write audits'),
+                            ),
+                        ),
+                    ),
+            );
         },
         function (): SecurityScheme {
-            $oAuthFlow = OAuthFlow::create()
-                ->flow(OAuthFlow::FLOW_CLIENT_CREDENTIALS)
-                ->tokenUrl('https://api.example.com/oauth/authorize')
-                ->refreshUrl('https://api.example.com/oauth/refresh')
-                ->scopes(null);
-
-            return SecurityScheme::oauth2('OAuth2')
-                ->flows($oAuthFlow);
+            return OAuth2::create(
+                Flows::create()
+                    ->clientCredentials(
+                        Flows\ClientCredentials::create(
+                            'https://api.example.com/oauth/authorize',
+                            'https://api.example.com/oauth/refresh',
+                            ScopeCollection::create(
+                                Scope::create('read:audits', 'Read audits'),
+                                Scope::create('write:audits', 'Write audits'),
+                            ),
+                        ),
+                    ),
+            );
         },
         function (): SecurityScheme {
-            $oAuthFlow = OAuthFlow::create()
-                ->flow(OAuthFlow::FLOW_AUTHORIZATION_CODE)
-                ->authorizationUrl('https://api.example.com/oauth/authorize')
-                ->tokenUrl('https://api.example.com/oauth/token')
-                ->refreshUrl('https://api.example.com/oauth/refresh');
-
-            return SecurityScheme::oauth2('OAuth2')
-                ->flows($oAuthFlow);
+            return OAuth2::create(
+                Flows::create()
+                    ->authorizationCode(
+                        Flows\AuthorizationCode::create(
+                            'https://api.example.com/oauth/authorize',
+                            'https://api.example.com/oauth/token',
+                            'https://api.example.com/oauth/refresh',
+                            ScopeCollection::create(
+                                Scope::create('read:audits', 'Read audits'),
+                                Scope::create('write:audits', 'Write audits'),
+                            ),
+                        ),
+                    ),
+            );
         },
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
-            ->name('X-API-Key')
-            ->in(SecurityScheme::IN_HEADER),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
-            ->name('in-query')
-            ->in(SecurityScheme::IN_QUERY),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_API_KEY)
-            ->name('in-cookie')
-            ->in(SecurityScheme::IN_COOKIE),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_HTTP)
-            ->scheme('Basic'),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_HTTP)
-            ->scheme('Bearer')
-            ->bearerFormat('JWT'),
-        fn (): SecurityScheme => SecurityScheme::create('test_api_key')->type(SecurityScheme::TYPE_OPEN_ID_CONNECT)
-            ->openIdConnectUrl('https://api.example.com/.well-known/openid-configuration'),
+        fn (): SecurityScheme => ApiKey::create('X-API-Key', ApiKeyLocation::HEADER),
+        fn (): SecurityScheme => ApiKey::create('in-query', ApiKeyLocation::QUERY),
+        fn (): SecurityScheme => ApiKey::create('in-cookie', ApiKeyLocation::COOKIE),
+        fn (): SecurityScheme => Http::basic('test_api_key'),
+        fn (): SecurityScheme => Http::bearer('test_api_key', 'JWT'),
+        fn (): SecurityScheme => OpenIdConnect::create('https://api.example.com/.well-known/openid-configuration'),
     ]);
-})->coversNothing()->skip();
+
+    it('can be created using security method', function (Security $security, array $expectation): void {
+        $openApi = OpenApi::create()->security($security);
+
+        $result = $openApi->asArray();
+
+        expect($result)->toBe($expectation);
+    })->with([
+        'empty array [] security' => [
+            [],
+            ['openapi' => OASVersion::V_3_1_0->value],
+        ],
+        'no security' => [
+            (new ExampleNoSecurityRequirementSecurity())->build(),
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [],
+                ],
+            ],
+        ],
+        'one element array security' => [
+            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'ASecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+        'nested security' => [
+            [
+                (new SecurityRequirementBuilder())->build([
+                    ASecuritySchemeFactory::class,
+                    BSecuritySchemeFactory::class,
+                ]),
+            ],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'ASecuritySchemeFactory' => [],
+                    ],
+                    [
+                        'BSecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+        'multiple nested security' => [
+            [
+                (new SecurityRequirementBuilder())->build([
+                    BSecuritySchemeFactory::class,
+                ]),
+                (new SecurityRequirementBuilder())->build([
+                    ASecuritySchemeFactory::class,
+                    BSecuritySchemeFactory::class,
+                ]),
+            ],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'BSecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+    ])->skip();
+})->coversNothing();

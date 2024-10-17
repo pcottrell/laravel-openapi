@@ -13,6 +13,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 use PHPUnit\Framework\Attributes\CoversNothing;
@@ -51,7 +52,7 @@ class ReadmeTest extends IntegrationTestCase
 
         // Create the operation for the route (i.e., GET, POST, etc.).
         $operation = Operation::get()
-            ->responses($userResponse)
+            ->responses(Responses::create($userResponse))
             ->tags($usersTag)
             ->summary('Get an individual user')
             ->operationId('users.show');

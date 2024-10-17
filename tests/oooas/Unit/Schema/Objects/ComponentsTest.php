@@ -20,6 +20,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe(class_basename(Components::class), function (): void {
@@ -58,12 +59,10 @@ describe(class_basename(Components::class), function (): void {
             ->authorizationUrl('https://example.org/api/oauth/dialog');
         $securityScheme = \Mockery::spy(SecuritySchemeFactory::class);
         $securityScheme->allows('key')
-            ->andReturn('OAuth2');
+            ->andReturn('basic');
         $securityScheme->expects('build')
             ->andReturn(
-                SecurityScheme::create('OAuth2')
-                    ->type(SecurityScheme::TYPE_OAUTH2)
-                    ->flows($oauthFlow),
+                Http::basic(),
             );
 
         $link = Link::create('LinkExample');
@@ -97,7 +96,7 @@ describe(class_basename(Components::class), function (): void {
             ->links($link)
             ->callbacks($callback);
 
-        expect($components->jsonSerialize())->toBe([
+        expect($components->asArray())->toBe([
             'schemas' => [
                 'ExampleSchema' => [
                     'type' => 'object',
@@ -126,13 +125,9 @@ describe(class_basename(Components::class), function (): void {
                 'HeaderExample' => [],
             ],
             'securitySchemes' => [
-                'OAuth2' => [
-                    'type' => 'oauth2',
-                    'flows' => [
-                        'implicit' => [
-                            'authorizationUrl' => 'https://example.org/api/oauth/dialog',
-                        ],
-                    ],
+                'basic' => [
+                    'type' => 'http',
+                    'scheme' => 'basic',
                 ],
             ],
             'links' => [
