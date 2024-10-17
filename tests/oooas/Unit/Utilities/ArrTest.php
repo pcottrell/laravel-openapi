@@ -16,11 +16,12 @@ describe('Arr', function (): void {
     });
 
     it('keeps non-null values', function (): void {
+        $object = new \stdClass();
         $array = [
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => OpenApi::create(),
+            'object' => $object,
         ];
 
         $array = Arr::filter($array);
@@ -29,9 +30,7 @@ describe('Arr', function (): void {
             'false' => false,
             '0' => 0,
             'string' => 'string',
-            'object' => [
-                'openapi' => OASVersion::V_3_1_0->value,
-            ],
+            'object' => $object,
         ]);
     });
 

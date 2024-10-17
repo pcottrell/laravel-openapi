@@ -7,7 +7,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-/** @see https://swagger.io/specification/#security-scheme-object */
 class SecurityScheme extends ExtensibleObject implements SimpleKeyCreator
 {
     use SimpleKeyCreatorTrait;
