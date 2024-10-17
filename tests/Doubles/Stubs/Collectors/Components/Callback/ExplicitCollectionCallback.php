@@ -12,6 +12,6 @@ class ExplicitCollectionCallback extends ReusableCallbackFactory
 {
     public function build(): Callback
     {
-        return Callback::create('test', '/', PathItem::create());
+        return Callback::create('test', '/explicit-collection-callback', PathItem::create());
     }
 }

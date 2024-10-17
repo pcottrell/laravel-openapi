@@ -13,6 +13,6 @@ class MultiCollectionCallback extends ReusableCallbackFactory
 {
     public function build(): Callback
     {
-        return Callback::create('test', '/', PathItem::create());
+        return Callback::create('test', '/multi-collection-callback', PathItem::create());
     }
 }

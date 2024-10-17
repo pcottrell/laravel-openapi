@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Config;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use Pest\Expectation;
 
 describe(class_basename(ComponentsBuilder::class), function (): void {
@@ -48,10 +47,9 @@ describe(class_basename(ComponentsBuilder::class), function (): void {
 
         $result = $builder->build($collection);
 
-        expect($result)->unless(
+        expect($result?->asArray())->unless(
             is_null($result),
-            fn (Expectation $xp): Expectation => $xp->toBeInstanceOf(Components::class)
-                ->and($xp->value->jsonSerialize())->toEqual($expectation),
+            fn (Expectation $xp): Expectation => $xp->toEqual($expectation),
         );
     })->with(
         [

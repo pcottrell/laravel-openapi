@@ -10,6 +10,6 @@ class ImplicitDefaultCallback extends ReusableCallbackFactory
 {
     public function build(): Callback
     {
-        return Callback::create('test', '/', PathItem::create());
+        return Callback::create('test', '/implicit-default-callback', PathItem::create());
     }
 }
