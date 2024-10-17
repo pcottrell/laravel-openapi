@@ -12,32 +12,43 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use Webmozart\Assert\InvalidArgumentException;
 
 describe('Extensions', function (): void {
+    $expectations = [
+        'x-key' => 'value',
+        'x-foo' => 'bar',
+        'x-baz' => null,
+        'x-obj' => [],
+    ];
     dataset('extensibleObjectSet', [
-        fn (): Components => Components::create(),
-        fn (): Operation => Operation::create(),
-        fn (): PathItem => PathItem::create(),
-        fn (): Response => Response::ok(),
-        fn (): Schema => Schema::create('test'),
+        [fn (): Components => Components::create(), $expectations],
+        [fn (): Operation => Operation::create(), $expectations + [
+            'responses' => [
+                'default' => [
+                    'description' => 'Default Response',
+                ],
+            ],
+        ],
+        ],
+        [fn (): PathItem => PathItem::create(), $expectations],
+        [fn (): Response => Response::ok(), $expectations  + [
+            'description' => 'OK',
+        ],
+        ],
+        [fn (): Schema => Schema::create('test'), $expectations],
     ]);
 
-    it('can create objects with extension', function (ExtensibleObject $extensibleObject): void {
-        $arraySchema = Schema::array('test')->items(Schema::string('test'));
+    it('can create objects with extension', function (ExtensibleObject $extensibleObject, array $expectations): void {
+        $object = new \stdClass();
         $extension1 = Extension::create('x-key', 'value');
         $extension2 = Extension::create('x-foo', 'bar');
         $extension3 = Extension::create('x-baz', null);
-        $extension4 = Extension::create('x-array', $arraySchema);
-        $object = $extensibleObject
+        $extension4 = Extension::create('x-obj', $object);
+        $sut = $extensibleObject
             ->addExtension($extension1)
             ->addExtension($extension2)
             ->addExtension($extension3)
             ->addExtension($extension4);
 
-        expect($object->jsonSerialize())->toBe([
-            'x-key' => 'value',
-            'x-foo' => 'bar',
-            'x-baz' => null,
-            'x-array' => $arraySchema,
-        ]);
+        expect($sut->asArray())->toEqual($expectations);
     })->with('extensibleObjectSet');
 
     it('can unset extensions', function (): void {
@@ -48,7 +59,7 @@ describe('Extensions', function (): void {
 
         $object = $object->removeExtension('x-key');
 
-        expect($object->jsonSerialize())->toBe([
+        expect($object->asArray())->toBe([
             'x-foo' => 'bar',
             'x-baz' => null,
         ]);
