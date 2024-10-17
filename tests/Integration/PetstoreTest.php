@@ -5,7 +5,7 @@ namespace Tests\Integration;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use Tests\Doubles\Fakes\Petstore\PetController;
+use Tests\Doubles\Stubs\Petstore\PetController;
 use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Servers\ServerWithoutVariables;
 use Tests\Doubles\Stubs\Servers\ServerWithVariables;

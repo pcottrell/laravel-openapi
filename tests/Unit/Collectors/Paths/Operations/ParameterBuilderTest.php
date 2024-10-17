@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters as ParameterAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParametersBuilder;
+use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
@@ -48,13 +49,14 @@ describe('ParameterBuilder', function (): void {
         );
         $routeInformation->actionAttributes = collect();
 
-        $parameterBuilder = new ParametersBuilder();
+        $builder = new ParametersBuilder();
 
-        $result = $parameterBuilder->build($routeInformation);
+        $result = $builder->build($routeInformation);
 
         /** @var Parameter $typeHintedParam */
-        $typeHintedParam = $result[0];
-        expect($result)->toHaveCount(2)
+        $typeHintedParam = $result?->asArray()[0];
+        expect($result)->toBeInstanceOf(ParameterCollection::class)
+            ->and($result?->asArray())->toHaveCount(2)
             ->and($typeHintedParam)->toBeInstanceOf(Parameter::class)
             ->and($typeHintedParam->name)->toBe('id')
             ->and($typeHintedParam->required)->toBeTrue()

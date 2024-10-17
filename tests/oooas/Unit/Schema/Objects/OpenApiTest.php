@@ -20,9 +20,9 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
-use Tests\Doubles\Fakes\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
-use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
-use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleOAuth2PasswordSecurityScheme;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
+use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleOAuth2PasswordSecurityScheme;
 
 describe(class_basename(OpenApi::class), function (): void {
     it('can be created and validated', function (): void {

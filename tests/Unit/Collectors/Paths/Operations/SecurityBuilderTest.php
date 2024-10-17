@@ -14,693 +14,48 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\DataProvider;
-use Tests\Doubles\Stubs\SecuritySchemesFactories\ApiKeySecuritySchemeFactory;
-use Tests\Doubles\Stubs\SecuritySchemesFactories\BearerSecuritySchemeFactory;
-use Tests\Doubles\Stubs\SecuritySchemesFactories\JwtSecuritySchemeFactory;
-use Tests\TestCase;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleApiKeySecurityScheme;
+use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
 
-#[CoversClass(SecurityBuilder::class)]
-class SecurityBuilderTest extends TestCase
-{
-    public static function operationSecuritySchemesDataProvider(): array
-    {
-        return ['No global security - no path security' => [
-            [
-                'components' => [
-                    'securitySchemes' => [
-                        'JWT' => self::jwtSecuritySchemeProvider(),
-                        'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                    ],
-                ],
-                'globalSecurity' => null,
-                'pathSecurity' => null,
-            ],
-            [ // available global securities (components)
-                JwtSecuritySchemeFactory::class,
-                ApiKeySecuritySchemeFactory::class,
-                BearerSecuritySchemeFactory::class,
-            ],
-            [], // applied global security
-            null, // use default global securities
-        ],
-            'Use default global security - have single class string security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => null,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                null,
-            ],
-            'Use default global security - have multi-auth security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                            'JWT' => [],
-                        ],
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'Bearer' => [],
-                            'ApiKey' => [],
-                        ],
-                        [
-                            'Bearer' => [],
-                            'ApiKey' => [],
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => null,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                    BearerSecuritySchemeFactory::class,
-                    [
-                        BearerSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                    [
-                        BearerSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                    [
-                        // TODO: should this duplication be removed?
-                        //  I don't think it is removed automatically.
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-                null,
-            ],
-            'Override global security - disable global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [],
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [],
-            ],
-            'Override global security - with same security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class, // available global securities (components)
-                ],
-                [
-                    JwtSecuritySchemeFactory::class, // applied global securities
-                ],
-                JwtSecuritySchemeFactory::class, // security overrides
-            ],
-            'Override global security - single auth class string' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                JwtSecuritySchemeFactory::class,
-            ],
-            'Override global security - single auth array' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-            ],
-            'Override global security - multi-auth (and) - single auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'ApiKey' => [],
-                            'Bearer' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            'Override global security - multi-auth (and) - multi auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'Bearer' => [],
-                            'JWT' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'JWT' => [],
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        BearerSecuritySchemeFactory::class,
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            'Override global security - multi-auth (or) - single auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'Bearer' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            'Override global security - multi-auth (or) - multi auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'Bearer' => [],
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        BearerSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            'Override global security - multi-auth (and + or) - single auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                            'Bearer' => [],
-                        ],
-                    ],
-                ],
-                [
-                    BearerSecuritySchemeFactory::class,
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                    [
-                        JwtSecuritySchemeFactory::class,
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            'Override global security - multi-auth (and + or) - multi auth global security' => [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'globalSecurity' => [
-                        [
-                            'Bearer' => [],
-                            'ApiKey' => [],
-                        ],
-                    ],
-                    'pathSecurity' => [
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                            'Bearer' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    BearerSecuritySchemeFactory::class,
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        BearerSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-                [
-                    [
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                    [
-                        JwtSecuritySchemeFactory::class,
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-        ];
-    }
-
+describe(class_basename(SecurityBuilder::class), function (): void {
     /** @return string[] */
-    private static function jwtSecuritySchemeProvider(): array
+    function bearerSecurityExpectations(): array
     {
         return [
             'type' => 'http',
-            'name' => 'JwtTestScheme',
-            'in' => 'header',
+            'description' => 'Example Security',
             'scheme' => 'bearer',
-            'bearerFormat' => 'JWT',
         ];
     }
 
     /** @return string[] */
-    private static function apiKeyAuthSecuritySchemeProvider(): array
+    function apiKeySecurityExpectations(): array
     {
         return [
             'type' => 'apiKey',
-            'name' => 'X-API-KEY',
-            'in' => 'header',
-            'scheme' => 'apiKey',
+            'name' => 'ApiKey Security',
+            'in' => 'cookie',
         ];
     }
 
     /** @return string[] */
-    private static function bearerAuthSecuritySchemeProvider(): array
+    function oAuth2SecurityExpectations(): array
     {
         return [
             'type' => 'http',
-            'scheme' => 'bearer',
+            'description' => 'Example Bearer Security',
+            'scheme' => 'ExampleHTTPBearerSecurityScheme',
         ];
     }
 
-    public static function globalSecuritySchemesDataProvider(): array
-    {
-        return [
-            // JWT authentication only
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            // ApiKey authentication only
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-            ],
-            // Both JWT and ApiKey authentication required
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            // Either JWT or ApiKey authentication required
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-                [
-                    [
-                        JwtSecuritySchemeFactory::class,
-                    ],
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                ],
-            ],
-            // And & Or combination
-            [
-                [
-                    'components' => [
-                        'securitySchemes' => [
-                            'JWT' => self::jwtSecuritySchemeProvider(),
-                            'ApiKey' => self::apiKeyAuthSecuritySchemeProvider(),
-                            'Bearer' => self::bearerAuthSecuritySchemeProvider(),
-                        ],
-                    ],
-                    'security' => [
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                            'Bearer' => [],
-                        ],
-                        [
-                            'Bearer' => [],
-                        ],
-                        [
-                            'JWT' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                        [
-                            'ApiKey' => [],
-                        ],
-                    ],
-                ],
-                [
-                    JwtSecuritySchemeFactory::class,
-                    ApiKeySecuritySchemeFactory::class,
-                    BearerSecuritySchemeFactory::class,
-                ],
-                [
-                    BearerSecuritySchemeFactory::class,
-                    [
-                        JwtSecuritySchemeFactory::class,
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                    [
-                        BearerSecuritySchemeFactory::class,
-                    ],
-                    JwtSecuritySchemeFactory::class,
-                    [
-                        ApiKeySecuritySchemeFactory::class,
-                    ],
-                    ApiKeySecuritySchemeFactory::class,
-                ],
-            ],
-        ];
-    }
-
-    #[DataProvider('operationSecuritySchemesDataProvider')]
-    public function testCanApplyMultipleSecuritySchemesOnOperation(
-        array $expectedJson,
+    it('can apply multiple security schemes on operation', function (
+        array $expectations,
         array $securitySchemeFactories,
         array $globalSecurity,
         string|array|null $pathSecurity,
     ): void {
-        $components = Components::create()->securitySchemes(
-            ...collect($securitySchemeFactories)->map(
-                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build(),
-            )->toArray(),
-        );
+        $components = Components::create()->securitySchemes(...$securitySchemeFactories);
 
         $route = '/foo';
         $action = 'get';
@@ -729,15 +84,15 @@ class SecurityBuilderTest extends TestCase
         $actionData = [
             $action => [],
         ];
-        if (!is_null($expectedJson['pathSecurity'])) {
-            $actionData[$action] = ['security' => $expectedJson['pathSecurity']];
+        if (!is_null($expectations['pathSecurity'])) {
+            $actionData[$action] = ['security' => $expectations['pathSecurity']];
         }
 
         $collectionData = [
-            'components' => $expectedJson['components'],
+            'components' => $expectations['components'],
         ];
-        if (!is_null($expectedJson['globalSecurity'])) {
-            $collectionData['security'] = $expectedJson['globalSecurity'];
+        if (!is_null($expectations['globalSecurity'])) {
+            $collectionData['security'] = $expectations['globalSecurity'];
         }
 
         $this->assertSame([
@@ -745,20 +100,484 @@ class SecurityBuilderTest extends TestCase
             'paths' => [
                 $route => $actionData,
             ], ...$collectionData,
-        ], $openApi->jsonSerialize());
-    }
+        ], $openApi->asArray());
+    })->with(
+        [
+            'No global security - no path security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => null,
+                    'pathSecurity' => null,
+                ],
+                [ // available global securities (components)
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                null, // applied global security
+                null, // use default global securities
+            ],
+            'Use default global security - have single class string security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => null,
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                null,
+            ],
+            'Use default global security - have multi-auth security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleApiKeySecurityScheme' => [],
+                            'ExampleOAuth2PasswordSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => null,
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                    [
+                        ExampleApiKeySecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleApiKeySecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    [
+                        // TODO: should this duplication be removed?
+                        //  I don't think it is removed automatically.
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+                null,
+            ],
+            'Override global security - disable global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [],
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [],
+            ],
+            'Override global security - with same security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(), // available global securities (components)
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(), // applied global securities
+                ],
+                ExampleHTTPBearerSecurityScheme::create(), // security overrides
+            ],
+            'Override global security - single auth class string' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                ExampleHTTPBearerSecurityScheme::create(),
+            ],
+            'Override global security - single auth array' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+            ],
+            'Override global security - multi-auth (and) - single auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    [
+                        ExampleApiKeySecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                ],
+            ],
+            'Override global security - multi-auth (and) - multi auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleOAuth2PasswordSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+            ],
+            'Override global security - multi-auth (or) - single auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    [
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+            ],
+            'Override global security - multi-auth (or) - multi auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    [
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+            ],
+            'Override global security - multi-auth (and + or) - single auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleOAuth2PasswordSecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                ],
+            ],
+            'Override global security - multi-auth (and + or) - multi auth global security' => [
+                [
+                    'components' => [
+                        'securitySchemes' => [
+                            'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                            'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                            'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        ],
+                    ],
+                    'globalSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                    'pathSecurity' => [
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleHTTPBearerSecurityScheme' => [],
+                            'ExampleOAuth2PasswordSecurityScheme' => [],
+                        ],
+                        [
+                            'ExampleApiKeySecurityScheme' => [],
+                        ],
+                    ],
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+                [
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    [
+                        ExampleHTTPBearerSecurityScheme::create(),
+                        ExampleHTTPBearerSecurityScheme::create(),
+                    ],
+                    [
+                        ExampleApiKeySecurityScheme::create(),
+                    ],
+                ],
+            ],
+        ],
+    );
 
-    #[DataProvider('globalSecuritySchemesDataProvider')]
-    public function testCanApplyMultipleSecuritySchemesGlobally(
+    it('can apply multiple security schemes globally', function (
         array $expectedJson,
-        array $securitySchemeComponents,
+        array $securitySchemeFactories,
         array $globalSecurity,
     ): void {
-        $components = Components::create()->securitySchemes(
-            ...collect($securitySchemeComponents)->map(
-                static fn (string $securitySchemeFactory): SecurityScheme => app($securitySchemeFactory)->build(),
-            )->toArray(),
-        );
+        $components = Components::create()->securitySchemes(...$securitySchemeFactories);
 
         $operation = Operation::create()
             ->action('get');
@@ -788,25 +607,174 @@ class SecurityBuilderTest extends TestCase
             'components' => $expectedJson['components'],
             'security' => $expectedJson['security'],
         ];
-        $this->assertSame($expected, $openApi->jsonSerialize());
-    }
+        $this->assertSame($expected, $openApi->asArray());
+    })->with([
+        // JWT authentication only
+        [
+            [
+                'components' => [
+                    'securitySchemes' => [
+                        'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                    ],
+                ],
+                'security' => [
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                    ],
+                ],
+            ],
+            [
+                ExampleHTTPBearerSecurityScheme::create(),
+            ],
+            [
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+            ],
+        ],
+        // ApiKey authentication only
+        [
+            [
+                'components' => [
+                    'securitySchemes' => [
+                        'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                    ],
+                ],
+                'security' => [
+                    [
+                        'ExampleApiKeySecurityScheme' => [],
+                    ],
+                ],
+            ],
+            [
+                ExampleApiKeySecurityScheme::create(),
+            ],
+            [
+                ExampleApiKeySecurityScheme::create(),
+            ],
+        ],
+        // Both JWT and ApiKey authentication required
+        [
+            [
+                'components' => [
+                    'securitySchemes' => [
+                        'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                    ],
+                ],
+                'security' => [
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                        'ExampleApiKeySecurityScheme' => [],
+                    ],
+                ],
+            ],
+            [
+                ExampleHTTPBearerSecurityScheme::create(),
+                ExampleApiKeySecurityScheme::create(),
+            ],
+            [
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+            ],
+        ],
+        // Either JWT or ApiKey authentication required
+        [
+            [
+                'components' => [
+                    'securitySchemes' => [
+                        'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                    ],
+                ],
+                'security' => [
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleApiKeySecurityScheme' => [],
+                    ],
+                ],
+            ],
+            [
+                ExampleHTTPBearerSecurityScheme::create(),
+                ExampleApiKeySecurityScheme::create(),
+            ],
+            [
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+            ],
+        ],
+        // And & Or combination
+        [
+            [
+                'components' => [
+                    'securitySchemes' => [
+                        'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
+                        'ExampleApiKeySecurityScheme' => apiKeySecurityExpectations(),
+                        'ExampleOAuth2PasswordSecurityScheme' => oAuth2SecurityExpectations(),
+                    ],
+                ],
+                'security' => [
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                        'ExampleOAuth2PasswordSecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleApiKeySecurityScheme' => [],
+                    ],
+                    [
+                        'ExampleApiKeySecurityScheme' => [],
+                    ],
+                ],
+            ],
+            [
+                ExampleHTTPBearerSecurityScheme::create(),
+                ExampleApiKeySecurityScheme::create(),
+                ExampleHTTPBearerSecurityScheme::create(),
+            ],
+            [
+                ExampleHTTPBearerSecurityScheme::create(),
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                [
+                    ExampleHTTPBearerSecurityScheme::create(),
+                ],
+                ExampleHTTPBearerSecurityScheme::create(),
+                [
+                    ExampleApiKeySecurityScheme::create(),
+                ],
+                ExampleApiKeySecurityScheme::create(),
+            ],
+        ],
+    ]);
 
-    /**
-     * We're just making sure we're getting the expected output.
-     */
-    public function testCanBuildUpTheSecurityScheme(): void
-    {
-        $jwtSecuritySchemeFactory = app(JwtSecuritySchemeFactory::class);
-        $securityScheme = $jwtSecuritySchemeFactory->build();
-
+    it('can buildup the security scheme', function (): void {
         $components = Components::create()
-            ->securitySchemes($securityScheme);
+            ->securitySchemes(ExampleHTTPBearerSecurityScheme::create());
 
         $operation = Operation::create()
             ->action('get');
 
         $openApi = OpenApi::create()
-            ->nestedSecurity([JwtSecuritySchemeFactory::class])
+            ->security((new ExampleSingleSecurityRequirementSecurity())->build())
             ->components($components)
             ->paths(
                 Paths::create(
@@ -827,37 +795,28 @@ class SecurityBuilderTest extends TestCase
             ],
             'components' => [
                 'securitySchemes' => [
-                    'JWT' => self::jwtSecuritySchemeProvider(),
+                    'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
                 ],
             ],
             'security' => [
                 [
-                    'JWT' => [],
+                    'ExampleHTTPBearerSecurityScheme' => [],
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->jsonSerialize());
-    }
+        $this->assertSame($expected, $openApi->asArray());
+    });
 
-    /**
-     * We're just verifying that the builder is capable of
-     * adding security information to the operation.
-     */
-    public function testWeCanAddOperationSecurityUsingBuilder(): void
-    {
-        $jwtSecuritySchemeFactory = app(JwtSecuritySchemeFactory::class);
-        $securityScheme = $jwtSecuritySchemeFactory->build();
-
+    it('can add operation security using builder', function (): void {
         $components = Components::create()
-            ->securitySchemes($securityScheme);
+            ->securitySchemes(ExampleHTTPBearerSecurityScheme::create());
 
-        $routeInformation = new RouteInformation();
-        $routeInformation->action = 'get';
-        $routeInformation->name = 'test route';
+        $routeInformation = RouteInformation::create(
+            Route::get('/example', static fn (): string => 'example'),
+        );
         $routeInformation->actionAttributes = collect([
-            new AttributesOperation(security: JwtSecuritySchemeFactory::class),
+            new AttributesOperation(security: ExampleSingleSecurityRequirementSecurity::class),
         ]);
-        $routeInformation->url = '/example';
 
         $securityBuilder = app(SecurityBuilder::class);
 
@@ -884,7 +843,7 @@ class SecurityBuilderTest extends TestCase
                     'get' => [
                         'security' => [
                             [
-                                'JWT' => [],
+                                'ExampleHTTPBearerSecurityScheme' => [],
                             ],
                         ],
                     ],
@@ -892,10 +851,11 @@ class SecurityBuilderTest extends TestCase
             ],
             'components' => [
                 'securitySchemes' => [
-                    'JWT' => self::jwtSecuritySchemeProvider(),
+                    'ExampleHTTPBearerSecurityScheme' => bearerSecurityExpectations(),
                 ],
             ],
         ];
-        $this->assertSame($expected, $openApi->jsonSerialize());
-    }
-}
+
+        expect($openApi->asArray())->toBe($expected);
+    });
+})->covers(SecurityBuilder::class);

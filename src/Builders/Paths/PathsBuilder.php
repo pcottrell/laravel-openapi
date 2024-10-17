@@ -24,7 +24,7 @@ final readonly class PathsBuilder
             ->map(
                 fn (RouteInformation $routeInformation): RouteInformation => $this
                     ->applyBeforeMiddleware($routeInformation, ...$pathMiddleware),
-            )->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->url)
+            )->groupBy(static fn (RouteInformation $routeInformation): string => $routeInformation->url())
             ->map(
                 fn (Collection $routeInformation, string $url): Path => Path::create(
                     $url,

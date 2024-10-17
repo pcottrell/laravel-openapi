@@ -2,7 +2,6 @@
 
 use Illuminate\Contracts\Foundation\Application;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
-use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Providers\OpenApiServiceProvider;
 
 describe('OpenApiServiceProvider', function (): void {
@@ -16,7 +15,6 @@ describe('OpenApiServiceProvider', function (): void {
         );
 
         $expectedBindings = [
-            Generator::class,
             RouteCollector::class,
         ];
         foreach ($expectedBindings as $expectedBinding) {

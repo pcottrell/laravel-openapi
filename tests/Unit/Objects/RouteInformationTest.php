@@ -17,7 +17,7 @@ describe('RouteInformation', function (): void {
         expect($routeInformation)->toBeInstanceOf(RouteInformation::class)
             ->and($routeInformation->domain)->toBe('example.com')
             ->and($routeInformation->method)->toBe('get')
-            ->and($routeInformation->url)->toBe('/example')
+            ->and($routeInformation->url())->toBe('/example')
             ->and($routeInformation->name)->toBe('example')
             ->and($routeInformation->controller)->toBe('Closure')
             ->and($routeInformation->parameters)->toBeInstanceOf(Collection::class)

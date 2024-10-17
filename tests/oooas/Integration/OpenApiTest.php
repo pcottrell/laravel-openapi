@@ -30,7 +30,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
-use Tests\Doubles\Fakes\Petstore\Security\ExampleNoSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleNoSecurityRequirementSecurity;
 
 describe('OpenApi', function (): void {
     it('can generate valid OpenAPI v3.1.0 docs', function (SecurityScheme $securityScheme): void {

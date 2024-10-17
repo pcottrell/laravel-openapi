@@ -16,7 +16,7 @@ class RouteInformation
 {
     public string|null $domain = null;
     public string $method;
-    public string $url;
+    private string $url;
     public string|null $name = null;
 
     /** @var string|class-string<Controller> */
@@ -35,6 +35,11 @@ class RouteInformation
 
     /** @var Collection<int, \Attribute> */
     public Collection $actionAttributes;
+
+    public function url(): string
+    {
+        return $this->url;
+    }
 
     public static function create(Route $route): static
     {

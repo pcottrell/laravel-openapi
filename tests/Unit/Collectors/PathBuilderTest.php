@@ -11,11 +11,12 @@ use Tests\Doubles\Stubs\Collectors\Components\PathMiddlewareStub;
 
 describe(class_basename(PathsBuilder::class), function (): void {
     it('can be created with middleware', function (): void {
-        $routeCollector = Mockery::spy(RouteCollector::class);
         $testCollection = RouteInformation::create(Route::get('/test-collection', CollectibleClass::class));
-        $routeCollector->allows()->whereInCollection('TestCollection')->andReturn(collect([
-            $testCollection,
-        ]));
+        $routeCollector = Mockery::mock(RouteCollector::class);
+        $routeCollector->allows()
+            ->whereInCollection('TestCollection')
+            ->andReturn(collect([$testCollection]));
+
         $pathItemBuilder = app(PathItemBuilder::class);
         $pathBuilder = new PathsBuilder($pathItemBuilder, $routeCollector);
         $pathMiddlewareSpyA = Mockery::spy(PathMiddlewareStub::class);
