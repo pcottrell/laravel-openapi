@@ -45,7 +45,7 @@ final class Responses extends ExtensibleObject
         foreach ($this->responses as $response) {
             if ($response instanceof ReusableResponseFactory) {
                 $responseInstance = $response->build();
-                $responses[$responseInstance->key()] = $response::ref()->jsonSerialize();
+                $responses[$responseInstance->key()] = $response::ref();
 
                 continue;
             }
