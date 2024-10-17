@@ -9,7 +9,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Contact;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Info;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
@@ -17,13 +16,17 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleNoSecurityRequirementSecurity;
+use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
+use Tests\Doubles\Fakes\Petstore\Security\SecuritySchemes\ExampleOAuth2PasswordSecurityScheme;
 
-describe('OpenApi', function (): void {
+describe(class_basename(OpenApi::class), function (): void {
     it('can be created and validated', function (): void {
         $tag = Tag::create()
             ->name('Audits')
@@ -60,7 +63,7 @@ describe('OpenApi', function (): void {
                 Schema::string('id')->format(Schema::FORMAT_UUID),
                 Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
                 Schema::integer('age')->example(60),
-                Schema::array('date')->items(
+                Schema::array('data')->items(
                     AllOf::create()->schemas(
                         Schema::string('id')->format(Schema::FORMAT_UUID),
                     ),
@@ -74,13 +77,13 @@ describe('OpenApi', function (): void {
             );
 
         $operation = Operation::get()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('List all audits')
             ->operationId('audits.index');
 
         $createAudit = Operation::post()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('Create an audit')
             ->operationId('audits.store')
@@ -95,7 +98,7 @@ describe('OpenApi', function (): void {
             ->default('json');
 
         $readAudit = Operation::get()
-            ->responses($expectedResponse)
+            ->responses(Responses::create($expectedResponse))
             ->tags($tag)
             ->summary('View an audit')
             ->operationId('audits.show')
@@ -130,16 +133,12 @@ describe('OpenApi', function (): void {
             Server::create()->url('https://api.example.com/v2'),
         ];
 
-        $oAuthFlow = OAuthFlow::create()
-            ->flow(OAuthFlow::FLOW_PASSWORD)
-            ->tokenUrl('https://api.example.com/oauth/authorize');
+        $security = (new ExampleComplexMultiSecurityRequirementSecurity())->build();
 
-        $securityScheme = SecurityScheme::oauth2('OAuth2')
-            ->flows($oAuthFlow);
-
-        $components = Components::create()->securitySchemes($securityScheme);
-
-        $securityRequirement = SecurityRequirementOld::create()->securityScheme($securityScheme);
+        $components = Components::create()->securitySchemes(
+            ExampleHTTPBearerSecurityScheme::create(),
+            ExampleOAuth2PasswordSecurityScheme::create(),
+        );
 
         $externalDocs = ExternalDocs::create()
             ->url('https://example.com')
@@ -151,11 +150,13 @@ describe('OpenApi', function (): void {
             ->paths($paths)
             ->servers(...$servers)
             ->components($components)
-            ->security($securityRequirement)
+            ->security($security)
             ->tags($tag)
             ->externalDocs($externalDocs);
 
-        expect($openApi->jsonSerialize())->toBe([
+        $result = $openApi->asArray();
+
+        expect($result)->toBe([
             'openapi' => OASVersion::V_3_1_0->value,
             'info' => [
                 'title' => 'API Specification',
@@ -352,18 +353,40 @@ describe('OpenApi', function (): void {
             ],
             'components' => [
                 'securitySchemes' => [
-                    'OAuth2' => [
+                    'ExampleHTTPBearerSecurityScheme' => [
+                        'type' => 'http',
+                        'description' => 'Example Security',
+                        'scheme' => 'bearer',
+                    ],
+                    'OAuth2Password' => [
                         'type' => 'oauth2',
                         'flows' => [
                             'password' => [
-                                'tokenUrl' => 'https://api.example.com/oauth/authorize',
+                                'tokenUrl' => 'https://example.com/oauth/authorize',
+                                'refreshUrl' => 'https://example.com/oauth/token',
+                                'scopes' => [
+                                    'order' => 'Full information about orders.',
+                                    'order:item' => 'Information about items within an order.',
+                                    'order:payment' => 'Access to order payment details.',
+                                    'order:shipping:address' => 'Information about where to deliver orders.',
+                                    'order:shipping:status' => 'Information about the delivery status of orders.',
+                                ],
                             ],
                         ],
                     ],
                 ],
             ],
             'security' => [
-                ['OAuth2' => []],
+                [
+                    'ExampleHTTPBearerSecurityScheme' => [],
+                ],
+                [
+                    'ExampleHTTPBearerSecurityScheme' => [],
+                    'OAuth2Password' => [
+                        'order:shipping:address',
+                        'order:shipping:status',
+                    ],
+                ],
             ],
             'tags' => [
                 ['name' => 'Audits', 'description' => 'All the audits'],
@@ -374,4 +397,75 @@ describe('OpenApi', function (): void {
             ],
         ]);
     });
+
+    it('can be created using security method', function (Security $security, array $expectation): void {
+        $openApi = OpenApi::create()->security($security);
+
+        $result = $openApi->asArray();
+
+        expect($result)->toBe($expectation);
+    })->with([
+        'empty array [] security' => [
+            [],
+            ['openapi' => OASVersion::V_3_1_0->value],
+        ],
+        'no security' => [
+            (new ExampleNoSecurityRequirementSecurity())->build(),
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [],
+                ],
+            ],
+        ],
+        'one element array security' => [
+            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'ASecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+        'nested security' => [
+            [
+                (new SecurityRequirementBuilder())->build([
+                    ASecuritySchemeFactory::class,
+                    BSecuritySchemeFactory::class,
+                ]),
+            ],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'ASecuritySchemeFactory' => [],
+                    ],
+                    [
+                        'BSecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+        'multiple nested security' => [
+            [
+                (new SecurityRequirementBuilder())->build([
+                    BSecuritySchemeFactory::class,
+                ]),
+                (new SecurityRequirementBuilder())->build([
+                    ASecuritySchemeFactory::class,
+                    BSecuritySchemeFactory::class,
+                ]),
+            ],
+            [
+                'openapi' => OASVersion::V_3_1_0->value,
+                'security' => [
+                    [
+                        'BSecuritySchemeFactory' => [],
+                    ],
+                ],
+            ],
+        ],
+    ])->skip('These test should be tested in Petstore functional test');
 })->covers(OpenApi::class);

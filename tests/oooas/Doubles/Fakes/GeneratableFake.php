@@ -2,9 +2,9 @@
 
 namespace Tests\oooas\Doubles\Fakes;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-class JsonSerializableFake extends JsonSerializable
+class GeneratableFake extends Generatable
 {
     protected function toArray(): array
     {

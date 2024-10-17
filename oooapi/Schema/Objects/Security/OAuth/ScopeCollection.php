@@ -3,9 +3,9 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 
-final readonly class ScopeCollection extends ReadonlyJsonSerializable
+final readonly class ScopeCollection extends ReadonlyGenerator
 {
     private array $scopeFactories;
 
@@ -64,8 +64,8 @@ final readonly class ScopeCollection extends ReadonlyJsonSerializable
 
     protected function toArray(): array
     {
-        $scopes = array_reduce($this->all(), static function ($carry, $scope) {
-            $carry[$scope->name] = $scope->description;
+        $scopes = array_reduce($this->all(), static function (array $carry, Scope $scope) {
+            $carry[$scope->name()] = $scope->description();
 
             return $carry;
         }, []);

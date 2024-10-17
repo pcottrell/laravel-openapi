@@ -28,7 +28,7 @@ describe('PetStore', function (): void {
         Route::put('/nestedSecuritySecondTest', [PetController::class, 'nestedSecuritySecond']);
 
         Config::set('openapi.collections.default.servers', $servers['classes']);
-        $spec = app(Generator::class)->generate()->jsonSerialize();
+        $spec = app(Generator::class)->generate()->asArray();
 
         expect($spec['servers'])->toBe($servers['expectation'])
             ->and($spec['paths'])->toHaveKey($path)
@@ -317,7 +317,7 @@ describe('PetStore', function (): void {
                     ],
                     [
                         'ExampleHTTPBearerSecurityScheme' => [],
-                        'ExampleOAuth2PasswordSecurityScheme' => [
+                        'OAuth2Password' => [
                             'order:shipping:address',
                             'order:shipping:status',
                         ],

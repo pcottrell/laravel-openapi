@@ -4,9 +4,9 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\SecurityRequirementFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final class Security extends JsonSerializable
+final class Security extends Generatable
 {
     private array $securityRequirements;
 
@@ -41,9 +41,9 @@ final class Security extends JsonSerializable
     {
         return Arr::filter(
             array_map(
-                static fn (
-                    SecurityRequirement $securityRequirement,
-                ) => $securityRequirement->jsonSerialize(),
+                fn (SecurityRequirement $securityRequirement) => $this->toObjectIfEmpty(
+                    $securityRequirement,
+                ),
                 $this->securityRequirements,
             ),
         );

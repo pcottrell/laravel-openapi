@@ -5,9 +5,9 @@ namespace MohammadAlavi\LaravelOpenApi\Collections;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableParameterFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final class ParameterCollection extends JsonSerializable
+final class ParameterCollection extends Generatable
 {
     private readonly array $parameters;
 

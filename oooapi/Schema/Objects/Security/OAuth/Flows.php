@@ -7,9 +7,9 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\Clie
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\Implicit;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows\Password;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final readonly class Flows extends ReadonlyJsonSerializable
+final class Flows extends Generatable
 {
     private function __construct(
         private Implicit|null $implicit = null,
@@ -48,6 +48,42 @@ final readonly class Flows extends ReadonlyJsonSerializable
         AuthorizationCode|null $authorizationCode = null,
     ): self {
         return new self($implicit, $password, $clientCredentials, $authorizationCode);
+    }
+
+    public function implicit(Implicit $implicit): self
+    {
+        $clone = clone $this;
+
+        $clone->implicit = $implicit;
+
+        return $clone;
+    }
+
+    public function password(Password $password): self
+    {
+        $clone = clone $this;
+
+        $clone->password = $password;
+
+        return $clone;
+    }
+
+    public function clientCredentials(ClientCredentials $clientCredentials): self
+    {
+        $clone = clone $this;
+
+        $clone->clientCredentials = $clientCredentials;
+
+        return $clone;
+    }
+
+    public function authorizationCode(AuthorizationCode $authorizationCode): self
+    {
+        $clone = clone $this;
+
+        $clone->authorizationCode = $authorizationCode;
+
+        return $clone;
     }
 
     protected function toArray(): array

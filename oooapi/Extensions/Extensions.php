@@ -2,12 +2,12 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 use Webmozart\Assert\Assert;
 
 // TODO: make readonly if possible
 // There was a problem with cloning that prevented me from making it readonly
-final class Extensions extends JsonSerializable
+final class Extensions extends Generatable
 {
     private array $extensions = [];
 

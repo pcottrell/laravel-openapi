@@ -9,7 +9,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final readonly class OpenIdConnect extends SecurityScheme
 {
     private function __construct(
-        public string $openIdConnectUrl,
+        private string $openIdConnectUrl,
         string|null $description,
     ) {
         parent::__construct(SecuritySchemeType::OPEN_ID_CONNECT, $description);

@@ -3,13 +3,13 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\SecuritySchemeType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 
-abstract readonly class SecurityScheme extends ReadonlyJsonSerializable
+abstract readonly class SecurityScheme extends ReadonlyGenerator
 {
     protected function __construct(
         protected SecuritySchemeType $type,
-        public string|null $description,
+        protected string|null $description,
     ) {
     }
 }

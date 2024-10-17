@@ -4,9 +4,9 @@ namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 
-final readonly class SecurityRequirement extends ReadonlyJsonSerializable
+final readonly class SecurityRequirement extends ReadonlyGenerator
 {
     private array $requirements;
 

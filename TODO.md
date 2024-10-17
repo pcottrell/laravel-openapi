@@ -27,3 +27,4 @@ Does it make sense to document each method/property with docblock using the info
 Get rid of all Nulls! as much as you can!
 reduce property visibility to private or protected and expose them via methods
     if you need to expose them
+remove all usage of jsonSerialize() and use asArray() instead

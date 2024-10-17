@@ -2,9 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 
-abstract readonly class Flow extends ReadonlyJsonSerializable
+abstract readonly class Flow extends ReadonlyGenerator
 {
     protected ScopeCollection $scopeCollection;
 

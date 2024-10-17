@@ -1,12 +1,12 @@
 <?php
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\NonExtensibleObject;
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\JsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 use Tests\oooas\Doubles\Fakes\NonExtensibleObjectFake;
 
 describe('NonExtensibleObject', function (): void {
     it('can be created', function (): void {
         expect(NonExtensibleObjectFake::class)
-            ->toExtend(JsonSerializable::class);
+            ->toExtend(Generatable::class);
     });
 })->covers(NonExtensibleObject::class);

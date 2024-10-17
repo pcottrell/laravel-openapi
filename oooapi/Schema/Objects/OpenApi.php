@@ -17,18 +17,17 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
     use SimpleCreatorTrait;
 
     protected Info|null $info = null;
+    protected Paths|null $paths = null;
+    protected Components|null $components = null;
+    protected Security|null $security = null;
+    protected ExternalDocs|null $externalDocs = null;
 
     /** @var Server[]|null */
     protected array|null $servers = null;
 
-    protected Paths|null $paths = null;
-    protected Components|null $components = null;
-    protected Security|null $security = null;
-
     /** @var Tag[]|null */
     protected array|null $tags = null;
 
-    protected ExternalDocs|null $externalDocs = null;
     private readonly OASVersion $openapi;
 
     public function openapi(OASVersion $openapi): static
@@ -40,6 +39,8 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
+    // TODO: info cannot be null per the spec
+    // It is required
     public function info(Info|null $info): static
     {
         $clone = clone $this;
@@ -120,9 +121,9 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
             'openapi' => $this->openapi->value ?? OASVersion::V_3_1_0->value,
             'info' => $this->info,
             'servers' => $this->servers,
-            'paths' => $this->paths,
-            'components' => $this->components,
-            'security' => $this->security?->jsonSerialize(),
+            'paths' => $this->toObjectIfEmpty($this->paths),
+            'components' => $this->toObjectIfEmpty($this->components),
+            'security' => $this->security,
             'tags' => $this->tags,
             'externalDocs' => $this->externalDocs,
         ]);

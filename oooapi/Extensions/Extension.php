@@ -2,10 +2,10 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Extensions;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyJsonSerializable;
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 use Webmozart\Assert\Assert;
 
-final readonly class Extension extends ReadonlyJsonSerializable
+final readonly class Extension extends ReadonlyGenerator
 {
     private const EXTENSION_PREFIX = 'x-';
 

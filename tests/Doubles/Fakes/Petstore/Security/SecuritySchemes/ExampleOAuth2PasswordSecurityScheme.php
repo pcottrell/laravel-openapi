@@ -16,6 +16,11 @@ use Tests\Doubles\Fakes\Petstore\Security\Scopes\OrderShippingStatusScope;
 
 class ExampleOAuth2PasswordSecurityScheme extends SecuritySchemeFactory
 {
+    public static function key(): string
+    {
+        return 'OAuth2Password';
+    }
+
     public function build(): SecurityScheme
     {
         return OAuth2::create(
