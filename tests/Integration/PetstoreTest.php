@@ -17,7 +17,7 @@ describe('PetStore', function (): void {
                 __DIR__ . '/../Doubles/Fakes/Petstore/Schemas',
             ],
             'responses' => [
-                __DIR__ . '/../Doubles/Fakes/Petstore/responses/response',
+                __DIR__ . '/../Doubles/Fakes/Petstore/Responses/Response',
             ],
         ]);
 
@@ -53,6 +53,38 @@ describe('PetStore', function (): void {
                     ],
                     'tag' => [
                         'type' => 'string',
+                    ],
+                ],
+            ])
+            ->and($spec['components'])->toHaveKey('responses')
+            ->and($spec['components']['responses'])->toHaveKey('ReusableComponentErrorValidationResponse')
+            ->and($spec['components']['responses']['ReusableComponentErrorValidationResponse'])->toBe([
+                'description' => 'Unprocessable Entity',
+                'content' => [
+                    'application/json' => [
+                        'schema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'message' => [
+                                    'type' => 'string',
+                                    'example' => 'The given data was invalid.',
+                                ],
+                                'errors' => [
+                                    'type' => 'object',
+                                    'additionalProperties' => [
+                                        'type' => 'array',
+                                        'items' => [
+                                            'type' => 'string',
+                                        ],
+                                    ],
+                                    'example' => [
+                                        'field' => [
+                                            'Something is wrong with this field!',
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ],
                     ],
                 ],
             ]);

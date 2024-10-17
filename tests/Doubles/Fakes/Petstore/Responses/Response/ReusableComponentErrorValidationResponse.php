@@ -12,8 +12,8 @@ class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
     public function build(): Response
     {
         $schema = Schema::object('object_test')->properties(
-            Schema::string('string_test')->example('The given data was invalid.'),
-            Schema::object('object_test')
+            Schema::string('message')->example('The given data was invalid.'),
+            Schema::object('errors')
                 ->additionalProperties(
                     Schema::array('array_test')->items(Schema::string('string_test')),
                 )
