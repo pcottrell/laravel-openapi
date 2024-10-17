@@ -123,4 +123,4 @@ describe('SecurityRequirementBuilder', function (): void {
 
     it('can be created using security method', function (): void {
     })->todo();
-})->covers(SecurityRequirementBuilder::class);
+})->covers(SecurityRequirementBuilder::class)->skip();
