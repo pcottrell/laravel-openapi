@@ -1,5 +1,6 @@
 <?php
 
+use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Callback;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
@@ -7,10 +8,11 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityRequirementOld;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
+use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 
 describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {
@@ -42,15 +44,15 @@ describe('Operation', function (): void {
             ->description('Dolar sit amet')
             ->externalDocs(ExternalDocs::create())
             ->operationId('users.show')
-            ->parameters(Parameter::create())
+            ->parameters(ParameterCollection::create(Parameter::create()))
             ->requestBody(RequestBody::create())
-            ->responses(Response::default())
+            ->responses(Responses::create(Response::default()))
             ->deprecated()
-            ->security(SecurityRequirementOld::create()->securityScheme($securityScheme))
+            ->security((new ExampleSingleSecurityRequirementSecurity())->build())
             ->servers(Server::create())
             ->callbacks($callback);
 
-        expect($operation->jsonSerialize())->toBe([
+        expect($operation->asArray())->toBe([
             'tags' => ['Users'],
             'summary' => 'Lorem ipsum',
             'description' => 'Dolar sit amet',
@@ -59,11 +61,13 @@ describe('Operation', function (): void {
             'parameters' => [[]],
             'requestBody' => [],
             'responses' => [
-                'default' => [],
+                'default' => [
+                    'description' => 'Default Response',
+                ],
             ],
             'deprecated' => true,
             'security' => [
-                ['OAuth2' => []],
+                ['ExampleHTTPBearerSecurityScheme' => []],
             ],
             'servers' => [[]],
             'callbacks' => [
