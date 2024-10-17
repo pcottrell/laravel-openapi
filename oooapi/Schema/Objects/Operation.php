@@ -34,9 +34,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     protected string|null $operationId = null;
     protected ParameterCollection|null $parameterCollection = null;
     protected RequestBody|Reference|null $requestBody = null;
-
-    protected Responses|null $responses;
-
+    protected Responses|null $responses = null;
     protected bool|null $deprecated = null;
     protected Security|null $security = null;
     protected bool|null $noSecurity = null;
@@ -234,11 +232,11 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'description' => $this->description,
             'externalDocs' => $this->externalDocs,
             'operationId' => $this->operationId,
-            'parameters' => $this->parameterCollection?->jsonSerialize(),
+            'parameters' => $this->parameterCollection,
             'requestBody' => $this->requestBody,
-            'responses' => $this->responses?->jsonSerialize() ?? Responses::create()->jsonSerialize(),
+            'responses' => $this->responses,
             'deprecated' => $this->deprecated,
-            'security' => $this->security?->jsonSerialize(),
+            'security' => $this->security,
             'servers' => $this->servers,
             'callbacks' => [] !== $callbacks ? $callbacks : null,
         ]);
