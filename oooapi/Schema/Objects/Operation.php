@@ -234,7 +234,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'operationId' => $this->operationId,
             'parameters' => $this->parameterCollection,
             'requestBody' => $this->requestBody,
-            'responses' => $this->responses,
+            'responses' => $this->responses ?? Responses::create(),
             'deprecated' => $this->deprecated,
             'security' => $this->security,
             'servers' => $this->servers,
