@@ -13,15 +13,14 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Link;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OAuthFlow;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe(class_basename(Components::class), function (): void {
     it('can be create with all parameters', function (): void {
@@ -54,9 +53,6 @@ describe(class_basename(Components::class), function (): void {
 
         $header = Header::create('HeaderExample');
 
-        $oauthFlow = OAuthFlow::create()
-            ->flow(OAuthFlow::FLOW_IMPLICIT)
-            ->authorizationUrl('https://example.org/api/oauth/dialog');
         $securityScheme = \Mockery::spy(SecuritySchemeFactory::class);
         $securityScheme->allows('key')
             ->andReturn('basic');
@@ -87,7 +83,7 @@ describe(class_basename(Components::class), function (): void {
 
         $components = Components::create()
             ->schemas($schema)
-            ->responses($response)
+            ->responses(Responses::create($response))
             ->parameters($parameter)
             ->examples($example)
             ->requestBodies($requestBody)

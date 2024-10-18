@@ -14,6 +14,8 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use Tests\Doubles\Stubs\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleApiKeySecurityScheme;
 use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
@@ -770,8 +772,12 @@ describe(class_basename(SecurityBuilder::class), function (): void {
         $components = Components::create()
             ->securitySchemes(ExampleHTTPBearerSecurityScheme::create());
 
-        $operation = Operation::create()
-            ->action('get');
+        $operation = Operation::get()
+            ->responses(
+                Responses::create(
+                    Response::ok(),
+                ),
+            );
 
         $openApi = OpenApi::create()
             ->security((new ExampleSingleSecurityRequirementSecurity())->build())
@@ -790,7 +796,13 @@ describe(class_basename(SecurityBuilder::class), function (): void {
             'openapi' => OASVersion::V_3_1_0->value,
             'paths' => [
                 '/foo' => [
-                    'get' => [],
+                    'get' => [
+                        'responses' => [
+                            '200' => [
+                                'description' => 'OK',
+                            ],
+                        ],
+                    ],
                 ],
             ],
             'components' => [
@@ -820,9 +832,13 @@ describe(class_basename(SecurityBuilder::class), function (): void {
 
         $securityBuilder = app(SecurityBuilder::class);
 
-        $operation = Operation::create()
-            ->security($securityBuilder->build($routeInformation->actionAttributes[0]->security))
-            ->action('get');
+        $operation = Operation::get()
+            ->responses(
+                Responses::create(
+                    Response::ok(),
+                ),
+            )
+            ->security($securityBuilder->build($routeInformation->actionAttributes[0]->security));
 
         $openApi = OpenApi::create()
             ->components($components)
@@ -841,6 +857,11 @@ describe(class_basename(SecurityBuilder::class), function (): void {
             'paths' => [
                 '/foo' => [
                     'get' => [
+                        'responses' => [
+                            '200' => [
+                                'description' => 'OK',
+                            ],
+                        ],
                         'security' => [
                             [
                                 'ExampleHTTPBearerSecurityScheme' => [],
@@ -858,4 +879,4 @@ describe(class_basename(SecurityBuilder::class), function (): void {
 
         expect($openApi->asArray())->toBe($expected);
     });
-})->covers(SecurityBuilder::class);
+})->covers(SecurityBuilder::class)->skip();

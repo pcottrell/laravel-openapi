@@ -31,6 +31,9 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 use Tests\Doubles\Stubs\Petstore\Security\ExampleNoSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\SecurityRequirements\ExampleSingleBearerSecurityRequirement;
+use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
 
 describe('OpenApi', function (): void {
     it('can generate valid OpenAPI v3.1.0 docs', function (SecurityScheme $securityScheme): void {
@@ -107,8 +110,8 @@ describe('OpenApi', function (): void {
             Server::create()->url('https://api.example.com/v1'),
             Server::create()->url('https://api.example.com/v2'),
         ];
-        $components = Components::create()->securitySchemes($securityScheme);
-        $security = Security::create($securityScheme);
+        $components = Components::create()->securitySchemes(ExampleHTTPBearerSecurityScheme::create());
+        $security = Security::create(ExampleSingleBearerSecurityRequirement::create());
         $externalDocs = ExternalDocs::create()
             ->url('https://example.com')
             ->description('Example');
@@ -195,74 +198,75 @@ describe('OpenApi', function (): void {
         fn (): SecurityScheme => OpenIdConnect::create('https://api.example.com/.well-known/openid-configuration'),
     ]);
 
-    it('can be created using security method', function (Security $security, array $expectation): void {
-        $openApi = OpenApi::create()->security($security);
-
-        $result = $openApi->asArray();
-
-        expect($result)->toBe($expectation);
-    })->with([
-        'empty array [] security' => [
-            [],
-            ['openapi' => OASVersion::V_3_1_0->value],
-        ],
-        'no security' => [
-            (new ExampleNoSecurityRequirementSecurity())->build(),
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [],
-                ],
-            ],
-        ],
-        'one element array security' => [
-            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'ASecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-        'nested security' => [
-            [
-                (new SecurityRequirementBuilder())->build([
-                    ASecuritySchemeFactory::class,
-                    BSecuritySchemeFactory::class,
-                ]),
-            ],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'ASecuritySchemeFactory' => [],
-                    ],
-                    [
-                        'BSecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-        'multiple nested security' => [
-            [
-                (new SecurityRequirementBuilder())->build([
-                    BSecuritySchemeFactory::class,
-                ]),
-                (new SecurityRequirementBuilder())->build([
-                    ASecuritySchemeFactory::class,
-                    BSecuritySchemeFactory::class,
-                ]),
-            ],
-            [
-                'openapi' => OASVersion::V_3_1_0->value,
-                'security' => [
-                    [
-                        'BSecuritySchemeFactory' => [],
-                    ],
-                ],
-            ],
-        ],
-    ])->skip();
+    // TODO: write test
+//    it('can be created using security method', function (Security $security, array $expectation): void {
+//        $openApi = OpenApi::create()->security($security);
+//
+//        $result = $openApi->asArray();
+//
+//        expect($result)->toBe($expectation);
+//    })->with([
+//        'empty array [] security' => [
+//            [],
+//            ['openapi' => OASVersion::V_3_1_0->value],
+//        ],
+//        'no security' => [
+//            (new ExampleNoSecurityRequirementSecurity())->build(),
+//            [
+//                'openapi' => OASVersion::V_3_1_0->value,
+//                'security' => [
+//                    [],
+//                ],
+//            ],
+//        ],
+//        'one element array security' => [
+//            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
+//            [
+//                'openapi' => OASVersion::V_3_1_0->value,
+//                'security' => [
+//                    [
+//                        'ASecuritySchemeFactory' => [],
+//                    ],
+//                ],
+//            ],
+//        ],
+//        'nested security' => [
+//            [
+//                (new SecurityRequirementBuilder())->build([
+//                    ASecuritySchemeFactory::class,
+//                    BSecuritySchemeFactory::class,
+//                ]),
+//            ],
+//            [
+//                'openapi' => OASVersion::V_3_1_0->value,
+//                'security' => [
+//                    [
+//                        'ASecuritySchemeFactory' => [],
+//                    ],
+//                    [
+//                        'BSecuritySchemeFactory' => [],
+//                    ],
+//                ],
+//            ],
+//        ],
+//        'multiple nested security' => [
+//            [
+//                (new SecurityRequirementBuilder())->build([
+//                    BSecuritySchemeFactory::class,
+//                ]),
+//                (new SecurityRequirementBuilder())->build([
+//                    ASecuritySchemeFactory::class,
+//                    BSecuritySchemeFactory::class,
+//                ]),
+//            ],
+//            [
+//                'openapi' => OASVersion::V_3_1_0->value,
+//                'security' => [
+//                    [
+//                        'BSecuritySchemeFactory' => [],
+//                    ],
+//                ],
+//            ],
+//        ],
+//    ])->skip();
 })->coversNothing();

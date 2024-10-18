@@ -17,7 +17,13 @@ describe('Operation', function (): void {
     it('can be created with no parameters', function (): void {
         $operation = Operation::create();
 
-        expect($operation->jsonSerialize())->toBeEmpty();
+        expect($operation->asArray())->toBe([
+            'responses' => [
+                'default' => [
+                    'description' => 'Default Response',
+                ],
+            ],
+        ]);
     });
 
     it('can can be created with all parameters', function (string $actionMethod, string $operationName): void {
@@ -27,10 +33,15 @@ describe('Operation', function (): void {
                 '{$request.query.callbackUrl}',
                 PathItem::create()
                     ->operations(
-                        Operation::$actionMethod()->requestBody(
-                            RequestBody::create()
+                        Operation::$actionMethod()
+                            ->requestBody(
+                                RequestBody::create()
                                 ->description('something happened'),
-                        ),
+                            )->responses(
+                                Responses::create(
+                                    Response::unauthorized(),
+                                ),
+                            ),
                     ),
             );
 
@@ -43,7 +54,11 @@ describe('Operation', function (): void {
             ->operationId('users.show')
             ->parameters(ParameterCollection::create(Parameter::create()))
             ->requestBody(RequestBody::create())
-            ->responses(Responses::create(Response::default()))
+            ->responses(
+                Responses::create(
+                    Response::ok(),
+                ),
+            )
             ->deprecated()
             ->security((new ExampleSingleSecurityRequirementSecurity())->build())
             ->servers(Server::create())
@@ -58,13 +73,15 @@ describe('Operation', function (): void {
             'parameters' => [[]],
             'requestBody' => [],
             'responses' => [
-                'default' => [
-                    'description' => 'Default Response',
+                '200' => [
+                    'description' => 'OK',
                 ],
             ],
             'deprecated' => true,
             'security' => [
-                ['ExampleHTTPBearerSecurityScheme' => []],
+                [
+                    'ExampleHTTPBearerSecurityScheme' => [],
+                ],
             ],
             'servers' => [[]],
             'callbacks' => [
@@ -73,6 +90,11 @@ describe('Operation', function (): void {
                         $operationName => [
                             'requestBody' => [
                                 'description' => 'something happened',
+                            ],
+                            'responses' => [
+                                '401' => [
+                                    'description' => 'Unauthorized',
+                                ],
                             ],
                         ],
                     ],
@@ -94,17 +116,27 @@ describe('Operation', function (): void {
         $operation = Operation::get()
             ->noSecurity();
 
-        expect($operation->jsonSerialize())->toBe([
+        expect($operation->asArray())->toBe([
             'security' => [],
         ]);
     })->skip('update the implementation to support no security');
 
     it('can accepts tags in multiple ways', function (array $tag, $expectation): void {
         $operation = Operation::get()
+            ->responses(
+                Responses::create(
+                    Response::ok(),
+                ),
+            )
             ->tags(...$tag);
 
-        expect($operation->jsonSerialize())->toBe([
+        expect($operation->asArray())->toBe([
             'tags' => $expectation,
+            'responses' => [
+                '200' => [
+                    'description' => 'OK',
+                ],
+            ],
         ]);
     })->with([
         'one string tag' => [['Users'], ['Users']],

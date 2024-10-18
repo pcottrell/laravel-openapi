@@ -12,7 +12,6 @@ use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
-use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 
 class Generator
 {

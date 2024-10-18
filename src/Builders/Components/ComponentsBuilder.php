@@ -23,6 +23,7 @@ final readonly class ComponentsBuilder
 
     public function build(string $collection, array $middlewares = []): Components|null
     {
+        // TODO: Separate the collecting logic into a separate class
         $callbacks = $this->collector
             ->in($this->getPathsFromConfig('callbacks'))
             ->use(new ReusableCallbackFilter())

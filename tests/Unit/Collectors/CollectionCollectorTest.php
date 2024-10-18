@@ -10,11 +10,11 @@ describe(class_basename(ComponentCollector::class), function (): void {
             __DIR__ . '/../../Doubles/Stubs/Collectors/Components',
         ]);
 
-        $result = $sut->collect('test');
+        $result = $sut->collect('test')->map(static fn ($component) => $component::class);
 
         expect($result)->toHaveCount(10)
-            ->and($result)->each(
-                fn (Expectation $expectation) => $expectation->toUse(Collection::class),
-            );
+            ->each(fn (
+                Expectation $expectation,
+            ) => $expectation->toHaveAttribute(Collection::class));
     });
 })->covers(ComponentCollector::class);

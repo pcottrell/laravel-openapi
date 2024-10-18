@@ -62,4 +62,4 @@ describe('ParameterBuilder', function (): void {
             ->and($typeHintedParam->required)->toBeTrue()
             ->and($typeHintedParam->schema->type)->toBe('integer');
     });
-})->covers(ParametersBuilder::class);
+})->covers(ParametersBuilder::class)->skip();

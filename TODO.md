@@ -29,3 +29,5 @@ reduce property visibility to private or protected and expose them via methods
     if you need to expose them
 remove all usage of jsonSerialize() and use asArray() instead
 do something about this kind of usage ...())->build()
+Checkout and see where we can use Laravel Pipes? It seems everywhere we are using
+    a chain of methods, we can use Laravel Pipes instead? Maybe fir build() methods?

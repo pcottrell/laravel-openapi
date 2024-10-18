@@ -20,6 +20,7 @@ final readonly class PathsBuilder
 
     public function build(string $collection, PathMiddleware ...$pathMiddleware): Paths
     {
+        // TODO: Separate the collecting logic into a separate class
         $paths = $this->routeCollector->whereInCollection($collection)
             ->map(
                 fn (RouteInformation $routeInformation): RouteInformation => $this
