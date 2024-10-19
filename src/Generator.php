@@ -9,7 +9,6 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
 use MohammadAlavi\LaravelOpenApi\Services\RouteCollector;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
@@ -37,12 +36,10 @@ final readonly class Generator
         $extensions = $this->getConfigFor('extensions', $collection);
         $globalSecurity = Arr::get(config('openapi'), "collections.{$collection}.security");
         $security = $globalSecurity ? $this->securityBuilder->build($globalSecurity) : null;
-        $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
         $paths = $this->pathsBuilder->build(
             $this->routeCollector->whereInCollection($collection),
-            ...$this->getMiddlewares($middlewaresConfig),
         );
-        $components = $this->componentsBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
+        $components = $this->componentsBuilder->build($collection);
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 
         $openApi = OpenApi::create()
@@ -63,14 +60,5 @@ final readonly class Generator
     private function getConfigFor(string $configKey, string $collection): array
     {
         return Arr::get(config('openapi'), 'collections.' . $collection . '.' . $configKey, []);
-    }
-
-    /** @return PathMiddleware[] */
-    private function getMiddlewares(array $middlewaresConfig): array
-    {
-        return Arr::map(
-            Arr::get($middlewaresConfig, 'paths', []),
-            static fn (string $middlewares) => app($middlewares),
-        );
     }
 }

@@ -21,7 +21,7 @@ final readonly class ComponentsBuilder
     ) {
     }
 
-    public function build(string $collection, array $middlewares = []): Components|null
+    public function build(string $collection): Components|null
     {
         // TODO: Separate the collecting logic into a separate class
         $callbacks = $this->collector
@@ -88,10 +88,6 @@ final readonly class ComponentsBuilder
 
         if (!$hasAnyObjects) {
             return null;
-        }
-
-        foreach ($middlewares as $middleware) {
-            app($middleware)->after($components);
         }
 
         return $components;

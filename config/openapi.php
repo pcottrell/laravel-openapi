@@ -44,14 +44,6 @@ return [
                 'uri' => '/openapi',
                 'middleware' => [],
             ],
-
-            // Register custom middlewares for different objects.
-            'middlewares' => [
-                'paths' => [
-                ],
-                'components' => [
-                ],
-            ],
         ],
     ],
 

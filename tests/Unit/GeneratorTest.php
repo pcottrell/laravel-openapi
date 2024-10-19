@@ -41,10 +41,6 @@ beforeEach(function (): void {
                     })::class,
                 ],
                 'security' => ExampleNoSecurityRequirementSecurity::class,
-                'middlewares' => [
-                    'paths' => [],
-                    'components' => [],
-                ],
             ],
             'test' => [
                 'info' => [
@@ -91,20 +87,6 @@ beforeEach(function (): void {
                         ],
                     ],
                 ],
-                //                'middlewares' => [
-                //                    'components' => [
-                //                        'schemas' => [
-                //                            'Test' => [
-                //                                'type' => 'object',
-                //                                'properties' => [
-                //                                    'id' => [
-                //                                        'type' => 'integer',
-                //                                    ],
-                //                                ],
-                //                            ],
-                //                        ],
-                //                    ],
-                //                ],
             ],
         ],
         'locations' => [
