@@ -1,22 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Config;
-use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\SecuritySchemeFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ServerFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\TagFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\ApiKeyLocation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\ApiKey;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
+use Tests\Doubles\Stubs\Petstore\Security\ExampleNoSecurityRequirementSecurity;
 
 beforeEach(function (): void {
     Config::set('openapi', [
@@ -48,14 +40,7 @@ beforeEach(function (): void {
                         }
                     })::class,
                 ],
-                'security' => [
-                    (new class () extends SecuritySchemeFactory {
-                        public function build(): SecurityScheme
-                        {
-                            return Http::bearer();
-                        }
-                    })::class,
-                ],
+                'security' => ExampleNoSecurityRequirementSecurity::class,
                 'middlewares' => [
                     'paths' => [],
                     'components' => [],
@@ -95,34 +80,7 @@ beforeEach(function (): void {
                         }
                     })::class,
                 ],
-                'security' => [
-                    (new class () extends SecuritySchemeFactory {
-                        public function build(): SecurityScheme
-                        {
-                            return ApiKey::create('testApiKey', ApiKeyLocation::HEADER);
-                        }
-                    })::class,
-                    (new class () extends SecuritySchemeFactory {
-                        public function build(): SecurityScheme
-                        {
-                            return OAuth2::create(
-                                Flows::create(
-                                    Flows\Implicit::create(
-                                        'https://example.com/oauth/authorize',
-                                        'https://example.com/oauth/token',
-                                        ScopeCollection::create(
-                                            Scope::create('read', 'Grants read access'),
-                                            Scope::create(
-                                                'write',
-                                                'Grants write access',
-                                            ),
-                                        ),
-                                    ),
-                                ),
-                            );
-                        }
-                    })::class,
-                ],
+                'security' => ExampleComplexMultiSecurityRequirementSecurity::class,
                 'extensions' => [
                     'x-tagGroups' => [
                         [
@@ -175,8 +133,7 @@ describe('Generator', function (): void {
 
         $openApi = $generator->generate($collection);
 
-        expect($openApi)->toBeInstanceOf(OpenApi::class)
-            ->and($openApi->jsonSerialize())->toEqual($expectation);
+        expect($openApi->asArray())->toEqual($expectation);
     })->with([
         'test collection' => [
             'collection' => 'test',
@@ -200,7 +157,15 @@ describe('Generator', function (): void {
                 ],
                 'components' => [
                     'schemas' => [
-                        'test collection Schema' => [
+                        'ExplicitCollectionSchema' => [
+                            'type' => 'object',
+                            'properties' => [
+                                'id' => [
+                                    'type' => 'integer',
+                                ],
+                            ],
+                        ],
+                        'MultiCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -210,23 +175,36 @@ describe('Generator', function (): void {
                         ],
                     ],
                     'responses' => [
-                        'test collection Response' => [],
+                        'MultiCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
+                        'ExplicitCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
                     ],
                     'requestBodies' => [
-                        'test collection RequestBody' => [],
+                        'MultiCollectionRequestBody' => [],
+                        'ExplicitCollectionRequestBody' => [],
                     ],
                     'callbacks' => [
-                        'test collection PathItem' => [
-                            '' => [],
+                        'ExplicitCollectionCallback' => [
+                            '/explicit-collection-callback' => [],
+                        ],
+                        'MultiCollectionCallback' => [
+                            '/multi-collection-callback' => [],
                         ],
                     ],
                 ],
                 'security' => [
                     [
-                        'apiKey' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
                     ],
                     [
-                        'oauth2' => [],
+                        'ExampleHTTPBearerSecurityScheme' => [],
+                        'OAuth2Password' => [
+                            'order:shipping:address',
+                            'order:shipping:status',
+                        ],
                     ],
                 ],
                 'tags' => [
@@ -242,6 +220,7 @@ describe('Generator', function (): void {
                         ],
                     ],
                 ],
+                'paths' => [],
             ],
         ],
         'default collection' => [
@@ -263,7 +242,7 @@ describe('Generator', function (): void {
                 ],
                 'components' => [
                     'schemas' => [
-                        'default collection Schema' => [
+                        'MultiCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -271,7 +250,7 @@ describe('Generator', function (): void {
                                 ],
                             ],
                         ],
-                        'test collection Schema' => [
+                        'ImplicitCollectionSchema' => [
                             'type' => 'object',
                             'properties' => [
                                 'id' => [
@@ -281,32 +260,35 @@ describe('Generator', function (): void {
                         ],
                     ],
                     'responses' => [
-                        'test collection Response' => [],
-                        'default collection Response' => [],
+                        'MultiCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
+                        'ImplicitCollectionResponse' => [
+                            'description' => 'OK',
+                        ],
                     ],
                     'requestBodies' => [
-                        'test collection RequestBody' => [],
-                        'default collection RequestBody' => [],
+                        'MultiCollectionRequestBody' => [],
+                        'ImplicitCollectionRequestBody' => [],
                     ],
                     'callbacks' => [
-                        'test collection PathItem' => [
-                            '' => [],
+                        'MultiCollectionCallback' => [
+                            '/multi-collection-callback' => [],
                         ],
-                        'default collection PathItem' => [
-                            '' => [],
+                        'ImplicitDefaultCallback' => [
+                            '/implicit-default-callback' => [],
                         ],
                     ],
                 ],
                 'security' => [
-                    [
-                        'bearerAuth' => [],
-                    ],
+                    [],
                 ],
                 'tags' => [
                     [
                         'name' => 'test',
                     ],
                 ],
+                'paths' => [],
             ],
         ],
     ]);
