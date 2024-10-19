@@ -143,7 +143,7 @@ class ServerBuilderTest extends TestCase
     {
         $serverBuilder = new ServerBuilder();
         $servers = $serverBuilder->build($factories);
-        $this->assertSameAssociativeArray($expected[0], $servers[0]->jsonSerialize());
+        $this->assertSameAssociativeArray($expected[0], $servers[0]->asArray());
     }
 
     /**
@@ -179,7 +179,7 @@ class ServerBuilderTest extends TestCase
             $expected,
             collect($servers)
             ->map(
-                static fn (Server $server): array => $server->jsonSerialize(),
+                static fn (Server $server): array => $server->asArray(),
             )->toArray(),
         );
     }

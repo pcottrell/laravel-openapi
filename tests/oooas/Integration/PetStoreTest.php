@@ -5,6 +5,8 @@ namespace Tests\oooas\Integration;
 use Illuminate\Support\Facades\File;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
+use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -65,7 +67,7 @@ describe('PetStoreTest', function (): void {
                 Schema::integer('value')->format(Schema::FORMAT_INT32),
             );
 
-        $allOf = AllOf::create()
+        $allOf = AllOf::create('Pet')
             ->schemas(
                 ReusableSchemaStub::create(),
                 Schema::create('Pet')
@@ -75,19 +77,30 @@ describe('PetStoreTest', function (): void {
                     ),
             );
 
-        $newPetSchema = Schema::create('NewPet')
-            ->required('name')
-            ->properties(
-                Schema::string('name'),
-                Schema::string('tag'),
-            );
+        $newPetSchema = new class extends ReusableSchemaFactory
+        {
+            public function build(): SchemaContract
+            {
+                return Schema::create('NewPet')
+                    ->required('name')
+                    ->properties(
+                        Schema::string('name'),
+                        Schema::string('tag'),
+                    );
+            }
+        };
 
-        $errorSchema = Schema::create('Error')
-            ->required('code', 'message')
-            ->properties(
-                Schema::integer('code')->format(Schema::FORMAT_INT32),
-                Schema::string('message'),
-            );
+        $errorSchema = new class extends ReusableSchemaFactory {
+            public function build(): SchemaContract
+            {
+                return Schema::create('Error')
+                    ->required('code', 'message')
+                    ->properties(
+                        Schema::integer('code')->format(Schema::FORMAT_INT32),
+                        Schema::string('message'),
+                    );
+            }
+        };
 
         $components = Components::create()
             ->schemas($allOf, $newPetSchema, $errorSchema);
@@ -95,7 +108,7 @@ describe('PetStoreTest', function (): void {
         $petResponse = Response::ok('pet response')
             ->content(
                 MediaType::json()->schema(
-                    Schema::ref('#/components/schemas/Pet'),
+                    $allOf,
                 ),
             );
 
@@ -103,14 +116,14 @@ describe('PetStoreTest', function (): void {
             ->content(
                 MediaType::json()->schema(
                     Schema::array('array_test')->items(
-                        Schema::ref('#/components/schemas/Pet'),
+                        $allOf,
                     ),
                 ),
             );
 
         $defaultErrorResponse = Response::internalServerError('unexpected error')
             ->content(MediaType::json()->schema(
-                Schema::ref('#/components/schemas/Error'),
+                $errorSchema::create()->build(),
             ));
 
         $operation = Operation::get()
@@ -128,7 +141,7 @@ describe('PetStoreTest', function (): void {
                     ->required()
                     ->content(
                         MediaType::json()->schema(
-                            Schema::ref('#/components/schemas/NewPet'),
+                            $newPetSchema::create()->build(),
                         ),
                     ),
             )
@@ -175,11 +188,9 @@ describe('PetStoreTest', function (): void {
             ->paths(Paths::create($path, $petNested))
             ->components($components);
 
-        $exampleResponse = file_get_contents(realpath(__DIR__ . '/../Doubles/Stubs/petstore_expanded.json'));
-
         $this->assertEquals(
-            File::json($exampleResponse),
-            $openApi->jsonSerialize(),
+            File::json(realpath(__DIR__ . '/../Doubles/Stubs/petstore_expanded.json')),
+            $openApi->asArray(),
         );
     });
 })->coversNothing();

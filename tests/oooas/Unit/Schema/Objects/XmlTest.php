@@ -31,6 +31,6 @@ class XmlTest extends UnitTestCase
                 'attribute' => true,
                 'wrapped' => true,
             ],
-        ], $schema->jsonSerialize());
+        ], $schema->asArray());
     }
 }

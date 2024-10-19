@@ -22,7 +22,7 @@ describe(class_basename(Header::class), function (): void {
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
 
-        $response = $header->jsonSerialize();
+        $response = $header->asArray();
 
         expect($response)->toBe([
             'description' => 'Lorem ipsum',

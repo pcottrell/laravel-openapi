@@ -2,13 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
-
-class OneOf extends SchemaComposition
+final class OneOf extends SchemaComposition
 {
-    use SimpleCreatorTrait;
-
-    protected function compositionType(): string
+    public function compositionType(): string
     {
         return 'oneOf';
     }

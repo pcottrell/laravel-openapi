@@ -26,6 +26,6 @@ class ContactTest extends UnitTestCase
                 'url' => 'https://example.com',
                 'email' => 'hello@example.com',
             ],
-        ], $info->jsonSerialize());
+        ], $info->asArray());
     }
 }

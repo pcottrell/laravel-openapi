@@ -104,7 +104,7 @@ class TagBuilderTest extends TestCase
         $tagBuilder = app(TagBuilder::class);
         $tags = $tagBuilder->build($factories);
 
-        $this->assertSameAssociativeArray($expected[0], $tags[0]->jsonSerialize());
+        $this->assertSameAssociativeArray($expected[0], $tags[0]->asArray());
     }
 
     /**
@@ -139,7 +139,7 @@ class TagBuilderTest extends TestCase
         $this->assertSame(
             $expected,
             collect($tags)
-                ->map(static fn (Tag $tag): array => $tag->jsonSerialize())
+                ->map(static fn (Tag $tag): array => $tag->asArray())
                 ->toArray(),
         );
     }

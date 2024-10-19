@@ -64,7 +64,7 @@
               }
             }
           },
-          "default": {
+          "500": {
             "description": "unexpected error",
             "content": {
               "application/json": {
@@ -101,7 +101,7 @@
               }
             }
           },
-          "default": {
+          "500": {
             "description": "unexpected error",
             "content": {
               "application/json": {
@@ -141,7 +141,7 @@
               }
             }
           },
-          "default": {
+          "500": {
             "description": "unexpected error",
             "content": {
               "application/json": {
@@ -172,7 +172,7 @@
           "204": {
             "description": "pet deleted"
           },
-          "default": {
+          "500": {
             "description": "unexpected error",
             "content": {
               "application/json": {

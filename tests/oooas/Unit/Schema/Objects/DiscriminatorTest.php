@@ -7,7 +7,7 @@ describe('Discriminator', function (): void {
     it('can be created with no parameters', function (): void {
         $discriminator = Discriminator::create();
 
-        expect($discriminator->jsonSerialize())->toBeEmpty();
+        expect($discriminator->asArray())->toBeEmpty();
     });
 
     it('can be created with all parameters', function (): void {
@@ -15,7 +15,7 @@ describe('Discriminator', function (): void {
             ->propertyName('Discriminator Name')
             ->mapping(['key' => 'value']);
 
-        expect($discriminator->jsonSerialize())->toBe([
+        expect($discriminator->asArray())->toBe([
             'propertyName' => 'Discriminator Name',
             'mapping' => [
                 'key' => 'value',
@@ -35,12 +35,12 @@ describe('Discriminator', function (): void {
     it('will have no mapping if an empty array is passed', function (): void {
         $discriminator = Discriminator::create()->mapping([]);
 
-        expect($discriminator->jsonSerialize())->toBeEmpty();
+        expect($discriminator->asArray())->toBeEmpty();
     });
 
     it('can be create with default (no mapping) mapping', function (): void {
         $discriminator = Discriminator::create();
 
-        expect($discriminator->jsonSerialize())->toBeEmpty();
+        expect($discriminator->asArray())->toBeEmpty();
     });
 })->covers(Discriminator::class);

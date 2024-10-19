@@ -18,7 +18,7 @@ describe('SecurityRequirement', function (): void {
                 ],
             );
 
-        expect($securityRequirement->jsonSerialize())->toBe([
+        expect($securityRequirement->asArray())->toBe([
             [
                 'Bearer' => [],
                 'ApiKey' => [],

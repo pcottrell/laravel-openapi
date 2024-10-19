@@ -3,7 +3,6 @@
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Contact;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
@@ -62,9 +61,7 @@ describe(class_basename(OpenApi::class), function (): void {
                 Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
                 Schema::integer('age')->example(60),
                 Schema::array('data')->items(
-                    AllOf::create()->schemas(
-                        Schema::string('id')->format(Schema::FORMAT_UUID),
-                    ),
+                    Schema::string('id')->format(Schema::FORMAT_UUID),
                 ),
             )
             ->required('id', 'created_at');
@@ -200,9 +197,8 @@ describe(class_basename(OpenApi::class), function (): void {
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'allOf' => [
-                                                            ['format' => 'uuid', 'type' => 'string'],
-                                                        ],
+                                                        'format' => 'uuid',
+                                                        'type' => 'string',
                                                     ],
                                                 ],
                                             ],
@@ -238,9 +234,8 @@ describe(class_basename(OpenApi::class), function (): void {
                                             'data' => [
                                                 'type' => 'array',
                                                 'items' => [
-                                                    'allOf' => [
-                                                        ['format' => 'uuid', 'type' => 'string'],
-                                                    ],
+                                                    'format' => 'uuid',
+                                                    'type' => 'string',
                                                 ],
                                             ],
                                         ],
@@ -272,9 +267,8 @@ describe(class_basename(OpenApi::class), function (): void {
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'allOf' => [
-                                                            ['format' => 'uuid', 'type' => 'string'],
-                                                        ],
+                                                        'format' => 'uuid',
+                                                        'type' => 'string',
                                                     ],
                                                 ],
                                             ],
@@ -335,9 +329,8 @@ describe(class_basename(OpenApi::class), function (): void {
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'allOf' => [
-                                                            ['format' => 'uuid', 'type' => 'string'],
-                                                        ],
+                                                        'format' => 'uuid',
+                                                        'type' => 'string',
                                                     ],
                                                 ],
                                             ],

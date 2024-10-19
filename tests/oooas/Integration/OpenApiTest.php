@@ -44,7 +44,7 @@ describe('OpenApi', function (): void {
                 Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
                 Schema::integer('age')->example(60),
                 Schema::array('data')->items(
-                    AllOf::create()->schemas(
+                    AllOf::create('test')->schemas(
                         Schema::string('id')->format(Schema::FORMAT_UUID),
                     ),
                 ),

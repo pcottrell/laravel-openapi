@@ -10,7 +10,7 @@
 //
 //        $securityRequirement = $builder->build($factories);
 //
-//        expect($securityRequirement->jsonSerialize())->toBe($expectation);
+//        expect($securityRequirement->asArray())->toBe($expectation);
 //    })->with([
 //        'null' => [
 //            null,

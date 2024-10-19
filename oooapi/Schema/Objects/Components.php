@@ -17,7 +17,7 @@ class Components extends ExtensibleObject implements SimpleCreator
 {
     use SimpleCreatorTrait;
 
-    /** @var ReusableSchemaFactory[]|null */
+    /** @var ReusableSchemaFactory[]|SchemaComposition[]|null */
     protected array|null $schemas = null;
 
     /** @var ReusableResponseFactory[]|null */
@@ -44,11 +44,11 @@ class Components extends ExtensibleObject implements SimpleCreator
     /** @var ReusableCallbackFactory[]|null */
     protected array|null $callbackFactories = null;
 
-    public function schemas(ReusableSchemaFactory ...$schemaContract): static
+    public function schemas(ReusableSchemaFactory|SchemaComposition ...$schema): static
     {
         $clone = clone $this;
 
-        $clone->schemas = [] !== $schemaContract ? $schemaContract : null;
+        $clone->schemas = [] !== $schema ? $schema : null;
 
         return $clone;
     }
@@ -129,6 +129,11 @@ class Components extends ExtensibleObject implements SimpleCreator
     {
         $schemas = [];
         foreach ($this->schemas ?? [] as $schema) {
+            if ($schema instanceof SchemaComposition) {
+                $schemas[$schema->key()] = $schema;
+                continue;
+            }
+
             $schemas[$schema::key()] = $schema->build();
         }
 

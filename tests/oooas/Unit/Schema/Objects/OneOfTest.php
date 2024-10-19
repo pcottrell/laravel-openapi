@@ -16,7 +16,7 @@ class OneOfTest extends UnitTestCase
         $schema1 = Schema::string('schema1');
         $schema2 = Schema::integer('schema2');
 
-        $oneOf = OneOf::create()
+        $oneOf = OneOf::create('test')
             ->schemas($schema1, $schema2);
 
         $this->assertSame([
@@ -28,7 +28,7 @@ class OneOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $oneOf->jsonSerialize());
+        ], $oneOf->asArray());
     }
 
     public function testTwoSchemasAsResponseWork(): void
@@ -36,7 +36,7 @@ class OneOfTest extends UnitTestCase
         $schema1 = Schema::string('schema1');
         $schema2 = Schema::integer('schema2');
 
-        $oneOf = OneOf::create()
+        $oneOf = OneOf::create('test')
             ->schemas($schema1, $schema2);
 
         $mediaType = MediaType::json()
@@ -53,6 +53,6 @@ class OneOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $mediaType->jsonSerialize());
+        ], $mediaType->asArray());
     }
 }

@@ -16,7 +16,7 @@ class AnyOfTest extends UnitTestCase
         $schema1 = Schema::string('string_test');
         $schema2 = Schema::integer('integer_test');
 
-        $anyOf = AnyOf::create()
+        $anyOf = AnyOf::create('test')
             ->schemas($schema1, $schema2);
 
         $this->assertSame([
@@ -28,7 +28,7 @@ class AnyOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $anyOf->jsonSerialize());
+        ], $anyOf->asArray());
     }
 
     public function testTwoSchemasAsResponseWork(): void
@@ -36,7 +36,7 @@ class AnyOfTest extends UnitTestCase
         $schema1 = Schema::string('string_test');
         $schema2 = Schema::integer('integer_test');
 
-        $anyOf = AnyOf::create()
+        $anyOf = AnyOf::create('test')
             ->schemas($schema1, $schema2);
 
         $mediaType = MediaType::json()
@@ -53,6 +53,6 @@ class AnyOfTest extends UnitTestCase
                     ],
                 ],
             ],
-        ], $mediaType->jsonSerialize());
+        ], $mediaType->asArray());
     }
 }

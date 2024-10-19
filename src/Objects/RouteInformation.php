@@ -157,7 +157,7 @@ class RouteInformation
         return $this->name;
     }
 
-    public function parameters(): Parameters|null
+    public function parameters(): Collection|null
     {
         return $this->parameters;
     }

@@ -25,6 +25,6 @@ class NotTest extends UnitTestCase
                     'type' => 'string',
                 ],
             ],
-        ], $mediaType->jsonSerialize());
+        ], $mediaType->asArray());
     }
 }

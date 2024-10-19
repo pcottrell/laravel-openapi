@@ -11,7 +11,7 @@
 //
 //        $result = $operation->security(...$securityReqs);
 //
-//        expect($result->jsonSerialize())->toBe($expectation);
+//        expect($result->asArray())->toBe($expectation);
 //    })->with([
 //        'empty array [] security' => [
 //            [],

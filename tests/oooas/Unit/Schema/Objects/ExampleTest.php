@@ -28,6 +28,6 @@ class ExampleTest extends UnitTestCase
                 'value' => 'Value',
                 'externalValue' => 'https://example.com/example.json',
             ],
-        ], $mediaType->jsonSerialize());
+        ], $mediaType->asArray());
     }
 }

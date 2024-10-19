@@ -24,6 +24,6 @@ class LicenseTest extends UnitTestCase
                 'name' => 'MIT',
                 'url' => 'https://example.com',
             ],
-        ], $info->jsonSerialize());
+        ], $info->asArray());
     }
 }

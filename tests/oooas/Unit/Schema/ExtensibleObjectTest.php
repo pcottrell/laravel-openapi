@@ -49,7 +49,7 @@ describe('ExtensibleObject', function (): void {
         $extension2 = Extension::create('x-foo', 'bar');
         $object = $object->addExtension($extension1, $extension2);
 
-        $result = $object->jsonSerialize();
+        $result = $object->asArray();
 
         expect($result)->toBe([
             'x-test' => 'value',

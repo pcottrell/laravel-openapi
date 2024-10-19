@@ -33,14 +33,13 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
     public const FORMAT_PASSWORD = 'password';
     public const FORMAT_UUID = 'uuid';
 
-    protected string|null $ref = null;
     protected string|null $title = null;
     protected string|null $description = null;
     protected array|null $enum = null;
     protected mixed $default = null;
     protected string|null $format = null;
     protected string|null $type = null;
-    protected SchemaContract|ReusableSchemaFactory|null $items = null;
+    protected SchemaContract|SchemaComposition|ReusableSchemaFactory|null $items = null;
     protected int|null $maxItems = null;
     protected int|null $minItems = null;
     protected bool|null $uniqueItems = null;
@@ -70,15 +69,6 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
     protected ExternalDocs|null $externalDocs = null;
     protected mixed $example = null;
     protected bool|null $deprecated = null;
-
-    final public static function ref(string $key, string $ref): static
-    {
-        $instance = static::create($key);
-
-        $instance->ref = $ref;
-
-        return $instance;
-    }
 
     public static function array(string $key): static
     {
@@ -398,10 +388,6 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
 
     protected function toArray(): array
     {
-        if ($this->hasReference()) {
-            return ['$ref' => $this->ref];
-        }
-
         $properties = [];
         foreach ($this->properties ?? [] as $property) {
             $properties[$property->key()] = $property;
@@ -440,11 +426,5 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
             'example' => $this->example,
             'deprecated' => $this->deprecated,
         ]);
-    }
-
-    // TODO: wtf is this? dont forget to remove it
-    private function hasReference(): bool
-    {
-        return !is_null($this->ref);
     }
 }
