@@ -18,25 +18,14 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Enums\ApiKeyLocation;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Flows;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\Scope;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\ScopeCollection;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\ApiKey;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OAuth2;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\OpenIdConnect;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\SecurityScheme;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
-use Tests\Doubles\Stubs\Petstore\Security\ExampleNoSecurityRequirementSecurity;
-use Tests\Doubles\Stubs\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
 use Tests\Doubles\Stubs\Petstore\Security\SecurityRequirements\ExampleSingleBearerSecurityRequirement;
 use Tests\Doubles\Stubs\Petstore\Security\SecuritySchemes\ExampleHTTPBearerSecurityScheme;
 
 describe('OpenApi', function (): void {
-    it('can generate valid OpenAPI v3.1.0 docs', function (SecurityScheme $securityScheme): void {
+    it('can generate valid OpenAPI v3.1.0 docs', function (): void {
         $tag = Tag::create()
             ->name('Audits')
             ->description('All the audits');
@@ -128,145 +117,147 @@ describe('OpenApi', function (): void {
         $data = $openApi->asArray();
         $result = file_put_contents('openapi.json', $openApi->toJson());
         // docker run --rm -v $PWD:/spec redocly/cli lint --extends recommend openapi.json
-    })->with([
-        function (): SecurityScheme {
-            return OAuth2::create(
-                Flows::create()
-                    ->implicit(
-                        Flows\Implicit::create(
-                            'https://api.example.com/oauth/authorize',
-                            'https://api.example.com/oauth/refresh',
-                            ScopeCollection::create(
-                                Scope::create('read:audits', 'Read audits'),
-                                Scope::create('write:audits', 'Write audits'),
-                            ),
-                        ),
-                    ),
-            );
-        },
-        function (): SecurityScheme {
-            return OAuth2::create(
-                Flows::create()
-                    ->password(
-                        Flows\Password::create(
-                            'https://api.example.com/oauth/authorize',
-                            'https://api.example.com/oauth/refresh',
-                            ScopeCollection::create(
-                                Scope::create('read:audits', 'Read audits'),
-                                Scope::create('write:audits', 'Write audits'),
-                            ),
-                        ),
-                    ),
-            );
-        },
-        function (): SecurityScheme {
-            return OAuth2::create(
-                Flows::create()
-                    ->clientCredentials(
-                        Flows\ClientCredentials::create(
-                            'https://api.example.com/oauth/authorize',
-                            'https://api.example.com/oauth/refresh',
-                            ScopeCollection::create(
-                                Scope::create('read:audits', 'Read audits'),
-                                Scope::create('write:audits', 'Write audits'),
-                            ),
-                        ),
-                    ),
-            );
-        },
-        function (): SecurityScheme {
-            return OAuth2::create(
-                Flows::create()
-                    ->authorizationCode(
-                        Flows\AuthorizationCode::create(
-                            'https://api.example.com/oauth/authorize',
-                            'https://api.example.com/oauth/token',
-                            'https://api.example.com/oauth/refresh',
-                            ScopeCollection::create(
-                                Scope::create('read:audits', 'Read audits'),
-                                Scope::create('write:audits', 'Write audits'),
-                            ),
-                        ),
-                    ),
-            );
-        },
-        fn (): SecurityScheme => ApiKey::create('X-API-Key', ApiKeyLocation::HEADER),
-        fn (): SecurityScheme => ApiKey::create('in-query', ApiKeyLocation::QUERY),
-        fn (): SecurityScheme => ApiKey::create('in-cookie', ApiKeyLocation::COOKIE),
-        fn (): SecurityScheme => Http::basic('test_api_key'),
-        fn (): SecurityScheme => Http::bearer('test_api_key', 'JWT'),
-        fn (): SecurityScheme => OpenIdConnect::create('https://api.example.com/.well-known/openid-configuration'),
-    ]);
+    });
+    // TODO: move and use these to test the Security class
+    //    ->with([
+    //        function (): SecurityScheme {
+    //            return OAuth2::create(
+    //                Flows::create()
+    //                    ->implicit(
+    //                        Flows\Implicit::create(
+    //                            'https://api.example.com/oauth/authorize',
+    //                            'https://api.example.com/oauth/refresh',
+    //                            ScopeCollection::create(
+    //                                Scope::create('read:audits', 'Read audits'),
+    //                                Scope::create('write:audits', 'Write audits'),
+    //                            ),
+    //                        ),
+    //                    ),
+    //            );
+    //        },
+    //        function (): SecurityScheme {
+    //            return OAuth2::create(
+    //                Flows::create()
+    //                    ->password(
+    //                        Flows\Password::create(
+    //                            'https://api.example.com/oauth/authorize',
+    //                            'https://api.example.com/oauth/refresh',
+    //                            ScopeCollection::create(
+    //                                Scope::create('read:audits', 'Read audits'),
+    //                                Scope::create('write:audits', 'Write audits'),
+    //                            ),
+    //                        ),
+    //                    ),
+    //            );
+    //        },
+    //        function (): SecurityScheme {
+    //            return OAuth2::create(
+    //                Flows::create()
+    //                    ->clientCredentials(
+    //                        Flows\ClientCredentials::create(
+    //                            'https://api.example.com/oauth/authorize',
+    //                            'https://api.example.com/oauth/refresh',
+    //                            ScopeCollection::create(
+    //                                Scope::create('read:audits', 'Read audits'),
+    //                                Scope::create('write:audits', 'Write audits'),
+    //                            ),
+    //                        ),
+    //                    ),
+    //            );
+    //        },
+    //        function (): SecurityScheme {
+    //            return OAuth2::create(
+    //                Flows::create()
+    //                    ->authorizationCode(
+    //                        Flows\AuthorizationCode::create(
+    //                            'https://api.example.com/oauth/authorize',
+    //                            'https://api.example.com/oauth/token',
+    //                            'https://api.example.com/oauth/refresh',
+    //                            ScopeCollection::create(
+    //                                Scope::create('read:audits', 'Read audits'),
+    //                                Scope::create('write:audits', 'Write audits'),
+    //                            ),
+    //                        ),
+    //                    ),
+    //            );
+    //        },
+    //        fn (): SecurityScheme => ApiKey::create('X-API-Key', ApiKeyLocation::HEADER),
+    //        fn (): SecurityScheme => ApiKey::create('in-query', ApiKeyLocation::QUERY),
+    //        fn (): SecurityScheme => ApiKey::create('in-cookie', ApiKeyLocation::COOKIE),
+    //        fn (): SecurityScheme => Http::basic('test_api_key'),
+    //        fn (): SecurityScheme => Http::bearer('test_api_key', 'JWT'),
+    //        fn (): SecurityScheme => OpenIdConnect::create('https://api.example.com/.well-known/openid-configuration'),
+    //    ]);
 
     // TODO: write test
-//    it('can be created using security method', function (Security $security, array $expectation): void {
-//        $openApi = OpenApi::create()->security($security);
-//
-//        $result = $openApi->asArray();
-//
-//        expect($result)->toBe($expectation);
-//    })->with([
-//        'empty array [] security' => [
-//            [],
-//            ['openapi' => OASVersion::V_3_1_0->value],
-//        ],
-//        'no security' => [
-//            (new ExampleNoSecurityRequirementSecurity())->build(),
-//            [
-//                'openapi' => OASVersion::V_3_1_0->value,
-//                'security' => [
-//                    [],
-//                ],
-//            ],
-//        ],
-//        'one element array security' => [
-//            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
-//            [
-//                'openapi' => OASVersion::V_3_1_0->value,
-//                'security' => [
-//                    [
-//                        'ASecuritySchemeFactory' => [],
-//                    ],
-//                ],
-//            ],
-//        ],
-//        'nested security' => [
-//            [
-//                (new SecurityRequirementBuilder())->build([
-//                    ASecuritySchemeFactory::class,
-//                    BSecuritySchemeFactory::class,
-//                ]),
-//            ],
-//            [
-//                'openapi' => OASVersion::V_3_1_0->value,
-//                'security' => [
-//                    [
-//                        'ASecuritySchemeFactory' => [],
-//                    ],
-//                    [
-//                        'BSecuritySchemeFactory' => [],
-//                    ],
-//                ],
-//            ],
-//        ],
-//        'multiple nested security' => [
-//            [
-//                (new SecurityRequirementBuilder())->build([
-//                    BSecuritySchemeFactory::class,
-//                ]),
-//                (new SecurityRequirementBuilder())->build([
-//                    ASecuritySchemeFactory::class,
-//                    BSecuritySchemeFactory::class,
-//                ]),
-//            ],
-//            [
-//                'openapi' => OASVersion::V_3_1_0->value,
-//                'security' => [
-//                    [
-//                        'BSecuritySchemeFactory' => [],
-//                    ],
-//                ],
-//            ],
-//        ],
-//    ])->skip();
+    //    it('can be created using security method', function (Security $security, array $expectation): void {
+    //        $openApi = OpenApi::create()->security($security);
+    //
+    //        $result = $openApi->asArray();
+    //
+    //        expect($result)->toBe($expectation);
+    //    })->with([
+    //        'empty array [] security' => [
+    //            [],
+    //            ['openapi' => OASVersion::V_3_1_0->value],
+    //        ],
+    //        'no security' => [
+    //            (new ExampleNoSecurityRequirementSecurity())->build(),
+    //            [
+    //                'openapi' => OASVersion::V_3_1_0->value,
+    //                'security' => [
+    //                    [],
+    //                ],
+    //            ],
+    //        ],
+    //        'one element array security' => [
+    //            [(new SecurityRequirementBuilder())->build(ASecuritySchemeFactory::class)],
+    //            [
+    //                'openapi' => OASVersion::V_3_1_0->value,
+    //                'security' => [
+    //                    [
+    //                        'ASecuritySchemeFactory' => [],
+    //                    ],
+    //                ],
+    //            ],
+    //        ],
+    //        'nested security' => [
+    //            [
+    //                (new SecurityRequirementBuilder())->build([
+    //                    ASecuritySchemeFactory::class,
+    //                    BSecuritySchemeFactory::class,
+    //                ]),
+    //            ],
+    //            [
+    //                'openapi' => OASVersion::V_3_1_0->value,
+    //                'security' => [
+    //                    [
+    //                        'ASecuritySchemeFactory' => [],
+    //                    ],
+    //                    [
+    //                        'BSecuritySchemeFactory' => [],
+    //                    ],
+    //                ],
+    //            ],
+    //        ],
+    //        'multiple nested security' => [
+    //            [
+    //                (new SecurityRequirementBuilder())->build([
+    //                    BSecuritySchemeFactory::class,
+    //                ]),
+    //                (new SecurityRequirementBuilder())->build([
+    //                    ASecuritySchemeFactory::class,
+    //                    BSecuritySchemeFactory::class,
+    //                ]),
+    //            ],
+    //            [
+    //                'openapi' => OASVersion::V_3_1_0->value,
+    //                'security' => [
+    //                    [
+    //                        'BSecuritySchemeFactory' => [],
+    //                    ],
+    //                ],
+    //            ],
+    //        ],
+    //    ])->skip();
 })->coversNothing();

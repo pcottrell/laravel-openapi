@@ -24,19 +24,19 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
 
 describe(class_basename(Components::class), function (): void {
     it('can be create with all parameters', function (): void {
-        $schema = \Mockery::spy(ReusableSchemaFactory::class);
+        $schema = \Mockery::mock(ReusableSchemaFactory::class);
         $schema->allows('key')
             ->andReturn('ExampleSchema');
         $schema->expects('build')
             ->andReturn(Schema::object('ExampleSchema'));
 
-        $response = \Mockery::spy(ReusableResponseFactory::class);
+        $response = \Mockery::mock(ReusableResponseFactory::class);
         $response->allows('key')
             ->andReturn('ReusableResponse');
         $response->expects('build')
-            ->andReturn(Response::created());
+            ->andReturn(Response::deleted());
 
-        $parameter = \Mockery::spy(ReusableParameterFactory::class);
+        $parameter = \Mockery::mock(ReusableParameterFactory::class);
         $parameter->allows('key')
             ->andReturn('Page');
         $parameter->expects('build')
@@ -45,7 +45,7 @@ describe(class_basename(Components::class), function (): void {
         $example = Example::create('Page')
             ->value(5);
 
-        $requestBody = \Mockery::spy(ReusableRequestBodyFactory::class);
+        $requestBody = \Mockery::mock(ReusableRequestBodyFactory::class);
         $requestBody->allows('key')
             ->andReturn('CreateResource');
         $requestBody->expects('build')
@@ -53,7 +53,7 @@ describe(class_basename(Components::class), function (): void {
 
         $header = Header::create('HeaderExample');
 
-        $securityScheme = \Mockery::spy(SecuritySchemeFactory::class);
+        $securityScheme = \Mockery::mock(SecuritySchemeFactory::class);
         $securityScheme->allows('key')
             ->andReturn('basic');
         $securityScheme->expects('build')
@@ -63,7 +63,7 @@ describe(class_basename(Components::class), function (): void {
 
         $link = Link::create('LinkExample');
 
-        $callback = \Mockery::spy(ReusableCallbackFactory::class);
+        $callback = \Mockery::mock(ReusableCallbackFactory::class);
         $callback->allows('key')
             ->andReturn('MyEvent');
         $callback->expects('build')
@@ -73,17 +73,20 @@ describe(class_basename(Components::class), function (): void {
                     '{$request.query.callbackUrl}',
                     PathItem::create()
                         ->operations(
-                            Operation::post()->requestBody(
-                                RequestBody::create()
-                                    ->description('something happened'),
-                            ),
+                            Operation::post()
+                                ->requestBody(
+                                    RequestBody::create()
+                                        ->description('something happened'),
+                                )->responses(
+                                    Responses::create(Response::ok()),
+                                ),
                         ),
                 ),
             );
 
         $components = Components::create()
             ->schemas($schema)
-            ->responses(Responses::create($response))
+            ->responses($response)
             ->parameters($parameter)
             ->examples($example)
             ->requestBodies($requestBody)
@@ -100,7 +103,7 @@ describe(class_basename(Components::class), function (): void {
             ],
             'responses' => [
                 'ReusableResponse' => [
-                    'description' => 'Created',
+                    'description' => 'Deleted',
                 ],
             ],
             'parameters' => [
@@ -135,6 +138,11 @@ describe(class_basename(Components::class), function (): void {
                         'post' => [
                             'requestBody' => [
                                 'description' => 'something happened',
+                            ],
+                            'responses' => [
+                                '200' => [
+                                    'description' => 'OK',
+                                ],
                             ],
                         ],
                     ],

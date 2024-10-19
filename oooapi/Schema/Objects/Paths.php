@@ -23,7 +23,7 @@ class Paths extends ExtensibleObject
     {
         $paths = [];
         foreach ($this->paths ?? [] as $path) {
-            $paths[$path->path] = $path->pathItem;
+            $paths[$path->path()] = $path->pathItem();
         }
 
         return Arr::filter($paths);

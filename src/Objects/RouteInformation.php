@@ -7,39 +7,38 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\RouteAction;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use MohammadAlavi\LaravelOpenApi\Attributes\Callback;
+use MohammadAlavi\LaravelOpenApi\Attributes\Extension;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
+use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
-use MohammadAlavi\LaravelOpenApi\Attributes\Responses as ResponsesAttribute;
+use MohammadAlavi\LaravelOpenApi\Attributes\Responses;
 use Webmozart\Assert\Assert;
 
 class RouteInformation
 {
-    public string|null $domain = null;
-    public string $method;
-    private string $url;
-    public string|null $name = null;
+    /** @var Collection<int, \Attribute>|null */
+    public Collection|null $actionAttributes = null;
+
+    private string|null $domain = null;
+    private string|null $method = null;
+    private string $uri;
+    private string|null $name = null;
 
     /** @var string|class-string<Controller> */
-    public string $controller = 'Closure';
+    private string $controller = 'Closure';
 
-    /** @var Collection<int, Parameters> */
-    public Collection $parameters;
+    /** @var Collection<int, Parameters>|null */
+    private Collection|null $parameters = null;
 
-    /** @var Collection<int, \Attribute> */
-    public Collection $controllerAttributes;
+    /** @var Collection<int, \Attribute>|null */
+    private Collection|null $controllerAttributes = null;
 
-    public string $action = 'Closure';
+    private string $action = 'Closure';
 
     /** @var \ReflectionParameter[] */
-    public array $actionParameters = [];
-
-    /** @var Collection<int, \Attribute> */
-    public Collection $actionAttributes;
-
-    public function url(): string
-    {
-        return $this->url;
-    }
+    private array $actionParameters = [];
 
     public static function create(Route $route): static
     {
@@ -106,10 +105,15 @@ class RouteInformation
             $instance->parameters = $containsControllerLevelParameter ? collect() : $parameters;
             $instance->domain = $route->domain();
             $instance->method = $method;
-            $instance->url = Str::start($route->uri(), '/');
+            $instance->uri = Str::start($route->uri(), '/');
             $instance->name = $route->getName();
             $instance->controllerAttributes = $controllerAttributes ?? collect();
         });
+    }
+
+    public function uri(): string
+    {
+        return $this->uri;
     }
 
     /**
@@ -128,10 +132,88 @@ class RouteInformation
         return RouteAction::containsSerializedClosure($route->action);
     }
 
-    public function responsesAttributes(): ResponsesAttribute|null
+    public function domain(): string|null
+    {
+        return $this->domain;
+    }
+
+    public function method(): string
+    {
+        return $this->method;
+    }
+
+    public function controller(): string
+    {
+        return $this->controller;
+    }
+
+    public function action(): string
+    {
+        return $this->action;
+    }
+
+    public function name(): string|null
+    {
+        return $this->name;
+    }
+
+    public function parameters(): Parameters|null
+    {
+        return $this->parameters;
+    }
+
+    public function controllerAttributes(): Collection|null
+    {
+        return $this->controllerAttributes;
+    }
+
+    public function actionParameters(): array
+    {
+        return $this->actionParameters;
+    }
+
+    public function parametersAttribute(): Parameters|null
     {
         return $this->actionAttributes
-            ->first(static fn (object $attribute): bool => $attribute instanceof ResponsesAttribute);
+            ->first(
+                static fn (object $attribute): bool => $attribute instanceof Parameters,
+            );
+    }
+
+    public function extensionAttributes(): Collection
+    {
+        return $this->actionAttributes
+            ->filter(static fn (object $attribute): bool => $attribute instanceof Extension);
+    }
+
+    public function actionAttributes(): Collection|null
+    {
+        return $this->actionAttributes;
+    }
+
+    public function pathItemAttribute(): PathItem|null
+    {
+        return $this->controllerAttributes
+            ->first(static fn (object $attribute): bool => $attribute instanceof PathItem);
+    }
+
+    public function callbackAttributes(): Collection
+    {
+        return $this->actionAttributes
+            // TODO: can this be refactored to use when()?
+            ->filter(static fn (object $attribute): bool => $attribute instanceof Callback) ?? collect();
+    }
+
+    public function operationAttribute(): Operation|null
+    {
+        return $this->actionAttributes
+            ->first(static fn (object $attribute): bool => $attribute instanceof Operation);
+    }
+
+    public function responsesAttribute(): Responses|null
+    {
+        return $this->actionAttributes
+            ->first(static fn (object $attribute): bool => $attribute instanceof Responses);
     }
 
     public function requestBodyAttribute(): RequestBody|null

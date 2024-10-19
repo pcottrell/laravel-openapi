@@ -6,19 +6,17 @@ use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
-use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
-use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector as RouteCollectorContract;
 use MohammadAlavi\LaravelOpenApi\Generator;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
 
-final readonly class RouteCollector implements RouteCollectorContract
+final readonly class RouteCollector
 {
     public function __construct(
         private Router $router,
     ) {
     }
 
+    /** @return Collection<int, RouteInformation> */
     public function whereInCollection(string $collection): Collection
     {
         return $this->all()->filter(
@@ -33,11 +31,8 @@ final readonly class RouteCollector implements RouteCollectorContract
             ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route): RouteInformation => RouteInformation::create($route))
             ->filter(static function (RouteInformation $routeInformation): bool {
-                $pathItem = $routeInformation->controllerAttributes
-                    ->first(static fn (object $attribute): bool => $attribute instanceof PathItem);
-
-                $operation = $routeInformation->actionAttributes
-                    ->first(static fn (object $attribute): bool => $attribute instanceof Operation);
+                $pathItem = $routeInformation->pathItemAttribute();
+                $operation = $routeInformation->operationAttribute();
 
                 return $pathItem && $operation;
             });
@@ -50,8 +45,8 @@ final readonly class RouteCollector implements RouteCollectorContract
         // the controller collection always overrides the action collection
         /** @var CollectionAttribute|null $collectionAttribute */
         $collectionAttribute = collect()
-            ->merge($routeInformation->controllerAttributes)
-            ->merge($routeInformation->actionAttributes)
+            ->merge($routeInformation->controllerAttributes())
+            ->merge($routeInformation->actionAttributes())
             ->first(static fn (object $item): bool => $item instanceof CollectionAttribute);
 
         // if there is no collection attribute on the controller or action, then $collectionAttribute will be null

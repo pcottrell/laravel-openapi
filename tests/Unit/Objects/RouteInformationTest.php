@@ -15,20 +15,20 @@ describe('RouteInformation', function (): void {
         );
 
         expect($routeInformation)->toBeInstanceOf(RouteInformation::class)
-            ->and($routeInformation->domain)->toBe('example.com')
-            ->and($routeInformation->method)->toBe('get')
-            ->and($routeInformation->url())->toBe('/example')
-            ->and($routeInformation->name)->toBe('example')
-            ->and($routeInformation->controller)->toBe('Closure')
-            ->and($routeInformation->parameters)->toBeInstanceOf(Collection::class)
-            ->and($routeInformation->parameters)->toHaveCount(0)
-            ->and($routeInformation->controllerAttributes)->toBeInstanceOf(Collection::class)
-            ->and($routeInformation->controllerAttributes)->toHaveCount(0)
-            ->and($routeInformation->action)->toBe('Closure')
-            ->and($routeInformation->actionParameters)->toBeArray()
-            ->and($routeInformation->actionParameters)->toHaveCount(0)
-            ->and($routeInformation->actionAttributes)->toBeInstanceOf(Collection::class)
-            ->and($routeInformation->actionAttributes)->toHaveCount(0);
+            ->and($routeInformation->domain())->toBe('example.com')
+            ->and($routeInformation->method())->toBe('get')
+            ->and($routeInformation->uri())->toBe('/example')
+            ->and($routeInformation->name())->toBe('example')
+            ->and($routeInformation->controller())->toBe('Closure')
+            ->and($routeInformation->parameters())->toBeInstanceOf(Collection::class)
+            ->and($routeInformation->parameters())->toHaveCount(0)
+            ->and($routeInformation->controllerAttributes())->toBeInstanceOf(Collection::class)
+            ->and($routeInformation->controllerAttributes())->toHaveCount(0)
+            ->and($routeInformation->action())->toBe('Closure')
+            ->and($routeInformation->actionParameters())->toBeArray()
+            ->and($routeInformation->actionParameters())->toHaveCount(0)
+            ->and($routeInformation->actionAttributes())->toBeInstanceOf(Collection::class)
+            ->and($routeInformation->actionAttributes())->toHaveCount(0);
     });
 
     it('can handle unsupported http method', function (string $method): void {
@@ -80,8 +80,8 @@ describe('RouteInformation', function (): void {
             );
 
             expect($routeInformation)->toBeInstanceOf(RouteInformation::class)
-                ->and($routeInformation->action)->toBe($action['method'])
-                ->and($routeInformation->controller)->toBe($action['controller']);
+                ->and($routeInformation->action())->toBe($action['method'])
+                ->and($routeInformation->controller())->toBe($action['controller']);
         }
     })->with([
         'get' => [
@@ -122,7 +122,7 @@ describe('RouteInformation', function (): void {
             ),
         );
 
-        expect($routeInformation->parameters)->toHaveCount(0);
+        expect($routeInformation->parameters())->toHaveCount(0);
     });
 
     it('can extract route parameters', function (string $endpoint, int $count, Collection $expectation): void {
@@ -133,8 +133,8 @@ describe('RouteInformation', function (): void {
             ),
         );
 
-        expect($routeInformation->parameters)->toHaveCount($count)
-            ->and($routeInformation->parameters)->toEqual($expectation);
+        expect($routeInformation->parameters())->toHaveCount($count)
+            ->and($routeInformation->parameters())->toEqual($expectation);
     })->with([
         'single parameter' => [
             '/example/{id}',
@@ -201,12 +201,12 @@ describe('RouteInformation', function (): void {
     ]);
 
     it(
-        'can collect and instantiate controller attributes',
+        'can collect and instantiate attributes',
         function (array $action, int $controllerAttrCount, int $methodAttrCount): void {
             $routeInformation = RouteInformation::create(Route::get('/example', $action));
 
-            expect($routeInformation->controllerAttributes)->toHaveCount($controllerAttrCount)
-                ->and($routeInformation->actionAttributes)->toHaveCount($methodAttrCount);
+            expect($routeInformation->controllerAttributes())->toHaveCount($controllerAttrCount)
+                ->and($routeInformation->actionAttributes())->toHaveCount($methodAttrCount);
         },
     )->with([
         'only controller' => [

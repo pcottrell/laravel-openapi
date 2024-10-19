@@ -13,7 +13,6 @@ use MohammadAlavi\LaravelOpenApi\Console\RequestBodyFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\ResponseFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SchemaFactoryMakeCommand;
 use MohammadAlavi\LaravelOpenApi\Console\SecuritySchemeFactoryMakeCommand;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Http\OpenApiController;
 
 class OpenApiServiceProvider extends ServiceProvider
@@ -24,8 +23,6 @@ class OpenApiServiceProvider extends ServiceProvider
             __DIR__ . '/../../config/openapi.php',
             'openapi',
         );
-
-        $this->app->bind(RouteCollector::class, \MohammadAlavi\LaravelOpenApi\Services\RouteCollector::class);
 
         $this->commands([
             GenerateCommand::class,

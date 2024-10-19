@@ -33,14 +33,12 @@ final readonly class OperationBuilder
     // TODO: maybe we can abstract the usage of RouteInformation everywhere and use an interface instead
     public function build(RouteInformation $routeInformation): Operation
     {
-        /** @var OperationAttribute|null $operation */
-        $operation = $routeInformation->actionAttributes
-            ->first(static fn (object $attribute): bool => $attribute instanceof OperationAttribute);
+        $operation = $routeInformation->operationAttribute();
 
         $operationId = $operation?->id;
         $tags = $this->tagBuilder->build(Arr::wrap($operation?->tags));
         $security = $operation?->security ? $this->securityBuilder->build($operation?->security) : null;
-        $method = $operation?->method ?? Str::lower($routeInformation->method);
+        $method = $operation?->method ?? Str::lower($routeInformation->method());
         $summary = $operation?->summary;
         $description = $operation?->description;
         $deprecated = $operation?->deprecated;
@@ -49,8 +47,8 @@ final readonly class OperationBuilder
         $requestBody = $routeInformation->requestBodyAttribute()
             ? $this->requestBodyBuilder->build($routeInformation->requestBodyAttribute())
             : null;
-        $responses = $routeInformation->responsesAttributes()
-            ? $this->responsesBuilder->build($routeInformation->responsesAttributes())
+        $responses = $routeInformation->responsesAttribute()
+            ? $this->responsesBuilder->build($routeInformation->responsesAttribute())
             : null;
         $callbacks = $this->callbackBuilder->build($routeInformation);
 
@@ -70,7 +68,7 @@ final readonly class OperationBuilder
             $operation = $operation->security($security);
         }
 
-        $this->extensionBuilder->build($operation, $routeInformation->actionAttributes);
+        $this->extensionBuilder->build($operation, $routeInformation->extensionAttributes());
 
         return $operation;
     }

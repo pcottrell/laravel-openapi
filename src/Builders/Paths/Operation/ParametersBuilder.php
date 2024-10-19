@@ -26,10 +26,7 @@ class ParametersBuilder
     protected function buildAttribute(RouteInformation $routeInformation): ParameterCollection|null
     {
         /** @var ParametersAttribute|null $parameters */
-        $parameters = $routeInformation
-            ->actionAttributes->first(
-                static fn (object $attribute): bool => $attribute instanceof ParametersAttribute,
-            );
+        $parameters = $routeInformation->parametersAttribute();
 
         if ($parameters) {
             /** @var ParameterCollectionFactory $parametersFactory */
@@ -43,12 +40,12 @@ class ParametersBuilder
 
     protected function buildPath(RouteInformation $routeInformation): Collection
     {
-        return $routeInformation->parameters
+        return $routeInformation->parameters()
             ->map(function (array $parameter) use ($routeInformation): Parameter|null {
                 $schema = Schema::string('string_test');
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
-                $reflectionParameter = collect($routeInformation->actionParameters)
+                $reflectionParameter = collect($routeInformation->actionParameters())
                     ->first(
                         static fn (\ReflectionParameter $reflectionParameter): bool => $reflectionParameter
                                 ->name === $parameter['name'],

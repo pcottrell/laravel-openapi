@@ -10,21 +10,23 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\PathsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\TagBuilder;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\PathMiddleware;
+use MohammadAlavi\LaravelOpenApi\Services\RouteCollector;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
 
-class Generator
+final readonly class Generator
 {
     // TODO: Is this the right place for this constant?
     public const COLLECTION_DEFAULT = 'default';
 
     public function __construct(
-        private readonly InfoBuilder $infoBuilder,
-        private readonly ServerBuilder $serverBuilder,
-        private readonly TagBuilder $tagBuilder,
-        private readonly SecurityBuilder $securityBuilder,
-        private readonly PathsBuilder $pathsBuilder,
-        private readonly ComponentsBuilder $componentsBuilder,
+        private InfoBuilder $infoBuilder,
+        private ServerBuilder $serverBuilder,
+        private TagBuilder $tagBuilder,
+        private SecurityBuilder $securityBuilder,
+        private PathsBuilder $pathsBuilder,
+        private ComponentsBuilder $componentsBuilder,
+        private RouteCollector $routeCollector,
     ) {
     }
 
@@ -36,7 +38,10 @@ class Generator
         $globalSecurity = Arr::get(config('openapi'), "collections.{$collection}.security");
         $security = $globalSecurity ? $this->securityBuilder->build($globalSecurity) : null;
         $middlewaresConfig = $this->getConfigFor('middlewares', $collection);
-        $paths = $this->pathsBuilder->build($collection, ...$this->getMiddlewares($middlewaresConfig));
+        $paths = $this->pathsBuilder->build(
+            $this->routeCollector->whereInCollection($collection),
+            ...$this->getMiddlewares($middlewaresConfig),
+        );
         $components = $this->componentsBuilder->build($collection, Arr::get($middlewaresConfig, 'components', []));
         $tags = $this->tagBuilder->build($this->getConfigFor('tags', $collection));
 

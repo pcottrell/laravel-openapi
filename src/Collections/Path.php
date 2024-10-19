@@ -7,8 +7,8 @@ use Webmozart\Assert\Assert;
 
 final readonly class Path
 {
-    public string $path;
-    public PathItem $pathItem;
+    private string $path;
+    private PathItem $pathItem;
 
     public static function create(string $path, PathItem $pathItem): self
     {
@@ -19,5 +19,14 @@ final readonly class Path
         $instance->pathItem = $pathItem;
 
         return $instance;
+    }
+    public function path(): string
+    {
+        return $this->path;
+    }
+
+    public function pathItem(): PathItem
+    {
+        return $this->pathItem;
     }
 }

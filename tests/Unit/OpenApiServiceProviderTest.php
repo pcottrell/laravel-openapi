@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Contracts\Foundation\Application;
-use MohammadAlavi\LaravelOpenApi\Contracts\Interface\RouteCollector;
 use MohammadAlavi\LaravelOpenApi\Providers\OpenApiServiceProvider;
 
 describe('OpenApiServiceProvider', function (): void {
@@ -13,12 +12,5 @@ describe('OpenApiServiceProvider', function (): void {
         expect($app->get('config')->get('openapi'))->toBe(
             require __DIR__ . '/../../config/openapi.php',
         );
-
-        $expectedBindings = [
-            RouteCollector::class,
-        ];
-        foreach ($expectedBindings as $expectedBinding) {
-            expect($app->bound($expectedBinding))->toBeTrue();
-        }
     });
 })->covers(OpenApiServiceProvider::class);

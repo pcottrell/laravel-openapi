@@ -11,9 +11,7 @@ class CallbackBuilder
 {
     public function build(RouteInformation $routeInformation): array
     {
-        return $routeInformation->actionAttributes
-            // TODO: can this be refactored to use when()?
-            ->filter(static fn (object $attribute): bool => $attribute instanceof CallbackAttribute)
+        return $routeInformation->callbackAttributes()
             ->map(static function (CallbackAttribute $callbackAttribute) {
                 /** @var CallbackFactory $factory */
                 $factory = app($callbackAttribute->factory);

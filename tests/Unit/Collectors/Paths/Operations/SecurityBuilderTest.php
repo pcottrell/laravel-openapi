@@ -838,7 +838,7 @@ describe(class_basename(SecurityBuilder::class), function (): void {
                     Response::ok(),
                 ),
             )
-            ->security($securityBuilder->build($routeInformation->actionAttributes[0]->security));
+            ->security($securityBuilder->build($routeInformation->operationAttribute()->security));
 
         $openApi = OpenApi::create()
             ->components($components)
