@@ -3,7 +3,7 @@
 namespace Tests\Doubles\Stubs\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class PetSchema extends ReusableSchemaFactory

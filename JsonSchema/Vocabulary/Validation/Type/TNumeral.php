@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\ExclusiveMaximum;
@@ -9,7 +10,6 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\Ex
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\Maximum;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\Minimum;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\MultipleOf;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 

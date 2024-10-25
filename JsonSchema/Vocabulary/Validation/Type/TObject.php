@@ -2,12 +2,12 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\DependentRequired\DependentRequired;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\MaxProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\MinProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\Required;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
