@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;

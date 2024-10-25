@@ -2,12 +2,11 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class TNull extends ExtensibleObject implements JsonSchema
+final class TNull extends ExtensibleObject
 {
     private Type $type;
 

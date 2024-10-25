@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\DependentRequired\DependentRequired;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\MaxProperties;
@@ -11,7 +10,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Object\Req
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class TObject extends ExtensibleObject implements JsonSchema
+final class TObject extends ExtensibleObject
 {
     private Type $type;
     private DependentRequired|null $dependentRequired = null;

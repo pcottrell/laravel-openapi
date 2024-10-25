@@ -1,7 +1,7 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;

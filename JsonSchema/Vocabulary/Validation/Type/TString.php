@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\StringFormat;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
@@ -12,7 +11,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\String\Pat
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class TString extends ExtensibleObject implements JsonSchema
+final class TString extends ExtensibleObject
 {
     private Type $type;
     private Format|null $format = null;

@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Array\MaxContains;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Array\MaxItems;
@@ -12,7 +11,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Array\Uniq
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class TArray extends ExtensibleObject implements JsonSchema
+final class TArray extends ExtensibleObject
 {
     private Type $type;
     private MaxItems|null $maxItems = null;

@@ -2,7 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\ExclusiveMaximum;
@@ -13,7 +12,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\Numeral\Mu
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-abstract class TNumeral extends ExtensibleObject implements JsonSchema
+abstract class TNumeral extends ExtensibleObject
 {
     protected Format|null $format = null;
     private Type $type;
