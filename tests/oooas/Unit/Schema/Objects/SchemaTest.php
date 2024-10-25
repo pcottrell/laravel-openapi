@@ -1,7 +1,7 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OneOf;
@@ -260,7 +260,7 @@ describe('Schema', function (): void {
 
     it('can create array schema with ref', function (): void {
         $reusableSchema = new class () extends ReusableSchemaFactory {
-            public function build(): SchemaContract
+            public function build(): JsonSchema
             {
                 return Schema::object('pet')
                     ->properties(
