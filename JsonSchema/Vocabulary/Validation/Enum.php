@@ -2,11 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final class Enum extends Generatable implements SchemaProperty, Validation
+// TODO: Where should we put Enum and Constant?
+// They can both be equally categorized as Validation and Descriptor
+final class Enum extends Generatable implements SchemaProperty, Validation, Descriptor
 {
     private array $values;
 

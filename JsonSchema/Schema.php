@@ -51,7 +51,7 @@ abstract class Schema
         return ObjectDescriptor::create();
     }
 
-    public static function array(): ObjectDescriptor
+    public static function array(): ArrayDescriptor
     {
         return ArrayDescriptor::create();
     }

@@ -102,9 +102,15 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor
             $assertions[$this->required::keyword()] = $this->required->value();
         }
 
+        $applicators = [];
+        if ($this->properties) {
+            $applicators[$this->properties::keyword()] = $this->properties->value();
+        }
+
         return Arr::filter([
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
+            ...$applicators,
         ]);
     }
 }
