@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -13,7 +13,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 // https://json-schema.org/understanding-json-schema/reference/combining
 // Another Note:
 // Not should also accept an anonymous schema object and the Schema doesn't need a key
-class Not extends ExtensibleObject implements SchemaContract
+class Not extends ExtensibleObject implements JsonSchema
 {
     use SimpleCreatorTrait;
 

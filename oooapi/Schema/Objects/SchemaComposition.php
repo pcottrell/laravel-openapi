@@ -3,7 +3,7 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleKeyCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -15,15 +15,15 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generator;
 // https://json-schema.org/understanding-json-schema/reference/object
 // https://json-schema.org/understanding-json-schema/reference/combining
 // I also believe we shouldn't be allowed to be added to Schema "properties" and "items" as they are not schemas.
-abstract class SchemaComposition implements SchemaContract, SimpleKeyCreator, \JsonSerializable
+abstract class SchemaComposition implements JsonSchema, SimpleKeyCreator, \JsonSerializable
 {
     use Generator;
     use SimpleKeyCreatorTrait;
 
-    /** @var SchemaContract|ReusableSchemaFactory[]|null */
+    /** @var JsonSchema|ReusableSchemaFactory[]|null */
     protected array|null $schemas = null;
 
-    public function schemas(SchemaContract|ReusableSchemaFactory ...$schema): static
+    public function schemas(JsonSchema|ReusableSchemaFactory ...$schema): static
     {
         $clone = clone $this;
 

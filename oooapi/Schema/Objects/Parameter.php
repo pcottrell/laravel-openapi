@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
@@ -33,7 +33,7 @@ class Parameter extends ExtensibleObject implements SimpleCreator
     protected string|null $style = null;
     protected bool|null $explode = null;
     protected bool|null $allowReserved = null;
-    protected SchemaContract|null $schema = null;
+    protected JsonSchema|null $schema = null;
     protected mixed $example = null;
 
     /** @var Example[]|null */
@@ -143,7 +143,7 @@ class Parameter extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function schema(SchemaContract|null $schema): static
+    public function schema(JsonSchema|null $schema): static
     {
         $clone = clone $this;
 
