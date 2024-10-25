@@ -7,6 +7,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Valida
 
 final readonly class DependentRequired implements SchemaProperty, Validation
 {
+    /** @param Dependency[] $dependencies */
     private function __construct(
         private array $dependencies,
     ) {
