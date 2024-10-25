@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody as RequestBodyAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\RequestBodyBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use Tests\Doubles\Stubs\Attributes\RequestBodyFactory;
@@ -11,7 +11,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\TestReusableRequestBodyFacto
 
 describe('RequestBodyBuilder', function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
@@ -25,7 +25,7 @@ describe('RequestBodyBuilder', function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([

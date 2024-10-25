@@ -3,49 +3,35 @@
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
 use Illuminate\Support\Collection;
-use MohammadAlavi\LaravelOpenApi\Attributes\Parameters as ParametersAttribute;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 class ParametersBuilder
 {
-    public function build(RouteInformation $routeInformation): ParameterCollection|null
+    public function build(RouteInfo $routeInfo): ParameterCollection
     {
-        return $this->buildAttribute($routeInformation);
+        $pathParameters = $this->buildPath($routeInfo);
+        $attributedParameters = $this->buildAttribute($routeInfo);
 
-        // TODO: re-enable this feature
-        // $pathParameters = $this->buildPath($routeInformation);
-        // $attributedParameters = $this->buildAttribute($routeInformation);
-        //
-        // return $pathParameters->merge($attributedParameters)->toArray();
+        return ParameterCollection::create(
+            $pathParameters,
+            $attributedParameters,
+        );
     }
 
-    protected function buildAttribute(RouteInformation $routeInformation): ParameterCollection|null
+    protected function buildPath(RouteInfo $routeInfo): ParameterCollection
     {
-        /** @var ParametersAttribute|null $parameters */
-        $parameters = $routeInformation->parametersAttribute();
-
-        if ($parameters) {
-            /** @var ParameterCollectionFactory $parametersFactory */
-            $parametersFactory = app($parameters->factory);
-
-            $parameters = $parametersFactory->build();
-        }
-
-        return $parameters;
-    }
-
-    protected function buildPath(RouteInformation $routeInformation): Collection
-    {
-        return $routeInformation->parameters()
-            ->map(function (array $parameter) use ($routeInformation): Parameter|null {
-                $schema = Schema::string('string_test');
+        /** @var Collection $parameters */
+        $parameters = $routeInfo->parameters()
+            ->map(function (array $parameter) use ($routeInfo): Parameter|null {
+                $schema = Schema::string();
 
                 /** @var \ReflectionParameter|null $reflectionParameter */
-                $reflectionParameter = collect($routeInformation->actionParameters())
+                $reflectionParameter = collect($routeInfo->actionParameters())
                     ->first(
                         static fn (\ReflectionParameter $reflectionParameter): bool => $reflectionParameter
                                 ->name === $parameter['name'],
@@ -59,23 +45,38 @@ class ParametersBuilder
 
                     $schema = $this->guessFromReflectionType(
                         $reflectionParameter->getType(),
-                        $reflectionParameter->getName(),
                     );
                 }
 
                 return Parameter::path()->name($parameter['name'])
                     ->required()
                     ->schema($schema);
-            })
-            ->filter();
+            });
+        $parameters = $parameters->filter(static fn (Parameter|null $parameter) => !is_null($parameter));
+
+        return ParameterCollection::create(...$parameters->toArray());
     }
 
-    private function guessFromReflectionType(\ReflectionType $reflectionType, string $name): Schema
+    private function guessFromReflectionType(\ReflectionType $reflectionType): Descriptor
     {
         return match ($reflectionType->getName()) {
-            'int' => Schema::integer($name),
-            'bool' => Schema::boolean($name),
-            default => Schema::string($name),
+            'int' => Schema::integer(),
+            'bool' => Schema::boolean(),
+            default => Schema::string(),
         };
+    }
+
+    protected function buildAttribute(RouteInfo $routeInfo): ParameterCollection
+    {
+        $parameters = $routeInfo->parametersAttribute();
+
+        if ($parameters) {
+            /** @var ParameterCollectionFactory $parametersFactory */
+            $parametersFactory = app($parameters->factory);
+
+            return $parametersFactory->build();
+        }
+
+        return ParameterCollection::create();
     }
 }

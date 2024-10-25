@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
@@ -24,16 +24,16 @@ class Parameter extends ExtensibleObject implements SimpleCreator
     public const STYLE_PIPE_DELIMITED = 'pipeDelimited';
     public const STYLE_DEEP_OBJECT = 'deepObject';
 
-    protected string|null $name = null;
+    public string|null $name = null;
+    public bool|null $required = null;
     protected string|null $in = null;
     protected string|null $description = null;
-    protected bool|null $required = null;
     protected bool|null $deprecated = null;
     protected bool|null $allowEmptyValue = null;
     protected string|null $style = null;
     protected bool|null $explode = null;
     protected bool|null $allowReserved = null;
-    protected JsonSchema|null $schema = null;
+    public Descriptor|null $schema = null;
     protected mixed $example = null;
 
     /** @var Example[]|null */
@@ -143,7 +143,7 @@ class Parameter extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function schema(JsonSchema|null $schema): static
+    public function schema(Descriptor|null $schema): static
     {
         $clone = clone $this;
 

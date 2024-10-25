@@ -16,7 +16,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\Responses;
 use Webmozart\Assert\Assert;
 
-class RouteInformation
+class RouteInfo
 {
     /** @var Collection<int, \Attribute>|null */
     public Collection|null $actionAttributes = null;
@@ -121,7 +121,7 @@ class RouteInformation
      */
     private static function isControllerAction(Route $route): bool
     {
-        return is_string($route->action['uses']) && ! static::isSerializedClosure($route);
+        return is_string($route->action['uses']) && !static::isSerializedClosure($route);
     }
 
     /**
@@ -157,14 +157,9 @@ class RouteInformation
         return $this->name;
     }
 
-    public function parameters(): Collection|null
+    public function parameters(): Collection
     {
-        return $this->parameters;
-    }
-
-    public function controllerAttributes(): Collection|null
-    {
-        return $this->controllerAttributes;
+        return $this->parameters ?? collect();
     }
 
     public function actionParameters(): array
@@ -172,53 +167,57 @@ class RouteInformation
         return $this->actionParameters;
     }
 
+    public function extensionAttributes(): Collection
+    {
+        return $this->actionAttributes()
+            ->filter(static fn (object $attribute): bool => $attribute instanceof Extension);
+    }
+
+    public function actionAttributes(): Collection
+    {
+        return $this->actionAttributes ?? collect();
+    }
+
+    public function callbackAttributes(): Collection
+    {
+        return $this->actionAttributes()
+            ->filter(static fn (object $attribute): bool => $attribute instanceof Callback);
+    }
+
     public function parametersAttribute(): Parameters|null
     {
-        return $this->actionAttributes
+        return $this->actionAttributes()
             ->first(
                 static fn (object $attribute): bool => $attribute instanceof Parameters,
             );
     }
 
-    public function extensionAttributes(): Collection
-    {
-        return $this->actionAttributes
-            ->filter(static fn (object $attribute): bool => $attribute instanceof Extension);
-    }
-
-    public function actionAttributes(): Collection|null
-    {
-        return $this->actionAttributes;
-    }
-
     public function pathItemAttribute(): PathItem|null
     {
-        return $this->controllerAttributes
+        return $this->controllerAttributes()
             ->first(static fn (object $attribute): bool => $attribute instanceof PathItem);
     }
 
-    public function callbackAttributes(): Collection
+    public function controllerAttributes(): Collection
     {
-        return $this->actionAttributes
-            // TODO: can this be refactored to use when()?
-            ->filter(static fn (object $attribute): bool => $attribute instanceof Callback) ?? collect();
+        return $this->controllerAttributes ?? collect();
     }
 
     public function operationAttribute(): Operation|null
     {
-        return $this->actionAttributes
+        return $this->actionAttributes()
             ->first(static fn (object $attribute): bool => $attribute instanceof Operation);
     }
 
     public function responsesAttribute(): Responses|null
     {
-        return $this->actionAttributes
+        return $this->actionAttributes()
             ->first(static fn (object $attribute): bool => $attribute instanceof Responses);
     }
 
     public function requestBodyAttribute(): RequestBody|null
     {
-        return $this->actionAttributes
+        return $this->actionAttributes()
             ->first(static fn (object $attribute): bool => $attribute instanceof RequestBody);
     }
 }

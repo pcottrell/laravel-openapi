@@ -4,10 +4,11 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor
+final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
     private mixed $value;
 
@@ -21,11 +22,14 @@ final class ConstantDescriptor extends Generatable implements SchemaProperty, Va
         return $clone;
     }
 
-    protected function toArray(): array
+    public function value(): mixed
     {
-        return [
-            self::keyword() => $this->value,
-        ];
+        return $this->value;
+    }
+
+    public function is(string $type): bool
+    {
+        return $type === self::keyword();
     }
 
     public static function keyword(): string
@@ -33,8 +37,10 @@ final class ConstantDescriptor extends Generatable implements SchemaProperty, Va
         return 'const';
     }
 
-    public function value(): mixed
+    protected function toArray(): array
     {
-        return $this->value;
+        return [
+            self::keyword() => $this->value,
+        ];
     }
 }

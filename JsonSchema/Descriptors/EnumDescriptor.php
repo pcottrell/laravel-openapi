@@ -4,12 +4,13 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 // TODO: Where should we put Enum and Constant?
 // They can both be equally categorized as Validation and Descriptor
-final class EnumDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor
+final class EnumDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
     private array $values;
 
@@ -23,11 +24,14 @@ final class EnumDescriptor extends Generatable implements SchemaProperty, Valida
         return $clone;
     }
 
-    protected function toArray(): array
+    public function value(): array
     {
-        return [
-            self::keyword() => $this->values,
-        ];
+        return $this->values;
+    }
+
+    public function is(string $type): bool
+    {
+        return $type === self::keyword();
     }
 
     public static function keyword(): string
@@ -35,8 +39,10 @@ final class EnumDescriptor extends Generatable implements SchemaProperty, Valida
         return 'enum';
     }
 
-    public function value(): array
+    protected function toArray(): array
     {
-        return $this->values;
+        return [
+            self::keyword() => $this->values,
+        ];
     }
 }

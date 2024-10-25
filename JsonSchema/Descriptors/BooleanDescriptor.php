@@ -3,13 +3,15 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
+use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class BooleanDescriptor extends ExtensibleObject implements Descriptor
+final class BooleanDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
-    private Type $type;
+    use HasTypeTrait;
 
     public static function create(): self
     {

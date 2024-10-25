@@ -3,18 +3,21 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\FormatAnnotation\Format\StringFormat;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MaxLength;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MinLength;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\Pattern;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
+use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class StringDescriptor extends ExtensibleObject implements Descriptor
+final class StringDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
-    private Type $type;
+    use HasTypeTrait;
+
     private Format|null $format = null;
     private MaxLength|null $maxLength = null;
     private MinLength|null $minLength = null;
@@ -42,7 +45,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor
     {
         $clone = clone $this;
 
-         $clone->maxLength = MaxLength::create($value);
+        $clone->maxLength = MaxLength::create($value);
 
         return $clone;
     }

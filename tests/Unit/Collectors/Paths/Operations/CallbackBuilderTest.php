@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Callback;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Reference;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
@@ -11,7 +11,7 @@ use Tests\Doubles\Stubs\Collectors\Paths\Operations\ReusableComponentCallbackFac
 
 describe(class_basename(CallbackBuilder::class), function (): void {
     it('can be created', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
@@ -26,7 +26,7 @@ describe(class_basename(CallbackBuilder::class), function (): void {
     });
 
     it('can handle reusable components', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([

@@ -3,7 +3,7 @@
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Encoding;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 
 describe('MediaType', function (): void {
     it('can be created with no parameters', function (): void {
@@ -15,7 +15,7 @@ describe('MediaType', function (): void {
     it('can be created with all parameters', function (): void {
         $mediaType = MediaType::create()
             ->mediaType(MediaType::MEDIA_TYPE_APPLICATION_JSON)
-            ->schema(Schema::object('object'))
+            ->schema(Schema::object())
             ->examples(Example::create('ExampleName'), Example::create('ExampleName2'))
             // TODO: Allow creating a Example without a key.
             // Sometimes examples are not named.

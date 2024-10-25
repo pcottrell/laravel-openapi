@@ -2,19 +2,19 @@
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use Tests\Doubles\Stubs\Objects\InvocableController;
 use Tests\Doubles\Stubs\Objects\MultiActionController;
 
 describe('RouteInformation', function (): void {
     it('can be created with all parameters', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example')
                 ->name('example')
                 ->domain('example.com'),
         );
 
-        expect($routeInformation)->toBeInstanceOf(RouteInformation::class)
+        expect($routeInformation)->toBeInstanceOf(RouteInfo::class)
             ->and($routeInformation->domain())->toBe('example.com')
             ->and($routeInformation->method())->toBe('get')
             ->and($routeInformation->uri())->toBe('/example')
@@ -34,7 +34,7 @@ describe('RouteInformation', function (): void {
     it('can handle unsupported http method', function (string $method): void {
         expect(
             function () use ($method): void {
-                RouteInformation::create(
+                RouteInfo::create(
                     Route::match(
                         [$method],
                         '/example',
@@ -75,11 +75,11 @@ describe('RouteInformation', function (): void {
     ];
     it('can be created with all valid combinations', function (array $method, array $actions): void {
         foreach ($actions as $action) {
-            $routeInformation = RouteInformation::create(
+            $routeInformation = RouteInfo::create(
                 Route::match($method, '/example', $action['action']),
             );
 
-            expect($routeInformation)->toBeInstanceOf(RouteInformation::class)
+            expect($routeInformation)->toBeInstanceOf(RouteInfo::class)
                 ->and($routeInformation->action())->toBe($action['method'])
                 ->and($routeInformation->controller())->toBe($action['controller']);
         }
@@ -115,7 +115,7 @@ describe('RouteInformation', function (): void {
     ]);
 
     it('doesnt extract route parameters if there are none', function (): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get(
                 '/example',
                 static fn (): string => 'example',
@@ -126,7 +126,7 @@ describe('RouteInformation', function (): void {
     });
 
     it('can extract route parameters', function (string $endpoint, int $count, Collection $expectation): void {
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get(
                 $endpoint,
                 static fn (): string => 'example',
@@ -203,7 +203,7 @@ describe('RouteInformation', function (): void {
     it(
         'can collect and instantiate attributes',
         function (array $action, int $controllerAttrCount, int $methodAttrCount): void {
-            $routeInformation = RouteInformation::create(Route::get('/example', $action));
+            $routeInformation = RouteInfo::create(Route::get('/example', $action));
 
             expect($routeInformation->controllerAttributes())->toHaveCount($controllerAttrCount)
                 ->and($routeInformation->actionAttributes())->toHaveCount($methodAttrCount);
@@ -225,4 +225,4 @@ describe('RouteInformation', function (): void {
             1,
         ],
     ]);
-})->covers(RouteInformation::class);
+})->covers(RouteInfo::class);

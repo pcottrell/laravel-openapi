@@ -2,8 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\HasKey;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
@@ -23,7 +23,7 @@ class MediaType extends ExtensibleObject implements HasKey, SimpleCreator
     public const MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED = 'application/x-www-form-urlencoded';
 
     protected string|null $mediaType = null;
-    protected JsonSchema|null $schema = null;
+    protected Descriptor|null $schema = null;
     protected Example|null $example = null;
 
     /** @var Example[]|null */
@@ -97,7 +97,7 @@ class MediaType extends ExtensibleObject implements HasKey, SimpleCreator
             ->mediaType(static::MEDIA_TYPE_APPLICATION_X_WWW_FORM_URLENCODED);
     }
 
-    public function schema(JsonSchema|null $schema): static
+    public function schema(Descriptor|null $schema): static
     {
         $clone = clone $this;
 

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use MohammadAlavi\LaravelOpenApi\Services\RouteCollector;
 use Pest\Expectation;
 use Tests\Doubles\Stubs\CollectibleClass;
@@ -26,7 +26,7 @@ describe(class_basename(RouteCollector::class), function (): void {
         expect($routes)->toHaveCount(5)
             ->and($routes)
             ->each(
-                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInformation::class),
+                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInfo::class),
             );
     });
 
@@ -44,7 +44,7 @@ describe(class_basename(RouteCollector::class), function (): void {
         expect($routes)->toHaveCount(1)
             ->and($routes)
             ->each(
-                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInformation::class),
+                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInfo::class),
             );
     });
 })->covers(RouteCollector::class);

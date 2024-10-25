@@ -7,7 +7,7 @@ use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection as CollectionAttribute;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 
 final readonly class RouteCollector
 {
@@ -16,11 +16,11 @@ final readonly class RouteCollector
     ) {
     }
 
-    /** @return Collection<int, RouteInformation> */
+    /** @return Collection<int, RouteInfo> */
     public function whereInCollection(string $collection): Collection
     {
         return $this->all()->filter(
-            fn (RouteInformation $routeInformation): bool => $this
+            fn (RouteInfo $routeInformation): bool => $this
                 ->isInCollection($routeInformation, $collection),
         );
     }
@@ -29,8 +29,8 @@ final readonly class RouteCollector
     {
         return collect($this->router->getRoutes())
             ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
-            ->map(static fn (Route $route): RouteInformation => RouteInformation::create($route))
-            ->filter(static function (RouteInformation $routeInformation): bool {
+            ->map(static fn (Route $route): RouteInfo => RouteInfo::create($route))
+            ->filter(static function (RouteInfo $routeInformation): bool {
                 $pathItem = $routeInformation->pathItemAttribute();
                 $operation = $routeInformation->operationAttribute();
 
@@ -38,7 +38,7 @@ final readonly class RouteCollector
             });
     }
 
-    private function isInCollection(RouteInformation $routeInformation, string $collection): bool
+    private function isInCollection(RouteInfo $routeInformation, string $collection): bool
     {
         // TODO: use these docs to refactor and simplify this code
         // You can set the collection either on controller or per action (on each method)

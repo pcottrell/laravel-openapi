@@ -13,7 +13,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * The JSON null constant
+     * The JSON null constant.
      */
     public static function null(): self
     {
@@ -21,7 +21,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * The JSON true or false constants
+     * The JSON true or false constants.
      */
     public static function boolean(): self
     {
@@ -29,7 +29,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * A JSON string
+     * A JSON string.
      */
     public static function string(): self
     {
@@ -37,7 +37,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * A JSON number that represents an integer
+     * A JSON number that represents an integer.
      */
     public static function integer(): self
     {
@@ -45,7 +45,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * A JSON number
+     * A JSON number.
      */
     public static function number(): self
     {
@@ -53,7 +53,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * A JSON object
+     * A JSON object.
      */
     public static function object(): self
     {
@@ -61,7 +61,7 @@ final readonly class Type implements SchemaProperty, Validation
     }
 
     /**
-     * A JSON array
+     * A JSON array.
      */
     public static function array(): self
     {
@@ -76,5 +76,14 @@ final readonly class Type implements SchemaProperty, Validation
     public function value(): string
     {
         return $this->type;
+    }
+
+    public function equals(self|string $type): bool
+    {
+        if ($type instanceof self) {
+            return $this->type === $type->type;
+        }
+
+        return $this->type === $type;
     }
 }

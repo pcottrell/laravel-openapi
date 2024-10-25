@@ -13,7 +13,7 @@ use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ResponsesBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ServerBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\TagBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 
 final readonly class OperationBuilder
@@ -31,7 +31,7 @@ final readonly class OperationBuilder
     }
 
     // TODO: maybe we can abstract the usage of RouteInformation everywhere and use an interface instead
-    public function build(RouteInformation $routeInformation): Operation
+    public function build(RouteInfo $routeInformation): Operation
     {
         $operation = $routeInformation->operationAttribute();
 

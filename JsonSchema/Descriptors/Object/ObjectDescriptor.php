@@ -3,6 +3,7 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Properties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\DependentRequired\Dependency;
@@ -10,13 +11,14 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\Depend
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MaxProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MinProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\Required;
+use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
-final class ObjectDescriptor extends ExtensibleObject implements Descriptor
+final class ObjectDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
-    private Type $type;
+    use HasTypeTrait;
 
     // VALIDATIONS
     private DependentRequired|null $dependentRequired = null;

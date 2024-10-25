@@ -9,7 +9,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
 use MohammadAlavi\LaravelOpenApi\Attributes\Responses;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use Tests\Doubles\Stubs\Attributes\CallbackFactory;
 use Tests\Doubles\Stubs\Attributes\ExtensionFactory;
 use Tests\Doubles\Stubs\Attributes\ParameterFactory;
@@ -20,7 +20,7 @@ use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
 
 describe('OperationBuilder', function (): void {
-    it('can be created in many combinations', function (RouteInformation $route, array $expected): void {
+    it('can be created in many combinations', function (RouteInfo $route, array $expected): void {
         $operationBuilder = app(OperationBuilder::class);
 
         $result = $operationBuilder->build($route);
@@ -41,7 +41,7 @@ describe('OperationBuilder', function (): void {
     })->with(
         [
             function (): array {
-                $routeInformation = RouteInformation::create(
+                $routeInformation = RouteInfo::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([
@@ -79,7 +79,7 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::create(
+                $routeInformation = RouteInfo::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([
@@ -117,7 +117,7 @@ describe('OperationBuilder', function (): void {
                 ];
             },
             function (): array {
-                $routeInformation = RouteInformation::create(
+                $routeInformation = RouteInfo::create(
                     Route::get('test', static fn (): string => 'test'),
                 );
                 $routeInformation->actionAttributes = collect([

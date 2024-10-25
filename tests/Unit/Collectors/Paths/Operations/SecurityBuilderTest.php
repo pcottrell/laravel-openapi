@@ -7,7 +7,7 @@ use MohammadAlavi\LaravelOpenApi\Attributes\Operation as AttributesOperation;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\SecurityBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\OperationBuilder;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OpenApi;
@@ -61,7 +61,7 @@ describe(class_basename(SecurityBuilder::class), function (): void {
 
         $route = '/foo';
         $action = 'get';
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::$action($route, static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([
@@ -823,7 +823,7 @@ describe(class_basename(SecurityBuilder::class), function (): void {
         $components = Components::create()
             ->securitySchemes(ExampleHTTPBearerSecurityScheme::create());
 
-        $routeInformation = RouteInformation::create(
+        $routeInformation = RouteInfo::create(
             Route::get('/example', static fn (): string => 'example'),
         );
         $routeInformation->actionAttributes = collect([

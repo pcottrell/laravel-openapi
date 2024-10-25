@@ -5,11 +5,11 @@ namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Callback as CallbackAttribute;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components\CallbackFactory;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\ReusableRefObj;
-use MohammadAlavi\LaravelOpenApi\Objects\RouteInformation;
+use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 
 class CallbackBuilder
 {
-    public function build(RouteInformation $routeInformation): array
+    public function build(RouteInfo $routeInformation): array
     {
         return $routeInformation->callbackAttributes()
             ->map(static function (CallbackAttribute $callbackAttribute) {
