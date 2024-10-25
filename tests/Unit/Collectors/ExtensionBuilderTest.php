@@ -25,7 +25,6 @@ describe(class_basename(ExtensionBuilder::class), function (): void {
     it('can be created using key and value', function (): void {
         $example = Example::create('test');
 
-
         /** @var ExtensionBuilder $extensionBuilder */
         $extensionBuilder = app(ExtensionBuilder::class);
         $extensionBuilder->build($example, collect([
