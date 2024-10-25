@@ -73,7 +73,6 @@ describe('Extensions', function (): void {
         $extension = Extension::create('x-test', 'test');
         $extensions = $extensions->add($extension);
 
-
         expect($extensions->asArray())->toBe(['x-test' => 'test'])
             ->and($extensions->asArray())->toBe(['x-test' => 'test']);
     });
