@@ -1,13 +1,13 @@
 <?php
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\StringDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\StringFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TString;
 
-describe(class_basename(TString::class), function (): void {
+describe(class_basename(StringDescriptor::class), function (): void {
     it(
         'should return string schema with password format',
         function (StringFormat $format): void {
-            $schema = TString::create()
+            $schema = StringDescriptor::create()
                 ->format($format)
                 ->maxLength(10)
                 ->minLength(5)
@@ -24,4 +24,4 @@ describe(class_basename(TString::class), function (): void {
     )->with(
         StringFormat::cases(),
     );
-})->covers(TString::class);
+})->covers(StringDescriptor::class);

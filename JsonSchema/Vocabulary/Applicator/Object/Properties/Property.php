@@ -2,17 +2,17 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Applicator\Object\Properties;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 
 final readonly class Property
 {
     private function __construct(
-        private string $name,
-        private Schema $schema,
+        private string     $name,
+        private Descriptor $schema,
     ) {
     }
 
-    public static function create(string $name, Schema $schema): self
+    public static function create(string $name, Descriptor $schema): self
     {
         return new self($name, $schema);
     }
@@ -22,7 +22,7 @@ final readonly class Property
         return $this->name;
     }
 
-    public function schema(): Schema
+    public function schema(): Descriptor
     {
         return $this->schema;
     }

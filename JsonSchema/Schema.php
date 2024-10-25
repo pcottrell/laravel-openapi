@@ -4,15 +4,15 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema;
 
 // TODO: for schema the $key is required I think. It should bre required when creating it via ny construction method
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ArrayDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\BooleanDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\NullDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\IntegerDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\NumberDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ObjectDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\StringDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Constant;
 use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Enum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TArray;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TBoolean;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TInteger;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TNull;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TNumber;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TObject;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type\TString;
 
 abstract class Schema
 {
@@ -21,39 +21,39 @@ abstract class Schema
     // Also look at OAS spec 3.1
     // public string|null $id = null;
 
-    public static function null(): TNull
+    public static function null(): NullDescriptor
     {
-        return TNull::create();
+        return NullDescriptor::create();
     }
 
-    public static function boolean(): TBoolean
+    public static function boolean(): BooleanDescriptor
     {
-        return TBoolean::create();
+        return BooleanDescriptor::create();
     }
 
-    public static function string(): TString
+    public static function string(): StringDescriptor
     {
-        return TString::create();
+        return StringDescriptor::create();
     }
 
-    public static function integer(): TInteger
+    public static function integer(): IntegerDescriptor
     {
-        return TInteger::create();
+        return IntegerDescriptor::create();
     }
 
-    public static function number(): TNumber
+    public static function number(): NumberDescriptor
     {
-        return TNumber::create();
+        return NumberDescriptor::create();
     }
 
-    public static function object(): TObject
+    public static function object(): ObjectDescriptor
     {
-        return TObject::create();
+        return ObjectDescriptor::create();
     }
 
-    public static function array(): TObject
+    public static function array(): ObjectDescriptor
     {
-        return TArray::create();
+        return ArrayDescriptor::create();
     }
 
     public static function enum(...$values): Enum
