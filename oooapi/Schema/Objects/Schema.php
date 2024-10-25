@@ -3,14 +3,14 @@
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SchemaContract;
+use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleKeyCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleKeyCreatorTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 // TODO: for schema the $key is required I think. It should bre required when creating it via ny construction method
-class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreator
+class Schema extends ExtensibleObject implements JsonSchema, SimpleKeyCreator
 {
     // TODO: Implement $id from OAS spec 3.1
     // public string|null $id = null;
@@ -21,25 +21,25 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
     public const TYPE_INTEGER = 'integer';
     public const TYPE_NUMBER = 'number';
     public const TYPE_OBJECT = 'object';
-    public const TYPE_STRING = 'string';
+//    public const TYPE_STRING = 'string';
     public const FORMAT_INT32 = 'int32';
     public const FORMAT_INT64 = 'int64';
     public const FORMAT_FLOAT = 'float';
     public const FORMAT_DOUBLE = 'double';
     public const FORMAT_BYTE = 'byte';
     public const FORMAT_BINARY = 'binary';
-    public const FORMAT_DATE = 'date';
-    public const FORMAT_DATE_TIME = 'date-time';
-    public const FORMAT_PASSWORD = 'password';
-    public const FORMAT_UUID = 'uuid';
+//    public const FORMAT_DATE = 'date';
+//    public const FORMAT_DATE_TIME = 'date-time';
+//    public const FORMAT_PASSWORD = 'password';
+//    public const FORMAT_UUID = 'uuid';
 
     protected string|null $title = null;
     protected string|null $description = null;
-    protected array|null $enum = null;
+//    protected array|null $enum = null;
     protected mixed $default = null;
     protected string|null $format = null;
-    protected string|null $type = null;
-    protected SchemaContract|SchemaComposition|ReusableSchemaFactory|null $items = null;
+//    protected string|null $type = null;
+    protected JsonSchema|SchemaComposition|ReusableSchemaFactory|null $items = null;
     protected int|null $maxItems = null;
     protected int|null $minItems = null;
     protected bool|null $uniqueItems = null;
@@ -55,10 +55,10 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
     /** @var string[]|null */
     protected array|null $required = null;
 
-    /** @var SchemaContract[]|null */
+    /** @var JsonSchema[]|null */
     protected array|null $properties = null;
 
-    protected SchemaContract|null $additionalProperties = null;
+    protected JsonSchema|null $additionalProperties = null;
     protected int|null $maxProperties = null;
     protected int|null $minProperties = null;
     protected bool|null $nullable = null;
@@ -75,14 +75,14 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
         return static::create($key)->type(static::TYPE_ARRAY);
     }
 
-    public function type(string|null $type): static
-    {
-        $clone = clone $this;
-
-        $clone->type = $type;
-
-        return $clone;
-    }
+//    public function type(string|null $type): static
+//    {
+//        $clone = clone $this;
+//
+//        $clone->type = $type;
+//
+//        return $clone;
+//    }
 
     public static function boolean(string $key): static
     {
@@ -104,10 +104,10 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
         return static::create($key)->type(static::TYPE_OBJECT);
     }
 
-    public static function string(string $key): static
-    {
-        return static::create($key)->type(static::TYPE_STRING);
-    }
+//    public static function string(string $key): static
+//    {
+//        return static::create($key)->type(static::TYPE_STRING);
+//    }
 
     public function title(string|null $title): static
     {
@@ -154,7 +154,7 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
         return $clone;
     }
 
-    public function items(SchemaContract|ReusableSchemaFactory $schemaContract): static
+    public function items(JsonSchema|ReusableSchemaFactory $schemaContract): static
     {
         $clone = clone $this;
 
@@ -278,7 +278,7 @@ class Schema extends ExtensibleObject implements SchemaContract, SimpleKeyCreato
         return $clone;
     }
 
-    public function properties(SchemaContract|ReusableSchemaFactory ...$schemaContract): static
+    public function properties(JsonSchema|ReusableSchemaFactory ...$schemaContract): static
     {
         $clone = clone $this;
 
