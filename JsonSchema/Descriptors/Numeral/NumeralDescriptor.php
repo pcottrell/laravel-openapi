@@ -3,13 +3,13 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\Format;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Numeral\ExclusiveMaximum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Numeral\ExclusiveMinimum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Numeral\Maximum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Numeral\Minimum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Numeral\MultipleOf;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\ExclusiveMaximum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\ExclusiveMinimum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\Maximum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\Minimum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\MultipleOf;
+use MohammadAlavi\ObjectOrientedJSONSchema\Format;
+use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 

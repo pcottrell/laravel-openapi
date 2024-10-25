@@ -2,8 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\Format;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\FormatAnnotation\Format\NumberFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\FormatAnnotation\NumberFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Format;
 
 final class NumberDescriptor extends NumeralDescriptor
 {

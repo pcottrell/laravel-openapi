@@ -1,10 +1,10 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Constant;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ConstantDescriptor;
 
-describe(class_basename(Constant::class), function (): void {
+describe(class_basename(ConstantDescriptor::class), function (): void {
     it('should return constant value as is', function (mixed $value): void {
-        $schema = Constant::create($value);
+        $schema = ConstantDescriptor::create($value);
 
         expect($schema->asArray())->toBe([
             'const' => $value,
@@ -16,4 +16,4 @@ describe(class_basename(Constant::class), function (): void {
         null,
         false,
     ]);
-})->covers(Constant::class);
+})->covers(ConstantDescriptor::class);

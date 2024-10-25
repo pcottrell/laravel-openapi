@@ -3,7 +3,7 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Type;
+use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 

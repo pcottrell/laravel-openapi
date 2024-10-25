@@ -4,15 +4,15 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema;
 
 // TODO: for schema the $key is required I think. It should bre required when creating it via ny construction method
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ArrayDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\ArrayDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\BooleanDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ConstantDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\EnumDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\NullDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\IntegerDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\NumberDescriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\ObjectDescriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\StringDescriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Constant;
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Enum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\ObjectDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\StringDescriptor;
 
 abstract class Schema
 {
@@ -56,13 +56,13 @@ abstract class Schema
         return ArrayDescriptor::create();
     }
 
-    public static function enum(...$values): Enum
+    public static function enum(...$values): EnumDescriptor
     {
-        return Enum::create(...$values);
+        return EnumDescriptor::create(...$values);
     }
 
-    public static function const(mixed $value): Constant
+    public static function const(mixed $value): ConstantDescriptor
     {
-        return Constant::create($value);
+        return ConstantDescriptor::create($value);
     }
 }

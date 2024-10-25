@@ -1,10 +1,10 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Vocabulary\Validation\Enum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\EnumDescriptor;
 
-describe(class_basename(Enum::class), function (): void {
+describe(class_basename(EnumDescriptor::class), function (): void {
     it('should return enum values as is', function (): void {
-        $schema = Enum::create('test', 1, true, null, false);
+        $schema = EnumDescriptor::create('test', 1, true, null, false);
 
         expect($schema->asArray())->toBe([
             'enum' => [
@@ -16,4 +16,4 @@ describe(class_basename(Enum::class), function (): void {
             ],
         ]);
     });
-})->covers(Enum::class);
+})->covers(EnumDescriptor::class);
