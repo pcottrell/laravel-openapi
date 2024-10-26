@@ -9,6 +9,9 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
+// TODO: does all need to extend form ExtensibleObject?
+// Can't this be done via Composition instead of Inheritance?
+// Like the way we are doing it with MetaData.php?
 final class NullDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
