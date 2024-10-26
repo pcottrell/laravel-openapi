@@ -4,6 +4,7 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\AdditionalProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Properties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\DependentRequired\Dependency;
@@ -31,6 +32,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
 
     // APPLICATORS
     private Properties|null $properties = null;
+    private AdditionalProperties|bool|null $additionalProperties = null;
 
     /**
      * Specify a conditional dependency between object properties.
@@ -88,6 +90,23 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
         $clone = clone $this;
 
         $clone->properties = Properties::create(...$property);
+
+        return $clone;
+    }
+
+    /**
+     * This method is used
+     * to control the handling of properties whose names are not listed by the "properties" method
+     * or match any of the regular expressions set by the "patternProperties" method.
+     * By default, any additional properties are allowed.
+     *
+     * @see https://www.learnjsonschema.com/2020-12/applicator/additionalproperties/
+     */
+    public function additionalProperties(Descriptor|bool $value = true): self
+    {
+        $clone = clone $this;
+
+        $clone->additionalProperties = AdditionalProperties::create($value);
 
         return $clone;
     }
