@@ -3,10 +3,11 @@
 namespace Tests\Doubles\Stubs\Petstore\Responses;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ResponsesFactory;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 final class SingleResponses extends ResponsesFactory
 {
@@ -15,14 +16,21 @@ final class SingleResponses extends ResponsesFactory
         return Responses::create(
             Response::unprocessableEntity()
             ->content(
-                MediaType::json()->schema(Schema::object('object_test')->properties(
-                    Schema::string('message')->example('The given data was invalid.'),
-                    Schema::object('errors')
-                        ->additionalProperties(
-                            Schema::array('array_test')->items(Schema::string('string_test')),
-                        )
-                        ->example(['field' => ['Something is wrong with this field!']]),
-                )),
+                MediaType::json()->schema(
+                    Schema::object()
+                    ->properties(
+                        Property::create(
+                            'message',
+                            Schema::string()->examples('The given data was invalid.'),
+                        ),
+                        Property::create(
+                            'errors',
+                            Schema::object()->additionalProperties(
+                                Schema::array()->items(Schema::string()),
+                            )->examples(['field' => ['Something is wrong with this field!']]),
+                        ),
+                    ),
+                ),
             ),
         );
     }
