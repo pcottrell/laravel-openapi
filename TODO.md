@@ -33,4 +33,7 @@ Checkout and see where we can use Laravel Pipes? It seems everywhere we are usin
     a chain of methods, we can use Laravel Pipes instead? Maybe for build() methods?
 Go through composer and remove as much dependency as possible. Make the package as less dependency free as possible.
 Go through all the classes and try to remove all non-relevant methods and properties
-    and make the class as uncluttered as possible. For example is() method on Descriptor classes
+    and make the class as uncluttered as possible. For example, is() method on Descriptor classes.
+    Maybe move it to a separate class?
+    Maybe move all the methods that are not relevant to the class to a separate class?
+        Something like Laravels Sts class? And make it also Macroable?
