@@ -21,6 +21,10 @@ abstract class Schema
     // Also look at OAS spec 3.1
     // public string|null $id = null;
 
+    // TODO: Creating an schema that have multiple types is valid in JSON SCHEMA. Implement it.
+    // How does the non-overlapping type specific validation work?
+    // For example, if the type is integer and string, how does the minLength validation work?
+
     public static function null(): NullDescriptor
     {
         return NullDescriptor::create();
