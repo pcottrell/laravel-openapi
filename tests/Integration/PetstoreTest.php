@@ -45,8 +45,8 @@ describe('PetStore', function (): void {
                 ],
                 'properties' => [
                     'id' => [
-                        'format' => 'int64',
                         'type' => 'integer',
+                        'format' => 'int64',
                     ],
                     'name' => [
                         'type' => 'string',
@@ -67,7 +67,7 @@ describe('PetStore', function (): void {
                             'properties' => [
                                 'message' => [
                                     'type' => 'string',
-                                    'example' => 'The given data was invalid.',
+                                    'examples' => 'The given data was invalid.',
                                 ],
                                 'errors' => [
                                     'type' => 'object',
@@ -77,7 +77,7 @@ describe('PetStore', function (): void {
                                             'type' => 'string',
                                         ],
                                     ],
-                                    'example' => [
+                                    'examples' => [
                                         'field' => [
                                             'Something is wrong with this field!',
                                         ],
@@ -115,8 +115,8 @@ describe('PetStore', function (): void {
                         'description' => 'How many items to return at one time (max 100)',
                         'required' => false,
                         'schema' => [
-                            'format' => 'int32',
                             'type' => 'integer',
+                            'format' => 'int32',
                         ],
                     ],
                 ],
@@ -161,8 +161,8 @@ describe('PetStore', function (): void {
                         'description' => 'How many items to return at one time (max 100)',
                         'required' => false,
                         'schema' => [
-                            'format' => 'int32',
                             'type' => 'integer',
+                            'format' => 'int32',
                         ],
                     ],
                 ],
@@ -219,8 +219,8 @@ describe('PetStore', function (): void {
                         'description' => 'How many items to return at one time (max 100)',
                         'required' => false,
                         'schema' => [
-                            'format' => 'int32',
                             'type' => 'integer',
+                            'format' => 'int32',
                         ],
                     ],
                 ],
@@ -234,7 +234,7 @@ describe('PetStore', function (): void {
                                     'properties' => [
                                         'message' => [
                                             'type' => 'string',
-                                            'example' => 'The given data was invalid.',
+                                            'examples' => 'The given data was invalid.',
                                         ],
                                         'errors' => [
                                             'type' => 'object',
@@ -244,7 +244,7 @@ describe('PetStore', function (): void {
                                                     'type' => 'string',
                                                 ],
                                             ],
-                                            'example' => [
+                                            'examples' => [
                                                 'field' => [
                                                     'Something is wrong with this field!',
                                                 ],
@@ -306,6 +306,7 @@ describe('PetStore', function (): void {
                 'summary' => 'List all pets.',
                 'description' => 'List all pets from the database.',
                 'operationId' => 'nestedSecuritySecondTest',
+                'parameters' => [],
                 'responses' => [
                     'default' => [
                         'description' => 'Default Response',
