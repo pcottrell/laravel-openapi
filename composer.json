@@ -28,6 +28,7 @@
         "ext-json": "*",
         "doctrine/dbal": "^2.6|^3.0",
         "laravel/framework": "^11.0",
+        "myclabs/deep-copy": "^1.12",
         "roave/security-advisories": "dev-latest"
     },
     "require-dev": {
