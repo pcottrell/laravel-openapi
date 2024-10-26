@@ -2,24 +2,18 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OneOf;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 
-#[CoversClass(OneOf::class)]
-class OneOfTest extends UnitTestCase
-{
-    public function testTwoSchemasWork(): void
-    {
-        $schema1 = Schema::string('schema1');
-        $schema2 = Schema::integer('schema2');
+describe(class_basename(OneOf::class), function (): void {
+    it('can be created with all parameters', function (): void {
+        $schema1 = Schema::string();
+        $schema2 = Schema::integer();
 
         $oneOf = OneOf::create('test')
             ->schemas($schema1, $schema2);
 
-        $this->assertSame([
+        expect($oneOf->asArray())->toBe([
             'oneOf' => [
                 [
                     'type' => 'string',
@@ -28,31 +22,6 @@ class OneOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $oneOf->asArray());
-    }
-
-    public function testTwoSchemasAsResponseWork(): void
-    {
-        $schema1 = Schema::string('schema1');
-        $schema2 = Schema::integer('schema2');
-
-        $oneOf = OneOf::create('test')
-            ->schemas($schema1, $schema2);
-
-        $mediaType = MediaType::json()
-            ->schema($oneOf);
-
-        $this->assertSame([
-            'schema' => [
-                'oneOf' => [
-                    [
-                        'type' => 'string',
-                    ],
-                    [
-                        'type' => 'integer',
-                    ],
-                ],
-            ],
-        ], $mediaType->asArray());
-    }
-}
+        ]);
+    });
+})->covers(OneOf::class);

@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;
@@ -17,9 +18,9 @@ class Not extends ExtensibleObject implements JsonSchema
 {
     use SimpleCreatorTrait;
 
-    protected Schema|null $schema = null;
+    protected Descriptor|null $schema = null;
 
-    public function schema(Schema|null $schema): static
+    public function schema(Descriptor|null $schema): static
     {
         $clone = clone $this;
 

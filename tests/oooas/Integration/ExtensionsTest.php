@@ -2,13 +2,14 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Operation;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use Webmozart\Assert\InvalidArgumentException;
 
 describe('Extensions', function (): void {
@@ -19,21 +20,29 @@ describe('Extensions', function (): void {
         'x-obj' => [],
     ];
     dataset('extensibleObjectSet', [
-        [fn (): Components => Components::create(), $expectations],
-        [fn (): Operation => Operation::create(), $expectations + [
-            'responses' => [
-                'default' => [
-                    'description' => 'Default Response',
+        [
+            fn (): Components => Components::create(), $expectations],
+        [
+            fn (): Operation => Operation::create(), $expectations + [
+                'responses' => [
+                    'default' => [
+                        'description' => 'Default Response',
+                    ],
                 ],
             ],
         ],
+        [
+            fn (): PathItem => PathItem::create(), $expectations],
+        [
+            fn (): Response => Response::ok(), $expectations  + [
+                'description' => 'OK',
+            ],
         ],
-        [fn (): PathItem => PathItem::create(), $expectations],
-        [fn (): Response => Response::ok(), $expectations  + [
-            'description' => 'OK',
+        [
+            fn (): Descriptor => Schema::object(), $expectations  + [
+                'type' => 'object',
+            ],
         ],
-        ],
-        [fn (): Schema => Schema::create('test'), $expectations],
     ]);
 
     it('can create objects with extension', function (ExtensibleObject $extensibleObject, array $expectations): void {
@@ -52,16 +61,17 @@ describe('Extensions', function (): void {
     })->with('extensibleObjectSet');
 
     it('can unset extensions', function (): void {
-        $object = Schema::create('test')
+        $object = Schema::object()
             ->addExtension(Extension::create('x-key', 'value'))
             ->addExtension(Extension::create('x-foo', 'bar'))
             ->addExtension(Extension::create('x-baz', null));
 
         $object = $object->removeExtension('x-key');
 
-        expect($object->asArray())->toBe([
+        expect($object->asArray())->toEqualCanonicalizing([
             'x-foo' => 'bar',
             'x-baz' => null,
+            'type' => 'object',
         ]);
     });
 

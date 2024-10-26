@@ -24,11 +24,11 @@ trait HasMetaDataTrait
         return $clone;
     }
 
-    public function defaultValue(mixed $value): self
+    public function default(mixed $value): self
     {
         $clone = clone $this;
 
-        $clone->metaData = $this->metaData->defaultValue($value);
+        $clone->metaData = $this->metaData->default($value);
 
         return $clone;
     }

@@ -2,29 +2,24 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Not;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Not::class)]
-class NotTest extends UnitTestCase
-{
-    public function testAsResponseWork(): void
-    {
+describe(class_basename(Not::class), function (): void {
+    it('can be created with no parameters', function (): void {
+        $not = Not::create();
+
+        expect($not->asArray())->toBeEmpty();
+    });
+
+    it('can be created with all parameters', function (): void {
         $not = Not::create()
-            ->schema(Schema::string('test'));
+            ->schema(Schema::string());
 
-        $mediaType = MediaType::json()
-            ->schema($not);
-
-        $this->assertSame([
-            'schema' => [
-                'not' => [
-                    'type' => 'string',
-                ],
+        expect($not->asArray())->toBe([
+            'not' => [
+                'type' => 'string',
             ],
-        ], $mediaType->asArray());
-    }
-}
+        ]);
+    });
+})->covers(Not::class);

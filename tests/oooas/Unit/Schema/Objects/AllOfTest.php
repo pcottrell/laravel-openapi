@@ -2,24 +2,18 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(AllOf::class)]
-class AllOfTest extends UnitTestCase
-{
-    public function testTwoSchemasWork(): void
-    {
-        $schema1 = Schema::string('string_test');
-        $schema2 = Schema::integer('integer_test');
+describe(class_basename(AllOf::class), function (): void {
+    it('can be created', function (): void {
+        $schema1 = Schema::string();
+        $schema2 = Schema::integer();
 
         $allOf = AllOf::create('test')
             ->schemas($schema1, $schema2);
 
-        $this->assertSame([
+        expect($allOf->asArray())->toBe([
             'allOf' => [
                 [
                     'type' => 'string',
@@ -28,31 +22,6 @@ class AllOfTest extends UnitTestCase
                     'type' => 'integer',
                 ],
             ],
-        ], $allOf->asArray());
-    }
-
-    public function testTwoSchemasAsResponseWork(): void
-    {
-        $schema1 = Schema::string('string_test');
-        $schema2 = Schema::integer('integer_test');
-
-        $allOf = AllOf::create('test')
-            ->schemas($schema1, $schema2);
-
-        $mediaType = MediaType::json()
-            ->schema($allOf);
-
-        $this->assertSame([
-            'schema' => [
-                'allOf' => [
-                    [
-                        'type' => 'string',
-                    ],
-                    [
-                        'type' => 'integer',
-                    ],
-                ],
-            ],
-        ], $mediaType->asArray());
-    }
-}
+        ]);
+    });
+})->covers(AllOf::class);

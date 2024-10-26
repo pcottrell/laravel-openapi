@@ -8,8 +8,8 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 
-describe(class_basename(Encoding::class), function () {
-    it('can be created with all parameters', function () {
+describe(class_basename(Encoding::class), function (): void {
+    it('can be created with all parameters', function (): void {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
             ->required()

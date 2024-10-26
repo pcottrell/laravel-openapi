@@ -42,7 +42,7 @@ final class MetaData extends Generatable
         return $clone;
     }
 
-    public function defaultValue(mixed $value): self
+    public function default(mixed $value): self
     {
         $clone = clone $this;
 

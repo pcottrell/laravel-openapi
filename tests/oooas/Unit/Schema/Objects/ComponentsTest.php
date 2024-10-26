@@ -19,7 +19,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
 
 describe(class_basename(Components::class), function (): void {
@@ -28,7 +28,7 @@ describe(class_basename(Components::class), function (): void {
         $schema->allows('key')
             ->andReturn('ExampleSchema');
         $schema->expects('build')
-            ->andReturn(Schema::object('ExampleSchema'));
+            ->andReturn(Schema::object());
 
         $response = \Mockery::mock(ReusableResponseFactory::class);
         $response->allows('key')
