@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleKeyCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleKeyCreatorTrait;
@@ -27,7 +27,7 @@ class Header extends ExtensibleObject implements SimpleKeyCreator
     protected string|null $style = null;
     protected bool|null $explode = null;
     protected bool|null $allowReserved = null;
-    protected JsonSchema|null $schema = null;
+    protected Descriptor|null $schema = null;
     protected mixed $example = null;
 
     /** @var Example[]|null */
@@ -99,7 +99,7 @@ class Header extends ExtensibleObject implements SimpleKeyCreator
         return $clone;
     }
 
-    public function schema(JsonSchema|null $schema): static
+    public function schema(Descriptor|null $schema): static
     {
         $clone = clone $this;
 

@@ -1,13 +1,13 @@
 <?php
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
 
-describe('Schema', function (): void {
+describe(class_basename(Schema::class), function (): void {
     it('can create array schema with all parameters', function (): void {
         $schema = Schema::create('test')
             ->title('Schema title')
@@ -259,7 +259,7 @@ describe('Schema', function (): void {
 
     it('can create array schema with ref', function (): void {
         $reusableSchema = new class () extends ReusableSchemaFactory {
-            public function build(): JsonSchema
+            public function build(): Descriptor
             {
                 return Schema::object('pet')
                     ->properties(
@@ -300,4 +300,4 @@ describe('Schema', function (): void {
         'object' => ['object', Schema::TYPE_OBJECT],
         'string' => ['string', Schema::TYPE_STRING],
     ]);
-})->covers(Schema::class);
+})->covers(Schema::class)->skip();

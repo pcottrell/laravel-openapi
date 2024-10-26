@@ -2,6 +2,9 @@
 
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\FormatAnnotation\Format\StringFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Contact;
@@ -16,7 +19,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Tag;
 use Tests\Doubles\Stubs\Petstore\Security\ExampleComplexMultiSecurityRequirementSecurity;
@@ -55,16 +57,19 @@ describe(class_basename(OpenApi::class), function (): void {
         //  These contracts define the create method and either accept the key or not.
         // Then we accept the proper Contract when needed!
         // For example here for response we can accept the UnnamedSchema contract!
-        $schema = Schema::object('response')
+        $schema = Schema::object()
             ->properties(
-                Schema::string('id')->format(Schema::FORMAT_UUID),
-                Schema::string('created_at')->format(Schema::FORMAT_DATE_TIME),
-                Schema::integer('age')->example(60),
-                Schema::array('data')->items(
-                    Schema::string('id')->format(Schema::FORMAT_UUID),
+                Property::create('id', Schema::string()->format(StringFormat::UUID)),
+                Property::create('created_at', Schema::string()->format(StringFormat::DATE_TIME)),
+                Property::create('age', Schema::integer()),
+                Property::create(
+                    'data',
+                    Schema::array()
+                    ->items(
+                        Schema::string()->format(StringFormat::UUID),
+                    ),
                 ),
-            )
-            ->required('id', 'created_at');
+            )->required('id', 'created_at');
 
         $expectedResponse = Response::ok()
             ->content(
@@ -86,11 +91,8 @@ describe(class_basename(OpenApi::class), function (): void {
                 MediaType::json()->schema($schema),
             ));
 
-        $auditId = Schema::string('id')
-            ->format(Schema::FORMAT_UUID);
-        $format = Schema::string('format')
-            ->enum('json', 'ics')
-            ->default('json');
+        $auditId = Schema::string()->format(StringFormat::UUID);
+        $format = Schema::enum('json', 'ics');
 
         $readAudit = Operation::get()
             ->responses(Responses::create($expectedResponse))
@@ -183,22 +185,21 @@ describe(class_basename(OpenApi::class), function (): void {
                                             'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
-                                                    'format' => 'uuid',
                                                     'type' => 'string',
+                                                    'format' => 'uuid',
                                                 ],
                                                 'created_at' => [
-                                                    'format' => 'date-time',
                                                     'type' => 'string',
+                                                    'format' => 'date-time',
                                                 ],
                                                 'age' => [
                                                     'type' => 'integer',
-                                                    'example' => 60,
                                                 ],
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'format' => 'uuid',
                                                         'type' => 'string',
+                                                        'format' => 'uuid',
                                                     ],
                                                 ],
                                             ],
@@ -220,22 +221,21 @@ describe(class_basename(OpenApi::class), function (): void {
                                         'required' => ['id', 'created_at'],
                                         'properties' => [
                                             'id' => [
-                                                'format' => 'uuid',
                                                 'type' => 'string',
+                                                'format' => 'uuid',
                                             ],
                                             'created_at' => [
-                                                'format' => 'date-time',
                                                 'type' => 'string',
+                                                'format' => 'date-time',
                                             ],
                                             'age' => [
                                                 'type' => 'integer',
-                                                'example' => 60,
                                             ],
                                             'data' => [
                                                 'type' => 'array',
                                                 'items' => [
-                                                    'format' => 'uuid',
                                                     'type' => 'string',
+                                                    'format' => 'uuid',
                                                 ],
                                             ],
                                         ],
@@ -253,22 +253,21 @@ describe(class_basename(OpenApi::class), function (): void {
                                             'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
-                                                    'format' => 'uuid',
                                                     'type' => 'string',
+                                                    'format' => 'uuid',
                                                 ],
                                                 'created_at' => [
-                                                    'format' => 'date-time',
                                                     'type' => 'string',
+                                                    'format' => 'date-time',
                                                 ],
                                                 'age' => [
                                                     'type' => 'integer',
-                                                    'example' => 60,
                                                 ],
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'format' => 'uuid',
                                                         'type' => 'string',
+                                                        'format' => 'uuid',
                                                     ],
                                                 ],
                                             ],
@@ -290,8 +289,8 @@ describe(class_basename(OpenApi::class), function (): void {
                                 'in' => 'path',
                                 'required' => true,
                                 'schema' => [
-                                    'format' => 'uuid',
                                     'type' => 'string',
+                                    'format' => 'uuid',
                                 ],
                             ],
                             [
@@ -300,8 +299,6 @@ describe(class_basename(OpenApi::class), function (): void {
                                 'description' => 'The format of the appointments',
                                 'schema' => [
                                     'enum' => ['json', 'ics'],
-                                    'default' => 'json',
-                                    'type' => 'string',
                                 ],
                             ],
                         ],
@@ -315,22 +312,21 @@ describe(class_basename(OpenApi::class), function (): void {
                                             'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
-                                                    'format' => 'uuid',
                                                     'type' => 'string',
+                                                    'format' => 'uuid',
                                                 ],
                                                 'created_at' => [
-                                                    'format' => 'date-time',
                                                     'type' => 'string',
+                                                    'format' => 'date-time',
                                                 ],
                                                 'age' => [
                                                     'type' => 'integer',
-                                                    'example' => 60,
                                                 ],
                                                 'data' => [
                                                     'type' => 'array',
                                                     'items' => [
-                                                        'format' => 'uuid',
                                                         'type' => 'string',
+                                                        'format' => 'uuid',
                                                     ],
                                                 ],
                                             ],

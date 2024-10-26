@@ -2,10 +2,10 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 describe(class_basename(Header::class), function (): void {
     it('can be created with all parameters', function (): void {
@@ -17,7 +17,7 @@ describe(class_basename(Header::class), function (): void {
             ->style(Header::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::object('object_test'))
+            ->schema(Schema::object())
             ->example('Example value')
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());

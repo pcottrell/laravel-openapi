@@ -3,9 +3,9 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\ComponentFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 
 interface SchemaFactory extends ComponentFactory
 {
-    public function build(): JsonSchema;
+    public function build(): Descriptor;
 }

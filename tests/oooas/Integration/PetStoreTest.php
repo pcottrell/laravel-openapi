@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\File;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\FormatAnnotation\IntegerFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -22,7 +25,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Paths;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Server;
 use Tests\oooas\Doubles\Stubs\ReusableSchemaStub;
 
@@ -54,8 +56,8 @@ describe('PetStoreTest', function (): void {
             ->required(false)
             ->style(Parameter::STYLE_FORM)
             ->schema(
-                Schema::array('test')->items(
-                    Schema::string('value'),
+                Schema::array()->items(
+                    Schema::string(),
                 ),
             );
 
@@ -64,40 +66,54 @@ describe('PetStoreTest', function (): void {
             ->description('maximum number of results to return')
             ->required(false)
             ->schema(
-                Schema::integer('value')->format(Schema::FORMAT_INT32),
+                Schema::integer()->format(IntegerFormat::INT32),
             );
 
         $allOf = AllOf::create('Pet')
             ->schemas(
                 ReusableSchemaStub::create(),
-                Schema::create('Pet')
+                Schema::object()
                     ->required('id')
                     ->properties(
-                        Schema::integer('id')->format(Schema::FORMAT_INT64),
+                        Property::create(
+                            'id',
+                            Schema::integer()->format(IntegerFormat::INT64),
+                        ),
                     ),
             );
 
-        $newPetSchema = new class extends ReusableSchemaFactory
-        {
-            public function build(): JsonSchema
+        $newPetSchema = new class () extends ReusableSchemaFactory {
+            public function build(): Descriptor
             {
-                return Schema::create('NewPet')
+                return Schema::object()
                     ->required('name')
                     ->properties(
-                        Schema::string('name'),
-                        Schema::string('tag'),
+                        Property::create(
+                            'name',
+                            Schema::string(),
+                        ),
+                        Property::create(
+                            'tag',
+                            Schema::string(),
+                        ),
                     );
             }
         };
 
-        $errorSchema = new class extends ReusableSchemaFactory {
-            public function build(): JsonSchema
+        $errorSchema = new class () extends ReusableSchemaFactory {
+            public function build(): Descriptor
             {
-                return Schema::create('Error')
+                return Schema::object()
                     ->required('code', 'message')
                     ->properties(
-                        Schema::integer('code')->format(Schema::FORMAT_INT32),
-                        Schema::string('message'),
+                        Property::create(
+                            'code',
+                            Schema::integer()->format(IntegerFormat::INT32),
+                        ),
+                        Property::create(
+                            'message',
+                            Schema::string(),
+                        ),
                     );
             }
         };
@@ -115,7 +131,7 @@ describe('PetStoreTest', function (): void {
         $petListingResponse = Response::ok('pet response')
             ->content(
                 MediaType::json()->schema(
-                    Schema::array('array_test')->items(
+                    Schema::array()->items(
                         $allOf,
                     ),
                 ),
@@ -158,7 +174,7 @@ describe('PetStoreTest', function (): void {
             ->description('ID of pet to fetch')
             ->required()
             ->schema(
-                Schema::integer('integer_test')->format(Schema::FORMAT_INT64),
+                Schema::integer()->format(IntegerFormat::INT64),
             );
 
         $findPetById = Operation::get()

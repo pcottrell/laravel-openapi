@@ -3,19 +3,31 @@
 namespace Tests\Doubles\Stubs\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\JsonSchema;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\FormatAnnotation\IntegerFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 
 class PetSchema extends ReusableSchemaFactory
 {
-    public function build(): JsonSchema
+    public function build(): Descriptor
     {
         return Schema::object('Pet')
             ->required('id', 'name')
             ->properties(
-                Schema::integer('id')->format(Schema::FORMAT_INT64),
-                Schema::string('name'),
-                Schema::string('tag'),
+                Property::create(
+                    'id',
+                    Schema::integer()
+                        ->format(IntegerFormat::INT64),
+                ),
+                Property::create(
+                    'name',
+                    Schema::string(),
+                ),
+                Property::create(
+                    'tag',
+                    Schema::string(),
+                ),
             );
     }
 }

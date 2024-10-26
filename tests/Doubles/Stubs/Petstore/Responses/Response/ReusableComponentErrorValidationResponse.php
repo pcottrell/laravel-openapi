@@ -3,21 +3,27 @@
 namespace Tests\Doubles\Stubs\Petstore\Responses\Response;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableResponseFactory;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+//use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 
 class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 {
     public function build(): Response
     {
-        $schema = Schema::object('object_test')->properties(
-            Schema::string('message')->example('The given data was invalid.'),
-            Schema::object('errors')
-                ->additionalProperties(
-                    Schema::array('array_test')->items(Schema::string('string_test')),
-                )
-                ->example(['field' => ['Something is wrong with this field!']]),
+        $schema = Schema::object()->properties(
+            Property::create(
+                'message',
+                Schema::string()->example('The given data was invalid.'),
+            ),
+            Property::create(
+                'errors',
+                Schema::object()->additionalProperties(
+                    Schema::array()->items(Schema::string()),
+                )->example(['field' => ['Something is wrong with this field!']]),
+            ),
         );
 
         return Response::unprocessableEntity()

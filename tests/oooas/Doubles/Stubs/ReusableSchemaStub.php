@@ -3,16 +3,18 @@
 namespace Tests\oooas\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 
 class ReusableSchemaStub extends ReusableSchemaFactory
 {
-    public function build(): Schema
+    public function build(): Descriptor
     {
-        return Schema::object('ReusableSchemaStub')
+        return Schema::object()
             ->properties(
-                Schema::integer('id'),
-                Schema::string('name'),
+                Property::create('id', Schema::integer()),
+                Property::create('name', Schema::string()),
             );
     }
 }

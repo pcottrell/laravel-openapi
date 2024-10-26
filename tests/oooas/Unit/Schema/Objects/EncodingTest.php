@@ -2,19 +2,14 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Encoding;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
-use PHPUnit\Framework\Attributes\CoversClass;
-use Tests\UnitTestCase;
 
-#[CoversClass(Encoding::class)]
-class EncodingTest extends UnitTestCase
-{
-    public function testCreateWithAllParametersWorks(): void
-    {
+describe(class_basename(Encoding::class), function () {
+    it('can be created with all parameters', function () {
         $header = Header::create('HeaderName')
             ->description('Lorem ipsum')
             ->required()
@@ -23,7 +18,7 @@ class EncodingTest extends UnitTestCase
             ->style(Header::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::string('test'))
+            ->schema(Schema::string())
             ->example('Example String')
             ->examples(
                 Example::create('ExampleName')
@@ -41,7 +36,7 @@ class EncodingTest extends UnitTestCase
         $mediaType = MediaType::json()
             ->encoding($encoding);
 
-        $this->assertEquals([
+        expect($mediaType->asArray())->toBe([
             'encoding' => [
                 'EncodingName' => [
                     'contentType' => 'application/json',
@@ -73,6 +68,6 @@ class EncodingTest extends UnitTestCase
                     'allowReserved' => true,
                 ],
             ],
-        ], $mediaType->asArray());
-    }
-}
+        ]);
+    });
+})->covers(Encoding::class);

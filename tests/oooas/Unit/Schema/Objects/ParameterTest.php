@@ -1,9 +1,9 @@
 <?php
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
 
 describe('Parameter', function (): void {
     it('can be created with no parameters', function (): void {
@@ -23,7 +23,7 @@ describe('Parameter', function (): void {
             ->style(Parameter::STYLE_SIMPLE)
             ->explode()
             ->allowReserved()
-            ->schema(Schema::string('string_test'))
+            ->schema(Schema::string())
             ->example(Example::create('example_test'))
             ->examples(Example::create('ExampleName'))
             ->content(MediaType::json());
