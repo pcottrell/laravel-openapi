@@ -6,20 +6,24 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
+    use HasMetaDataTrait;
+
     private mixed $value;
 
     // TODO: It would be cool if constants could accept Schema types
     public static function create($value): self
     {
-        $clone = new self();
+        $instance = new self();
+        $instance->value = $value;
+        $instance->metaData = MetaData::create();
 
-        $clone->value = $value;
-
-        return $clone;
+        return $instance;
     }
 
     public function value(): mixed
@@ -41,6 +45,7 @@ final class ConstantDescriptor extends Generatable implements SchemaProperty, Va
     {
         return [
             self::keyword() => $this->value,
+            ...$this->metaData->jsonSerialize(),
         ];
     }
 }

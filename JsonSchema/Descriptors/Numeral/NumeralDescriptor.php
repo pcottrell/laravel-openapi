@@ -11,6 +11,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\Minim
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\MultipleOf;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -18,6 +20,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
+    use HasMetaDataTrait;
 
     protected Format|null $format = null;
     private ExclusiveMaximum|null $exclusiveMaximum = null;
@@ -33,6 +36,7 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
     {
         $instance = new static();
         $instance->type = Type::integer();
+        $instance->metaData = MetaData::create();
 
         return $instance;
     }
@@ -120,6 +124,7 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
         return Arr::filter([
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
+            ...$this->metaData->jsonSerialize(),
         ]);
     }
 }

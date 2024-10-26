@@ -11,6 +11,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinCont
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\UniqueItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -18,6 +20,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class ArrayDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
+    use HasMetaDataTrait;
 
     private MaxItems|null $maxItems = null;
     private MinItems|null $minItems = null;
@@ -41,6 +44,7 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
     {
         $instance = new self();
         $instance->type = Type::array();
+        $instance->metaData = MetaData::create();
 
         return $instance;
     }
@@ -118,6 +122,7 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
             ...$applicators,
+            ...$this->metaData->jsonSerialize(),
         ]);
     }
 }

@@ -6,22 +6,26 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 // TODO: Where should we put Enum and Constant?
 // They can both be equally categorized as Validation and Descriptor
 final class EnumDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
+    use HasMetaDataTrait;
+
     private array $values;
 
     // TODO: It would be cool if enums could accept Constant or/and Schema types
     public static function create(...$value): self
     {
-        $clone = new self();
+        $instance = new self();
+        $instance->values = $value;
+        $instance->metaData = MetaData::create();
 
-        $clone->values = $value;
-
-        return $clone;
+        return $instance;
     }
 
     public function value(): array
@@ -43,6 +47,7 @@ final class EnumDescriptor extends Generatable implements SchemaProperty, Valida
     {
         return [
             self::keyword() => $this->values,
+            ...$this->metaData->jsonSerialize(),
         ];
     }
 }

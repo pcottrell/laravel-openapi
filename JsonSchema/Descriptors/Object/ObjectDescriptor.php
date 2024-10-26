@@ -12,6 +12,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MaxPro
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MinProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\Required;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -19,6 +21,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class ObjectDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
+    use HasMetaDataTrait;
 
     // VALIDATIONS
     private DependentRequired|null $dependentRequired = null;
@@ -48,6 +51,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
     {
         $instance = new self();
         $instance->type = Type::object();
+        $instance->metaData = MetaData::create();
 
         return $instance;
     }
@@ -113,6 +117,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
             ...$applicators,
+            ...$this->metaData->jsonSerialize(),
         ]);
     }
 }

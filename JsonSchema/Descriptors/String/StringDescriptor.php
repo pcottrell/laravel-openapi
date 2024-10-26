@@ -10,6 +10,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MinLen
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\Pattern;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -17,6 +19,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class StringDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
+    use HasMetaDataTrait;
 
     private Format|null $format = null;
     private MaxLength|null $maxLength = null;
@@ -36,6 +39,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
     {
         $instance = new self();
         $instance->type = Type::string();
+        $instance->metaData = MetaData::create();
 
         return $instance;
     }
@@ -89,6 +93,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
         return Arr::filter([
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
+            ...$this->metaData->jsonSerialize(),
         ]);
     }
 }
