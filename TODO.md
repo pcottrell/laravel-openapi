@@ -31,3 +31,4 @@ remove all usage of jsonSerialize() and use asArray() instead
 do something about this kind of usage ...())->build()
 Checkout and see where we can use Laravel Pipes? It seems everywhere we are using
     a chain of methods, we can use Laravel Pipes instead? Maybe fir build() methods?
+Go through composer and remove as many dependency as possible. make the package as less dependency free as possible.
