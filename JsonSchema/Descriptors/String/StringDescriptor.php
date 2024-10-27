@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\FormatAnnotation\Format\StringFormat;
@@ -20,6 +22,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
 {
     use HasTypeTrait;
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     private Format|null $format = null;
     private MaxLength|null $maxLength = null;
@@ -40,6 +43,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
         $instance = new self();
         $instance->type = Type::string();
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -94,6 +98,7 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ]);
     }
 }

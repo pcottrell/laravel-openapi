@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Applicators\Items;
@@ -21,6 +23,7 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
 {
     use HasTypeTrait;
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     private MaxItems|null $maxItems = null;
     private MinItems|null $minItems = null;
@@ -45,6 +48,7 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
         $instance = new self();
         $instance->type = Type::array();
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -123,6 +127,7 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
             ...$assertions,
             ...$applicators,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ]);
     }
 }

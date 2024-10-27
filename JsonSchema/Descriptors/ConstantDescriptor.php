@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
@@ -13,6 +15,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     private mixed $value;
 
@@ -22,6 +25,7 @@ final class ConstantDescriptor extends Generatable implements SchemaProperty, Va
         $instance = new self();
         $instance->value = $value;
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -46,6 +50,7 @@ final class ConstantDescriptor extends Generatable implements SchemaProperty, Va
         return [
             self::keyword() => $this->value,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ];
     }
 }

@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\AdditionalProperties;
@@ -23,6 +25,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
 {
     use HasTypeTrait;
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     // VALIDATIONS
     private DependentRequired|null $dependentRequired = null;
@@ -54,6 +57,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
         $instance = new self();
         $instance->type = Type::object();
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -140,6 +144,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
             ...$assertions,
             ...$applicators,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ]);
     }
 }

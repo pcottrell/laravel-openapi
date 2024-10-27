@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\ExclusiveMaximum;
@@ -21,6 +23,7 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
 {
     use HasTypeTrait;
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     protected Format|null $format = null;
     private ExclusiveMaximum|null $exclusiveMaximum = null;
@@ -37,6 +40,7 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
         $instance = new static();
         $instance->type = Type::integer();
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -125,6 +129,7 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
             $this->type::keyword() => $this->type->value(),
             ...$assertions,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ]);
     }
 }

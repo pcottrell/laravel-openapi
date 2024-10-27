@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
@@ -15,6 +17,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 final class EnumDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
 {
     use HasMetaDataTrait;
+    use HasApplicatorTrait;
 
     private array $values;
 
@@ -24,6 +27,7 @@ final class EnumDescriptor extends Generatable implements SchemaProperty, Valida
         $instance = new self();
         $instance->values = $value;
         $instance->metaData = MetaData::create();
+        $instance->applicator = Applicator::create();
 
         return $instance;
     }
@@ -48,6 +52,7 @@ final class EnumDescriptor extends Generatable implements SchemaProperty, Valida
         return [
             self::keyword() => $this->values,
             ...$this->metaData->jsonSerialize(),
+            ...$this->applicator->jsonSerialize(),
         ];
     }
 }
