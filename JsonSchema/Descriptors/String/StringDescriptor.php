@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
-use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\FormatAnnotation\Format\StringFormat;
@@ -11,9 +10,9 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MaxLen
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MinLength;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\Pattern;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
+use MohammadAlavi\ObjectOrientedJSONSchema\GeneralTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -21,8 +20,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class StringDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
-    use HasMetaDataTrait;
-    use HasApplicatorTrait;
+    use GeneralTrait;
 
     private Format|null $format = null;
     private MaxLength|null $maxLength = null;

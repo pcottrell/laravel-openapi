@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
-use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Applicators\Items;
@@ -12,9 +11,9 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MaxItem
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinContains;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\UniqueItems;
+use MohammadAlavi\ObjectOrientedJSONSchema\GeneralTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -22,8 +21,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class ArrayDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
-    use HasMetaDataTrait;
-    use HasApplicatorTrait;
+    use GeneralTrait;
 
     private MaxItems|null $maxItems = null;
     private MinItems|null $minItems = null;

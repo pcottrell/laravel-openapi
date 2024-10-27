@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
-use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\ExclusiveMaximum;
@@ -12,9 +11,9 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\Maxim
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\Minimum;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations\MultipleOf;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
+use MohammadAlavi\ObjectOrientedJSONSchema\GeneralTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -22,8 +21,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
-    use HasMetaDataTrait;
-    use HasApplicatorTrait;
+    use GeneralTrait;
 
     protected Format|null $format = null;
     private ExclusiveMaximum|null $exclusiveMaximum = null;

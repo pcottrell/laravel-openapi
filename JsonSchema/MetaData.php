@@ -98,25 +98,25 @@ final class MetaData extends Generatable
     {
         $metaData = [];
         if ($this->title) {
-            $metaData[$this->title::keyword()] = $this->title->value();
+            $metaData[Title::keyword()] = $this->title->value();
         }
         if ($this->description) {
-            $metaData[$this->description::keyword()] = $this->description->value();
+            $metaData[Description::keyword()] = $this->description->value();
         }
         if ($this->defaultValue) {
-            $metaData[$this->defaultValue::keyword()] = $this->defaultValue->value();
+            $metaData[DefaultValue::keyword()] = $this->defaultValue->value();
         }
         if ($this->deprecated) {
-            $metaData[$this->deprecated::keyword()] = $this->deprecated->value();
+            $metaData[Deprecated::keyword()] = $this->deprecated->value();
         }
         if ($this->examples) {
-            $metaData[$this->examples::keyword()] = $this->examples->value();
+            $metaData[Examples::keyword()] = $this->examples->value();
         }
         if ($this->readOnly) {
-            $metaData[$this->readOnly::keyword()] = $this->readOnly->value();
+            $metaData[IsReadOnly::keyword()] = $this->readOnly->value();
         }
         if ($this->writeOnly) {
-            $metaData[$this->writeOnly::keyword()] = $this->writeOnly->value();
+            $metaData[IsWriteOnly::keyword()] = $this->writeOnly->value();
         }
 
         return Arr::filter($metaData);

@@ -24,7 +24,7 @@ trait HasApplicatorTrait
     {
         $clone = clone $this;
 
-        $clone->applicator = $this->applicator->allOf(AllOf::create(...$schema));
+        $clone->applicator = $this->applicator->allOf(...$schema);
 
         return $clone;
     }
@@ -45,7 +45,7 @@ trait HasApplicatorTrait
     {
         $clone = clone $this;
 
-        $clone->applicator = $this->applicator->anyOf(AnyOf::create(...$schema));
+        $clone->applicator = $this->applicator->anyOf(...$schema);
 
         return $clone;
     }
@@ -69,7 +69,7 @@ trait HasApplicatorTrait
     {
         $clone = clone $this;
 
-        $clone->applicator = $this->applicator->oneOf(OneOf::create(...$schema));
+        $clone->applicator = $this->applicator->oneOf(...$schema);
 
         return $clone;
     }

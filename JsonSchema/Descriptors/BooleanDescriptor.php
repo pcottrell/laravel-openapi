@@ -6,6 +6,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
+use MohammadAlavi\ObjectOrientedJSONSchema\GeneralTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
@@ -16,8 +17,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 final class BooleanDescriptor extends ExtensibleObject implements Descriptor, TypeAware
 {
     use HasTypeTrait;
-    use HasMetaDataTrait;
-    use HasApplicatorTrait;
+    use GeneralTrait;
 
     public static function create(): self
     {
