@@ -3,10 +3,9 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Applicator;
 
-final readonly class AnyOf implements SchemaProperty, Applicator
+final readonly class AnyOf implements Applicator
 {
     private function __construct(
         private array $schema,

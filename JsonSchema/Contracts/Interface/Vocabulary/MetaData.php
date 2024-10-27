@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary;
 
-interface MetaData
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+
+interface MetaData extends SchemaProperty
 {
 }

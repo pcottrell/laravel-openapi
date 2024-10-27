@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 
 trait HasApplicatorTrait

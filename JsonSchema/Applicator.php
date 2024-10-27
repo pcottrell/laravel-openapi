@@ -1,7 +1,10 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
+namespace MohammadAlavi\ObjectOrientedJSONSchema;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\AllOf;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\AnyOf;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\OneOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 

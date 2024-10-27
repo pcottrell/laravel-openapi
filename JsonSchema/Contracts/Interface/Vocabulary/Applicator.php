@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary;
 
-interface Applicator
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+
+interface Applicator extends SchemaProperty
 {
 }

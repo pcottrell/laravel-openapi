@@ -2,11 +2,10 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use Webmozart\Assert\Assert;
 
-final readonly class MaxLength implements SchemaProperty, Validation
+final readonly class MaxLength implements Validation
 {
     private function __construct(
         private int $value,

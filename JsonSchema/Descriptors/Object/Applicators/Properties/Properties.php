@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Applicator;
 
-final readonly class Properties implements SchemaProperty, Applicator
+final readonly class Properties implements Applicator
 {
     /** @param Property[] $properties */
     private function __construct(

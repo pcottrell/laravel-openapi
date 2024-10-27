@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 
-final readonly class Pattern implements SchemaProperty, Validation
+final readonly class Pattern implements Validation
 {
     private function __construct(
         private string $value,

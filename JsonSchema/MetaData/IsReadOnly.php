@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\MetaData;
 
-final readonly class IsReadOnly implements SchemaProperty, MetaData
+final readonly class IsReadOnly implements MetaData
 {
     private function __construct(
         private bool $value,

@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\MetaData;
 
-final readonly class Title implements SchemaProperty, MetaData
+final readonly class Title implements MetaData
 {
     private function __construct(
         private string $value,

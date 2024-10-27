@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\Validations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 
-final readonly class ExclusiveMinimum implements SchemaProperty, Validation
+final readonly class ExclusiveMinimum implements Validation
 {
     private function __construct(
         private float $value,

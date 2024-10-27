@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 
-final readonly class UniqueItems implements SchemaProperty, Validation
+final readonly class UniqueItems implements Validation
 {
     private function __construct(
         private bool $value,

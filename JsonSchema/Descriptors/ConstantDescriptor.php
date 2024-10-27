@@ -2,17 +2,16 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
-final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
+final class ConstantDescriptor extends Generatable implements Validation, Descriptor, TypeAware
 {
     use HasMetaDataTrait;
     use HasApplicatorTrait;

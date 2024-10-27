@@ -3,10 +3,9 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Applicator;
 
-final readonly class AdditionalProperties implements SchemaProperty, Applicator
+final readonly class AdditionalProperties implements Applicator
 {
     private function __construct(
         private Descriptor|bool $schema,

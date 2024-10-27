@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\Applicator;
+use MohammadAlavi\ObjectOrientedJSONSchema\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Applicator\HasApplicatorTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
@@ -14,7 +13,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 // TODO: Where should we put Enum and Constant?
 // They can both be equally categorized as Validation and Descriptor
-final class EnumDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware
+final class EnumDescriptor extends Generatable implements Validation, Descriptor, TypeAware
 {
     use HasMetaDataTrait;
     use HasApplicatorTrait;

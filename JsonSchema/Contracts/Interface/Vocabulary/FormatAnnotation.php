@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary;
 
-interface FormatAnnotation
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+
+interface FormatAnnotation extends SchemaProperty
 {
 }

@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary;
 
-interface Validation
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
+
+interface Validation extends SchemaProperty
 {
 }

@@ -2,10 +2,9 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\DependentRequired;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
 
-final readonly class DependentRequired implements SchemaProperty, Validation
+final readonly class DependentRequired implements Validation
 {
     /** @param Dependency[] $dependencies */
     private function __construct(

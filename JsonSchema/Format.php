@@ -2,13 +2,12 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\FormatAnnotation;
 
 // TODO: Improve how formats are implemented and also used by the end user
 // Current usage is awkward and not user friendly
 // Also try not to use Enum if possible
-final readonly class Format implements SchemaProperty, FormatAnnotation
+final readonly class Format implements FormatAnnotation
 {
     private function __construct(
         private DefinedFormat $definedFormat,
