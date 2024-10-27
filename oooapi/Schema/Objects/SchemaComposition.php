@@ -27,6 +27,10 @@ abstract class SchemaComposition implements Descriptor, SimpleKeyCreator, \JsonS
     {
         $clone = clone $this;
 
+        // TODO: I think the $schema can never be null (Consult the documentation)
+        // This can possible be correct for all Composition types
+        // If that assumption is correct, we get the required data from the constructor
+        // and we can remove the null check
         $clone->schemas = [] !== $schema ? $schema : null;
 
         return $clone;
