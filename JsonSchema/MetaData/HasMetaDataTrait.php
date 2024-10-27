@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
+
 trait HasMetaDataTrait
 {
     private MetaData|null $metaData = null;

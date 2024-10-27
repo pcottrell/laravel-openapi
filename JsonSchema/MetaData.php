@@ -1,7 +1,14 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
+namespace MohammadAlavi\ObjectOrientedJSONSchema;
 
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\DefaultValue;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\Deprecated;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\Description;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\Examples;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\IsReadOnly;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\IsWriteOnly;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\Title;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 

@@ -6,8 +6,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\SchemaProperty;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Vocabulary\Validation;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 final class ConstantDescriptor extends Generatable implements SchemaProperty, Validation, Descriptor, TypeAware

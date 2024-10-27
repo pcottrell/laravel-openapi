@@ -11,8 +11,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinCont
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\MinItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Array\Validations\UniqueItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;

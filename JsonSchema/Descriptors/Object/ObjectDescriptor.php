@@ -13,8 +13,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MaxPro
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\MinProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Validations\Required;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
@@ -130,6 +130,9 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
         $applicators = [];
         if ($this->properties) {
             $applicators[$this->properties::keyword()] = $this->properties->value();
+        }
+        if ($this->additionalProperties) {
+            $applicators[$this->additionalProperties::keyword()] = $this->additionalProperties->value();
         }
 
         return Arr::filter([

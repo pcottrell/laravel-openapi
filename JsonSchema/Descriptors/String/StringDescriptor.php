@@ -10,8 +10,8 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\MinLen
 use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\Validations\Pattern;
 use MohammadAlavi\ObjectOrientedJSONSchema\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\HasMetaDataTrait;
-use MohammadAlavi\ObjectOrientedJSONSchema\MetaData\MetaData;
 use MohammadAlavi\ObjectOrientedJSONSchema\Type;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
