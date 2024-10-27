@@ -147,7 +147,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function parameters(ParameterCollection|null $parameters): static
+    public function parameters(ParameterCollection $parameters): static
     {
         $clone = clone $this;
 
@@ -232,7 +232,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'description' => $this->description,
             'externalDocs' => $this->externalDocs,
             'operationId' => $this->operationId,
-            'parameters' => $this->parameterCollection,
+            'parameters' => $this->parameterCollection?->isEmpty() ? null : $this->parameterCollection,
             'requestBody' => $this->requestBody,
             'responses' => $this->responses ?? Responses::create(),
             'deprecated' => $this->deprecated,
