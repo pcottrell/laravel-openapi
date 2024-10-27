@@ -98,6 +98,11 @@ describe('PetStoreTest', function (): void {
                         ),
                     );
             }
+
+            public static function key(): string
+            {
+                return 'NewPet';
+            }
         };
 
         $errorSchema = new class () extends ReusableSchemaFactory {
@@ -115,6 +120,11 @@ describe('PetStoreTest', function (): void {
                             Schema::string(),
                         ),
                     );
+            }
+
+            public static function key(): string
+            {
+                return 'Error';
             }
         };
 
