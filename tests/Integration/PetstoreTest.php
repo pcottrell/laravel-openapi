@@ -67,7 +67,7 @@ describe('PetStore', function (): void {
                             'properties' => [
                                 'message' => [
                                     'type' => 'string',
-                                    'examples' => 'The given data was invalid.',
+                                    'examples' => ['The given data was invalid.'],
                                 ],
                                 'errors' => [
                                     'type' => 'object',
@@ -78,8 +78,10 @@ describe('PetStore', function (): void {
                                         ],
                                     ],
                                     'examples' => [
-                                        'field' => [
-                                            'Something is wrong with this field!',
+                                        [
+                                            'field' => [
+                                                'Something is wrong with this field!',
+                                            ],
                                         ],
                                     ],
                                 ],
@@ -234,7 +236,7 @@ describe('PetStore', function (): void {
                                     'properties' => [
                                         'message' => [
                                             'type' => 'string',
-                                            'examples' => 'The given data was invalid.',
+                                            'examples' => ['The given data was invalid.'],
                                         ],
                                         'errors' => [
                                             'type' => 'object',
@@ -245,8 +247,10 @@ describe('PetStore', function (): void {
                                                 ],
                                             ],
                                             'examples' => [
-                                                'field' => [
-                                                    'Something is wrong with this field!',
+                                                [
+                                                    'field' => [
+                                                        'Something is wrong with this field!',
+                                                    ],
                                                 ],
                                             ],
                                         ],
@@ -306,7 +310,6 @@ describe('PetStore', function (): void {
                 'summary' => 'List all pets.',
                 'description' => 'List all pets from the database.',
                 'operationId' => 'nestedSecuritySecondTest',
-                'parameters' => [],
                 'responses' => [
                     'default' => [
                         'description' => 'Default Response',
