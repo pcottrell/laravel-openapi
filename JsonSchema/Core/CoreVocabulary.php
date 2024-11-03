@@ -5,7 +5,7 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Core;
 use MohammadAlavi\ObjectOrientedJSONSchema\Core;
 use MohammadAlavi\ObjectOrientedJSONSchema\Core\Defs\Def;
 
-trait HasCoreTrait
+trait CoreVocabulary
 {
     private Core|null $core = null;
 
