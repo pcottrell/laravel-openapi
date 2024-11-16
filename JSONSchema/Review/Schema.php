@@ -6,7 +6,6 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Review;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\ArrayDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\BooleanDescriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\ConstantDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\EnumDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\NullDescriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\IntegerDescriptor;
@@ -63,10 +62,5 @@ abstract class Schema
     public static function enum(...$values): EnumDescriptor
     {
         return EnumDescriptor::create(...$values);
-    }
-
-    public static function const(mixed $value): ConstantDescriptor
-    {
-        return ConstantDescriptor::create($value);
     }
 }
