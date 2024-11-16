@@ -57,7 +57,7 @@ describe(class_basename(OpenApi::class), function (): void {
         //  These contracts define the create method and either accept the key or not.
         // Then we accept the proper Contract when needed!
         // For example here for response we can accept the UnnamedSchema contract!
-        $schema = Schema::object()
+        $objectDescriptor = Schema::object()
             ->properties(
                 Property::create('id', Schema::string()->format(StringFormat::UUID)),
                 Property::create('created_at', Schema::string()->format(StringFormat::DATE_TIME)),
@@ -73,7 +73,7 @@ describe(class_basename(OpenApi::class), function (): void {
 
         $expectedResponse = Response::ok()
             ->content(
-                MediaType::json()->schema($schema),
+                MediaType::json()->schema($objectDescriptor),
             );
 
         $operation = Operation::get()
@@ -88,11 +88,11 @@ describe(class_basename(OpenApi::class), function (): void {
             ->summary('Create an audit')
             ->operationId('audits.store')
             ->requestBody(RequestBody::create()->content(
-                MediaType::json()->schema($schema),
+                MediaType::json()->schema($objectDescriptor),
             ));
 
-        $auditId = Schema::string()->format(StringFormat::UUID);
-        $format = Schema::enum('json', 'ics');
+        $stringDescriptor = Schema::string()->format(StringFormat::UUID);
+        $enumDescriptor = Schema::enum('json', 'ics');
 
         $readAudit = Operation::get()
             ->responses(Responses::create($expectedResponse))
@@ -103,11 +103,11 @@ describe(class_basename(OpenApi::class), function (): void {
                 ParameterCollection::create(
                     Parameter::path()
                         ->name('audit')
-                        ->schema($auditId)
+                        ->schema($stringDescriptor)
                         ->required(),
                     Parameter::query()
                         ->name('format')
-                        ->schema($format)
+                        ->schema($enumDescriptor)
                         ->description('The format of the appointments'),
                 ),
             );

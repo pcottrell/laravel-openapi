@@ -11,7 +11,7 @@ final class ComponentCollector
 {
     public function __construct(
         private array|null $directories = null,
-        private FilterStrategy|null $strategy = null,
+        private FilterStrategy|null $filterStrategy = null,
     ) {
     }
 
@@ -48,8 +48,8 @@ final class ComponentCollector
                     );
             });
 
-        if ($this->strategy) {
-            $result = $this->strategy->apply($result);
+        if ($this->filterStrategy instanceof FilterStrategy) {
+            $result = $this->filterStrategy->apply($result);
         }
 
         // TODO: refactor: maybe we can decouple this responsibility?
@@ -59,11 +59,11 @@ final class ComponentCollector
             ->values();
     }
 
-    public function use(FilterStrategy $strategy): self
+    public function use(FilterStrategy $filterStrategy): self
     {
         $clone = clone $this;
 
-        $clone->strategy = $strategy;
+        $clone->filterStrategy = $filterStrategy;
 
         return $clone;
     }

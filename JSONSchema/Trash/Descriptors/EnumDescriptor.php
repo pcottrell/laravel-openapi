@@ -13,6 +13,8 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 // They can both be equally categorized as Validation and Descriptor
 final class EnumDescriptor extends Generatable implements Keyword, Descriptor, TypeAware
 {
+    public $metaData;
+    public $applicator;
     private array $values;
 
     // TODO: It would be cool if enums could accept Constant or/and Schema types

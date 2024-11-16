@@ -10,14 +10,14 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 
 class RequestBodyBuilder
 {
-    public function build(RequestBodyAttribute $attribute): RequestBody|Reference
+    public function build(RequestBodyAttribute $requestBodyAttribute): RequestBody|Reference
     {
-        if (is_a($attribute->factory, ReusableRequestBodyFactory::class, true)) {
-            return $attribute->factory::ref();
+        if (is_a($requestBodyAttribute->factory, ReusableRequestBodyFactory::class, true)) {
+            return $requestBodyAttribute->factory::ref();
         }
 
         /** @var RequestBodyFactory $factory */
-        $factory = app($attribute->factory);
+        $factory = app($requestBodyAttribute->factory);
 
         return $factory->build();
     }

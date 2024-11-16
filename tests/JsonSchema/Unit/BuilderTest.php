@@ -1,12 +1,12 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Builder;
+use MohammadAlavi\ObjectOrientedJSONSchema\SchemaBuilder;
 
-describe(class_basename(Builder::class), function (): void {
+describe(class_basename(SchemaBuilder::class), function (): void {
     it('should return constant value as is', function (mixed $value): void {
-        $schema = Builder::create()->const($value);
+        $schemaBuilder = SchemaBuilder::create()->const($value);
 
-        expect($schema->jsonSerialize())->toBe([
+        expect($schemaBuilder->jsonSerialize())->toBe([
             '$schema' => 'http://json-schema.org/draft-2020-12/schema',
             'const' => $value,
         ]);
@@ -17,4 +17,4 @@ describe(class_basename(Builder::class), function (): void {
         null,
         false,
     ]);
-})->covers(Builder::class);
+})->covers(SchemaBuilder::class);

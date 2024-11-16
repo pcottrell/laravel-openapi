@@ -29,7 +29,7 @@ describe(class_basename(Schema::class), function (): void {
 
     dataset('keywords', [
         [
-            fn () => new class () implements Keyword {
+            fn (): Keyword => new class () implements Keyword {
                 public static function name(): string
                 {
                     return 'keywordA';
@@ -40,7 +40,7 @@ describe(class_basename(Schema::class), function (): void {
                     return 'valueA';
                 }
             },
-            fn () => new class () implements Keyword {
+            fn (): Keyword => new class () implements Keyword {
                 public static function name(): string
                 {
                     return 'keywordB';
@@ -51,7 +51,7 @@ describe(class_basename(Schema::class), function (): void {
                     return ['x' => 'y'];
                 }
             },
-            fn () => new class () implements Keyword {
+            fn (): Keyword => new class () implements Keyword {
                 public static function name(): string
                 {
                     return 'keywordC';
@@ -67,7 +67,7 @@ describe(class_basename(Schema::class), function (): void {
 
     it(
         'can compose Keywords to create a Vocabulary',
-        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC) {
+        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC): void {
             $vocabulary = new Vocabulary('a-uri', $keywordA, $keywordC, $keywordB);
 
             expect($vocabulary->id())->toBe('a-uri')
@@ -77,7 +77,7 @@ describe(class_basename(Schema::class), function (): void {
 
     it(
         'can compose Vocabularies to create a MetaSchema',
-        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC) {
+        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC): void {
             $vocabA = new Vocabulary('vocab-a', $keywordA);
             $vocabB = new Vocabulary('vocab-b', $keywordB, $keywordC);
             $vocabsA =  new AvailableVocabulary($vocabA, true);
@@ -102,17 +102,17 @@ describe(class_basename(Schema::class), function (): void {
 
     it(
         'wont allow duplicate keyword',
-        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC) {
+        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC): void {
             $vocabA = new Vocabulary('vocab-a', $keywordA, $keywordB, $keywordC);
             $vocabB = new Vocabulary('vocab-b', $keywordC, $keywordA);
             $vocabsA =  new AvailableVocabulary($vocabA, false);
             $vocabsB =  new AvailableVocabulary($vocabB, true);
 
-            expect(function () use ($vocabsA, $vocabsB) {
+            expect(function () use ($vocabsA, $vocabsB): void {
                 new MetaSchema('meta-schema-id', 'meta-schema-schema', $vocabsA, $vocabsB);
             })->toThrow(
                 DomainException::class,
-                "Duplicate keywords found: {$keywordC->name()}, {$keywordA->name()}",
+                sprintf('Duplicate keywords found: %s, %s', $keywordC->name(), $keywordA->name()),
             );
         },
     )->with('keywords');
@@ -125,18 +125,15 @@ describe(class_basename(Schema::class), function (): void {
 
     it(
         'can create a Dialect',
-        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC) {
+        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC): void {
             $vocabA = new Vocabulary('vocab-a', $keywordA);
             $vocabB = new Vocabulary('vocab-b', $keywordB, $keywordC);
             $vocabsA =  new AvailableVocabulary($vocabA, true);
             $vocabsB =  new AvailableVocabulary($vocabB, false);
             $metaSchema = new MetaSchema('meta-schema-id', 'meta-schema-schema', $vocabsA, $vocabsB);
             $dialect = new class ($metaSchema) implements Draft202012Constrained {
-                private MetaSchema $metaSchema;
-
-                public function __construct(MetaSchema $metaSchema)
+                public function __construct(private readonly MetaSchema $metaSchema)
                 {
-                    $this->metaSchema = $metaSchema;
                 }
 
                 public function id(): string
@@ -157,18 +154,15 @@ describe(class_basename(Schema::class), function (): void {
 
     it(
         'can create a Schema based on a Dialect',
-        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC) {
+        function (Keyword $keywordA, Keyword $keywordB, Keyword $keywordC): void {
             $vocabA = new Vocabulary('vocab-a', $keywordA);
             $vocabB = new Vocabulary('vocab-b', $keywordB, $keywordC);
             $vocabsA =  new AvailableVocabulary($vocabA, true);
             $vocabsB =  new AvailableVocabulary($vocabB, false);
             $metaSchema = new MetaSchema('meta-schema-id', 'meta-schema-schema', $vocabsA, $vocabsB);
             $dialect = new class ($metaSchema) implements Draft202012Constrained {
-                private MetaSchema $metaSchema;
-
-                public function __construct(MetaSchema $metaSchema)
+                public function __construct(private readonly MetaSchema $metaSchema)
                 {
-                    $this->metaSchema = $metaSchema;
                 }
 
                 public function id(): string
@@ -182,10 +176,10 @@ describe(class_basename(Schema::class), function (): void {
                 }
             };
 
-            //dd($dialect);
-            //$draft202012 = JsonSchema::Draft202012();
-            //$dialectOAS30 = OAS::Version30();
-            //$dialectOAS31 = OAS::Version31();
+            // dd($dialect);
+            // $draft202012 = JsonSchema::Draft202012();
+            // $dialectOAS30 = OAS::Version30();
+            // $dialectOAS31 = OAS::Version31();
         },
     )->with('keywords')->todo();
 })->covers(Schema::class);

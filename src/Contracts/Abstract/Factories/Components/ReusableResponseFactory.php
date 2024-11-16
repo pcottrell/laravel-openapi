@@ -9,6 +9,6 @@ abstract class ReusableResponseFactory extends ReusableComponent implements Resp
 {
     final protected static function componentPath(): string
     {
-            return '/responses';
+        return '/responses';
     }
 }

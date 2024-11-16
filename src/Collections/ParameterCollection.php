@@ -20,14 +20,14 @@ final class ParameterCollection extends Generatable
     public static function create(Parameter|ReusableParameterFactory|self ...$parameter): self
     {
         $selfParams = collect($parameter)
-            ->filter(static fn ($param) => $param instanceof self)
-            ->map(static fn ($param) => $param->all())
+            ->filter(static fn ($param): bool => $param instanceof self)
+            ->map(static fn ($param): array => $param->all())
             ->flatten();
 
         $parameters = collect($parameter)
-            ->reject(static fn ($param) => $param instanceof self)
+            ->reject(static fn ($param): bool => $param instanceof self)
             ->merge($selfParams)
-            ->map(static fn ($param) => $param instanceof ReusableParameterFactory ? $param::ref() : $param)
+            ->map(static fn ($param): Reference|\MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection|Parameter => $param instanceof ReusableParameterFactory ? $param::ref() : $param)
             ->toArray();
 
         return new self(...$parameters);

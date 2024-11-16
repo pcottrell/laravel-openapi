@@ -9,6 +9,6 @@ abstract class ReusableParameterFactory extends ReusableComponent implements Par
 {
     final protected static function componentPath(): string
     {
-            return '/parameters';
+        return '/parameters';
     }
 }

@@ -2,14 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\Implementations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Dialect\Draft202012;
 
 trait MinLength
 {
     private \MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MinLength|null $minLength = null;
 
-    public function minLength(int $value): BuilderInterface
+    public function minLength(int $value): Builder
     {
         $clone = clone $this;
 

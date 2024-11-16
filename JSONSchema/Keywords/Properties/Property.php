@@ -2,19 +2,19 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 
 final readonly class Property
 {
     private function __construct(
-        private string $name,
-        private BuilderInterface $schema,
+        private string  $name,
+        private Builder $builder,
     ) {
     }
 
-    public static function create(string $name, BuilderInterface $schema): self
+    public static function create(string $name, Builder $builder): self
     {
-        return new self($name, $schema);
+        return new self($name, $builder);
     }
 
     public function name(): string
@@ -22,8 +22,8 @@ final readonly class Property
         return $this->name;
     }
 
-    public function schema(): BuilderInterface
+    public function schema(): Builder
     {
-        return $this->schema;
+        return $this->builder;
     }
 }

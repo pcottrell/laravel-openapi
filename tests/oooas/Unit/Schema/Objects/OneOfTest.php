@@ -7,11 +7,11 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 
 describe(class_basename(OneOf::class), function (): void {
     it('can be created with all parameters', function (): void {
-        $schema1 = Schema::string();
-        $schema2 = Schema::integer();
+        $stringDescriptor = Schema::string();
+        $integerDescriptor = Schema::integer();
 
         $oneOf = OneOf::create('test')
-            ->schemas($schema1, $schema2);
+            ->schemas($stringDescriptor, $integerDescriptor);
 
         expect($oneOf->asArray())->toBe([
             'oneOf' => [

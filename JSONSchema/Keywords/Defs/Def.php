@@ -8,13 +8,13 @@ final readonly class Def
 {
     private function __construct(
         private string $name,
-        private Descriptor $schema,
+        private Descriptor $descriptor,
     ) {
     }
 
-    public static function create(string $name, Descriptor $schema): self
+    public static function create(string $name, Descriptor $descriptor): self
     {
-        return new self($name, $schema);
+        return new self($name, $descriptor);
     }
 
     public function name(): string
@@ -24,6 +24,6 @@ final readonly class Def
 
     public function value(): Descriptor
     {
-        return $this->schema;
+        return $this->descriptor;
     }
 }

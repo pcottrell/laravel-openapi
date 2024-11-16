@@ -10,12 +10,12 @@ describe(class_basename(PathsBuilder::class), function (): void {
         Route::get('/has-both-pathItem-and-operation', ControllerWithPathItemAndOperationStub::class);
         $routeCollector = app(RouteCollector::class);
         $routeInfo = $routeCollector->all();
-        $builder = app(PathsBuilder::class);
+        $pathsBuilder = app(PathsBuilder::class);
 
-        $result = $builder->build($routeInfo);
+        $paths = $pathsBuilder->build($routeInfo);
 
-        expect($result->asArray())->toHaveCount(1)
-            ->and($result->asArray())->toBe([
+        expect($paths->asArray())->toHaveCount(1)
+            ->and($paths->asArray())->toBe([
                 '/has-both-pathItem-and-operation' => [
                     'get' => [
                         'responses' => [

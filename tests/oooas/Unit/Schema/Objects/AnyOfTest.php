@@ -7,11 +7,11 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AnyOf;
 
 describe(class_basename(AnyOf::class), function (): void {
     it('can be created with all parameters', function (): void {
-        $schema1 = Schema::string();
-        $schema2 = Schema::integer();
+        $stringDescriptor = Schema::string();
+        $integerDescriptor = Schema::integer();
 
         $anyOf = AnyOf::create('test')
-            ->schemas($schema1, $schema2);
+            ->schemas($stringDescriptor, $integerDescriptor);
 
         expect($anyOf->asArray())->toBe([
             'anyOf' => [

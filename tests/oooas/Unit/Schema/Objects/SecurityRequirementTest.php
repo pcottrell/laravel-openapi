@@ -7,17 +7,17 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\SecurityScheme;
 
 describe('SecurityRequirement', function (): void {
     it('can be created with no parameters', function (): void {
-        $securityRequirement = SecurityRequirementOld::create();
+        $securityRequirementOld = SecurityRequirementOld::create();
 
-        expect($securityRequirement->asArray())->toBe([]);
+        expect($securityRequirementOld->asArray())->toBe([]);
     });
 
     it('can be created with all parameters', function (SecurityScheme|string $securityScheme, $expectation): void {
-        $securityRequirement = SecurityRequirementOld::create()
+        $securityRequirementOld = SecurityRequirementOld::create()
             ->securityScheme($securityScheme)
             ->scopes('read:user');
 
-        expect($securityRequirement->asArray())->toBe($expectation);
+        expect($securityRequirementOld->asArray())->toBe($expectation);
     })->with([
         'security object' => [
             SecurityScheme::create('SecObj'),
@@ -34,10 +34,10 @@ describe('SecurityRequirement', function (): void {
     ]);
 
     it('can be created with no scopes', function (SecurityScheme|string|null $securityScheme, array $expectation): void {
-        $securityRequirement = SecurityRequirementOld::create()
+        $securityRequirementOld = SecurityRequirementOld::create()
             ->securityScheme($securityScheme);
 
-        expect($securityRequirement->asArray())->toBe($expectation);
+        expect($securityRequirementOld->asArray())->toBe($expectation);
     })->with([
         'security scheme object' => [SecurityScheme::create('OAuth2'), [['OAuth2' => []]]],
         'security scheme name' => ['OAuth2', [['OAuth2' => []]]],
@@ -47,11 +47,11 @@ describe('SecurityRequirement', function (): void {
     ]);
 
     it('can be created with scopes', function (...$scopes): void {
-        $securityRequirement = SecurityRequirementOld::create()
+        $securityRequirementOld = SecurityRequirementOld::create()
             ->securityScheme('OAuth2')
             ->scopes(...$scopes);
 
-        expect($securityRequirement->asArray())->toBe(['OAuth2' => compact('scopes')]);
+        expect($securityRequirementOld->asArray())->toBe(['OAuth2' => ['scopes' => $scopes]]);
     })->with([
         'with single scope' => ['read:user'],
         'with multiple scopes' => ['read:user', 'write:user'],

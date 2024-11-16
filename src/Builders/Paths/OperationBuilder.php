@@ -2,9 +2,11 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths;
 
+use MohammadAlavi\LaravelOpenApi\Attributes\RequestBody;
+use MohammadAlavi\LaravelOpenApi\Attributes\Responses;
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use MohammadAlavi\LaravelOpenApi\Attributes\Operation as OperationAttribute;
 use MohammadAlavi\LaravelOpenApi\Builders\ExtensionBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\CallbackBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation\ParametersBuilder;
@@ -31,26 +33,26 @@ final readonly class OperationBuilder
     }
 
     // TODO: maybe we can abstract the usage of RouteInformation everywhere and use an interface instead
-    public function build(RouteInfo $routeInformation): Operation
+    public function build(RouteInfo $routeInfo): Operation
     {
-        $operation = $routeInformation->operationAttribute();
+        $operation = $routeInfo->operationAttribute();
 
         $operationId = $operation?->id;
         $tags = $this->tagBuilder->build(Arr::wrap($operation?->tags));
-        $security = $operation?->security ? $this->securityBuilder->build($operation?->security) : null;
-        $method = $operation?->method ?? Str::lower($routeInformation->method());
+        $security = null !== $operation?->security && '' !== $operation?->security && '0' !== $operation?->security ? $this->securityBuilder->build($operation?->security) : null;
+        $method = $operation?->method ?? Str::lower($routeInfo->method());
         $summary = $operation?->summary;
         $description = $operation?->description;
         $deprecated = $operation?->deprecated;
         $servers = $this->serverBuilder->build(Arr::wrap($operation?->servers));
-        $parameters = $this->parametersBuilder->build($routeInformation);
-        $requestBody = $routeInformation->requestBodyAttribute()
-            ? $this->requestBodyBuilder->build($routeInformation->requestBodyAttribute())
+        $parameterCollection = $this->parametersBuilder->build($routeInfo);
+        $requestBody = $routeInfo->requestBodyAttribute() instanceof RequestBody
+            ? $this->requestBodyBuilder->build($routeInfo->requestBodyAttribute())
             : null;
-        $responses = $routeInformation->responsesAttribute()
-            ? $this->responsesBuilder->build($routeInformation->responsesAttribute())
+        $responses = $routeInfo->responsesAttribute() instanceof Responses
+            ? $this->responsesBuilder->build($routeInfo->responsesAttribute())
             : null;
-        $callbacks = $this->callbackBuilder->build($routeInformation);
+        $callbacks = $this->callbackBuilder->build($routeInfo);
 
         $operation = Operation::create()
             ->action($method)
@@ -59,16 +61,16 @@ final readonly class OperationBuilder
             ->description($description)
             ->operationId($operationId)
             ->deprecated($deprecated)
-            ->parameters($parameters)
+            ->parameters($parameterCollection)
             ->requestBody($requestBody)
             ->responses($responses)
             ->callbacks(...$callbacks)
             ->servers(...$servers);
-        if ($security) {
+        if ($security instanceof Security) {
             $operation = $operation->security($security);
         }
 
-        $this->extensionBuilder->build($operation, $routeInformation->extensionAttributes());
+        $this->extensionBuilder->build($operation, $routeInfo->extensionAttributes());
 
         return $operation;
     }

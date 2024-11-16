@@ -14,12 +14,12 @@ final class Responses extends ExtensibleObject
     public static function create(Response|ReusableResponseFactory|self ...$response): self
     {
         $selfResponses = collect($response)
-            ->filter(static fn ($param) => $param instanceof self)
-            ->map(static fn ($param) => $param->all())
+            ->filter(static fn ($param): bool => $param instanceof self)
+            ->map(static fn ($param): array => $param->all())
             ->flatten();
 
         $responses = collect($response)
-            ->reject(static fn ($param) => $param instanceof self)
+            ->reject(static fn ($param): bool => $param instanceof self)
             ->merge($selfResponses)
             ->toArray();
 
@@ -36,7 +36,7 @@ final class Responses extends ExtensibleObject
 
     protected function toArray(): array
     {
-        if (empty($this->responses)) {
+        if ($this->responses === []) {
             // TODO: allow providing default response. maybe somehow via service container?
             $this->responses = [Response::default()];
         }

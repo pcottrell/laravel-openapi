@@ -85,11 +85,11 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
         return $clone;
     }
 
-    public function items(Descriptor $schema): self
+    public function items(Descriptor $descriptor): self
     {
         $clone = clone $this;
 
-        $clone->items = Items::create($schema);
+        $clone->items = Items::create($descriptor);
 
         return $clone;
     }
@@ -97,24 +97,24 @@ final class ArrayDescriptor extends ExtensibleObject implements Descriptor, Type
     protected function toArray(): array
     {
         $assertions = [];
-        if ($this->maxItems) {
+        if ($this->maxItems instanceof MaxItems) {
             $assertions[$this->maxItems::name()] = $this->maxItems->value();
         }
-        if ($this->minItems) {
+        if ($this->minItems instanceof MinItems) {
             $assertions[$this->minItems::name()] = $this->minItems->value();
         }
-        if ($this->maxContains) {
+        if ($this->maxContains instanceof MaxContains) {
             $assertions[$this->maxContains::name()] = $this->maxContains->value();
         }
-        if ($this->minContains) {
+        if ($this->minContains instanceof MinContains) {
             $assertions[$this->minContains::name()] = $this->minContains->value();
         }
-        if ($this->uniqueItems) {
+        if ($this->uniqueItems instanceof UniqueItems) {
             $assertions[$this->uniqueItems::name()] = $this->uniqueItems->value();
         }
 
         $applicators = [];
-        if ($this->items) {
+        if ($this->items instanceof Items) {
             $applicators[$this->items::name()] = $this->items->value();
         }
 

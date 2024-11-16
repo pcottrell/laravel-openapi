@@ -12,7 +12,7 @@ class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 {
     public function build(): Response
     {
-        $schema = Schema::object()->properties(
+        $objectDescriptor = Schema::object()->properties(
             Property::create(
                 'message',
                 Schema::string()->examples('The given data was invalid.'),
@@ -27,7 +27,7 @@ class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 
         return Response::unprocessableEntity()
             ->content(
-                MediaType::json()->schema($schema),
+                MediaType::json()->schema($objectDescriptor),
             );
     }
 }

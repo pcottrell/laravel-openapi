@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Dialect;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Constant;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired\Dependency;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired\DependentRequired;
@@ -101,19 +101,19 @@ final readonly class Draft202012
         return Vocabulary::create(...$vocab);
     }
 
-    public static function unevaluatedProperties(BuilderInterface $schema): UnevaluatedProperties
+    public static function unevaluatedProperties(Builder $builder): UnevaluatedProperties
     {
-        return UnevaluatedProperties::create($schema);
+        return UnevaluatedProperties::create($builder);
     }
 
-    public static function unevaluatedItems(BuilderInterface $schema): UnevaluatedItems
+    public static function unevaluatedItems(Builder $builder): UnevaluatedItems
     {
-        return UnevaluatedItems::create($schema);
+        return UnevaluatedItems::create($builder);
     }
 
-    public static function format(DefinedFormat $format): Format
+    public static function format(DefinedFormat $definedFormat): Format
     {
-        return Format::create($format);
+        return Format::create($definedFormat);
     }
 
     public static function type(Type|string ...$type): Type
@@ -186,27 +186,27 @@ final readonly class Draft202012
         return UniqueItems::create($value);
     }
 
-    public static function items(BuilderInterface $schema): Items
+    public static function items(Builder $builder): Items
     {
-        return Items::create($schema);
+        return Items::create($builder);
     }
 
-    public static function allOf(BuilderInterface ...$schema): AllOf
+    public static function allOf(Builder ...$builder): AllOf
     {
-        return AllOf::create(...$schema);
+        return AllOf::create(...$builder);
     }
 
-    public static function anyOf(BuilderInterface ...$schema): AnyOf
+    public static function anyOf(Builder ...$builder): AnyOf
     {
-        return AnyOf::create(...$schema);
+        return AnyOf::create(...$builder);
     }
 
-    public static function oneOf(BuilderInterface ...$schema): OneOf
+    public static function oneOf(Builder ...$builder): OneOf
     {
-        return OneOf::create(...$schema);
+        return OneOf::create(...$builder);
     }
 
-    public static function additionalProperties(BuilderInterface|bool $schema): AdditionalProperties
+    public static function additionalProperties(Builder|bool $schema): AdditionalProperties
     {
         return AdditionalProperties::create($schema);
     }

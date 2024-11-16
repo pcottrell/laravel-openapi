@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\HasConstraint;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\Draft202012Constrained;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\TypeConstraints\IntegerConstraint;
@@ -22,7 +22,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Narrowable;
 interface Draft202012BuilderInterfaceInterface extends
     Draft202012Constrained,
     Narrowable,
-    BuilderInterface,
+    Builder,
     HasConstraint,
     TypeNarrower,
     StringConstraint,

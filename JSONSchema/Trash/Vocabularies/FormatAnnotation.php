@@ -15,11 +15,11 @@ final class FormatAnnotation extends Generatable
     {
     }
 
-    public function format(DefinedFormat $value): self
+    public function format(DefinedFormat $definedFormat): self
     {
         $clone = clone $this;
 
-        $clone->format = Format::create($value);
+        $clone->format = Format::create($definedFormat);
 
         return $clone;
     }
@@ -31,7 +31,7 @@ final class FormatAnnotation extends Generatable
     protected function toArray(): array
     {
         $formatAnnotations = [];
-        if ($this->format) {
+        if ($this->format instanceof Format) {
             $formatAnnotations[Format::name()] = $this->format->value();
         }
 

@@ -1,13 +1,13 @@
 <?php
+
+// use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
+// use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+// use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
+// use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
+// use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+// use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
 //
-//use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-//use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
-//use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
-//use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
-//use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
-//use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
-//
-//describe(class_basename(Schema::class), function (): void {
+// describe(class_basename(Schema::class), function (): void {
 //    it('can create array schema with all parameters', function (): void {
 //        $schema = Schema::create('test')
 //            ->title('Schema title')
@@ -300,4 +300,4 @@
 //        'object' => ['object', Schema::TYPE_OBJECT],
 //        'string' => ['string', Schema::TYPE_STRING],
 //    ]);
-//})->covers(Schema::class)->skip();
+// })->covers(Schema::class)->skip();

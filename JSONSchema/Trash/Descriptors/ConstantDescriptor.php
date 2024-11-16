@@ -11,10 +11,12 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 final class ConstantDescriptor extends Generatable implements Keyword, Descriptor, TypeAware
 {
+    public $metaData;
+    public $applicator;
     private mixed $value;
 
     // TODO: It would be cool if constants could accept Schema types
-    public static function create($value): self
+    public static function create(mixed $value): self
     {
         $instance = new self();
         $instance->value = $value;

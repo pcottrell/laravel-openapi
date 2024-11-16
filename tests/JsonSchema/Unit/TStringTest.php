@@ -6,16 +6,16 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\StringDescriptor;
 describe(class_basename(StringDescriptor::class), function (): void {
     it(
         'should return string schema with password format',
-        function (StringFormat $format): void {
-            $schema = StringDescriptor::create()
-                ->format($format)
+        function (StringFormat $stringFormat): void {
+            $stringDescriptor = StringDescriptor::create()
+                ->format($stringFormat)
                 ->maxLength(10)
                 ->minLength(5)
                 ->pattern('^[a-zA-Z0-9]*$');
 
-            expect($schema->asArray())->toBe([
+            expect($stringDescriptor->asArray())->toBe([
                 'type' => 'string',
-                'format' => $format->value,
+                'format' => $stringFormat->value,
                 'maxLength' => 10,
                 'minLength' => 5,
                 'pattern' => '^[a-zA-Z0-9]*$',

@@ -2,15 +2,15 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Anchor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Comment;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Defs;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\DynamicAnchor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\DynamicRef;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Id;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Ref;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Schema;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Vocabulary;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Anchor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Comment;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Defs;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\DynamicAnchor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\DynamicRef;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Id;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Ref;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Vocabulary;
 
 interface CoreConstraint extends
     Anchor,

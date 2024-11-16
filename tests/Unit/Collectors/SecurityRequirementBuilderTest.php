@@ -1,10 +1,10 @@
 <?php
+
+// use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
+// use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
+// use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
 //
-//use MohammadAlavi\LaravelOpenApi\Builders\SecurityRequirementBuilder;
-//use Tests\Doubles\Stubs\Objects\ASecuritySchemeFactory;
-//use Tests\Doubles\Stubs\Objects\BSecuritySchemeFactory;
-//
-//describe('SecurityRequirementBuilder', function (): void {
+// describe('SecurityRequirementBuilder', function (): void {
 //    it('can be created with multi security', function (string|array|null $factories, array $expectation): void {
 //        $builder = new SecurityRequirementBuilder();
 //
@@ -123,4 +123,4 @@
 //
 //    it('can be created using security method', function (): void {
 //    })->todo();
-//})->covers(SecurityRequirementBuilder::class)->skip();
+// })->covers(SecurityRequirementBuilder::class)->skip();

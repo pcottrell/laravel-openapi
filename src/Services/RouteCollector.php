@@ -2,6 +2,8 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Services;
 
+use MohammadAlavi\LaravelOpenApi\Attributes\PathItem;
+use MohammadAlavi\LaravelOpenApi\Attributes\Operation;
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Collection;
@@ -20,8 +22,8 @@ final readonly class RouteCollector
     public function whereInCollection(string $collection): Collection
     {
         return $this->all()->filter(
-            fn (RouteInfo $routeInformation): bool => $this
-                ->isInCollection($routeInformation, $collection),
+            fn (RouteInfo $routeInfo): bool => $this
+                ->isInCollection($routeInfo, $collection),
         );
     }
 
@@ -30,23 +32,23 @@ final readonly class RouteCollector
         return collect($this->router->getRoutes())
             ->filter(static fn (Route $route): bool => 'Closure' !== $route->getActionName())
             ->map(static fn (Route $route): RouteInfo => RouteInfo::create($route))
-            ->filter(static function (RouteInfo $routeInformation): bool {
-                $pathItem = $routeInformation->pathItemAttribute();
-                $operation = $routeInformation->operationAttribute();
+            ->filter(static function (RouteInfo $routeInfo): bool {
+                $pathItem = $routeInfo->pathItemAttribute();
+                $operation = $routeInfo->operationAttribute();
 
-                return $pathItem && $operation;
+                return $pathItem instanceof PathItem && $operation instanceof Operation;
             });
     }
 
-    private function isInCollection(RouteInfo $routeInformation, string $collection): bool
+    private function isInCollection(RouteInfo $routeInfo, string $collection): bool
     {
         // TODO: use these docs to refactor and simplify this code
         // You can set the collection either on controller or per action (on each method)
         // the controller collection always overrides the action collection
         /** @var CollectionAttribute|null $collectionAttribute */
         $collectionAttribute = collect()
-            ->merge($routeInformation->controllerAttributes())
-            ->merge($routeInformation->actionAttributes())
+            ->merge($routeInfo->controllerAttributes())
+            ->merge($routeInfo->actionAttributes())
             ->first(static fn (object $item): bool => $item instanceof CollectionAttribute);
 
         // if there is no collection attribute on the controller or action, then $collectionAttribute will be null

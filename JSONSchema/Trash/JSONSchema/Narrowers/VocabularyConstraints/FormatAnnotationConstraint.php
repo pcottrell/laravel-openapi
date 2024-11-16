@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Format;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Format;
 
 interface FormatAnnotationConstraint extends
     Format

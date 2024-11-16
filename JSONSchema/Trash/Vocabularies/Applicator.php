@@ -54,13 +54,13 @@ final class Applicator extends Generatable
     protected function toArray(): array
     {
         $applicators = [];
-        if ($this->allOf) {
+        if ($this->allOf instanceof AllOf) {
             $applicators[AllOf::name()] = $this->allOf->value();
         }
-        if ($this->anyOf) {
+        if ($this->anyOf instanceof AnyOf) {
             $applicators[AnyOf::name()] = $this->anyOf->value();
         }
-        if ($this->oneOf) {
+        if ($this->oneOf instanceof OneOf) {
             $applicators[OneOf::name()] = $this->oneOf->value();
         }
 

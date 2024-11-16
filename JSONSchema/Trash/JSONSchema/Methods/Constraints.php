@@ -15,7 +15,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\Vocabulary
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints\UnevaluatedConstraint;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints\ValidationConstraint;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyNarrower;
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Narrowable;
 
 // TODO: Separate each method into a single trait like the way it is done for Keywords
@@ -26,7 +26,7 @@ trait Constraints
         return $this;
     }
 
-    public function all(): BuilderInterface
+    public function all(): Builder
     {
         return $this;
     }

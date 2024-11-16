@@ -22,7 +22,7 @@ final readonly class ScopeCollection extends ReadonlyGenerator
     public function containsAll(Scope ...$scope): bool
     {
         return collect($scope)
-            ->every(fn (Scope $scope) => $this->contains($scope));
+            ->every(fn (Scope $scope): bool => $this->contains($scope));
     }
 
     public function contains(Scope $scope): bool
@@ -59,7 +59,7 @@ final readonly class ScopeCollection extends ReadonlyGenerator
     // TODO: extract into a builder class
     private function buildScopes(ScopeFactory ...$scopeFactory): array
     {
-        return array_map(static fn (ScopeFactory $factory) => $factory->build(), $scopeFactory);
+        return array_map(static fn (ScopeFactory $scopeFactory): Scope => $scopeFactory->build(), $scopeFactory);
     }
 
     protected function toArray(): array

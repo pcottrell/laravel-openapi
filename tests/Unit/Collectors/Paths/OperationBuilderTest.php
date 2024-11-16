@@ -20,24 +20,24 @@ use Tests\Doubles\Stubs\Servers\ServerWithMultipleVariableFormatting;
 use Tests\Doubles\Stubs\Tags\TagWithExternalObjectDoc;
 
 describe('OperationBuilder', function (): void {
-    it('can be created in many combinations', function (RouteInfo $route, array $expected): void {
+    it('can be created in many combinations', function (RouteInfo $routeInfo, array $expected): void {
         $operationBuilder = app(OperationBuilder::class);
 
-        $result = $operationBuilder->build($route);
+        $operation = $operationBuilder->build($routeInfo);
 
-        expect($result->method)->toBe($expected[0]['action'])
-            ->and($result->tags)->toBe($expected[0]['tags'])
-            ->and($result->summary)->toBe($expected[0]['summary'])
-            ->and($result->description)->toBe($expected[0]['description'])
-            ->and($result->externalDocs)->toBe($expected[0]['externalDocs'])
-            ->and($result->operationId)->toBe($expected[0]['operationId'])
-            ->and($result->parameterCollection)->toEqual($expected[0]['parameters'])
-            ->and($result->requestBody)->toEqual($expected[0]['requestBody'])
-            ->and($result->responses)->toEqual($expected[0]['responses'])
-            ->and($result->deprecated)->toBe($expected[0]['deprecated'])
-            ->and($result->security)->toEqual($expected[0]['security'])
-            ->and($result->servers)->toEqual($expected[0]['servers'])
-            ->and($result->callbacks)->toEqual($expected[0]['callbacks']);
+        expect($operation->method)->toBe($expected[0]['action'])
+            ->and($operation->tags)->toBe($expected[0]['tags'])
+            ->and($operation->summary)->toBe($expected[0]['summary'])
+            ->and($operation->description)->toBe($expected[0]['description'])
+            ->and($operation->externalDocs)->toBe($expected[0]['externalDocs'])
+            ->and($operation->operationId)->toBe($expected[0]['operationId'])
+            ->and($operation->parameterCollection)->toEqual($expected[0]['parameters'])
+            ->and($operation->requestBody)->toEqual($expected[0]['requestBody'])
+            ->and($operation->responses)->toEqual($expected[0]['responses'])
+            ->and($operation->deprecated)->toBe($expected[0]['deprecated'])
+            ->and($operation->security)->toEqual($expected[0]['security'])
+            ->and($operation->servers)->toEqual($expected[0]['servers'])
+            ->and($operation->callbacks)->toEqual($expected[0]['callbacks']);
     })->with(
         [
             function (): array {

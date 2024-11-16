@@ -34,12 +34,12 @@ class Response extends ExtensibleObject implements HasKey
             Assert::regex((string) $statusCode, '/^[1-5]\d{2}$/');
         }
 
-        $instance = new static();
+        $static = new static();
 
-        $instance->statusCode = $statusCode;
-        $instance->description = $description;
+        $static->statusCode = $statusCode;
+        $static->description = $description;
 
-        return $instance;
+        return $static;
     }
 
     public static function ok(string $description = 'OK'): static

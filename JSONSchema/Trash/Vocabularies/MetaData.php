@@ -19,8 +19,8 @@ final class MetaData extends Generatable
     private DefaultValue|null $defaultValue = null;
     private Deprecated|null $deprecated = null;
     private Examples|null $examples = null;
-    private IsReadOnly|null $readOnly = null;
-    private IsWriteOnly|null $writeOnly = null;
+    private IsReadOnly|null $isReadOnly = null;
+    private IsWriteOnly|null $isWriteOnly = null;
 
     private function __construct()
     {
@@ -80,7 +80,7 @@ final class MetaData extends Generatable
     {
         $clone = clone $this;
 
-        $clone->readOnly = IsReadOnly::create($value);
+        $clone->isReadOnly = IsReadOnly::create($value);
 
         return $clone;
     }
@@ -89,7 +89,7 @@ final class MetaData extends Generatable
     {
         $clone = clone $this;
 
-        $clone->writeOnly = IsWriteOnly::create($value);
+        $clone->isWriteOnly = IsWriteOnly::create($value);
 
         return $clone;
     }
@@ -97,26 +97,26 @@ final class MetaData extends Generatable
     protected function toArray(): array
     {
         $metaData = [];
-        if ($this->title) {
+        if ($this->title instanceof Title) {
             $metaData[Title::name()] = $this->title->value();
         }
-        if ($this->description) {
+        if ($this->description instanceof Description) {
             $metaData[Description::name()] = $this->description->value();
         }
-        if ($this->defaultValue) {
+        if ($this->defaultValue instanceof DefaultValue) {
             $metaData[DefaultValue::name()] = $this->defaultValue->value();
         }
-        if ($this->deprecated) {
+        if ($this->deprecated instanceof Deprecated) {
             $metaData[Deprecated::name()] = $this->deprecated->value();
         }
-        if ($this->examples) {
+        if ($this->examples instanceof Examples) {
             $metaData[Examples::name()] = $this->examples->value();
         }
-        if ($this->readOnly) {
-            $metaData[IsReadOnly::name()] = $this->readOnly->value();
+        if ($this->isReadOnly) {
+            $metaData[IsReadOnly::name()] = $this->isReadOnly->value();
         }
-        if ($this->writeOnly) {
-            $metaData[IsWriteOnly::name()] = $this->writeOnly->value();
+        if ($this->isWriteOnly) {
+            $metaData[IsWriteOnly::name()] = $this->isWriteOnly->value();
         }
 
         return Arr::filter($metaData);

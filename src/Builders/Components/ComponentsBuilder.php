@@ -17,34 +17,34 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
 final readonly class ComponentsBuilder
 {
     public function __construct(
-        private ComponentCollector $collector,
+        private ComponentCollector $componentCollector,
     ) {
     }
 
     public function build(string $collection): Components|null
     {
         // TODO: Separate the collecting logic into a separate class
-        $callbacks = $this->collector
+        $callbacks = $this->componentCollector
             ->in($this->getPathsFromConfig('callbacks'))
             ->use(new ReusableCallbackFilter())
             ->collect($collection);
-        $parameters = $this->collector
+        $parameters = $this->componentCollector
             ->in($this->getPathsFromConfig('parameters'))
             ->use(new ReusableParameterFilter())
             ->collect($collection);
-        $requestBodies = $this->collector
+        $requestBodies = $this->componentCollector
             ->in($this->getPathsFromConfig('request_bodies'))
             ->use(new ReusableRequestBodyFilter())
             ->collect($collection);
-        $responses = $this->collector
+        $responses = $this->componentCollector
             ->in($this->getPathsFromConfig('responses'))
             ->use(new ReusableResponseFilter())
             ->collect($collection);
-        $schemas = $this->collector
+        $schemas = $this->componentCollector
             ->in($this->getPathsFromConfig('schemas'))
             ->use(new ReusableSchemaFilter())
             ->collect($collection);
-        $securitySchemes = $this->collector
+        $securitySchemes = $this->componentCollector
             ->in($this->getPathsFromConfig('security_schemes'))
             ->use(new ReusableSecuritySchemeFilter())
             ->collect($collection);

@@ -9,9 +9,9 @@ use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
 
 class CallbackBuilder
 {
-    public function build(RouteInfo $routeInformation): array
+    public function build(RouteInfo $routeInfo): array
     {
-        return $routeInformation->callbackAttributes()
+        return $routeInfo->callbackAttributes()
             ->map(static function (CallbackAttribute $callbackAttribute) {
                 /** @var CallbackFactory $factory */
                 $factory = app($callbackAttribute->factory);

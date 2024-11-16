@@ -9,6 +9,6 @@ abstract class ReusableRequestBodyFactory extends ReusableComponent implements R
 {
     final protected static function componentPath(): string
     {
-            return '/requestBodies';
+        return '/requestBodies';
     }
 }

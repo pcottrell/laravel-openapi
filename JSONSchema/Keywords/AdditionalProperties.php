@@ -2,17 +2,17 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
 
 final readonly class AdditionalProperties implements Keyword
 {
     private function __construct(
-        private BuilderInterface|bool $schema,
+        private Builder|bool $schema,
     ) {
     }
 
-    public static function create(BuilderInterface|bool $schema): self
+    public static function create(Builder|bool $schema): self
     {
         return new self($schema);
     }
@@ -22,7 +22,7 @@ final readonly class AdditionalProperties implements Keyword
         return 'additionalProperties';
     }
 
-    public function value(): BuilderInterface|bool
+    public function value(): Builder|bool
     {
         return $this->schema;
     }

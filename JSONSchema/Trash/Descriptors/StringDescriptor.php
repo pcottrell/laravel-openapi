@@ -25,11 +25,11 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
     private Pattern|null $pattern = null;
     private Format|null $format = null;
 
-    public function format(StringFormat $format): self
+    public function format(StringFormat $stringFormat): self
     {
         $clone = clone $this;
 
-        $clone->format = Format::create($format);
+        $clone->format = Format::create($stringFormat);
 
         return $clone;
     }
@@ -74,18 +74,18 @@ final class StringDescriptor extends ExtensibleObject implements Descriptor, Typ
     protected function toArray(): array
     {
         $assertions = [];
-        if ($this->maxLength) {
+        if ($this->maxLength instanceof MaxLength) {
             $assertions[MaxLength::name()] = $this->maxLength->value();
         }
-        if ($this->minLength) {
+        if ($this->minLength instanceof MinLength) {
             $assertions[MinLength::name()] = $this->minLength->value();
         }
-        if ($this->pattern) {
+        if ($this->pattern instanceof Pattern) {
             $assertions[Pattern::name()] = $this->pattern->value();
         }
 
         $annotations = [];
-        if ($this->format) {
+        if ($this->format instanceof Format) {
             $annotations[$this->format::name()] = $this->format->value();
         }
 

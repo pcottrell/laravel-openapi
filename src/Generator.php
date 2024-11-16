@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Security;
 use Illuminate\Support\Arr;
 use MohammadAlavi\LaravelOpenApi\Builders\Components\ComponentsBuilder;
 use MohammadAlavi\LaravelOpenApi\Builders\InfoBuilder;
@@ -34,7 +35,7 @@ final readonly class Generator
         $info = $this->infoBuilder->build($this->getConfigFor('info', $collection));
         $servers = $this->serverBuilder->build($this->getConfigFor('servers', $collection));
         $extensions = $this->getConfigFor('extensions', $collection);
-        $globalSecurity = Arr::get(config('openapi'), "collections.{$collection}.security");
+        $globalSecurity = Arr::get(config('openapi'), sprintf('collections.%s.security', $collection));
         $security = $globalSecurity ? $this->securityBuilder->build($globalSecurity) : null;
         $paths = $this->pathsBuilder->build(
             $this->routeCollector->whereInCollection($collection),
@@ -49,7 +50,7 @@ final readonly class Generator
             ->components($components)
             ->tags(...$tags);
 
-        $openApi = $security ? $openApi->security($security) : $openApi;
+        $openApi = $security instanceof Security ? $openApi->security($security) : $openApi;
         foreach ($extensions as $key => $value) {
             $openApi = $openApi->addExtension(Extension::create($key, $value));
         }

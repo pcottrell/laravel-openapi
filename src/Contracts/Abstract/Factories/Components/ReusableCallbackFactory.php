@@ -9,6 +9,6 @@ abstract class ReusableCallbackFactory extends ReusableComponent implements Call
 {
     final protected static function componentPath(): string
     {
-            return '/callbacks';
+        return '/callbacks';
     }
 }

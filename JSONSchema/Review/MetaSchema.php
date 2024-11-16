@@ -31,14 +31,14 @@ final readonly class MetaSchema implements MetaSchemaInterface
         )->flatMap(
             static fn (
                 AvailableVocabulary $availableVocabulary,
-            ) => $availableVocabulary->vocabulary()->keywords(),
+            ): array => $availableVocabulary->vocabulary()->keywords(),
         )->toArray();
     }
 
     private function validateKeywordUniqueness(Keyword ...$keyword): void
     {
         $duplicates = collect($keyword)->duplicates(
-            static fn (Keyword $keyword) => $keyword->name(),
+            static fn (Keyword $keyword): string => $keyword->name(),
         );
 
         if ($duplicates->isNotEmpty()) {

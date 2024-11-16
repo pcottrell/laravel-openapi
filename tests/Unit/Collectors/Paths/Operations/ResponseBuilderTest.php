@@ -16,9 +16,9 @@ describe(class_basename(ResponsesBuilder::class), function (): void {
         ]);
         $builder = new ResponsesBuilder();
 
-        $result = $builder->build($routeInformation->responsesAttribute());
+        $responses = $builder->build($routeInformation->responsesAttribute());
 
-        expect($result->asArray())->toBe([
+        expect($responses->asArray())->toBe([
             '200' => [
                 'description' => 'OK',
             ],

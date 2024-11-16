@@ -17,7 +17,7 @@ final readonly class PathsBuilder
     public function build(Collection $routeInfo): Paths
     {
         $paths = $routeInfo->groupBy(
-            fn (RouteInfo $routeInformation): string => $routeInformation->uri(),
+            fn (RouteInfo $routeInfo): string => $routeInfo->uri(),
         )->map(
             fn (Collection $routeInformation, string $url): Path => Path::create(
                 $url,

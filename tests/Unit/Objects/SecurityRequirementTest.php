@@ -7,7 +7,7 @@ use Tests\Doubles\Stubs\SecuritySchemes\JwtSecuritySchemeFactory;
 
 describe('SecurityRequirement', function (): void {
     it('can set nested security schemes', function (): void {
-        $securityRequirement = SecurityRequirementOld::create()
+        $securityRequirementOld = SecurityRequirementOld::create()
             ->nestedSecurityScheme(
                 [
                     [
@@ -18,7 +18,7 @@ describe('SecurityRequirement', function (): void {
                 ],
             );
 
-        expect($securityRequirement->asArray())->toBe([
+        expect($securityRequirementOld->asArray())->toBe([
             [
                 'Bearer' => [],
                 'ApiKey' => [],

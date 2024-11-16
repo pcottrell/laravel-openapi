@@ -8,11 +8,11 @@ trait SimpleKeyCreatorTrait
 
     final public static function create(string $key): static
     {
-        $instance = new static();
+        $static = new static();
 
-        $instance->key = $key;
+        $static->key = $key;
 
-        return $instance;
+        return $static;
     }
 
     final public function key(): string

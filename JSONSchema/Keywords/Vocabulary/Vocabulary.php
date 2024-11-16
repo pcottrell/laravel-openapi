@@ -12,9 +12,9 @@ final readonly class Vocabulary implements Keyword
     ) {
     }
 
-    public static function create(Vocab ...$value): self
+    public static function create(Vocab ...$vocab): self
     {
-        return new self($value);
+        return new self($vocab);
     }
 
     public static function name(): string

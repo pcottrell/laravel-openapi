@@ -114,24 +114,24 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
     protected function toArray(): array
     {
         $assertions = [];
-        if ($this->dependentRequired) {
+        if ($this->dependentRequired instanceof DependentRequired) {
             $assertions[$this->dependentRequired::name()] = $this->dependentRequired->value();
         }
-        if ($this->maxProperties) {
+        if ($this->maxProperties instanceof MaxProperties) {
             $assertions[$this->maxProperties::name()] = $this->maxProperties->value();
         }
-        if ($this->minProperties) {
+        if ($this->minProperties instanceof MinProperties) {
             $assertions[$this->minProperties::name()] = $this->minProperties->value();
         }
-        if ($this->required) {
+        if ($this->required instanceof Required) {
             $assertions[$this->required::name()] = $this->required->value();
         }
 
         $applicators = [];
-        if ($this->properties) {
+        if ($this->properties instanceof Properties) {
             $applicators[$this->properties::name()] = $this->properties->value();
         }
-        if ($this->additionalProperties) {
+        if ($this->additionalProperties !== null) {
             $applicators[$this->additionalProperties::name()] = $this->additionalProperties->value();
         }
 

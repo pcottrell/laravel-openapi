@@ -13,12 +13,12 @@ final readonly class PathItemBuilder
     ) {
     }
 
-    public function build(RouteInfo ...$routes): PathItem
+    public function build(RouteInfo ...$routeInfo): PathItem
     {
         $pathItem = PathItem::create();
-        $operations = collect($routes)
+        $operations = collect($routeInfo)
             ->map(
-                fn (RouteInfo $routeInformation): Operation => $this->operationBuilder->build($routeInformation),
+                fn (RouteInfo $routeInfo): Operation => $this->operationBuilder->build($routeInfo),
             )->all();
 
         return $pathItem->operations(...$operations);

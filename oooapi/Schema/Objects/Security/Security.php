@@ -2,13 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security;
 
+use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\OAuth\SecurityRequirementFactory;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 final class Security extends Generatable
 {
-    private array $securityRequirements;
+    private readonly array $securityRequirements;
 
     private function __construct(
         SecurityRequirement ...$securityRequirement,
@@ -41,7 +42,7 @@ final class Security extends Generatable
     {
         return Arr::filter(
             array_map(
-                fn (SecurityRequirement $securityRequirement) => $this->toObjectIfEmpty(
+                fn (SecurityRequirement $securityRequirement): Generatable|ReadonlyGenerator|\stdClass => $this->toObjectIfEmpty(
                     $securityRequirement,
                 ),
                 $this->securityRequirements,

@@ -9,6 +9,6 @@ abstract class ReusableSchemaFactory extends ReusableSchema implements SchemaFac
 {
     final protected static function componentPath(): string
     {
-            return '/schemas';
+        return '/schemas';
     }
 }

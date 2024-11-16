@@ -1,7 +1,5 @@
 <?php
 
-use Tests\Doubles\Fakes\Petstore\Security\ExampleSingleSecurityRequirementSecurity;
-
 return [
     'collections' => [
         'default' => [

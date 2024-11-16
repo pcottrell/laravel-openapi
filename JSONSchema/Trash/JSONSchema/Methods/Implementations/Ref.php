@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\Implementations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Dialect\Draft202012;
 
 trait Ref
@@ -17,7 +17,7 @@ trait Ref
      * @see https://www.learnjsonschema.com/2020-12/core/ref/
      * @see https://json-schema.org/understanding-json-schema/structuring
      */
-    public function ref(string $uri): BuilderInterface
+    public function ref(string $uri): Builder
     {
         $clone = clone $this;
 

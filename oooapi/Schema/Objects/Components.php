@@ -53,20 +53,20 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function responses(ReusableResponseFactory ...$response): static
+    public function responses(ReusableResponseFactory ...$reusableResponseFactory): static
     {
         $clone = clone $this;
 
-        $clone->responses = $response;
+        $clone->responses = $reusableResponseFactory;
 
         return $clone;
     }
 
-    public function parameters(ReusableParameterFactory ...$parameter): static
+    public function parameters(ReusableParameterFactory ...$reusableParameterFactory): static
     {
         $clone = clone $this;
 
-        $clone->parameters = [] !== $parameter ? $parameter : null;
+        $clone->parameters = [] !== $reusableParameterFactory ? $reusableParameterFactory : null;
 
         return $clone;
     }
@@ -80,11 +80,11 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function requestBodies(ReusableRequestBodyFactory ...$requestBody): static
+    public function requestBodies(ReusableRequestBodyFactory ...$reusableRequestBodyFactory): static
     {
         $clone = clone $this;
 
-        $clone->requestBodies = [] !== $requestBody ? $requestBody : null;
+        $clone->requestBodies = [] !== $reusableRequestBodyFactory ? $reusableRequestBodyFactory : null;
 
         return $clone;
     }
@@ -98,11 +98,11 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function securitySchemes(SecuritySchemeFactory ...$securityScheme): static
+    public function securitySchemes(SecuritySchemeFactory ...$securitySchemeFactory): static
     {
         $clone = clone $this;
 
-        $clone->securitySchemes = [] !== $securityScheme ? $securityScheme : null;
+        $clone->securitySchemes = [] !== $securitySchemeFactory ? $securitySchemeFactory : null;
 
         return $clone;
     }
@@ -116,11 +116,11 @@ class Components extends ExtensibleObject implements SimpleCreator
         return $clone;
     }
 
-    public function callbacks(ReusableCallbackFactory ...$pathItem): static
+    public function callbacks(ReusableCallbackFactory ...$reusableCallbackFactory): static
     {
         $clone = clone $this;
 
-        $clone->callbackFactories = [] !== $pathItem ? $pathItem : null;
+        $clone->callbackFactories = [] !== $reusableCallbackFactory ? $reusableCallbackFactory : null;
 
         return $clone;
     }

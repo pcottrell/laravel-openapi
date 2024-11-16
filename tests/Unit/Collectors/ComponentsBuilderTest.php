@@ -43,9 +43,9 @@ describe(class_basename(ComponentsBuilder::class), function (): void {
     });
 
     it('can collect components', function (string|null $collection, array|null $expectation): void {
-        $builder = app(ComponentsBuilder::class);
+        $componentsBuilder = app(ComponentsBuilder::class);
 
-        $result = $builder->build($collection);
+        $result = $componentsBuilder->build($collection);
 
         expect($result?->asArray())->unless(
             is_null($result),

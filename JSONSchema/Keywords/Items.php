@@ -2,19 +2,19 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
 
 final readonly class Items implements Keyword
 {
     private function __construct(
-        private BuilderInterface $schema,
+        private Builder $builder,
     ) {
     }
 
-    public static function create(BuilderInterface $schema): self
+    public static function create(Builder $builder): self
     {
-        return new self($schema);
+        return new self($builder);
     }
 
     public static function name(): string
@@ -22,8 +22,8 @@ final readonly class Items implements Keyword
         return 'items';
     }
 
-    public function value(): BuilderInterface
+    public function value(): Builder
     {
-        return $this->schema;
+        return $this->builder;
     }
 }

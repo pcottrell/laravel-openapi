@@ -2,17 +2,17 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\JSONSchema\Extensions\Formats\NumberFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Formats\NumberFormat;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\NumeralDescriptor;
 
 final class NumberDescriptor extends NumeralDescriptor
 {
-    public function format(NumberFormat $format): self
+    public function format(NumberFormat $numberFormat): self
     {
         $clone = clone $this;
 
-        $clone->format = Format::create($format);
+        $clone->format = Format::create($numberFormat);
 
         return $clone;
     }

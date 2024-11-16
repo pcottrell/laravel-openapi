@@ -2,14 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\Implementations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Dialect\Draft202012;
 
 trait Schema
 {
     private \MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Schema|null $schema = null;
 
-    public function schema(string $uri): BuilderInterface
+    public function schema(string $uri): Builder
     {
         $clone = clone $this;
 

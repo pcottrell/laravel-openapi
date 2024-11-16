@@ -31,20 +31,20 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
      */
     final protected static function integer(): static
     {
-        $instance = new static();
-        $instance->type = Type::integer();
-        $instance->metaData = MetaData::create();
-        $instance->applicator = Applicator::create();
+        $static = new static();
+        $static->type = Type::integer();
+        $static->metaData = MetaData::create();
+        $static->applicator = Applicator::create();
 
-        return $instance;
+        return $static;
     }
 
     final protected static function number(): static
     {
-        $instance = new static();
-        $instance->type = Type::number();
+        $static = new static();
+        $static->type = Type::number();
 
-        return $instance;
+        return $static;
     }
 
     /** A number is valid if it is strictly less than (not equal to) the provided maximum value. */
@@ -103,19 +103,19 @@ abstract class NumeralDescriptor extends ExtensibleObject implements Descriptor,
         if ($this->format) {
             $assertions[$this->format::keyword()] = $this->format->value();
         }
-        if ($this->exclusiveMaximum) {
+        if ($this->exclusiveMaximum instanceof ExclusiveMaximum) {
             $assertions[$this->exclusiveMaximum::name()] = $this->exclusiveMaximum->value();
         }
-        if ($this->exclusiveMinimum) {
+        if ($this->exclusiveMinimum instanceof ExclusiveMinimum) {
             $assertions[$this->exclusiveMinimum::name()] = $this->exclusiveMinimum->value();
         }
-        if ($this->maximum) {
+        if ($this->maximum instanceof Maximum) {
             $assertions[$this->maximum::name()] = $this->maximum->value();
         }
-        if ($this->minimum) {
+        if ($this->minimum instanceof Minimum) {
             $assertions[$this->minimum::name()] = $this->minimum->value();
         }
-        if ($this->multipleOf) {
+        if ($this->multipleOf instanceof MultipleOf) {
             $assertions[$this->multipleOf::name()] = $this->multipleOf->value();
         }
 

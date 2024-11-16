@@ -26,7 +26,7 @@ describe(class_basename(RouteCollector::class), function (): void {
         expect($routes)->toHaveCount(5)
             ->and($routes)
             ->each(
-                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInfo::class),
+                fn (Expectation $expectation): \Pest\Mixins\Expectation => $expectation->toBeInstanceOf(RouteInfo::class),
             );
     });
 
@@ -44,7 +44,7 @@ describe(class_basename(RouteCollector::class), function (): void {
         expect($routes)->toHaveCount(1)
             ->and($routes)
             ->each(
-                fn (Expectation $expectation) => $expectation->toBeInstanceOf(RouteInfo::class),
+                fn (Expectation $expectation): \Pest\Mixins\Expectation => $expectation->toBeInstanceOf(RouteInfo::class),
             );
     });
 })->covers(RouteCollector::class);

@@ -1,5 +1,6 @@
 <?php
 
+use Pest\Arch\Contracts\ArchExpectation;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Services\ComponentCollector;
 use Pest\Expectation;
@@ -15,6 +16,6 @@ describe(class_basename(ComponentCollector::class), function (): void {
         expect($result)->toHaveCount(10)
             ->each(fn (
                 Expectation $expectation,
-            ) => $expectation->toHaveAttribute(Collection::class));
+            ): ArchExpectation => $expectation->toHaveAttribute(Collection::class));
     });
 })->covers(ComponentCollector::class);

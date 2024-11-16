@@ -10,7 +10,28 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Generatable;
 
 class Draft202012Builder extends Generatable implements Draft202012BuilderInterfaceInterface
 {
-//    use BuilderMethods;
+public $ref;
+    public $defs;
+    public $schema;
+    public $id;
+    public $comment;
+    public $anchor;
+    public $dynamicAnchor;
+    public $dynamicRef;
+    public $vocabulary;
+    public $unevaluatedItems;
+    public $unevaluatedProperties;
+    public $format;
+    public $maxLength;
+    public $minLength;
+    public $pattern;
+    public $type;
+    public $exclusiveMaximum;
+    public $exclusiveMinimum;
+    public $maximum;
+    public $minimum;
+    public $multipleOf;
+    //    use BuilderMethods;
     use Constraints;
 
     public static function create(): static

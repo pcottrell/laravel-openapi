@@ -24,10 +24,10 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
 
 describe(class_basename(Components::class), function (): void {
     it('can be create with all parameters', function (): void {
-        $schema = \Mockery::mock(ReusableSchemaFactory::class);
-        $schema->allows('key')
+        $mock = \Mockery::mock(ReusableSchemaFactory::class);
+        $mock->allows('key')
             ->andReturn('ExampleSchema');
-        $schema->expects('build')
+        $mock->expects('build')
             ->andReturn(Schema::object());
 
         $response = \Mockery::mock(ReusableResponseFactory::class);
@@ -85,7 +85,7 @@ describe(class_basename(Components::class), function (): void {
             );
 
         $components = Components::create()
-            ->schemas($schema)
+            ->schemas($mock)
             ->responses($response)
             ->parameters($parameter)
             ->examples($example)

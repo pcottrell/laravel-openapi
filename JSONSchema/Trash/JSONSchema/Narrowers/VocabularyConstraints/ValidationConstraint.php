@@ -2,15 +2,15 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\ExclusiveMaximum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\ExclusiveMinimum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Maximum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\MaxLength;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Minimum;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\MinLength;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\MultipleOf;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Pattern;
-use MohammadAlavi\ObjectOrientedJSONSchema\Builders\Type;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\ExclusiveMaximum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\ExclusiveMinimum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Maximum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\MaxLength;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Minimum;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\MinLength;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\MultipleOf;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Pattern;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Type;
 
 interface ValidationConstraint extends
     ExclusiveMaximum,

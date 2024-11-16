@@ -8,9 +8,7 @@ use Webmozart\Assert\Assert;
 
 readonly class SecurityBuilder
 {
-    /**
-     * @param class-string<SecurityFactory> $securityFactory
-     */
+    /** @param class-string<SecurityFactory> $securityFactory */
     public function build(string $securityFactory): Security
     {
         Assert::isAOf($securityFactory, SecurityFactory::class);

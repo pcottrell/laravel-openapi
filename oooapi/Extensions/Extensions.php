@@ -12,9 +12,9 @@ final class Extensions extends Generatable
     private array $extensions = [];
 
     private function __construct(
-        Extension ...$extensions,
+        Extension ...$extension,
     ) {
-        $this->add(...$extensions);
+        $this->add(...$extension);
     }
 
     public function add(Extension ...$extension): self
@@ -26,9 +26,9 @@ final class Extensions extends Generatable
         return $this;
     }
 
-    public static function create(Extension ...$extensions): self
+    public static function create(Extension ...$extension): self
     {
-        return new self(...$extensions);
+        return new self(...$extension);
     }
 
     public function remove(string $name): self
@@ -60,7 +60,7 @@ final class Extensions extends Generatable
 
     public function isEmpty(): bool
     {
-        return empty($this->extensions);
+        return $this->extensions === [];
     }
 
     protected function toArray(): array

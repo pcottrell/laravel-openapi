@@ -2,6 +2,7 @@
 
 namespace MohammadAlavi\LaravelOpenApi\Builders\Paths\Operation;
 
+use MohammadAlavi\LaravelOpenApi\Attributes\Parameters;
 use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
@@ -14,11 +15,11 @@ class ParametersBuilder
 {
     public function build(RouteInfo $routeInfo): ParameterCollection
     {
-        $pathParameters = $this->buildPath($routeInfo);
+        $parameterCollection = $this->buildPath($routeInfo);
         $attributedParameters = $this->buildAttribute($routeInfo);
 
         return ParameterCollection::create(
-            $pathParameters,
+            $parameterCollection,
             $attributedParameters,
         );
     }
@@ -52,7 +53,7 @@ class ParametersBuilder
                     ->required()
                     ->schema($schema);
             });
-        $parameters = $parameters->filter(static fn (Parameter|null $parameter) => !is_null($parameter));
+        $parameters = $parameters->filter(static fn (Parameter|null $parameter): bool => !is_null($parameter));
 
         return ParameterCollection::create(...$parameters->toArray());
     }
@@ -70,7 +71,7 @@ class ParametersBuilder
     {
         $parameters = $routeInfo->parametersAttribute();
 
-        if ($parameters) {
+        if ($parameters instanceof Parameters) {
             /** @var ParameterCollectionFactory $parametersFactory */
             $parametersFactory = app($parameters->factory);
 

@@ -2,14 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\Implementations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Dialect\Draft202012;
 
 trait Minimum
 {
     private \MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Minimum|null $minimum = null;
 
-    public function minimum(float $value): BuilderInterface
+    public function minimum(float $value): Builder
     {
         $clone = clone $this;
 

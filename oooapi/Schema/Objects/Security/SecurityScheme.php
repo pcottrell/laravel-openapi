@@ -8,7 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\ReadonlyGenerator;
 abstract readonly class SecurityScheme extends ReadonlyGenerator
 {
     protected function __construct(
-        protected SecuritySchemeType $type,
+        protected SecuritySchemeType $securitySchemeType,
         protected string|null $description,
     ) {
     }

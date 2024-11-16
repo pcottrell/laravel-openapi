@@ -33,14 +33,14 @@ final readonly class Requirement
 
     private static function createOAuth2Requirement(
         SecuritySchemeFactory $securitySchemeFactory,
-        OAuth2 $securityScheme,
+        OAuth2 $oAuth2,
         ScopeCollection $scopeCollection,
     ): self {
-        if ($securityScheme->containsAllScopes(...$scopeCollection->all())) {
+        if ($oAuth2->containsAllScopes(...$scopeCollection->all())) {
             return new self($securitySchemeFactory, $scopeCollection);
         }
 
-        throw new \InvalidArgumentException("Invalid OAuth2 scopes for {$securitySchemeFactory::key()}.\nAvailable scopes: " . implode(', ', $securityScheme->availableScopes()) . "\nGiven scopes: " . array_reduce($scopeCollection->all(), static fn (string $carry, Scope $scope): string => $carry . $scope->name() . ', ', ''));
+        throw new \InvalidArgumentException("Invalid OAuth2 scopes for {$securitySchemeFactory::key()}.\nAvailable scopes: " . implode(', ', $oAuth2->availableScopes()) . "\nGiven scopes: " . array_reduce($scopeCollection->all(), static fn (string $carry, Scope $scope): string => $carry . $scope->name() . ', ', ''));
     }
 
     public function securityScheme(): string

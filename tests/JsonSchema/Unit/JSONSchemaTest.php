@@ -1,12 +1,12 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Builder;
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\JSONSchema\Extensions\Formats\IntegerFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\JSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\SchemaBuilder;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Formats\IntegerFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired\Dependency;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
 
-describe(class_basename(Builder::class), function (): void {
+describe(class_basename(SchemaBuilder::class), function (): void {
     it(
         'can be used to create a json file of an specific JSONSchema dialect',
         function (): void {
@@ -59,7 +59,7 @@ describe(class_basename(Builder::class), function (): void {
             // ->maxLength(10);
 
             // expect($stringSchema->asArray())->toBe('{"type":"string","minLength":3,"maxLength":10}');
-            expect(json_encode(Builder::create()->type('string')))->toBe('{"type":"string"}');
+            expect(json_encode(SchemaBuilder::create()->type('string')))->toBe('{"type":"string"}');
         },
     );
 
@@ -72,4 +72,4 @@ describe(class_basename(Builder::class), function (): void {
             ),
         );
     }
-})->covers(Builder::class);
+})->covers(SchemaBuilder::class);

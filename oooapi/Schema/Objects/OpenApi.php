@@ -27,11 +27,11 @@ class OpenApi extends ExtensibleObject implements SimpleCreator
 
     private readonly OASVersion $openapi;
 
-    public function openapi(OASVersion $openapi): static
+    public function openapi(OASVersion $oasVersion): static
     {
         $clone = clone $this;
 
-        $clone->openapi = $openapi;
+        $clone->openapi = $oasVersion;
 
         return $clone;
     }

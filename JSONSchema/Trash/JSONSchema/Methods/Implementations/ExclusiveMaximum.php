@@ -2,14 +2,14 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Methods\Implementations;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\BuilderInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Dialect\Draft202012;
 
 trait ExclusiveMaximum
 {
     private \MohammadAlavi\ObjectOrientedJSONSchema\Keywords\ExclusiveMaximum|null $exclusiveMaximum = null;
 
-    public function exclusiveMaximum(float $value): BuilderInterface
+    public function exclusiveMaximum(float $value): Builder
     {
         $clone = clone $this;
 
