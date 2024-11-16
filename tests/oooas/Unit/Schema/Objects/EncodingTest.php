@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Encoding;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;

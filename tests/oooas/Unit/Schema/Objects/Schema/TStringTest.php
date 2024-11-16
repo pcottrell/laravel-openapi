@@ -1,7 +1,7 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\FormatAnnotation\Format\StringFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\String\StringDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Formats\StringFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\StringDescriptor;
 
 describe(class_basename(StringDescriptor::class), function (): void {
     it(

@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\EnumDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\EnumDescriptor;
 
 describe(class_basename(EnumDescriptor::class), function (): void {
     it('should return enum values as is', function (): void {

@@ -2,8 +2,8 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;

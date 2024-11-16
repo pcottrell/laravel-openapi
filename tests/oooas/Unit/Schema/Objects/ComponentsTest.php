@@ -19,7 +19,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\PathItem;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\RequestBody;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Responses;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Security\Schemes\Http;
 
 describe(class_basename(Components::class), function (): void {

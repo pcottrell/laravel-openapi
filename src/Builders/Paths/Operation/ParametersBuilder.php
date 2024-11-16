@@ -6,8 +6,8 @@ use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 
 class ParametersBuilder

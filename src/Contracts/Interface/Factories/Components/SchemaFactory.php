@@ -3,7 +3,7 @@
 namespace MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Components;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\ComponentFactory;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
 
 interface SchemaFactory extends ComponentFactory
 {

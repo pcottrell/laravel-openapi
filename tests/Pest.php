@@ -14,8 +14,8 @@ use Tests\UnitTestCase;
 |
 */
 
-pest()->extends(IntegrationTestCase::class)->in('Integration', 'oooas/Integration');
-pest()->extends(UnitTestCase::class)->in('Unit', 'oooas/Unit');
+pest()->extends(IntegrationTestCase::class)->in('Integration', 'oooas/Integration', 'JsonSchema/Integration');
+pest()->extends(UnitTestCase::class)->in('Unit', 'oooas/Unit', 'JsonSchema/Unit');
 
 /*
 |--------------------------------------------------------------------------

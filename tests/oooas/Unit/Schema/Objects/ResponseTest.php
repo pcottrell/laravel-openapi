@@ -1,6 +1,6 @@
 <?php
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Link;

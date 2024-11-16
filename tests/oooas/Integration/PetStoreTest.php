@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\File;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\FormatAnnotation\IntegerFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\JSONSchema\Extensions\Formats\IntegerFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -69,8 +69,20 @@ describe('PetStoreTest', function (): void {
                 Schema::integer()->format(IntegerFormat::INT32),
             );
 
-        $allOf = AllOf::create('Pet')
+        $allOfSag = AllOf::create('Pet')
             ->schemas(
+                ReusableSchemaStub::create(),
+                Schema::object()
+                    ->required('id')
+                    ->properties(
+                        Property::create(
+                            'id',
+                            Schema::integer()->format(IntegerFormat::INT64),
+                        ),
+                    ),
+            );
+        $allOf = Schema::object()
+            ->allOf(
                 ReusableSchemaStub::create(),
                 Schema::object()
                     ->required('id')

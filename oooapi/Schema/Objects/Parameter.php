@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
 use MohammadAlavi\ObjectOrientedOpenAPI\Contracts\Interface\SimpleCreator;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\SimpleCreatorTrait;

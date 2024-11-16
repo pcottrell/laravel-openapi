@@ -3,10 +3,10 @@
 namespace Tests\Doubles\Stubs\Petstore\Schemas;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Numeral\FormatAnnotation\IntegerFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\JSONSchema\Extensions\Formats\IntegerFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 
 class PetSchema extends ReusableSchemaFactory
 {

@@ -3,7 +3,7 @@
 namespace Tests\oooas\Unit\Schema\Objects;
 
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\OneOf;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 
 describe(class_basename(OneOf::class), function (): void {
     it('can be created with all parameters', function (): void {

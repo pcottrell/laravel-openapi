@@ -5,9 +5,9 @@ namespace Tests\Doubles\Stubs\Collectors\Components\Schema;
 use MohammadAlavi\LaravelOpenApi\Attributes\Collection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
 use MohammadAlavi\LaravelOpenApi\Generator;
-use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Descriptors\Object\Applicators\Properties\Property;
-use MohammadAlavi\ObjectOrientedJSONSchema\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
+use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
 
 #[Collection(['test', Generator::COLLECTION_DEFAULT])]
 class MultiCollectionSchema extends ReusableSchemaFactory
