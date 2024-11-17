@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Review\MetaSchema;
+namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabulary;
 

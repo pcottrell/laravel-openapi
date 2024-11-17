@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Review;
+namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash;
 
 // TODO: for schema the $key is required I think. It should bre required when creating it via ny construction method
 

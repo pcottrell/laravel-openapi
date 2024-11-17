@@ -3,7 +3,7 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\Applicator;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\TypeAware;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\MetaData;

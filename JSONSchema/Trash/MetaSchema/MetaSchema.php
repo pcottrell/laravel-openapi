@@ -1,9 +1,9 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Review;
+namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\MetaSchema\AvailableVocabulary;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\MetaSchema\MetaSchema as MetaSchemaInterface;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema\AvailableVocabulary;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema\MetaSchemaInterface as MetaSchemaInterface;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
 
 final readonly class MetaSchema implements MetaSchemaInterface

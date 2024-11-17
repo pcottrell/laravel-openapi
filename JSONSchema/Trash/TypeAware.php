@@ -1,6 +1,6 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Review;
+namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash;
 
 interface TypeAware
 {

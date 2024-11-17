@@ -1,8 +1,8 @@
 <?php
 
-namespace MohammadAlavi\ObjectOrientedJSONSchema\Review\MetaSchema;
+namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema;
 
-interface MetaSchema
+interface MetaSchemaInterface
 {
     //    /** @return array<array-key, AvailableVocabulary> */
     //    public function availableVocabularies(): array;
