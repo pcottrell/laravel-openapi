@@ -7,11 +7,11 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 
 describe(class_basename(AllOf::class), function (): void {
     it('can be created', function (): void {
-        $stringDescriptor = Schema::string();
-        $integerDescriptor = Schema::integer();
+        $stringBuilder = Schema::string();
+        $integerBuilder = Schema::integer();
 
         $allOf = AllOf::create('test')
-            ->schemas($stringDescriptor, $integerDescriptor);
+            ->schemas($stringBuilder, $integerBuilder);
 
         expect($allOf->asArray())->toBe([
             'allOf' => [

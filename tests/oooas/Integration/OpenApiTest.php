@@ -40,7 +40,7 @@ describe('OpenApi', function (): void {
             ->version('v1')
             ->description('For using the Example App API')
             ->contact($contact);
-        $objectDescriptor = Schema::object()
+        $objectBuilder = Schema::object()
             ->properties(
                 Property::create('id', Schema::string()->format(StringFormat::UUID)),
                 Property::create('created_at', Schema::string()->format(StringFormat::DATE_TIME)),
@@ -55,7 +55,7 @@ describe('OpenApi', function (): void {
                 ),
             )->required('id', 'created_at');
         $expectedResponse = Response::ok()
-            ->content(MediaType::json()->schema($objectDescriptor));
+            ->content(MediaType::json()->schema($objectBuilder));
         $operationIndex = Operation::get()
             ->responses(Responses::create($expectedResponse))
             ->tags($tag)
@@ -66,9 +66,9 @@ describe('OpenApi', function (): void {
             ->tags($tag)
             ->summary('Create an audit')
             ->operationId('audits.store')
-            ->requestBody(RequestBody::create()->content(MediaType::json()->schema($objectDescriptor)));
-        $stringDescriptor = Schema::string()->format(StringFormat::UUID);
-        $format = Schema::enum('json', 'ics')
+            ->requestBody(RequestBody::create()->content(MediaType::json()->schema($objectBuilder)));
+        $stringBuilder = Schema::string()->format(StringFormat::UUID);
+        $enumBuilder = Schema::enum('json', 'ics')
             ->default('json');
         $operationGet = Operation::get()
             ->responses(Responses::create($expectedResponse))
@@ -79,11 +79,11 @@ describe('OpenApi', function (): void {
                 ParameterCollection::create(
                     Parameter::path()
                         ->name('audit')
-                        ->schema($stringDescriptor)
+                        ->schema($stringBuilder)
                         ->required(),
                     Parameter::query()
                         ->name('format')
-                        ->schema($format)
+                        ->schema($enumBuilder)
                         ->description('The format of the appointments'),
                 ),
             );

@@ -57,7 +57,7 @@ describe(class_basename(OpenApi::class), function (): void {
         //  These contracts define the create method and either accept the key or not.
         // Then we accept the proper Contract when needed!
         // For example here for response we can accept the UnnamedSchema contract!
-        $objectDescriptor = Schema::object()
+        $objectBuilder = Schema::object()
             ->properties(
                 Property::create('id', Schema::string()->format(StringFormat::UUID)),
                 Property::create('created_at', Schema::string()->format(StringFormat::DATE_TIME)),
@@ -73,7 +73,7 @@ describe(class_basename(OpenApi::class), function (): void {
 
         $expectedResponse = Response::ok()
             ->content(
-                MediaType::json()->schema($objectDescriptor),
+                MediaType::json()->schema($objectBuilder),
             );
 
         $operation = Operation::get()
@@ -88,11 +88,11 @@ describe(class_basename(OpenApi::class), function (): void {
             ->summary('Create an audit')
             ->operationId('audits.store')
             ->requestBody(RequestBody::create()->content(
-                MediaType::json()->schema($objectDescriptor),
+                MediaType::json()->schema($objectBuilder),
             ));
 
-        $stringDescriptor = Schema::string()->format(StringFormat::UUID);
-        $enumDescriptor = Schema::enum('json', 'ics');
+        $stringBuilder = Schema::string()->format(StringFormat::UUID);
+        $enumBuilder = Schema::enum('json', 'ics');
 
         $readAudit = Operation::get()
             ->responses(Responses::create($expectedResponse))
@@ -103,11 +103,11 @@ describe(class_basename(OpenApi::class), function (): void {
                 ParameterCollection::create(
                     Parameter::path()
                         ->name('audit')
-                        ->schema($stringDescriptor)
+                        ->schema($stringBuilder)
                         ->required(),
                     Parameter::query()
                         ->name('format')
-                        ->schema($enumDescriptor)
+                        ->schema($enumBuilder)
                         ->description('The format of the appointments'),
                 ),
             );

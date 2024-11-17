@@ -2,8 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema\AvailableVocabulary;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\MetaSchema\MetaSchemaInterface as MetaSchemaInterface;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
 
 final readonly class MetaSchema implements MetaSchemaInterface
