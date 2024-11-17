@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Contracts\Interface\Factories\Collections\ParameterCollectionFactory;
 use MohammadAlavi\LaravelOpenApi\Objects\RouteInfo;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\JSONSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Parameter;
 
 class ParametersBuilder
@@ -58,7 +58,7 @@ class ParametersBuilder
         return ParameterCollection::create(...$parameters->toArray());
     }
 
-    private function guessFromReflectionType(\ReflectionType $reflectionType): Descriptor
+    private function guessFromReflectionType(\ReflectionType $reflectionType): JSONSchema
     {
         return match ($reflectionType->getName()) {
             'int' => Schema::integer(),

@@ -4,7 +4,7 @@ use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
 use MohammadAlavi\ObjectOrientedJSONSchema\Formats\StringFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;

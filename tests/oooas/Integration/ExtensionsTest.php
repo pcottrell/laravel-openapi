@@ -2,8 +2,8 @@
 
 namespace Tests\oooas\Unit\Utilities;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\JSONSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Extensions\Extension;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -39,7 +39,7 @@ describe('Extensions', function (): void {
             ],
         ],
         [
-            fn (): Descriptor => Schema::object(), $expectations  + [
+            fn (): JSONSchema => Schema::object(), $expectations  + [
                 'type' => 'object',
             ],
         ],

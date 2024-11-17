@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AnyOf;
 
 describe(class_basename(AnyOf::class), function (): void {

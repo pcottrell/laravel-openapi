@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Header;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;

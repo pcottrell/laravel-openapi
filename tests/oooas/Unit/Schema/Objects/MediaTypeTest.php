@@ -3,7 +3,7 @@
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Encoding;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Example;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 
 describe('MediaType', function (): void {
     it('can be created with no parameters', function (): void {

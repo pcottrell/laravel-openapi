@@ -21,8 +21,10 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\R
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Schema;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Title;
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Methods\Vocabulary;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\JSONSchema;
 
 interface SharedBuilder extends
+    JSONSchema,
     Anchor,
     Comment,
     Defs,

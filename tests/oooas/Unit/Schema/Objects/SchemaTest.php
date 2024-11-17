@@ -4,7 +4,7 @@
 // use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
 // use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Discriminator;
 // use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\ExternalDocs;
-// use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+// use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 // use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
 //
 // describe(class_basename(Schema::class), function (): void {

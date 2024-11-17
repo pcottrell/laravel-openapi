@@ -107,13 +107,4 @@ final readonly class Type implements Keyword
     {
         return 'type';
     }
-
-    public function equals(self|string $type): bool
-    {
-        if ($type instanceof self) {
-            return $this->type === $type->type;
-        }
-
-        return $this->type === $type;
-    }
 }

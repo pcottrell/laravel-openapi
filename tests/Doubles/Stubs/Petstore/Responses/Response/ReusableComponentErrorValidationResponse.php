@@ -6,7 +6,7 @@ use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\Reusabl
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\MediaType;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Response;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 
 class ReusableComponentErrorValidationResponse extends ReusableResponseFactory
 {

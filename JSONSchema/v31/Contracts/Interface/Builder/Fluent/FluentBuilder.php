@@ -2,7 +2,7 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\BuilderExtension;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\JSONSchemaBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\ArrayBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\BooleanBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\ConstantBuilder;
@@ -14,7 +14,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluen
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\StringBuilder;
 
 interface FluentBuilder extends
-    BuilderExtension,
+    JSONSchemaBuilder,
     NullBuilder,
     BooleanBuilder,
     StringBuilder,

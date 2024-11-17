@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\File;
 use MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection;
 use MohammadAlavi\LaravelOpenApi\Collections\Path;
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\Components\ReusableSchemaFactory;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\JSONSchema;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Formats\IntegerFormat;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Enums\OASVersion;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\AllOf;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Components;
@@ -95,7 +95,7 @@ describe('PetStoreTest', function (): void {
             );
 
         $newPetSchema = new class () extends ReusableSchemaFactory {
-            public function build(): Descriptor
+            public function build(): JSONSchema
             {
                 return Schema::object()
                     ->required('name')
@@ -118,7 +118,7 @@ describe('PetStoreTest', function (): void {
         };
 
         $errorSchema = new class () extends ReusableSchemaFactory {
-            public function build(): Descriptor
+            public function build(): JSONSchema
             {
                 return Schema::object()
                     ->required('code', 'message')
