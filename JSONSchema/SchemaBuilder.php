@@ -525,23 +525,20 @@ final class SchemaBuilder implements Builder
     public function jsonSerialize(): array
     {
         $keywords = [];
-        if ($this->ref instanceof Ref) {
-            $keywords[$this->ref::name()] = $this->ref->value();
-        }
-        if ($this->defs instanceof Defs) {
-            $keywords[$this->defs::name()] = $this->defs->value();
-        }
         if ($this->schema instanceof Schema) {
             $keywords[$this->schema::name()] = $this->schema->value();
         }
         if ($this->id instanceof Id) {
             $keywords[$this->id::name()] = $this->id->value();
         }
-        if ($this->comment instanceof Comment) {
-            $keywords[$this->comment::name()] = $this->comment->value();
+        if ($this->vocabulary instanceof Vocabulary) {
+            $keywords[$this->vocabulary::name()] = $this->vocabulary->value();
         }
         if ($this->anchor instanceof Anchor) {
             $keywords[$this->anchor::name()] = $this->anchor->value();
+        }
+        if ($this->ref instanceof Ref) {
+            $keywords[$this->ref::name()] = $this->ref->value();
         }
         if ($this->dynamicAnchor instanceof DynamicAnchor) {
             $keywords[$this->dynamicAnchor::name()] = $this->dynamicAnchor->value();
@@ -549,8 +546,41 @@ final class SchemaBuilder implements Builder
         if ($this->dynamicRef instanceof DynamicRef) {
             $keywords[$this->dynamicRef::name()] = $this->dynamicRef->value();
         }
-        if ($this->vocabulary instanceof Vocabulary) {
-            $keywords[$this->vocabulary::name()] = $this->vocabulary->value();
+        if ($this->comment instanceof Comment) {
+            $keywords[$this->comment::name()] = $this->comment->value();
+        }
+        if ($this->title instanceof Title) {
+            $keywords[$this->title::name()] = $this->title->value();
+        }
+        if ($this->description instanceof Description) {
+            $keywords[$this->description::name()] = $this->description->value();
+        }
+        if ($this->allOf instanceof AllOf) {
+            $keywords[$this->allOf::name()] = $this->allOf->value();
+        }
+        if ($this->anyOf instanceof AnyOf) {
+            $keywords[$this->anyOf::name()] = $this->anyOf->value();
+        }
+        if ($this->oneOf instanceof OneOf) {
+            $keywords[$this->oneOf::name()] = $this->oneOf->value();
+        }
+        if ($this->type instanceof Type) {
+            $keywords[$this->type::name()] = $this->type->value();
+        }
+        if ($this->constant instanceof Constant) {
+            $keywords[$this->constant::name()] = $this->constant->value();
+        }
+        if ($this->enum instanceof Enum) {
+            $keywords[$this->enum::name()] = $this->enum->value();
+        }
+        if ($this->items instanceof Items) {
+            $keywords[$this->items::name()] = $this->items->value();
+        }
+        if ($this->additionalProperties instanceof AdditionalProperties) {
+            $keywords[$this->additionalProperties::name()] = $this->additionalProperties->value();
+        }
+        if ($this->properties instanceof Properties) {
+            $keywords[$this->properties::name()] = $this->properties->value();
         }
         if ($this->unevaluatedItems instanceof UnevaluatedItems) {
             $keywords[$this->unevaluatedItems::name()] = $this->unevaluatedItems->value();
@@ -569,9 +599,6 @@ final class SchemaBuilder implements Builder
         }
         if ($this->pattern instanceof Pattern) {
             $keywords[$this->pattern::name()] = $this->pattern->value();
-        }
-        if ($this->type instanceof Type) {
-            $keywords[$this->type::name()] = $this->type->value();
         }
         if ($this->exclusiveMaximum instanceof ExclusiveMaximum) {
             $keywords[$this->exclusiveMaximum::name()] = $this->exclusiveMaximum->value();
@@ -603,24 +630,6 @@ final class SchemaBuilder implements Builder
         if ($this->uniqueItems instanceof UniqueItems) {
             $keywords[$this->uniqueItems::name()] = $this->uniqueItems->value();
         }
-        if ($this->items instanceof Items) {
-            $keywords[$this->items::name()] = $this->items->value();
-        }
-        if ($this->allOf instanceof AllOf) {
-            $keywords[$this->allOf::name()] = $this->allOf->value();
-        }
-        if ($this->anyOf instanceof AnyOf) {
-            $keywords[$this->anyOf::name()] = $this->anyOf->value();
-        }
-        if ($this->oneOf instanceof OneOf) {
-            $keywords[$this->oneOf::name()] = $this->oneOf->value();
-        }
-        if ($this->additionalProperties instanceof AdditionalProperties) {
-            $keywords[$this->additionalProperties::name()] = $this->additionalProperties->value();
-        }
-        if ($this->properties instanceof Properties) {
-            $keywords[$this->properties::name()] = $this->properties->value();
-        }
         if ($this->dependentRequired instanceof DependentRequired) {
             $keywords[$this->dependentRequired::name()] = $this->dependentRequired->value();
         }
@@ -633,17 +642,11 @@ final class SchemaBuilder implements Builder
         if ($this->required instanceof Required) {
             $keywords[$this->required::name()] = $this->required->value();
         }
-        if ($this->defaultValue instanceof DefaultValue) {
-            $keywords[$this->defaultValue::name()] = $this->defaultValue->value();
+        if ($this->examples instanceof Examples) {
+            $keywords[$this->examples::name()] = $this->examples->value();
         }
         if ($this->deprecated instanceof Deprecated) {
             $keywords[$this->deprecated::name()] = $this->deprecated->value();
-        }
-        if ($this->description instanceof Description) {
-            $keywords[$this->description::name()] = $this->description->value();
-        }
-        if ($this->examples instanceof Examples) {
-            $keywords[$this->examples::name()] = $this->examples->value();
         }
         if ($this->isReadOnly instanceof IsReadOnly) {
             $keywords[$this->isReadOnly::name()] = $this->isReadOnly->value();
@@ -651,16 +654,12 @@ final class SchemaBuilder implements Builder
         if ($this->isWriteOnly instanceof IsWriteOnly) {
             $keywords[$this->isWriteOnly::name()] = $this->isWriteOnly->value();
         }
-        if ($this->title instanceof Title) {
-            $keywords[$this->title::name()] = $this->title->value();
+        if ($this->defaultValue instanceof DefaultValue) {
+            $keywords[$this->defaultValue::name()] = $this->defaultValue->value();
         }
-        if ($this->constant instanceof Constant) {
-            $keywords[$this->constant::name()] = $this->constant->value();
+        if ($this->defs instanceof Defs) {
+            $keywords[$this->defs::name()] = $this->defs->value();
         }
-        if ($this->enum instanceof Enum) {
-            $keywords[$this->enum::name()] = $this->enum->value();
-        }
-
         return $keywords;
     }
 }

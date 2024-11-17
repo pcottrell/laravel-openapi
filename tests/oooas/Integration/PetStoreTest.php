@@ -83,7 +83,7 @@ describe('PetStoreTest', function (): void {
             );
         $allOf = Schema::object()
             ->allOf(
-                ReusableSchemaStub::create(),
+                ReusableSchemaStub::create()->build(),
                 Schema::object()
                     ->required('id')
                     ->properties(

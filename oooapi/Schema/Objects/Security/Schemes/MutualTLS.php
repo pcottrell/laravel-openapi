@@ -8,7 +8,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class MutualTLS extends SecurityScheme
 {
-    public $type;
     private function __construct(
         string|null $description,
     ) {
@@ -23,7 +22,7 @@ final readonly class MutualTLS extends SecurityScheme
     protected function toArray(): array
     {
         return Arr::filter([
-            'type' => $this->type,
+            'type' => $this->securitySchemeType,
             'description' => $this->description,
         ]);
     }

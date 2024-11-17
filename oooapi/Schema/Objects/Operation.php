@@ -151,7 +151,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
     {
         $clone = clone $this;
 
-        $clone->parameterCollection = $parameterCollection;
+        $clone->parameterCollection = $parameterCollection->toNullIfEmpty();
 
         return $clone;
     }
@@ -232,7 +232,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'description' => $this->description,
             'externalDocs' => $this->externalDocs,
             'operationId' => $this->operationId,
-            'parameters' => true === $this->parameterCollection?->isEmpty() ? null : $this->parameterCollection,
+            'parameters' => $this->parameterCollection,
             'requestBody' => $this->requestBody,
             'responses' => $this->responses ?? Responses::create(),
             'deprecated' => $this->deprecated,

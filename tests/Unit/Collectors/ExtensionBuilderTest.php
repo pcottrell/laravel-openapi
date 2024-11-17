@@ -18,7 +18,10 @@ describe(class_basename(ExtensionBuilder::class), function (): void {
         ]));
 
         expect($example->asArray())->toBe([
-            'x-uuid' => ['format' => 'uuid', 'type' => 'string'],
+            'x-uuid' => [
+                'type' => 'string',
+                'format' => 'uuid',
+            ],
         ]);
     });
 

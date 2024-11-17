@@ -18,7 +18,7 @@ final class FluentSchemaBuilder extends SchemaBuilder implements FluentBuilder
 {
     public static function create(): FluentBuilder
     {
-        return (new self())->schema('https://spec.openapis.org/oas/3.1/dialect/base');
+        return new self();
     }
 
     public function null(): NullBuilder

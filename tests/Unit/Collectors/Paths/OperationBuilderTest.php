@@ -25,19 +25,19 @@ describe('OperationBuilder', function (): void {
 
         $operation = $operationBuilder->build($routeInfo);
 
-        expect($operation->method)->toBe($expected[0]['action'])
-            ->and($operation->tags)->toBe($expected[0]['tags'])
-            ->and($operation->summary)->toBe($expected[0]['summary'])
-            ->and($operation->description)->toBe($expected[0]['description'])
-            ->and($operation->externalDocs)->toBe($expected[0]['externalDocs'])
-            ->and($operation->operationId)->toBe($expected[0]['operationId'])
-            ->and($operation->parameterCollection)->toEqual($expected[0]['parameters'])
-            ->and($operation->requestBody)->toEqual($expected[0]['requestBody'])
-            ->and($operation->responses)->toEqual($expected[0]['responses'])
-            ->and($operation->deprecated)->toBe($expected[0]['deprecated'])
-            ->and($operation->security)->toEqual($expected[0]['security'])
-            ->and($operation->servers)->toEqual($expected[0]['servers'])
-            ->and($operation->callbacks)->toEqual($expected[0]['callbacks']);
+        expect($operation->method)->toBe($expected['action'])
+            ->and($operation->tags)->toBe($expected['tags'])
+            ->and($operation->summary)->toBe($expected['summary'])
+            ->and($operation->description)->toBe($expected['description'])
+            ->and($operation->externalDocs)->toBe($expected['externalDocs'])
+            ->and($operation->operationId)->toBe($expected['operationId'])
+            ->and($operation->parameterCollection)->toEqual($expected['parameters'])
+            ->and($operation->requestBody)->toEqual($expected['requestBody'])
+            ->and($operation->responses)->toEqual($expected['responses'])
+            ->and($operation->deprecated)->toBe($expected['deprecated'])
+            ->and($operation->security)->toEqual($expected['security'])
+            ->and($operation->servers)->toEqual($expected['servers'])
+            ->and($operation->callbacks)->toEqual($expected['callbacks']);
     })->with(
         [
             function (): array {
@@ -60,21 +60,19 @@ describe('OperationBuilder', function (): void {
                 return [
                     'routes' => $routeInformation,
                     'expected' => [
-                        [
-                            'summary' => '',
-                            'description' => '',
-                            'operationId' => 'test',
-                            'deprecated' => false,
-                            'security' => null,
-                            'action' => 'get',
-                            'servers' => null,
-                            'tags' => null,
-                            'parameters' => null,
-                            'requestBody' => null,
-                            'responses' => null,
-                            'callbacks' => null,
-                            'externalDocs' => null,
-                        ],
+                        'summary' => '',
+                        'description' => '',
+                        'operationId' => 'test',
+                        'deprecated' => false,
+                        'security' => null,
+                        'action' => 'get',
+                        'servers' => null,
+                        'tags' => null,
+                        'parameters' => null,
+                        'requestBody' => null,
+                        'responses' => null,
+                        'callbacks' => null,
+                        'externalDocs' => null,
                     ],
                 ];
             },
@@ -98,21 +96,19 @@ describe('OperationBuilder', function (): void {
                 return [
                     'routes' => $routeInformation,
                     'expected' => [
-                        [
-                            'summary' => 'summary',
-                            'description' => 'description',
-                            'operationId' => 'test',
-                            'deprecated' => true,
-                            'security' => null,
-                            'action' => 'post',
-                            'servers' => null,
-                            'tags' => null,
-                            'parameters' => null,
-                            'requestBody' => null,
-                            'responses' => null,
-                            'callbacks' => null,
-                            'externalDocs' => null,
-                        ],
+                        'summary' => 'summary',
+                        'description' => 'description',
+                        'operationId' => 'test',
+                        'deprecated' => true,
+                        'security' => null,
+                        'action' => 'post',
+                        'servers' => null,
+                        'tags' => null,
+                        'parameters' => null,
+                        'requestBody' => null,
+                        'responses' => null,
+                        'callbacks' => null,
+                        'externalDocs' => null,
                     ],
                 ];
             },
@@ -142,24 +138,22 @@ describe('OperationBuilder', function (): void {
                 return [
                     'routes' => $routeInformation,
                     'expected' => [
-                        [
-                            'summary' => 'summary',
-                            'description' => 'description',
-                            'operationId' => 'test',
-                            'deprecated' => true,
-                            // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
-                            //  it will be null in the SecurityRequirement object $securityScheme field
-                            //  Based on OAS spec security requirement cant not have a name
-                            'security' => (new ExampleSingleSecurityRequirementSecurity())->build(),
-                            'action' => 'get',
-                            'servers' => [(new ServerWithMultipleVariableFormatting())->build()],
-                            'tags' => ['PostWithExternalObjectDoc'],
-                            'parameters' => (new ParameterFactory())->build(),
-                            'requestBody' => (new RequestBodyFactory())->build(),
-                            'responses' => (new ResponsesFactory())->build(),
-                            'callbacks' => [(new CallbackFactory())->build()],
-                            'externalDocs' => null,
-                        ],
+                        'summary' => 'summary',
+                        'description' => 'description',
+                        'operationId' => 'test',
+                        'deprecated' => true,
+                        // TODO: docs: it seems SecurityScheme object id is mandatory and if we dont set it,
+                        //  it will be null in the SecurityRequirement object $securityScheme field
+                        //  Based on OAS spec security requirement cant not have a name
+                        'security' => (new ExampleSingleSecurityRequirementSecurity())->build(),
+                        'action' => 'get',
+                        'servers' => [(new ServerWithMultipleVariableFormatting())->build()],
+                        'tags' => ['PostWithExternalObjectDoc'],
+                        'parameters' => (new ParameterFactory())->build(),
+                        'requestBody' => (new RequestBodyFactory())->build(),
+                        'responses' => (new ResponsesFactory())->build(),
+                        'callbacks' => [(new CallbackFactory())->build()],
+                        'externalDocs' => null,
                     ],
                 ];
             },

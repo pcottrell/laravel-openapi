@@ -27,7 +27,13 @@ final class ParameterCollection extends Generatable
         $parameters = collect($parameter)
             ->reject(static fn ($param): bool => $param instanceof self)
             ->merge($selfParams)
-            ->map(static fn ($param): Reference|\MohammadAlavi\LaravelOpenApi\Collections\ParameterCollection|Parameter => $param instanceof ReusableParameterFactory ? $param::ref() : $param)
+            ->map(
+                static fn (
+                    $param,
+                ): Reference|ParameterCollection|Parameter => $param instanceof ReusableParameterFactory
+                    ? $param::ref()
+                    : $param,
+            )
             ->toArray();
 
         return new self(...$parameters);

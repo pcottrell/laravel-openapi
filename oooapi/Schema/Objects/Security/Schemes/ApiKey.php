@@ -9,7 +9,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class ApiKey extends SecurityScheme
 {
-    public $type;
     private function __construct(
         private string $name,
         private ApiKeyLocation $apiKeyLocation,
@@ -29,7 +28,7 @@ final readonly class ApiKey extends SecurityScheme
     protected function toArray(): array
     {
         return Arr::filter([
-            'type' => $this->type,
+            'type' => $this->securitySchemeType,
             'description' => $this->description,
             'name' => $this->name,
             'in' => $this->apiKeyLocation->value,

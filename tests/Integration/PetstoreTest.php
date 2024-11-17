@@ -39,10 +39,6 @@ describe('PetStore', function (): void {
             ->and($spec['components']['schemas'])->toHaveKey('PetSchema')
             ->and($spec['components']['schemas']['PetSchema'])->toBe([
                 'type' => 'object',
-                'required' => [
-                    'id',
-                    'name',
-                ],
                 'properties' => [
                     'id' => [
                         'type' => 'integer',
@@ -54,6 +50,10 @@ describe('PetStore', function (): void {
                     'tag' => [
                         'type' => 'string',
                     ],
+                ],
+                'required' => [
+                    'id',
+                    'name',
                 ],
             ])
             ->and($spec['components'])->toHaveKey('responses')

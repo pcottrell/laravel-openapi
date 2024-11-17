@@ -8,7 +8,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class OpenIdConnect extends SecurityScheme
 {
-    public $type;
     private function __construct(
         private string $openIdConnectUrl,
         string|null $description,
@@ -24,7 +23,7 @@ final readonly class OpenIdConnect extends SecurityScheme
     protected function toArray(): array
     {
         return Arr::filter([
-            'type' => $this->type,
+            'type' => $this->securitySchemeType,
             'description' => $this->description,
             'openIdConnectUrl' => $this->openIdConnectUrl,
         ]);

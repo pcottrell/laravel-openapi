@@ -2,7 +2,7 @@
 
 namespace Tests\oooas\Unit\Schema\Objects;
 
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Xml;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Tests\UnitTestCase;
@@ -19,7 +19,7 @@ class XmlTest extends UnitTestCase
             ->attribute()
             ->wrapped();
 
-        $schema = Schema::object('test')
+        $schema = Schema::object()
             ->xml($xml);
 
         $this->assertEquals([

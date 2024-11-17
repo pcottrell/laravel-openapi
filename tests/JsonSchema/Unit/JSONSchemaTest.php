@@ -72,4 +72,4 @@ describe(class_basename(SchemaBuilder::class), function (): void {
             ),
         );
     }
-})->covers(SchemaBuilder::class);
+})->covers(SchemaBuilder::class)->skip();

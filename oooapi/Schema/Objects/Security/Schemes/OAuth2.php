@@ -10,7 +10,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class OAuth2 extends SecurityScheme
 {
-    public $type;
     private function __construct(
         private Flows $flows,
         string|null $description,
@@ -36,7 +35,7 @@ final readonly class OAuth2 extends SecurityScheme
     protected function toArray(): array
     {
         return Arr::filter([
-            'type' => $this->type,
+            'type' => $this->securitySchemeType,
             'description' => $this->description,
             'flows' => $this->flows,
         ]);

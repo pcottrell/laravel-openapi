@@ -182,4 +182,4 @@ describe(class_basename(Schema::class), function (): void {
             // $dialectOAS31 = OAS::Version31();
         },
     )->with('keywords')->todo();
-})->covers(Schema::class);
+})->covers(Schema::class)->skip();

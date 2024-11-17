@@ -1,19 +1,19 @@
 <?php
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Formats\StringFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\StringDescriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 
-describe(class_basename(StringDescriptor::class), function (): void {
+describe(class_basename(Schema::class), function (): void {
     it(
-        'should return string schema with password format',
+        'should return string schema with expected format',
         function (StringFormat $stringFormat): void {
-            $stringDescriptor = StringDescriptor::create()
+            $string = Schema::string()
                 ->format($stringFormat)
                 ->maxLength(10)
                 ->minLength(5)
                 ->pattern('^[a-zA-Z0-9]*$');
 
-            expect($stringDescriptor->asArray())->toBe([
+            expect($string->jsonSerialize())->toBe([
                 'type' => 'string',
                 'format' => $stringFormat->value,
                 'maxLength' => 10,
@@ -24,4 +24,4 @@ describe(class_basename(StringDescriptor::class), function (): void {
     )->with(
         StringFormat::cases(),
     );
-})->covers(StringDescriptor::class);
+})->covers(Schema::class);

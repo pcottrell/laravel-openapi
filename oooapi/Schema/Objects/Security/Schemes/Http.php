@@ -9,7 +9,6 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class Http extends SecurityScheme
 {
-    public $type;
     private function __construct(
         private HttpScheme $httpScheme,
         string|null $description,
@@ -81,7 +80,7 @@ final readonly class Http extends SecurityScheme
     protected function toArray(): array
     {
         return Arr::filter([
-            'type' => $this->type,
+            'type' => $this->securitySchemeType,
             'description' => $this->description,
             'scheme' => $this->httpScheme->value,
             'bearerFormat' => $this->bearerFormat,

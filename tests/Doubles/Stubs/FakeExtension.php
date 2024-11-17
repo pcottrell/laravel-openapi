@@ -3,7 +3,9 @@
 namespace Tests\Doubles\Stubs;
 
 use MohammadAlavi\LaravelOpenApi\Contracts\Abstract\Factories\ExtensionFactory;
-use MohammadAlavi\ObjectOrientedOpenAPI\Schema\Objects\Schema;
+use MohammadAlavi\ObjectOrientedJSONSchema\Formats\StringFormat;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\JSONSchema;
+use MohammadAlavi\ObjectOrientedJSONSchema\v31\Schema;
 
 class FakeExtension extends ExtensionFactory
 {
@@ -12,8 +14,8 @@ class FakeExtension extends ExtensionFactory
         return 'x-uuid';
     }
 
-    public function value(): Schema
+    public function value(): JSONSchema
     {
-        return Schema::string('string_test')->format(Schema::FORMAT_UUID);
+        return Schema::string()->format(StringFormat::UUID);
     }
 }

@@ -182,7 +182,6 @@ describe(class_basename(OpenApi::class), function (): void {
                                     'application/json' => [
                                         'schema' => [
                                             'type' => 'object',
-                                            'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
                                                     'type' => 'string',
@@ -203,6 +202,7 @@ describe(class_basename(OpenApi::class), function (): void {
                                                     ],
                                                 ],
                                             ],
+                                            'required' => ['id', 'created_at'],
                                         ],
                                     ],
                                 ],
@@ -218,7 +218,6 @@ describe(class_basename(OpenApi::class), function (): void {
                                 'application/json' => [
                                     'schema' => [
                                         'type' => 'object',
-                                        'required' => ['id', 'created_at'],
                                         'properties' => [
                                             'id' => [
                                                 'type' => 'string',
@@ -239,6 +238,7 @@ describe(class_basename(OpenApi::class), function (): void {
                                                 ],
                                             ],
                                         ],
+                                        'required' => ['id', 'created_at'],
                                     ],
                                 ],
                             ],
@@ -250,7 +250,6 @@ describe(class_basename(OpenApi::class), function (): void {
                                     'application/json' => [
                                         'schema' => [
                                             'type' => 'object',
-                                            'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
                                                     'type' => 'string',
@@ -271,6 +270,7 @@ describe(class_basename(OpenApi::class), function (): void {
                                                     ],
                                                 ],
                                             ],
+                                            'required' => ['id', 'created_at'],
                                         ],
                                     ],
                                 ],
@@ -309,7 +309,6 @@ describe(class_basename(OpenApi::class), function (): void {
                                     'application/json' => [
                                         'schema' => [
                                             'type' => 'object',
-                                            'required' => ['id', 'created_at'],
                                             'properties' => [
                                                 'id' => [
                                                     'type' => 'string',
@@ -330,6 +329,7 @@ describe(class_basename(OpenApi::class), function (): void {
                                                     ],
                                                 ],
                                             ],
+                                            'required' => ['id', 'created_at'],
                                         ],
                                     ],
                                 ],
