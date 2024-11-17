@@ -14,7 +14,7 @@ trait Generator
      */
     public function toJsonFile(string|null $path = null, string $name = 'openapi'): bool|int
     {
-        return File::put($path !== null && $path !== '' && $path !== '0' ? $path . sprintf('/%s.json', $name) : $name . '.json', $this->toJson());
+        return File::put(null !== $path && '' !== $path && '0' !== $path ? $path . sprintf('/%s.json', $name) : $name . '.json', $this->toJson());
     }
 
     public function toJson(

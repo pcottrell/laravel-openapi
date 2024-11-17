@@ -9,7 +9,7 @@
     <file>./config</file>
     <file>./src</file>
     <file>./JSONSchema</file>
-    <file>./oooas</file>
+    <file>./oooapi</file>
     <file>./tests</file>
 
     <rule ref="PSR12"/>

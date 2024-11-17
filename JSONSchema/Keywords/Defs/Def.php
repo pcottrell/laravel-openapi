@@ -2,19 +2,19 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Defs;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
+use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 
 final readonly class Def
 {
     private function __construct(
         private string $name,
-        private Descriptor $descriptor,
+        private Builder $builder,
     ) {
     }
 
-    public static function create(string $name, Descriptor $descriptor): self
+    public static function create(string $name, Builder $builder): self
     {
-        return new self($name, $descriptor);
+        return new self($name, $builder);
     }
 
     public function name(): string
@@ -22,8 +22,8 @@ final readonly class Def
         return $this->name;
     }
 
-    public function value(): Descriptor
+    public function value(): Builder
     {
-        return $this->descriptor;
+        return $this->builder;
     }
 }

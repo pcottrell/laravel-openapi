@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
-use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Properties\Property;
 
 final readonly class Properties implements Keyword
 {

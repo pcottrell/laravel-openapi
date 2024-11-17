@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Defs;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
-use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Defs\Def;
 
 final readonly class Defs implements Keyword
 {

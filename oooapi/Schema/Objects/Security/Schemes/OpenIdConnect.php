@@ -8,6 +8,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class OpenIdConnect extends SecurityScheme
 {
+    public $type;
     private function __construct(
         private string $openIdConnectUrl,
         string|null $description,

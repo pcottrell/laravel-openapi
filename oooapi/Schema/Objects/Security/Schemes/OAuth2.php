@@ -10,6 +10,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class OAuth2 extends SecurityScheme
 {
+    public $type;
     private function __construct(
         private Flows $flows,
         string|null $description,

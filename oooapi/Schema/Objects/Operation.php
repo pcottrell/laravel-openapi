@@ -232,7 +232,7 @@ class Operation extends ExtensibleObject implements SimpleCreator
             'description' => $this->description,
             'externalDocs' => $this->externalDocs,
             'operationId' => $this->operationId,
-            'parameters' => $this->parameterCollection?->isEmpty() === true ? null : $this->parameterCollection,
+            'parameters' => true === $this->parameterCollection?->isEmpty() ? null : $this->parameterCollection,
             'requestBody' => $this->requestBody,
             'responses' => $this->responses ?? Responses::create(),
             'deprecated' => $this->deprecated,

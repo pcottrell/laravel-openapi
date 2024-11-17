@@ -9,6 +9,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class ApiKey extends SecurityScheme
 {
+    public $type;
     private function __construct(
         private string $name,
         private ApiKeyLocation $apiKeyLocation,

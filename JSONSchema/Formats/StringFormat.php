@@ -2,8 +2,6 @@
 
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Formats;
 
-use MohammadAlavi\ObjectOrientedJSONSchema\Formats\DefinedFormat;
-
 enum StringFormat: string implements DefinedFormat
 {
     case PASSWORD = 'password';

@@ -21,24 +21,27 @@ class Schema extends ExtensibleObject implements JsonSchema, SimpleKeyCreator
     public const TYPE_INTEGER = 'integer';
     public const TYPE_NUMBER = 'number';
     public const TYPE_OBJECT = 'object';
-//    public const TYPE_STRING = 'string';
+
+    //    public const TYPE_STRING = 'string';
     public const FORMAT_INT32 = 'int32';
     public const FORMAT_INT64 = 'int64';
     public const FORMAT_FLOAT = 'float';
     public const FORMAT_DOUBLE = 'double';
     public const FORMAT_BYTE = 'byte';
     public const FORMAT_BINARY = 'binary';
-//    public const FORMAT_DATE = 'date';
-//    public const FORMAT_DATE_TIME = 'date-time';
-//    public const FORMAT_PASSWORD = 'password';
-//    public const FORMAT_UUID = 'uuid';
+    //    public const FORMAT_DATE = 'date';
+    //    public const FORMAT_DATE_TIME = 'date-time';
+    //    public const FORMAT_PASSWORD = 'password';
+    //    public const FORMAT_UUID = 'uuid';
 
     protected string|null $title = null;
     protected string|null $description = null;
-//    protected array|null $enum = null;
+
+    //    protected array|null $enum = null;
     protected mixed $default = null;
     protected string|null $format = null;
-//    protected string|null $type = null;
+
+    //    protected string|null $type = null;
     protected JsonSchema|SchemaComposition|ReusableSchemaFactory|null $items = null;
     protected int|null $maxItems = null;
     protected int|null $minItems = null;
@@ -75,14 +78,14 @@ class Schema extends ExtensibleObject implements JsonSchema, SimpleKeyCreator
         return static::create($key)->type(static::TYPE_ARRAY);
     }
 
-//    public function type(string|null $type): static
-//    {
-//        $clone = clone $this;
-//
-//        $clone->type = $type;
-//
-//        return $clone;
-//    }
+    //    public function type(string|null $type): static
+    //    {
+    //        $clone = clone $this;
+    //
+    //        $clone->type = $type;
+    //
+    //        return $clone;
+    //    }
 
     public static function boolean(string $key): static
     {
@@ -104,10 +107,10 @@ class Schema extends ExtensibleObject implements JsonSchema, SimpleKeyCreator
         return static::create($key)->type(static::TYPE_OBJECT);
     }
 
-//    public static function string(string $key): static
-//    {
-//        return static::create($key)->type(static::TYPE_STRING);
-//    }
+    //    public static function string(string $key): static
+    //    {
+    //        return static::create($key)->type(static::TYPE_STRING);
+    //    }
 
     public function title(string|null $title): static
     {

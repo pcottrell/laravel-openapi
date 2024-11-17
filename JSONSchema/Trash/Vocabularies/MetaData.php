@@ -112,10 +112,10 @@ final class MetaData extends Generatable
         if ($this->examples instanceof Examples) {
             $metaData[Examples::name()] = $this->examples->value();
         }
-        if ($this->isReadOnly) {
+        if ($this->isReadOnly instanceof IsReadOnly) {
             $metaData[IsReadOnly::name()] = $this->isReadOnly->value();
         }
-        if ($this->isWriteOnly) {
+        if ($this->isWriteOnly instanceof IsWriteOnly) {
             $metaData[IsWriteOnly::name()] = $this->isWriteOnly->value();
         }
 

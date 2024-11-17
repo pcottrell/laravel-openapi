@@ -60,7 +60,7 @@ final class Extensions extends Generatable
 
     public function isEmpty(): bool
     {
-        return $this->extensions === [];
+        return [] === $this->extensions;
     }
 
     protected function toArray(): array

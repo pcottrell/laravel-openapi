@@ -36,7 +36,7 @@ final class Responses extends ExtensibleObject
 
     protected function toArray(): array
     {
-        if ($this->responses === []) {
+        if ([] === $this->responses) {
             // TODO: allow providing default response. maybe somehow via service container?
             $this->responses = [Response::default()];
         }

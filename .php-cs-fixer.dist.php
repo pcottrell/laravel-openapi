@@ -6,6 +6,8 @@ $finder = Finder::create()
     ->in([
         __DIR__ . '/config',
         __DIR__ . '/src',
+        __DIR__ . '/JSONSchema',
+        __DIR__ . '/oooapi',
         __DIR__ . '/tests',
     ])
     ->name('*.php');

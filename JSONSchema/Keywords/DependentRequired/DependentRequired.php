@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
-use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired\Dependency;
 
 final readonly class DependentRequired implements Keyword
 {

@@ -4,7 +4,6 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Formats\NumberFormat;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Format;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors\NumeralDescriptor;
 
 final class NumberDescriptor extends NumeralDescriptor
 {

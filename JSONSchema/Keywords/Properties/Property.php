@@ -7,7 +7,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Builder\Builder;
 final readonly class Property
 {
     private function __construct(
-        private string  $name,
+        private string $name,
         private Builder $builder,
     ) {
     }

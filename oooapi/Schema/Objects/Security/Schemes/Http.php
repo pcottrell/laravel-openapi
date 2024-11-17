@@ -9,6 +9,7 @@ use MohammadAlavi\ObjectOrientedOpenAPI\Utilities\Arr;
 
 final readonly class Http extends SecurityScheme
 {
+    public $type;
     private function __construct(
         private HttpScheme $httpScheme,
         string|null $description,

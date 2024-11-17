@@ -3,7 +3,6 @@
 namespace MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Vocabulary;
 
 use MohammadAlavi\ObjectOrientedJSONSchema\Contracts\Interface\Keyword;
-use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Vocabulary\Vocab;
 
 final readonly class Vocabulary implements Keyword
 {

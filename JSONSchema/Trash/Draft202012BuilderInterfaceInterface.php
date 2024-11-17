@@ -17,7 +17,6 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\Vocabulary
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints\UnevaluatedConstraint;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyConstraints\ValidationConstraint;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\JSONSchema\Narrowers\VocabularyNarrower;
-use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Narrowable;
 
 interface Draft202012BuilderInterfaceInterface extends
     Draft202012Constrained,

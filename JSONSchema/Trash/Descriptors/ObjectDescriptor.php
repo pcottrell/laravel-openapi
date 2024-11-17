@@ -131,7 +131,7 @@ final class ObjectDescriptor extends ExtensibleObject implements Descriptor, Typ
         if ($this->properties instanceof Properties) {
             $applicators[$this->properties::name()] = $this->properties->value();
         }
-        if ($this->additionalProperties !== null) {
+        if (null !== $this->additionalProperties) {
             $applicators[$this->additionalProperties::name()] = $this->additionalProperties->value();
         }
 

@@ -11,7 +11,6 @@ use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluen
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\ObjectBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\IntegerBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\StringBuilder;
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\FluentSchemaBuilder;
 
 final readonly class Schema
 {

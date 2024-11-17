@@ -10,7 +10,6 @@ use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluen
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\IntegerBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\NumberBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\ObjectBuilder;
-use MohammadAlavi\ObjectOrientedJSONSchema\v31\SchemaBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\NullBuilder;
 use MohammadAlavi\ObjectOrientedJSONSchema\v31\Contracts\Interface\Builder\Fluent\Methods\StringBuilder;
