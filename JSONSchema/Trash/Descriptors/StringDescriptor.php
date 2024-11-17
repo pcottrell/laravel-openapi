@@ -6,7 +6,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Review\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
 use MohammadAlavi\ObjectOrientedJSONSchema\Formats\StringFormat;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Format;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MaxLength;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MinLength;

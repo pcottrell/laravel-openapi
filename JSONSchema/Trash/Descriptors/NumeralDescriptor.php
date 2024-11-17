@@ -5,7 +5,7 @@ namespace MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptors;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\Applicator;
 use MohammadAlavi\ObjectOrientedJSONSchema\Review\TypeAware;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Descriptor;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\ExclusiveMaximum;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\ExclusiveMinimum;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Maximum;

@@ -13,7 +13,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\DependentRequired\DependentR
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MaxProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MinProperties;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Required;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\MetaData;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;

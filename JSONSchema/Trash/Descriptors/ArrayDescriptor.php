@@ -11,7 +11,7 @@ use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MaxItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MinContains;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\MinItems;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\UniqueItems;
-use MohammadAlavi\ObjectOrientedJSONSchema\Review\HasTypeTrait;
+use MohammadAlavi\ObjectOrientedJSONSchema\Trash\HasTypeTrait;
 use MohammadAlavi\ObjectOrientedJSONSchema\Keywords\Type;
 use MohammadAlavi\ObjectOrientedJSONSchema\Trash\Vocabularies\MetaData;
 use MohammadAlavi\ObjectOrientedOpenAPI\Schema\ExtensibleObject;
